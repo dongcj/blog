@@ -1067,7 +1067,7 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1086,7 +1086,7 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS安装</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite安装</a></h2>
         
 
         <div class="post-meta">
@@ -1121,8 +1121,8 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -1139,9 +1139,9 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
+                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1149,7 +1149,7 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
 
           
           
-             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS安装">
+             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1180,90 +1180,65 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
         
           
             <blockquote>
-<p>参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
+<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
 </blockquote>
-<h1 id="下载源">下载源</h1>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件">安装软件</h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
 <blockquote>
-<p>如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+<p>更多集成 grafana及Diamond请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
 </blockquote>
-<pre><code># 删除lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙">挂载分区及配置防火墙</h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
+<h1 id="使用yum安装环境">使用yum安装环境</h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
-# 这里可以修改权限,其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
+# 其它的使得pip安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的-zope.interface-及-twisted">安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装)及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
 
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限">设置权限</h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+<h1 id="配置文件">配置文件</h1>
+<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
+$ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
+$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf</code></pre>
+<h1 id="同步数据库">同步数据库</h1>
+<pre><code># 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
+$ python /opt/graphite/webapp/graphite/manage.py syncdb
 
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动glusterd服务">启动glusterd服务</h1>
-<pre><code>$ service glusterd start
+$ cd /opt/graphite/conf/
+$ cp graphite.wsgi.example graphite.wsgi
+$ cp storage-schemas.conf.example storage-schemas.conf
+$ cp carbon.conf.example carbon.conf
 
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd</code></pre>
-<h1 id="配置信任池">配置信任池</h1>
-<pre><code># from server1
-$ gluster peer probe SERVER2
-
-# from server2
-$ gluster peer probe SERVER1
-
-# check peer
-$ gluster peer status</code></pre>
-<h1 id="设置一个gluster卷">设置一个Gluster卷</h1>
-<pre><code>$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
-
-$ gluster volume info
-$ gluster volume status
-
-
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
-
-# delete Volume
-$ gluster volume delete gv0
-
-# detach命令：
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
-<h1 id="test-gluster-volume">Test Gluster volume</h1>
-<pre><code># mount to /mnt
-$ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
-
-$ vi /etc/fstab
-gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
+$ cd /opt/graphite/webapp/graphite
+$ cp local_settings.py.example local_settings.py</code></pre>
+<h1 id="在httpd中启用virtualhost">在httpd中启用virtualHost</h1>
+<pre><code>$ cd ../../
+$ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
 
-# 如果使用nfs协议使用
-# GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
-$ vi /etc/nfsmount.conf
-Defaultvers=3
+# 并修改
+$ vi /etc/httpd/conf.d/vhost-graphite.conf
+WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
+<h1 id="修改已知的bug">修改已知的bug</h1>
+<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
 
-$ systemctl restart glusterd.service
-
-# start force
-$ gluster volume set gv0 nfs.disable off
-$ gluster volume start gv0 force
-
-$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs</code></pre>
-<h1 id="配置quorum">配置Quorum()</h1>
-<pre><code>......</code></pre>
-<blockquote>
-<p>通过 CIFS 从 Linux／Windows 计算机进行访问 参考: https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
+def fetch(self, startTime, endTime, now=None):
+    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个now</code></pre>
+<h1 id="替换graphite的界面">替换graphite的界面</h1>
+<pre><code>graph-index-master
+graphite-web-master</code></pre>
 
           
         

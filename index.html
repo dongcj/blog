@@ -475,28 +475,24 @@
 <h2 id="配置-docker-加速器用于国内加速">配置 docker 加速器（用于国内加速）</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi /etc/docker/daemon.json</div><div class="line"><span class="comment"># 编辑完后重启 docker 生效</span></div></pre></td></tr></table></figure>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"registry-mirrors"</span>: [</div><div class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</div><div class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="安装">安装</h1>
+<h1 id="安装-rancher">安装 Rancher</h1>
 <h2 id="单机安装">单机安装</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">docker pull rancher/server</div><div class="line">docker run -d --restart=always \</div><div class="line">-v /opt/svicloud/rancher/server_db:/var/lib/mysql \</div><div class="line">--name rancher-server -p 8080:8080  rancher/server</div></pre></td></tr></table></figure>
-<h2 id="ha模式安装可选">HA模式安装（可选）</h2>
+<h2 id="ha-模式安装可选">HA 模式安装（可选）</h2>
 <ol type="1">
-<li>安装一个外部主从模式的mysql</li>
+<li>安装一个外部主从模式的 MySQL</li>
 <li>在主备两边执行</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server \</div><div class="line">  --db-host myhost.example.com \</div><div class="line">  --db-port 3306 \</div><div class="line">  --db-user username \</div><div class="line">  --db-pass password \</div><div class="line">  --db-name cattle \</div><div class="line">  --advertise-address &lt;IP_of_the_Node&gt;</div><div class="line"></div><div class="line"><span class="comment"># The following are default values: </span></div><div class="line">db.cattle.database=mysql</div><div class="line">db.cattle.username=cattle</div><div class="line">db.cattle.password=cattle</div><div class="line">db.cattle.mysql.host=localhost</div><div class="line">db.cattle.mysql.port=3306</div><div class="line">db.cattle.mysql.name=cattle</div><div class="line"><span class="comment"># All values above are the defaults except db.cattle.database. If the defaults are fine, then all you need to set is db.cattle.database=mysql.</span></div></pre></td></tr></table></figure>
 <h2 id="启动集群模式可选">启动集群模式（可选）</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 手动启动主</span></div><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server --db-host 192.168.1.174 --db-port 3306 --db-user cattle --db-pass cattle --db-name cattle --advertise-address 192.168.1.174</div><div class="line"></div><div class="line"><span class="comment"># 手动启动备</span></div><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server --db-host 192.168.1.174 --db-port 3306 --db-user cattle --db-pass cattle --db-name cattle --advertise-address 192.168.1.184</div></pre></td></tr></table></figure>
-<h2 id="设置-rancher-ssl">设置 rancher ssl</h2>
+<h2 id="设置-rancher-ssl">设置 Rancher ssl</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mkdir /opt/svicloud/rancher/cert</div><div class="line">cp cert.pem key.pem /opt/svicloud/rancher/cert</div><div class="line"></div><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name rancher-server-ssl \</div><div class="line">--link rancher-server \</div><div class="line">-p 80:80 -p 443:443 \</div><div class="line">-e <span class="string">'RANCHER_URL=console.100gb.org'</span> \</div><div class="line">-e <span class="string">'RANCHER_CONTAINER_NAME=rancher-server'</span> \</div><div class="line">-e <span class="string">'RANCHER_PORT=8080'</span> \</div><div class="line">-v /opt/svicloud/rancher/cert:/etc/nginx/external/ \</div><div class="line">codedevote/nginx-ssl-proxy-rancher</div></pre></td></tr></table></figure>
 <h2 id="使用-salt-进行自动化安装-serveragent">使用 Salt 进行自动化安装 Server、agent</h2>
 <blockquote>
 <p>参见 GitHub：komljen/rancher-salt</p>
 </blockquote>
-<h1 id="所有主机上要拷贝这个server.crt至以下目录">所有主机上要拷贝这个server.crt至以下目录</h1>
-<pre><code>/etc/docker/certs.d/registry.svicloud.com/server.crt </code></pre>
-<blockquote>
-<p>否则出现 x509: certificate signed by unknown authority</p>
-</blockquote>
+<h1 id="section"></h1>
 <h2 id="registry-v2版本的查询所有镜像">registry v2版本的查询所有镜像：</h2>
 <blockquote>
 <p>https://github.com/docker/distribution/blob/master/docs/spec/api.md#deleting-an-image</p>
@@ -507,20 +503,22 @@
 /var/log/ngnix/access.log -&gt; /dev/stdout</code></pre>
 <h1 id="自定义加入rancher网络">自定义加入rancher网络</h1>
 <pre><code>在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有rancher的网络IP</code></pre>
-<h1 id="如果docker拿到的主机ip意外变成了内部ip">如果docker拿到的主机IP意外变成了内部IP</h1>
+<h1 id="rancher-将自身也加入主机中">Rancher 将自身也加入主机中</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 需要在启动agent的参数中加 environment: CATTLE_AGENT_IP=&lt;HOST_IP&gt;</span></div><div class="line">sudo docker run -d -e CATTLE_AGENT_IP=&lt;HOST_IP&gt; --privileged \</div><div class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</div><div class="line">    rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx</div></pre></td></tr></table></figure>
-<h1 id="查询dns的所有记录-以及external的dns设置方法">查询DNS的所有记录, 以及external的DNS设置方法</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 进入network-services-metadata-dns-X.</span></div><div class="line">cat /etc/rancher-dns/answers.json</div></pre></td></tr></table></figure>
+<h1 id="查询dns的所有记录">查询DNS的所有记录</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># external的DNS设置方法相同</span></div><div class="line"><span class="comment"># 进入network-services-metadata-dns-X.</span></div><div class="line">cat /etc/rancher-dns/answers.json</div></pre></td></tr></table></figure>
 <blockquote>
 <p>注意：在独立的容器中（自建的），DNS只保留最后一个</p>
 </blockquote>
-<h1 id="rancher-lb-http-redirect-to-https">Rancher LB http redirect to <code>https</code></h1>
+<h1 id="rancher-lb-http-redirect-to-https">Rancher LB <code>http</code> redirect to <code>https</code></h1>
 <ul>
-<li><p>按照如下模式，自定义请求头信息</p>
+<li>按照如下模式，自定义请求头信息</li>
+</ul>
 <figure>
 <img src="https://i.imgur.com/TEg1m2a.png">
-</figure></li>
-<li><p>在 <code>自定义 Haproxy.cfg</code> 中增加以下内容</p></li>
+</figure>
+<ul>
+<li>在 <code>自定义 Haproxy.cfg</code> 中增加以下内容</li>
 </ul>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">frontend</span> http-frontend</div><div class="line">    <span class="attribute">bind</span> *:80</div><div class="line">    <span class="attribute">mode</span> http</div><div class="line">    <span class="attribute">redirect</span> scheme https code 301 if !&#123; ssl_fc &#125;</div></pre></td></tr></table></figure>
 <h1 id="rancher-lb-使用-ip-hash">Rancher LB 使用 IP Hash</h1>
