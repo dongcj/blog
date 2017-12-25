@@ -1,0 +1,1710 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="dongcj" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Krrish" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="关注云计算、大数据、容器、自动化运维">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Krrish">
+<meta property="og:url" content="http://blog.dongcj.com/page/8/index.html">
+<meta property="og:site_name" content="Krrish">
+<meta property="og:description" content="关注云计算、大数据、容器、自动化运维">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Krrish">
+<meta name="twitter:description" content="关注云计算、大数据、容器、自动化运维">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '9SMCM8XVIH',
+      apiKey: '0cbea7007c7943495a93da42ecc3c6ca',
+      indexName: 'dongcj.com',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.dongcj.com/page/8/"/>
+
+
+
+
+
+  <title>Krrish - Premature optimization is the root of all evil.</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-8934357-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4002af67ddd7cf74a9a7e702566d18b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Krrish</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Premature optimization is the root of all evil.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx配置location总结及rewrite规则写法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/web/Nginx配置location总结及rewrite规则写法/" itemprop="url">Nginx配置location总结及rewrite规则写法</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-17T17:49:55+08:00">
+                2016-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/web/Nginx配置location总结及rewrite规则写法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="web/Nginx配置location总结及rewrite规则写法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/web/Nginx配置location总结及rewrite规则写法/" class="leancloud_visitors" data-flag-title="Nginx配置location总结及rewrite规则写法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="location正则写法">location正则写法</h1>
+<pre><code># 一个示例：
+location  = / {
+  # 精确匹配 / ，主机名后面不能带任何字符串
+  [ configuration A ]
+}
+location  / {
+  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求
+  # 但是正则和最长字符串会优先匹配
+  [ configuration B ]
+}
+location /documents/ {
+  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
+  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
+  [ configuration C ]
+}
+location ~ /documents/Abc {
+  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
+  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
+  [ configuration CC ]
+}
+location ^~ /images/ {
+  # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。
+  [ configuration D ]
+}
+location ~* \.(gif|jpg|jpeg)$ {
+  # 匹配所有以 gif,jpg或jpeg 结尾的请求
+  # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则
+  [ configuration E ]
+}
+location /images/ {
+  # 字符匹配到 /images/，继续往下，会发现 ^~ 存在
+  [ configuration F ]
+}
+location /images/abc {
+  # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在
+  # F与G的放置顺序是没有关系的
+  [ configuration G ]
+}
+location ~ /images/abc/ {
+  # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
+    [ configuration H ]
+}
+location ~* /js/.*/\.js</code></pre>
+<p>=开头表示精确匹配 如 A 中只匹配根目录结尾的请求，后面不能带任何字符串。 ^~ 开头表示uri以某个常规字符串开头，不是正则匹配 ~ 开头表示区分大小写的正则匹配; ~* 开头表示不区分大小写的正则匹配 / 通用匹配, 如果没有其它匹配,任何请求都会匹配到</p>
+<p>顺序优先级： (location =) &gt; (location 完整路径) &gt; (location ^~ 路径) &gt; (location <sub>,</sub>* 正则顺序) &gt; (location 部分起始路径) &gt; (/) 上面的匹配结果</p>
+<p>按照上面的location写法，以下的匹配示例成立： /-&gt; config A 精确完全匹配，即使/index.html也匹配不了 /downloads/download.html -&gt; config B 匹配B以后，往下没有任何匹配，采用B /images/1.gif -&gt; configuration D 匹配到F，往下匹配到D，停止往下 /images/abc/def -&gt; config D 最长匹配到G，往下匹配D，停止往下</p>
+<p>你可以看到 任何以/images/开头的都会匹配到D并停止，FG写在这里是没有任何意义的，H是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到C，往下没有任何匹配，采用C /documents/1.jpg -&gt; configuration E 匹配到C，往下正则匹配到E /documents/Abc.jpg -&gt; config CC 最长匹配到C，往下正则顺序匹配到CC，不会往下到E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+<pre><code>#直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。
+#这里是直接转发给后端应用服务器了，也可以是一个静态首页
+# 第一个必选规则
+
+    location = / {
+        proxy_pass http://tomcat:8080/index
+    }
+
+# 第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项
+# 有两种配置模式，目录匹配或后缀匹配,任选其一或搭配使用 location ^~ /static/ {
+root /webroot/static/; } location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
+root /webroot/res/; }
+
+# 第三个规则就是通用规则，用来转发动态请求到后端应用服务器
+# 非静态文件请求就默认是动态请求，自己根据实际把握
+# 毕竟目前的一些框架的流行，带.php,.jsp后缀的情况很少了
+location / {
+    proxy_pass http://tomcat:8080/
+}</code></pre>
+<p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
+<h1 id="rewrite规则">Rewrite规则</h1>
+<p>rewrite功能就是，使用nginx提供的全局变量或自己设置的变量，结合正则表达式和标志位实现url重写以及重定向。rewrite只能放在server{},location{},if{}中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对/a/we/index.php重写。语法rewrite regex replacement [flag];</p>
+<p>如果相对域名或参数字符串起作用，可以使用全局变量匹配，也可以使用proxy_pass反向代理。</p>
+<p>表明看rewrite和location功能有点像，都能实现跳转，主要区别在于rewrite是在同一域名内更改获取资源的路径，而location是对一类路径做控制访问或反向代理，可以proxy_pass到其他机器。很多情况下rewrite也会写在location里，它们的执行顺序是：</p>
+<ul>
+<li>执行server块的rewrite指令</li>
+<li>执行location匹配</li>
+<li>执行选定的location中的rewrite指令</li>
+</ul>
+<p>如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。</p>
+<h2 id="flag标志位">2.1 flag标志位</h2>
+<p>last : 相当于Apache的[L]标记，表示完成rewrite break : 停止执行当前虚拟主机的后续rewrite指令集 redirect : 返回302临时重定向，地址栏会显示跳转后的地址 permanent : 返回301永久重定向，地址栏会显示跳转后的地址</p>
+<p>因为301和302不能简单的只返回状态码，还必须有重定向的URL，这就是return指令无法返回301,302的原因了。这里 last 和 break 区别有点难以理解： last一般写在server和if中，而break一般使用在location中 last不终止重写后的url匹配，即新的url会再从server走一遍匹配流程，而break终止重写后的匹配 break和last都能组织继续执行后面的rewrite指令</p>
+<h2 id="if指令与全局变量">if指令与全局变量</h2>
+<p>if判断指令 语法为if(condition){…}，对给定的条件condition进行判断。如果为真，大括号内的rewrite指令将被执行，if条件(conditon)可以是如下任何内容： 当表达式只是一个变量时，如果值为空或任何以0开头的字符串都会当做false 直接比较变量和内容时，使用=或!= <sub>正则表达式匹配，</sub>*不区分大小写的匹配，!~区分大小写的不匹配 -f和!-f用来判断是否存在文件 -d和!-d用来判断是否存在目录 -e和!-e用来判断是否存在文件或目录 -x和!-x用来判断文件是否可执行 例如：</p>
+<pre><code>if ($http_user_agent ~ MSIE) {
+    rewrite ^(.*)$ /msie/$1 break;
+} //如果UA包含&quot;MSIE&quot;，rewrite请求到/msid/目录下
+if ($http_cookie ~* &quot;id=([^;]+)(?:;|$)&quot;) {
+    set $id $1;
+ } //如果cookie匹配正则，设置变量$id等于正则引用部分
+if ($request_method = POST) {
+    return 405;
+} //如果提交方法为POST，则返回状态405（Method not allowed）。return不能返回301,302
+if ($slow) {
+    limit_rate 10k;
+} //限速，$slow可以通过 set 指令设置
+if (!-f $request_filename){
+    break;
+    proxy_pass  http://127.0.0.1;
+} //如果请求的文件名不存在，则反向代理到localhost 。这里的break也是停止rewrite检查
+if ($args ~ post=140){
+    rewrite ^ http://example.com/ permanent;
+} //如果query string中包含&quot;post=140&quot;，永久重定向到example.com
+location ~* \.(gif|jpg|png|swf|flv)$ {
+    valid_referers none blocked www.jefflei.com www.leizhenfang.com;
+    if ($invalid_referer) {
+        return 404;
+    } //防盗链
+}</code></pre>
+<p>全局变量 下面是可以用作if判断的全局变量</p>
+<pre><code>$args ： #这个变量等于请求行中的参数，同$query_string
+$content_length ： 请求头中的Content-length字段。
+$content_type ： 请求头中的Content-Type字段。
+$document_root ： 当前请求在root指令中指定的值。
+$host ： 请求主机头字段，否则为服务器名称。
+$http_user_agent ： 客户端agent信息
+$http_cookie ： 客户端cookie信息
+$limit_rate ： 这个变量可以限制连接速率。
+$request_method ： 客户端请求的动作，通常为GET或POST。
+$remote_addr ： 客户端的IP地址。
+$remote_port ： 客户端的端口。
+$remote_user ： 已经经过Auth Basic Module验证的用户名。
+$request_filename ： 当前请求的文件路径，由root或alias指令与URI请求生成。
+$scheme ： HTTP方法（如http，https）。
+$server_protocol ： 请求使用的协议，通常是HTTP/1.0或HTTP/1.1。
+$server_addr ： 服务器地址，在完成一次系统调用后可以确定这个值。
+$server_name ： 服务器名称。
+$server_port ： 请求到达服务器的端口号。
+$request_uri ： 包含请求参数的原始URI，不包含主机名，如：”/foo/bar.php?arg=baz”。
+
+$uri ： 不带请求参数的当前URI，$uri不包含主机名，如”/foo/bar.html”。
+$document_uri ： 与$uri相同。
+例：http://localhost:88/test1/test2/test.php
+$host：localhost
+$server_port：88
+$request_uri：http://localhost:88/test1/test2/test.php
+$document_uri：/test1/test2/test.php
+$document_root：/var/www/html
+$request_filename：/var/www/html/test1/test2/test.php</code></pre>
+<h2 id="常用正则">常用正则</h2>
+<pre><code>. ： 匹配除换行符以外的任意字符
+? ： 重复0次或1次
++ ： 重复1次或更多次
+* ： 重复0次或更多次
+\d ：匹配数字
+^ ： 匹配字符串的开始
+$ ： 匹配字符串的介绍
+{n} ： 重复n次
+{n,} ： 重复n次或更多次
+[c] ： 匹配单个字符c
+[a-z] ： 匹配a-z小写字母的任意一个
+小括号()之间匹配的内容，可以在后面通过$1来引用，$2表示的是前面第二个()里的内容。正则里面容易让人困惑的是\转义特殊字符。</code></pre>
+<h2 id="rewrite实例">rewrite实例</h2>
+<p>例1： http { # 定义image日志格式 log_format imagelog ‘[$time_local]’ $image_file ‘’ $image_type ‘’ $body_bytes_sent ‘’ $status; # 开启重写日志 rewrite_log on;</p>
+<pre><code>server {
+    root /home/www;
+
+    location / {
+            # 重写规则信息
+            error_log logs/rewrite.log notice;
+            # 注意这里要用‘’单引号引起来，避免{}
+            rewrite &#39;^/images/([a-z]{2})/([a-z0-9]{5})/(.*)\.(png|jpg|gif)$&#39; /data?file=$3.$4;
+            # 注意不能在上面这条规则后面加上“last”参数，否则下面的set指令不会执行
+            set $image_file $3;
+            set $image_type $4;
+    }
+
+    location /data {
+            # 指定针对图片的日志格式，来分析图片类型和大小
+            access_log logs/images.log mian;
+            root /data/images;
+            # 应用前面定义的变量。判断首先文件在不在，不在再判断目录在不在，如果还不在就跳转到最后一个url里
+            try_files /$arg_file /image404.html;
+    }
+    location = /image404.html {
+            # 图片不存在返回特定的信息
+            return 404 &quot;image not found\n&quot;;
+    }</code></pre>
+<p>}</p>
+<p>对形如/images/ef/uh7b3/test.png的请求，重写到/data?file=test.png，于是匹配到location /data，先看/data/images/test.png文件存不存在，如果存在则正常响应，如果不存在则重写tryfiles到新的image404 location，直接返回404状态码。 例2：</p>
+<pre><code>rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&amp;height=$3? last;</code></pre>
+<p>例3： 见 ssl部分页面加密 。</p>
+<hr>
+<p><strong>参考</strong>: 参考以下 &gt; http://www.nginx.cn/216.html &gt; http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/ &gt; 老僧系列nginx之rewrite规则快速上手 http://fantefei.blog.51cto.com/2229719/919431 &gt; 来源： <a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" class="uri" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Git常用命令与使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Git常用命令与使用/" itemprop="url">Git常用命令与使用</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-17T17:44:33+08:00">
+                2016-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Git常用命令与使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Git常用命令与使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Git常用命令与使用/" class="leancloud_visitors" data-flag-title="Git常用命令与使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="使用key方式认证一般ssh的问题都在这里">使用key方式认证(一般SSH的问题都在这里)</h1>
+<pre><code># 将新生成的key添加到ssh-agent中:
+# start the ssh-agent in the background
+$ eval &quot;$(ssh-agent -s)&quot;
+    Agent pid 59566
+$ ssh-add ~/.ssh/id_rsa
+
+# 测试
+$ ssh git@github.com</code></pre>
+<h2 id="清除-git-路径中的所有.git文件">清除 git 路径中的所有.git文件</h2>
+<pre><code>$ find . -name &quot;.git&quot; | xargs rm -Rf</code></pre>
+<h2 id="配置">配置</h2>
+<pre><code># 配置用户名和email
+$ git config --global user.name &quot;dongcj&quot;
+$ git config --global user.email &quot;ntwk@163.com&quot;</code></pre>
+<h2 id="配置支持中文">配置支持中文</h2>
+<pre><code>$ git config --global core.autocrlf true</code></pre>
+<h2 id="查看配置">查看配置</h2>
+<pre><code>$ git config --list</code></pre>
+<h2 id="创建">创建</h2>
+<pre><code>$ echo &quot;# test&quot; &gt;&gt; README.md
+$ git init
+$ git add README.md
+$ git commit -m &quot;first commit&quot;
+$ git remote add origin git@github.com:dongcj/blog.git</code></pre>
+<h2 id="注意这里根据官方给你的要做修改">注意这里根据官方给你的要做修改</h2>
+<pre><code>$ git push -u origin master        # 日常使用git push就OK</code></pre>
+<h2 id="重新设置git-url">重新设置git url</h2>
+<pre><code>$ git remote set-url origin git@github.com:dongcj/blog.git</code></pre>
+<h2 id="查看服务器的所有分支">查看服务器的所有分支</h2>
+<pre><code>$ git branch -va
+# 在本地新建同名的(&quot;dev&quot;)分支，并切换到该分支
+$ git checkout -t origin/dev # 该命令等同于：
+$ git checkout -b dev origin/dev</code></pre>
+<h2 id="直接clone-develop分支">直接clone develop分支</h2>
+<pre><code>$ git clone http://xxx.git -b develop</code></pre>
+<h2 id="git提交所有modified的文件">git提交所有modified的文件</h2>
+<pre><code>$ git add -A
+$ git commit -am &quot;this is commit&quot;
+$ git push origin master
+
+# 或者
+$ git config --global alias.commitall &#39;!func(){ git add -A &amp;&amp; git commit -am &quot;$1&quot; &amp;&amp; git push origin master; }; func&#39;
+$ Then you could commit all changes by entering
+
+$ git commitall &quot;a message describing what you did&quot;</code></pre>
+<h1 id="git日常用法">git日常用法</h1>
+<pre><code>$ git init   # 初始化本地git仓库（创建新仓库）
+$ git config --global user.name &quot;xxx&quot;                     #配置用户名
+$ git config --global user.email &quot;xxx@xxx.com&quot;            # 配置邮件
+$ git config --global color.ui true                       # git status等命令自动着色
+$ git config --global color.status auto
+$ git config --global color.diff auto
+$ git config --global color.branch auto
+$ git config --global color.interactive auto
+$ git clone git+ssh://git@192.168.53.168/VT.git             # clone远程仓库
+
+$ git status                                                # 查看当前版本状态（是否修改）
+$ git ls-files                                              # 列出git index包含的文件
+
+
+$ git add xyz                                               # 添加xyz文件至index
+$ git add .                                                 # 增加当前子目录下所有更改过的文件至index
+
+$ git commit -m &#39;xxx&#39;                                       # 提交
+$ git commit --amend -m &#39;xxx&#39;                               # 合并上一次提交（用于反复修改）
+$ git commit -am &#39;xxx&#39;                                      # 将add和commit合为一步
+
+$ git rm xxx                                                # 删除index中的文件
+$ git rm -r *                                               # 递归删除
+
+$ git log                                                   # 显示提交日志
+$ git log -1                                                # 显示1行日志 -n为n行
+$ git log -5
+$ git log --stat                                            # 显示提交日志及相关变动文件
+$ git log -p -m
+$ git log v2.0                                              # 显示v2.0的日志
+$ git log --pretty=format:&#39;%h %s&#39; --graph                   # 图示提交日志
+$ git reflog                                                # 显示所有提交，包括孤立节点
+
+$ git show dfb02e6e4f2f7b573337763e5c0013802e392818         # 显示某个提交的详细内容
+$ git show dfb02                                            # 可只用commitid的前几位
+$ git show HEAD                                             # 显示HEAD提交日志
+$ git show v2.0                                             # 显示v2.0的日志及详细内容
+$ git show HEAD^                                            # 显示HEAD的父（上一个版本）的提交日志 ^^为上两个版本 ^5为上5个版本
+$ git show-branch                                           # 图示当前分支历史
+$ git show-branch --all                                     # 图示所有分支历史
+$ git show HEAD~3
+$ git show -s --pretty=raw 2be7fcb476
+$ git show HEAD@{5}
+$ git show master@{yesterday}                               # 显示master分支昨天的状态
+
+$ git tag                                                   # 显示已存在的tag
+$ git tag -a v2.0 -m &#39;xxx&#39;                                  # 增加v2.0的tag
+
+$ git diff                                                  # 显示所有未添加至index的变更
+$ git diff --cached                                         # 显示所有已添加index但还未commit的变更
+$ git diff HEAD^                                            # 比较与上一个版本的差异
+$ git diff HEAD -- ./lib                                    # 比较与HEAD版本lib目录的差异
+$ git diff origin/master..master                            # 比较远程分支master上有本地分支master上没有的
+$ git diff origin/master..master --stat                     # 只显示差异的文件，不显示具体内容
+
+$ git remote add origin git+ssh://git@192.168.53.168/VT.git # 增加远程定义（用于push/pull/fetch）
+
+$ git branch                                                # 显示本地分支
+$ git branch --contains 50089                               # 显示包含提交50089的分支
+$ git branch -a                                             # 显示所有分支
+$ git branch -r                                             # 显示所有原创分支
+$ git branch --merged                                       # 显示所有已合并到当前分支的分支
+$ git branch --no-merged                                    # 显示所有未合并到当前分支的分支
+$ git branch -m master master_copy                          # 本地分支改名
+$ git branch -d hotfixes/BJVEP933                           # 删除分支hotfixes/BJVEP933（本分支修改已合并到其他分支）
+$ git branch -D hotfixes/BJVEP933                           # 强制删除分支hotfixes/BJVEP933
+
+$ git checkout -b master_copy                               # 从当前分支创建新分支master_copy并检出
+$ git checkout -b master master_copy                        # 上面的完整版
+$ git checkout features/performance                         # 检出已存在的features/performance分支
+$ git checkout --track hotfixes/BJVEP933                    # 检出远程分支hotfixes/BJVEP933并创建本地跟踪分支
+$ git checkout v2.0                                         # 检出版本v2.0
+$ git checkout -b devel origin/develop                      # 从远程分支develop创建新本地分支devel并检出
+$ git checkout -- README                                    # 检出head版本的README文件（可用于修改错误回退）
+
+$ git merge origin/master                                   # 合并远程master分支至当前分支
+
+$ git cherry-pick ff44785404a8e                             # 合并提交ff44785404a8e的修改
+
+$ git push origin master                                    # 将当前分支push到远程master分支
+$ git push origin :hotfixes/BJVEP933                        # 删除远程仓库的hotfixes/BJVEP933分支
+$ git push --tags                                           # 把所有tag推送到远程仓库
+
+$ git fetch                                                 # 获取所有远程分支（不更新本地分支，另需merge）
+$ git fetch --prune                                         # 获取所有原创分支并清除服务器上已删掉的分支
+$ git fetch --all                                           # 1. 获取所有远程分支
+$ git reset --hard origin/master                            # 2. 先运行 1，再使用远程文件强制覆盖本地文件
+$ git reset --hard HEAD                                     # 将当前版本重置为HEAD（通常用于merge失败回退）
+
+$ git pull origin master                                    # 获取远程分支master并merge到当前分支
+
+$ git mv README README2                                     # 重命名文件README为README2
+
+$ git rebase
+
+
+$ git whatchanged                                           # 显示提交历史对应的文件修改
+$ git revert dfb02e6e4f2f7b573337763e5c0013802e392818       # 撤销提交dfb02e6e4f2f7b573337763e5c0013802e392818
+$ git ls-tree HEAD                                          # 内部命令：显示某个git对象
+$ git rev-parse v2.0                                        # 内部命令：显示某个ref对于的SHA1 HASH
+
+
+$ git stash                                                 # 暂存当前修改，将所有至为HEAD状态
+$ git stash list                                            # 查看所有暂存
+$ git stash show -p stash@{0}                               # 参考第一次暂存
+$ git stash apply stash@{0}                                 # 应用第一次暂存
+
+$ git grep &quot;delete from&quot;                                    # 文件中搜索文本“delete from”
+$ git grep -e &#39;#define&#39; --and -e SORT_DIRENT
+$ git gc
+$ git fsck</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Krrish" />
+          <p class="site-author-name" itemprop="name">Krrish</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dongcj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/krrishdo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://facebook.com/krrishdo" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Krrish</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dongcj.disqus.com/count.js" async></script>
+    
+
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YXeFlBkTNmVxBfGy4AFqPCWM-gzGzoHsz", "LGzpG6DaPIIQaoa82WFwJxJa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

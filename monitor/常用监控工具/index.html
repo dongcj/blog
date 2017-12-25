@@ -1,0 +1,1431 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="monitor,sysdig," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Krrish" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
+<meta name="keywords" content="monitor,sysdig">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常用监控工具">
+<meta property="og:url" content="http://blog.dongcj.com/monitor/常用监控工具/index.html">
+<meta property="og:site_name" content="Krrish">
+<meta property="og:description" content="sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
+<meta property="og:updated_time" content="2016-08-04T08:45:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="常用监控工具">
+<meta name="twitter:description" content="sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '9SMCM8XVIH',
+      apiKey: '0cbea7007c7943495a93da42ecc3c6ca',
+      indexName: 'dongcj.com',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.dongcj.com/monitor/常用监控工具/"/>
+
+
+
+
+
+  <title>常用监控工具 | Krrish</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-8934357-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4002af67ddd7cf74a9a7e702566d18b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Krrish</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Premature optimization is the root of all evil.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/常用监控工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">常用监控工具</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T08:50:10+08:00">
+                2016-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/monitor/常用监控工具/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="monitor/常用监控工具/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/monitor/常用监控工具/" class="leancloud_visitors" data-flag-title="常用监控工具">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="sysdig">sysdig</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line"><span class="comment"># 进程和 CPU 使用率</span></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line"><span class="comment"># 性能和错误</span></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
+<h1 id="常用工具">常用工具</h1>
+<pre><code>uptime          CPU + Disks 的测量，1，5，15分钟
+ps -eLf         打印线程
+ps -ef f    打印进程树
+pstree -alpha &lt;PID&gt; 查看某进程的详细情况
+
+free        查看内存占用情况（下面有详细的说明）
+top/atop/htop/gtop   查看进程活动状态以及一些系统状况, 常用 htop
+rtop        远程通过ssh查看其它服务器的信息
+vtop        node.js 的 console 查看服务器状态
+iotop       查看硬盘状况排序
+
+vmstat   综合工具           （通常使用   vmstat 1 50     注：每秒显示1次，共显示50次）
+dstat    综合工具           （通常使用   dstat -cmdnlpsy     注：显示所有）
+nmon     综合工具
+glances  综合工具
+
+# xxx 表示进程 id 或 pid
+/proc/cpuinfo，/proc/meminfo，/proc/cmdline，/proc/xxx/cwd，/proc/xxx/exe，/proc/xxx/fd/，/proc/xxx/smaps</code></pre>
+<h1 id="sysstat包含工具">sysstat包含工具</h1>
+<pre><code>sar     综合工具,查看历史iowait值 (Collect, report, or save system activity information)
+sadf        -x 可以使用xml格式打印信息
+pidstat     打印进程信息 (Report statistics for Linux tasks,有占用信息)
+cifsiostat  查看 windows 共享的 io 状况
+mpstat      查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）
+iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）</code></pre>
+<h1 id="网络监测工具">网络监测工具</h1>
+<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
+iftop/iptraf            # 实时网络状况监测(常用 -pn)，查找正在使用带宽的套接字连接或进程
+netstat                 # 查看网络状况 (常用 -tupnl)
+       netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件
+slurm                   # yet another network load monitor
+
+# 用于复杂的网络调试
+tcpdump         # 抓取网络数据包，详细分析
+wireshark       # 抓取网络数据包，详细分析
+Tcptrace        # 数据包分析工具(windows下有)
+tcptrack        # monitor your server network connections and bandwidth 
+tshark
+ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any匹配所有接口，.匹配所有内容 目标端口为2003的包
+                ngrep  -qd any -W byline &quot;^(GET|POST)&quot;  port not 22
+                # 相当于：
+                tcpdump &#39;port 5901 and (host 192.168.109.1)&#39;
+
+
+iperf       # 测试TCP和UDP带宽质量
+            # 服务端: iperf [ -u] -s    客户端: iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M
+                                              (-u UDP测试;  -f 单位,可以是kmKM;  -t 测试时间;  -P 线程数;  -b 测试数据包大小)
+
+
+speed-test          # 网速测试工具 npm install --global speed-test
+traceroute/mtr/dig  # trace工具
+tcptrace            # 不在linux默认，需要安装
+ss -l/-s            # Socket Statistics
+pstree -alpha       # ps 树形列表
+pstree -al pid      # 单个进程的树形列表
+
+
+lsof -iTCP -sTCP:ESTABLISHED    # tcp/udp 网络服务
+lsof -i :22                     # 知道 22 端口现在运行什么程序
+lsof -c abc                     # 显示 abc 进程现在打开的文件
+lsof -p 12                      # 看进程号为 12 的进程打开了哪些文件,等同于pmap 12 和 netstat -p 12
+lsof -U                         # 列出所有的 socket,等同于 ss -l
+lsof | grep FILEorDir           # 查看文件被哪个进程打个
+lsof | grep deleted | grep &quot;filename-of-my-big-file&quot;    # 文件删除了，但是还占用空间</code></pre>
+<h1 id="其它监测工具">其它监测工具</h1>
+<pre><code>gnome-system-monitor/conky  # gnome的GUI任务管理器工具
+jvmtop.sh/jconsole PID      # java占用情况/图形界面的java console占用情况（很清晰，建议使用）
+
+vmtouch         # 查看放到内存中的文件
+pmap PID        # 查看进程打开的文件,等同于lsof -p PID</code></pre>
+<h1 id="strace查看内核空间ltrace查看用户空间">Strace查看内核空间，ltrace查看用户空间</h1>
+<pre><code>strace -e open ls           # 查看命令ls打开的库文件
+strace -r php worker.php    # 查看worker.php的trace
+strace -p &lt;PID&gt;             # 查看正在运行的进程的trace
+ltrace /bin/ls              # 运行/bin/ls命令，查看这个命令具体调用哪些库
+
+
+ldd /bin/ls                 # 打印共享库依赖
+blktrace -d /dev/sda        # 生成块设备的跟踪中信息，需要先mount -t debugfs none /sys/kernel/debug,再blkparse
+
+stap（SystemTap）、perf、sysdig     # 更深层次的系统分析以及性能分析</code></pre>
+<h1 id="共享内存">共享内存</h1>
+<pre><code>ipcs -m
+ipcrm -m &lt;SHMID&gt;</code></pre>
+<blockquote>
+<p>当cache作为文件缓存被释放的时候会引发IO变高，这是cache加快文件访问速度所要付出的成本。 tmpfs中存储的文件会占用cache空间，除非文件删除否则这个cache不会被自动释放。 使用shmget方式申请的共享内存会占用cache空间，除非共享内存被ipcrm或者使用shmctl去IPC_RMID，否则相关的cache空间都不会被自动释放。 使用mmap方法申请的MAP_SHARED标志的内存会占用cache空间，除非进程将这段内存munmap，否则相关的cache空间都不会被自动释放。 实际上shmget、mmap的共享内存，在内核层都是通过tmpfs实现的，tmpfs实现的存储用的都是cache。</p>
+</blockquote>
+<pre><code>lm_sensor       机器温度、转速等传感器信息,先运行yes | sensors-detect（检测通常在BIOS中可以看到的信息，虚机中不行）</code></pre>
+<h2 id="free-字段说明">free 字段说明</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@bigdata /]<span class="comment"># free</span></div><div class="line">total       used    free    shared  buffers     cached</div><div class="line">Mem:    255268      238332  16936   0       85540       126384</div><div class="line">-/+ buffers/cache:  26408   228860</div></pre></td></tr></table></figure>
+<blockquote>
+<p>used1：表示总计分配给缓存（包含buffers 与cache ）使用的数量，但其中可能部分缓存并未实际使用。</p>
+</blockquote>
+<blockquote>
+<p>free1：未被分配的内存。 shared1：共享内存，一般系统不会用到，这里也不讨论。 buffers1：系统分配但未被使用的buffers 数量。 cached1：系统分配但未被使用的cache 数量。</p>
+</blockquote>
+<blockquote>
+<p>used2：实际使用的buffers 与cache 总量，也是实际使用的内存总量。</p>
+</blockquote>
+<blockquote>
+<p>free2：未被使用的buffers 与cache 和未被分配的内存之和，这就是系统当前实际可用内存。</p>
+<p>total1 = used1 + free1 total1 = used2 + free2 used1 = buffers1 + cached1 + used2 free2 = buffers1 + cached1 + free1</p>
+<h2 id="buffer">buffer:</h2>
+<p>缓冲区，一个用于存储速度不同步的设备或优先级不同的设备之间传输数据的区域。通过缓冲区，可以使进程之间的相互等待变少，从而使从速度慢的设备读入数据时，速度快的设备的操作进程不发生间断。</p>
+<h2 id="cache">cache:</h2>
+<p>高速缓存，是位于CPU与主内存间的一种容量较小但速度很高的存储器。由于CPU的速度远高于主内存，CPU直接从内存中存取数据要等待一定时间周期，Cache中保存着CPU刚用过或循环使用的一部分数据，当CPU再次使用该部分数据时可从Cache中直接调用,这样就减少了CPU的等待时间,提高了系统的效率。Cache又分为一级Cache(L1 Cache)和二级Cache(L2 Cache)，L1 Cache集成在CPU内部，L2 Cache早期一般是焊在主板上,现在也都集成在CPU内部，常见的容量有256KB或512KB L2 Cache。</p>
+<p>总的来说： buffer : 作为buffer cache的内存，是块设备的读写缓冲区</p>
+<p>cache: 作为page cache的内存, 文件系统的cache</p>
+</blockquote>
+<h2 id="linux监控脚本">Linux监控脚本</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">DAT=<span class="string">"`date +%Y%m%d`"</span></div><div class="line">HOUR=<span class="string">"`date +%H`"</span></div><div class="line">DIR=<span class="string">"/home/oslog/host_<span class="variable">$&#123;DAT&#125;</span>/<span class="variable">$&#123;HOUR&#125;</span>"</span></div><div class="line">DELAY=60</div><div class="line">COUNT=60</div><div class="line"><span class="comment"># whether the responsible directory exist</span></div><div class="line"><span class="keyword">if</span> ! <span class="built_in">test</span> -d <span class="variable">$&#123;DIR&#125;</span></div><div class="line"><span class="keyword">then</span></div><div class="line">    /bin/mkdir -p <span class="variable">$&#123;DIR&#125;</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment"># general check</span></div><div class="line"><span class="built_in">export</span> TERM=linux</div><div class="line">/usr/bin/top -b -d <span class="variable">$&#123;DELAY&#125;</span> -n <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/top_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># cpu check</span></div><div class="line">/usr/bin/sar -u <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/cpu_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment">#/usr/bin/mpstat -P 0 $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/cpu_0_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div><div class="line"><span class="comment">#/usr/bin/mpstat -P 1 $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/cpu_1_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div><div class="line"><span class="comment"># memory check</span></div><div class="line">/usr/bin/vmstat <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/vmstat_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># I/O check</span></div><div class="line">/usr/bin/iostat <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/iostat_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># network check</span></div><div class="line">/usr/bin/sar -n DEV <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/net_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment">#/usr/bin/sar -n EDEV $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/net_edev_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/monitor/" rel="tag"># monitor</a>
+          
+            <a href="/tags/sysdig/" rel="tag"># sysdig</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/web/Nginx配置location总结及rewrite规则写法/" rel="next" title="Nginx配置location总结及rewrite规则写法">
+                <i class="fa fa-chevron-left"></i> Nginx配置location总结及rewrite规则写法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/markdown/中文文案排版指北/" rel="prev" title="中文文案排版指北">
+                中文文案排版指北 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Krrish" />
+          <p class="site-author-name" itemprop="name">Krrish</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dongcj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/krrishdo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://facebook.com/krrishdo" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sysdig"><span class="nav-number">1.</span> <span class="nav-text">sysdig</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用工具"><span class="nav-number">2.</span> <span class="nav-text">常用工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sysstat包含工具"><span class="nav-number">3.</span> <span class="nav-text">sysstat包含工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络监测工具"><span class="nav-number">4.</span> <span class="nav-text">网络监测工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它监测工具"><span class="nav-number">5.</span> <span class="nav-text">其它监测工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strace查看内核空间ltrace查看用户空间"><span class="nav-number">6.</span> <span class="nav-text">Strace查看内核空间，ltrace查看用户空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#共享内存"><span class="nav-number">7.</span> <span class="nav-text">共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#free-字段说明"><span class="nav-number">7.1.</span> <span class="nav-text">free 字段说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">7.2.</span> <span class="nav-text">buffer:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache"><span class="nav-number">7.3.</span> <span class="nav-text">cache:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux监控脚本"><span class="nav-number">7.4.</span> <span class="nav-text">Linux监控脚本</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Krrish</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dongcj.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.dongcj.com/monitor/常用监控工具/';
+          this.page.identifier = 'monitor/常用监控工具/';
+          this.page.title = '常用监控工具';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dongcj.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YXeFlBkTNmVxBfGy4AFqPCWM-gzGzoHsz", "LGzpG6DaPIIQaoa82WFwJxJa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 6234,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1717 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="systemd,systemctl," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Krrish" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Systemd和Systemctl基础命令 几个常用的服务控制 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查chkconfig:    systemctl list-unit-files |">
+<meta name="keywords" content="systemd,systemctl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Systemd,systemctl命令">
+<meta property="og:url" content="http://blog.dongcj.com/linux/Systemd,systemctl命令/index.html">
+<meta property="og:site_name" content="Krrish">
+<meta property="og:description" content="Systemd和Systemctl基础命令 几个常用的服务控制 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查chkconfig:    systemctl list-unit-files |">
+<meta property="og:updated_time" content="2016-08-04T09:26:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Systemd,systemctl命令">
+<meta name="twitter:description" content="Systemd和Systemctl基础命令 几个常用的服务控制 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查chkconfig:    systemctl list-unit-files |">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '9SMCM8XVIH',
+      apiKey: '0cbea7007c7943495a93da42ecc3c6ca',
+      indexName: 'dongcj.com',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.dongcj.com/linux/Systemd,systemctl命令/"/>
+
+
+
+
+
+  <title>Systemd,systemctl命令 | Krrish</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-8934357-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4002af67ddd7cf74a9a7e702566d18b2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Krrish</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Premature optimization is the root of all evil.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Systemd,systemctl命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Systemd,systemctl命令</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
+                2016-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Systemd,systemctl命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Systemd,systemctl命令/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Systemd,systemctl命令/" class="leancloud_visitors" data-flag-title="Systemd,systemctl命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="systemd和systemctl基础命令">Systemd和Systemctl基础命令</h1>
+<h2 id="几个常用的服务控制">几个常用的服务控制</h2>
+<pre><code>查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
+
+[ 启动 | 停止 ]:    systemctl [ start | stop ] &lt;SERVICE_NAME&gt;
+
+类似查chkconfig:    systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;
+                    systemctl is-enabled &lt;SERVICE_NAME&gt;
+
+[不]自动启动：      systemctl [ disable | enable ] &lt;SERVICE_NAME&gt;
+
+# 系统级的systemd在 /etc/systemd/system
+# 用户级的systemd在 /usr/lib/systemd/system/ （main）
+# 运行级的systemd在 /run/systemd/system
+
+# 如删除服务，需要：
+systemctl stop &lt;SERVICE_NAME&gt;
+systemctl disable &lt;SERVICE_NAME&gt;
+rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
+systemctl daemon-reload
+`systemctl reset-failed`   # 只有运行这样才可以看到服务消失</code></pre>
+<h3 id="首先检查你的系统中是否安装有systemd并确定当前安装的版本">1. 首先检查你的系统中是否安装有systemd并确定当前安装的版本</h3>
+<pre><code>[root@manage ~]# systemctl --version
+systemd 215
++PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
+上例中很清楚地表明，我们安装了215版本的systemd。</code></pre>
+<h3 id="检查systemd和systemctl的二进制文件和库文件的安装位置">2. 检查systemd和systemctl的二进制文件和库文件的安装位置</h3>
+<pre><code>[root@manage ~]# whereis systemd
+systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
+[root@manage ~]# whereis systemctl
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
+<h3 id="检查systemd是否运行">3. 检查systemd是否运行</h3>
+<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
+root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
+dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+注意：systemd是作为父进程（PID=1）运行的。在上面带（-e）参数的ps命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
+
+也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是grep的字符类表达式的一部分。</code></pre>
+<h3 id="分析systemd启动进程">4. 分析systemd启动进程</h3>
+<pre><code>[root@manage ~]# systemd-analyze
+Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
+<h3 id="分析启动时各个进程花费的时间">5. 分析启动时各个进程花费的时间</h3>
+<pre><code>[root@manage ~]# systemd-analyze blame
+8.565s mariadb.service
+7.991s webmin.service
+6.095s postfix.service
+4.311s httpd.service
+3.926s firewalld.service
+3.780s kdump.service
+3.238s tuned.service
+1.712s network.service
+1.394s lvm2-monitor.service
+1.126s systemd-logind.service
+....</code></pre>
+<h3 id="分析启动时的关键链">6. 分析启动时的关键链</h3>
+<pre><code>[root@manage ~]# systemd-analyze critical-chain
+The time after the unit is active or started is printed after the &quot;@&quot; character.
+The time the unit takes to start is printed after the &quot;+&quot; character.
+multi-user.target @20.222s
+└─mariadb.service @11.657s +8.565s
+  └─network.target @11.168s
+    └─network.service @9.456s +1.712s
+      └─NetworkManager.service @8.858s +596ms
+        └─firewalld.service @4.931s +3.926s
+          └─basic.target @4.916s
+            └─sockets.target @4.916s
+              └─dbus.socket @4.916s
+                └─sysinit.target @4.905s
+                  └─systemd-update-utmp.service @4.864s +39ms
+                    └─auditd.service @4.563s +301ms
+                      └─systemd-tmpfiles-setup.service @4.485s +69ms
+                        └─rhel-import-state.service @4.342s +142ms
+                          └─local-fs.target @4.324s
+                            └─boot.mount @4.286s +31ms
+                              └─systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d19608096
+                                └─dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
+重要：Systemctl接受服务（.service），挂载点（.mount），套接口（.socket）和设备（.device）作为单元。</code></pre>
+<h3 id="列出所有可用单元-state-static-enabled-disabled-invalid">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</h3>
+<pre><code>                type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
+
+[root@manage ~]# systemctl list-unit-files [ --type=TYPE ] [ --state=STATE ]</code></pre>
+<p><code>这个作用类似于chkconfig</code></p>
+<pre><code>UNIT FILE                                   STATE
+proc-sys-fs-binfmt_misc.automount           static
+dev-hugepages.mount                         static
+dev-mqueue.mount                            static
+proc-sys-fs-binfmt_misc.mount               static
+sys-fs-fuse-connections.mount               static
+sys-kernel-config.mount                     static
+sys-kernel-debug.mount                      static
+tmp.mount                                   disabled
+brandbot.path                               disabled
+.....</code></pre>
+<h3 id="列出所有运行中单元">8. 列出所有运行中单元</h3>
+<pre><code>[root@manage ~]# systemctl list-units
+UNIT                                        LOAD   ACTIVE SUB       DESCRIPTION
+proc-sys-fs-binfmt_misc.automount           loaded active waiting   Arbitrary Executable File Formats File Syste
+sys-devices-pc...0-1:0:0:0-block-sr0.device loaded active plugged   VBOX_CD-ROM
+sys-devices-pc...:00:03.0-net-enp0s3.device loaded active plugged   PRO/1000 MT Desktop Adapter
+sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC&#39;97 Audio Controller
+sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
+sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8</code></pre>
+<h3 id="列出所有失败单元">9. 列出所有失败单元</h3>
+<pre><code>[root@manage ~]# systemctl --failed
+UNIT          LOAD   ACTIVE SUB    DESCRIPTION
+kdump.service loaded failed failed Crash recovery kernel arming
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+1 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use &#39;systemctl list-unit-files&#39;.</code></pre>
+<h3 id="检查某个单元如-cron.service是否启用">10. 检查某个单元（如 cron.service）是否启用</h3>
+<pre><code>[root@manage ~]# systemctl is-enabled crond.service
+enabled</code></pre>
+<h3 id="如何激活服务并在启动时启用或禁用服务即系统启动时自动启动服务">11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</h3>
+<pre><code>[root@manage ~]# systemctl is-active httpd.service
+[root@manage ~]# systemctl enable    httpd.service
+[root@manage ~]# systemctl disable   httpd.service</code></pre>
+<h3 id="检查某个单元或服务是否运行">12. 检查某个单元或服务是否运行</h3>
+<pre><code>[root@manage ~]# systemctl status firewalld.service
+firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled)
+   Active: active (running) since Tue 2015-04-28 16:27:55 IST; 34min ago
+ Main PID: 549 (firewalld)
+   CGroup: /system.slice/firewalld.service
+           └─549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
+Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
+Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
+使用Systemctl控制并管理服务</code></pre>
+<h3 id="linux中如何启动重启停止重载服务以及检查服务如-httpd.service状态">14. Linux中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</h3>
+<pre><code>[root@manage ~]# systemctl start httpd.service
+[root@manage ~]# systemctl restart httpd.service
+[root@manage ~]# systemctl stop httpd.service
+[root@manage ~]# systemctl reload httpd.service
+[root@manage ~]# systemctl status httpd.service
+[root@manage ~]# systemctl show -p LoadState vdsm.service
+
+httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
+   Active: active (running) since Tue 2015-04-28 17:21:30 IST; 6s ago
+  Process: 2876 ExecStop=/bin/kill -WINCH ${MAINPID} (code=exited, status=0/SUCCESS)
+ Main PID: 2881 (httpd)
+   Status: &quot;Processing requests...&quot;
+   CGroup: /system.slice/httpd.service
+           ├─2881 /usr/sbin/httpd -DFOREGROUND
+           ├─2884 /usr/sbin/httpd -DFOREGROUND
+           ├─2885 /usr/sbin/httpd -DFOREGROUND
+           ├─2886 /usr/sbin/httpd -DFOREGROUND
+           ├─2887 /usr/sbin/httpd -DFOREGROUND
+           └─2888 /usr/sbin/httpd -DFOREGROUND
+Apr 28 17:21:30 tecmint systemd[1]: Starting The Apache HTTP Server...
+Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server&#39;s fully q...ssage
+Apr 28 17:21:30 tecmint systemd[1]: Started The Apache HTTP Server.
+Hint: Some lines were ellipsized, use -l to show in full.
+注意：当我们使用systemctl的start，restart，stop和reload命令时，我们不会从终端获取到任何输出内容，只有status命令可以打印输出。</code></pre>
+<h3 id="如何屏蔽让它不能启动或显示服务如-httpd.service">15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</h3>
+<pre><code># 注意：这是一个演示如何增加一个服务
+[root@manage ~]# systemctl mask httpd.service
+ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/httpd.service&#39;
+
+# 删除服务
+[root@manage ~]# systemctl unmask httpd.service
+rm &#39;/etc/systemd/system/httpd.service&#39;</code></pre>
+<h3 id="使用systemctl命令杀死服务">16. 使用systemctl命令杀死服务</h3>
+<pre><code>[root@manage ~]# systemctl kill httpd
+[root@manage ~]# systemctl status httpd
+httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
+   Active: failed (Result: exit-code) since Tue 2015-04-28 18:01:42 IST; 28min ago
+ Main PID: 2881 (code=exited, status=0/SUCCESS)
+   Status: &quot;Total requests: 0; Current requests/sec: 0; Current traffic:   0 B/sec&quot;
+Apr 28 17:37:29 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:29 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:39 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:39 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:49 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:49 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 18:01:42 tecmint systemd[1]: httpd.service: control process exited, code=exited status=226
+Apr 28 18:01:42 tecmint systemd[1]: Unit httpd.service entered failed state.
+Hint: Some lines were ellipsized, use -l to show in full.
+使用Systemctl控制并管理挂载点</code></pre>
+<h3 id="列出所有系统挂载点">17. 列出所有系统挂载点</h3>
+<pre><code>[root@manage ~]# systemctl list-unit-files --type=mount
+UNIT FILE                     STATE
+dev-hugepages.mount           static
+dev-mqueue.mount              static
+proc-sys-fs-binfmt_misc.mount static
+sys-fs-fuse-connections.mount static
+sys-kernel-config.mount       static
+sys-kernel-debug.mount        static
+tmp.mount                     disabled</code></pre>
+<h3 id="挂载卸载重新挂载重载系统挂载点并检查系统中挂载点状态">18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</h3>
+<pre><code>[root@manage ~]# systemctl start tmp.mount
+[root@manage ~]# systemctl stop tmp.mount
+[root@manage ~]# systemctl restart tmp.mount
+[root@manage ~]# systemctl reload tmp.mount
+[root@manage ~]# systemctl status tmp.mount
+tmp.mount - Temporary Directory
+   Loaded: loaded (/usr/lib/systemd/system/tmp.mount; disabled)
+   Active: active (mounted) since Tue 2015-04-28 17:46:06 IST; 2min 48s ago
+    Where: /tmp
+     What: tmpfs
+     Docs: man:hier(7)
+http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems
+  Process: 3908 ExecMount=/bin/mount tmpfs /tmp -t tmpfs -o mode=1777,strictatime (code=exited, status=0/SUCCESS)
+Apr 28 17:46:06 tecmint systemd[1]: Mounting Temporary Directory...
+Apr 28 17:46:06 tecmint systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
+Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.</code></pre>
+<h3 id="在启动时激活启用或禁用挂载点系统启动时自动挂载">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</h3>
+<pre><code>[root@manage ~]# systemctl is-active tmp.mount
+[root@manage ~]# systemctl enable tmp.mount
+[root@manage ~]# systemctl disable  tmp.mount</code></pre>
+<h3 id="在linux中屏蔽让它不能启用或可见挂载点">20. 在Linux中屏蔽（让它不能启用）或可见挂载点</h3>
+<pre><code>[root@manage ~]# systemctl mask tmp.mount
+ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/tmp.mount&#39;
+[root@manage ~]# systemctl unmask tmp.mount
+rm &#39;/etc/systemd/system/tmp.mount&#39;
+使用Systemctl控制并管理套接口</code></pre>
+<h3 id="列出所有可用系统套接口">21. 列出所有可用系统套接口</h3>
+<pre><code>[root@manage ~]# systemctl list-unit-files --type=socket
+UNIT FILE                    STATE
+dbus.socket                  static
+dm-event.socket              enabled
+lvm2-lvmetad.socket          enabled
+rsyncd.socket                disabled
+sshd.socket                  disabled
+syslog.socket                static
+systemd-initctl.socket       static
+systemd-journald.socket      static
+systemd-shutdownd.socket     static
+systemd-udevd-control.socket static
+systemd-udevd-kernel.socket  static
+11 unit files listed.</code></pre>
+<h3 id="在linux中启动重启停止重载套接口并检查其状态">22. 在Linux中启动、重启、停止、重载套接口并检查其状态</h3>
+<pre><code>[root@manage ~]# systemctl start cups.socket
+[root@manage ~]# systemctl restart cups.socket
+[root@manage ~]# systemctl stop cups.socket
+[root@manage ~]# systemctl reload cups.socket
+[root@manage ~]# systemctl status cups.socket
+cups.socket - CUPS Printing Service Sockets
+   Loaded: loaded (/usr/lib/systemd/system/cups.socket; enabled)
+   Active: active (listening) since Tue 2015-04-28 18:10:59 IST; 8s ago
+   Listen: /var/run/cups/cups.sock (Stream)
+Apr 28 18:10:59 tecmint systemd[1]: Starting CUPS Printing Service Sockets.
+Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.</code></pre>
+<h3 id="在启动时激活套接口并启用或禁用它系统启动时自启动">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</h3>
+<pre><code>[root@manage ~]# systemctl is-active cups.socket
+[root@manage ~]# systemctl enable cups.socket
+[root@manage ~]# systemctl disable cups.socket</code></pre>
+<h1 id="服务的cpu利用率分配额">服务的CPU利用率（分配额）</h1>
+<h3 id="获取当前某个服务的cpu分配额如httpd">25. 获取当前某个服务的CPU分配额（如httpd）</h3>
+<pre><code>[root@manage ~]# systemctl show -p CPUShares httpd.service
+CPUShares=1024
+[root@manage ~]# 注意：各个服务的默认CPU分配份额=1024，你可以增加/减少某个进程的CPU分配份额。</code></pre>
+<h3 id="将某个服务httpd.service的cpu分配份额限制为2000-cpushares">26. 将某个服务（httpd.service）的CPU分配份额限制为2000 CPUShares/</h3>
+<pre><code>[root@manage ~]# systemctl set-property httpd.service CPUShares=2000
+[root@manage ~]# systemctl show -p CPUShares httpd.service
+CPUShares=2000
+[root@manage ~]# 注意：当你为某个服务设置CPUShares，会自动创建一个以服务名命名的目录（如 httpd.service），里面包含了一个名为90-CPUShares.conf的文件，该文件含有CPUShare限制信息，你可以通过以下方式查看该文件：
+
+[root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
+[Service]
+CPUShares=2000</code></pre>
+<h3 id="检查某个服务的所有配置细节">27. 检查某个服务的所有配置细节</h3>
+<pre><code>[root@manage ~]# systemctl show httpd
+Id=httpd.service
+Names=httpd.service
+Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target remote-fs.target nss-lookup.target systemd-journald.socket basic.target system.slice
+Description=The Apache HTTP Server
+LoadState=loaded
+ActiveState=active
+SubState=running
+FragmentPath=/usr/lib/systemd/system/httpd.service
+....</code></pre>
+<h3 id="分析某个服务httpd的关键链">28. 分析某个服务（httpd）的关键链</h3>
+<pre><code>[root@manage ~]# systemd-analyze critical-chain httpd.service
+The time after the unit is active or started is printed after the &quot;@&quot; character.
+The time the unit takes to start is printed after the &quot;+&quot; character.
+httpd.service +142ms
+└─network.target @11.168s
+  └─network.service @9.456s +1.712s
+    └─NetworkManager.service @8.858s +596ms
+      └─firewalld.service @4.931s +3.926s
+        └─basic.target @4.916s
+          └─sockets.target @4.916s
+            └─dbus.socket @4.916s
+              └─sysinit.target @4.905s
+                └─systemd-update-utmp.service @4.864s +39ms
+                  └─auditd.service @4.563s +301ms
+                    └─systemd-tmpfiles-setup.service @4.485s +69ms
+                      └─rhel-import-state.service @4.342s +142ms
+                        └─local-fs.target @4.324s
+                          └─boot.mount @4.286s +31ms
+                            └─systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
+                              └─dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s</code></pre>
+<h3 id="获取某个服务httpd的依赖性列表">29. 获取某个服务（httpd）的依赖性列表</h3>
+<pre><code>[root@manage ~]# systemctl list-dependencies httpd.service
+httpd.service
+├─system.slice
+└─basic.target
+  ├─firewalld.service
+  ├─microcode.service
+  ├─rhel-autorelabel-mark.service
+  ├─rhel-autorelabel.service
+  ├─rhel-configure.service
+  ├─rhel-dmesg.service
+  ├─rhel-loadmodules.service
+  ├─paths.target
+  ├─slices.target
+  │ ├─-.slice
+  │ └─system.slice
+  ├─sockets.target
+  │ ├─dbus.socket
+....</code></pre>
+<h3 id="按等级列出控制组">30. 按等级列出控制组</h3>
+<pre><code>[root@manage ~]# systemd-cgls
+├─1 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+├─user.slice
+│ └─user-0.slice
+│   └─session-1.scope
+│     ├─2498 sshd: root@pts/0
+│     ├─2500 -bash
+│     ├─4521 systemd-cgls
+│     └─4522 systemd-cgls
+└─system.slice
+  ├─httpd.service
+  │ ├─4440 /usr/sbin/httpd -DFOREGROUND
+  │ ├─4442 /usr/sbin/httpd -DFOREGROUND
+  │ ├─4443 /usr/sbin/httpd -DFOREGROUND
+  │ ├─4444 /usr/sbin/httpd -DFOREGROUND
+  │ ├─4445 /usr/sbin/httpd -DFOREGROUND
+  │ └─4446 /usr/sbin/httpd -DFOREGROUND
+  ├─polkit.service
+  │ └─721 /usr/lib/polkit-1/polkitd --no-debug
+....</code></pre>
+<h3 id="按cpu内存输入和输出列出控制组">31. 按CPU、内存、输入和输出列出控制组</h3>
+<pre><code>[root@manage ~]# systemd-cgtop
+Path                                                              Tasks   %CPU   Memory  Input/s Output/s
+/                                                                    83    1.0   437.8M        -        -
+/system.slice                                                         -    0.1        -        -        -
+/system.slice/mariadb.service                                         2    0.1        -        -        -
+/system.slice/tuned.service                                           1    0.0        -        -        -
+/system.slice/httpd.service                                           6    0.0        -        -        -
+/system.slice/NetworkManager.service                                  1      -        -        -        -
+/system.slice/atop.service                                            1      -        -        -        -
+/system.slice/atopacct.service                                        1      -        -        -        -
+/system.slice/auditd.service                                          1      -        -        -        -
+/system.slice/crond.service                                           1      -        -        -        -
+/system.slice/dbus.service                                            1      -        -        -        -
+/system.slice/firewalld.service                                       1      -        -        -        -
+/system.slice/lvm2-lvmetad.service                                    1      -        -        -        -
+/system.slice/polkit.service                                          1      -        -        -        -
+/system.slice/postfix.service                                         3      -        -        -        -
+/system.slice/rsyslog.service                                         1      -        -        -        -
+/system.slice/system-getty.slice/getty@tty1.service                   1      -        -        -        -
+/system.slice/systemd-journald.service                                1      -        -        -        -
+/system.slice/systemd-logind.service                                  1      -        -        -        -
+/system.slice/systemd-udevd.service                                   1      -        -        -        -
+/system.slice/webmin.service                                          1      -        -        -        -
+/user.slice/user-0.slice/session-1.scope                              3      -        -        -        -
+控制系统运行等级</code></pre>
+<h3 id="启动系统救援模式">32. 启动系统救援模式</h3>
+<pre><code>[root@manage ~]# systemctl rescue
+Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
+The system is going down to rescue mode NOW!</code></pre>
+<h3 id="进入紧急模式">33. 进入紧急模式</h3>
+<pre><code>[root@manage ~]# systemctl emergency
+Welcome to emergency mode! After logging in, type &quot;journalctl -xb&quot; to view
+system logs, &quot;systemctl reboot&quot; to reboot, &quot;systemctl default&quot; to try again
+to boot into default mode.</code></pre>
+<h3 id="列出当前使用的运行等级">34. 列出当前使用的运行等级</h3>
+<pre><code>[root@manage ~]# systemctl get-default
+multi-user.target</code></pre>
+<h3 id="启动运行等级5即图形模式">35. 启动运行等级5，即图形模式</h3>
+<pre><code>[root@manage ~]# systemctl isolate runlevel5.target
+或
+[root@manage ~]# systemctl isolate graphical.target</code></pre>
+<h3 id="启动运行等级3即多用户模式命令行">36. 启动运行等级3，即多用户模式（命令行）</h3>
+<pre><code>[root@manage ~]# systemctl isolate runlevel3.target
+或
+[root@manage ~]# systemctl isolate multiuser.target</code></pre>
+<h3 id="设置多用户模式或图形模式为默认运行等级">37. 设置多用户模式或图形模式为默认运行等级</h3>
+<pre><code>[root@manage ~]# systemctl set-default runlevel3.target
+[root@manage ~]# systemctl set-default runlevel5.target</code></pre>
+<h3 id="重启停止挂起休眠系统或使系统进入混合睡眠">38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</h3>
+<pre><code>[root@manage ~]# systemctl reboot
+[root@manage ~]# systemctl halt
+[root@manage ~]# systemctl suspend
+[root@manage ~]# systemctl hibernate
+[root@manage ~]# systemctl hybrid-sleep</code></pre>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/systemd/" rel="tag"># systemd</a>
+          
+            <a href="/tags/systemctl/" rel="tag"># systemctl</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/database/Postgresql安装/" rel="next" title="Postgresql安装">
+                <i class="fa fa-chevron-left"></i> Postgresql安装
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux/Supervisor安装与配置/" rel="prev" title="Supervisor安装与配置">
+                Supervisor安装与配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Krrish" />
+          <p class="site-author-name" itemprop="name">Krrish</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dongcj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/krrishdo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://facebook.com/krrishdo" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#systemd和systemctl基础命令"><span class="nav-number">1.</span> <span class="nav-text">Systemd和Systemctl基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#几个常用的服务控制"><span class="nav-number">1.1.</span> <span class="nav-text">几个常用的服务控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先检查你的系统中是否安装有systemd并确定当前安装的版本"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 首先检查你的系统中是否安装有systemd并确定当前安装的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查systemd和systemctl的二进制文件和库文件的安装位置"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 检查systemd和systemctl的二进制文件和库文件的安装位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查systemd是否运行"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 检查systemd是否运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析systemd启动进程"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 分析systemd启动进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析启动时各个进程花费的时间"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 分析启动时各个进程花费的时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析启动时的关键链"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 分析启动时的关键链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有可用单元-state-static-enabled-disabled-invalid"><span class="nav-number">1.1.7.</span> <span class="nav-text">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有运行中单元"><span class="nav-number">1.1.8.</span> <span class="nav-text">8. 列出所有运行中单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有失败单元"><span class="nav-number">1.1.9.</span> <span class="nav-text">9. 列出所有失败单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个单元如-cron.service是否启用"><span class="nav-number">1.1.10.</span> <span class="nav-text">10. 检查某个单元（如 cron.service）是否启用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何激活服务并在启动时启用或禁用服务即系统启动时自动启动服务"><span class="nav-number">1.1.11.</span> <span class="nav-text">11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个单元或服务是否运行"><span class="nav-number">1.1.12.</span> <span class="nav-text">12. 检查某个单元或服务是否运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux中如何启动重启停止重载服务以及检查服务如-httpd.service状态"><span class="nav-number">1.1.13.</span> <span class="nav-text">14. Linux中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何屏蔽让它不能启动或显示服务如-httpd.service"><span class="nav-number">1.1.14.</span> <span class="nav-text">15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用systemctl命令杀死服务"><span class="nav-number">1.1.15.</span> <span class="nav-text">16. 使用systemctl命令杀死服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有系统挂载点"><span class="nav-number">1.1.16.</span> <span class="nav-text">17. 列出所有系统挂载点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载卸载重新挂载重载系统挂载点并检查系统中挂载点状态"><span class="nav-number">1.1.17.</span> <span class="nav-text">18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时激活启用或禁用挂载点系统启动时自动挂载"><span class="nav-number">1.1.18.</span> <span class="nav-text">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在linux中屏蔽让它不能启用或可见挂载点"><span class="nav-number">1.1.19.</span> <span class="nav-text">20. 在Linux中屏蔽（让它不能启用）或可见挂载点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有可用系统套接口"><span class="nav-number">1.1.20.</span> <span class="nav-text">21. 列出所有可用系统套接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在linux中启动重启停止重载套接口并检查其状态"><span class="nav-number">1.1.21.</span> <span class="nav-text">22. 在Linux中启动、重启、停止、重载套接口并检查其状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时激活套接口并启用或禁用它系统启动时自启动"><span class="nav-number">1.1.22.</span> <span class="nav-text">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务的cpu利用率分配额"><span class="nav-number">2.</span> <span class="nav-text">服务的CPU利用率（分配额）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前某个服务的cpu分配额如httpd"><span class="nav-number">2.0.1.</span> <span class="nav-text">25. 获取当前某个服务的CPU分配额（如httpd）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将某个服务httpd.service的cpu分配份额限制为2000-cpushares"><span class="nav-number">2.0.2.</span> <span class="nav-text">26. 将某个服务（httpd.service）的CPU分配份额限制为2000 CPUShares/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个服务的所有配置细节"><span class="nav-number">2.0.3.</span> <span class="nav-text">27. 检查某个服务的所有配置细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析某个服务httpd的关键链"><span class="nav-number">2.0.4.</span> <span class="nav-text">28. 分析某个服务（httpd）的关键链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取某个服务httpd的依赖性列表"><span class="nav-number">2.0.5.</span> <span class="nav-text">29. 获取某个服务（httpd）的依赖性列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按等级列出控制组"><span class="nav-number">2.0.6.</span> <span class="nav-text">30. 按等级列出控制组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按cpu内存输入和输出列出控制组"><span class="nav-number">2.0.7.</span> <span class="nav-text">31. 按CPU、内存、输入和输出列出控制组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动系统救援模式"><span class="nav-number">2.0.8.</span> <span class="nav-text">32. 启动系统救援模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入紧急模式"><span class="nav-number">2.0.9.</span> <span class="nav-text">33. 进入紧急模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出当前使用的运行等级"><span class="nav-number">2.0.10.</span> <span class="nav-text">34. 列出当前使用的运行等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动运行等级5即图形模式"><span class="nav-number">2.0.11.</span> <span class="nav-text">35. 启动运行等级5，即图形模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动运行等级3即多用户模式命令行"><span class="nav-number">2.0.12.</span> <span class="nav-text">36. 启动运行等级3，即多用户模式（命令行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置多用户模式或图形模式为默认运行等级"><span class="nav-number">2.0.13.</span> <span class="nav-text">37. 设置多用户模式或图形模式为默认运行等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启停止挂起休眠系统或使系统进入混合睡眠"><span class="nav-number">2.0.14.</span> <span class="nav-text">38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Krrish</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://dongcj.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.dongcj.com/linux/Systemd,systemctl命令/';
+          this.page.identifier = 'linux/Systemd,systemctl命令/';
+          this.page.title = 'Systemd,systemctl命令';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://dongcj.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YXeFlBkTNmVxBfGy4AFqPCWM-gzGzoHsz", "LGzpG6DaPIIQaoa82WFwJxJa");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 6234,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
