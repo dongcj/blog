@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="作用  在 windows 下使用 hexo时，经常会出现GBK编码与DOS的问题 Windows 下自动将博客发布到github  编码转换 “Trans_To_UTF-8.py” # 请把以下脚本放至/usr/local/bin/目录下 import os,sys  def convert( filename, in_enc = &amp;quot;GBK&amp;quot;, out_enc">
+<meta name="description" content="作用  在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github  编码转换 “Trans_To_UTF-8.py” 12345678910111213141516171819202122232425262728# 请把以下脚本放至 /usr/local/bin/ 目录下import os,sysdef con">
 <meta name="keywords" content="utf-8,编码,hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="编码与文件格式转换">
 <meta property="og:url" content="http://blog.dongcj.com/linux/编码与文件格式转换/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="作用  在 windows 下使用 hexo时，经常会出现GBK编码与DOS的问题 Windows 下自动将博客发布到github  编码转换 “Trans_To_UTF-8.py” # 请把以下脚本放至/usr/local/bin/目录下 import os,sys  def convert( filename, in_enc = &amp;quot;GBK&amp;quot;, out_enc">
+<meta property="og:description" content="作用  在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github  编码转换 “Trans_To_UTF-8.py” 12345678910111213141516171819202122232425262728# 请把以下脚本放至 /usr/local/bin/ 目录下import os,sysdef con">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编码与文件格式转换">
-<meta name="twitter:description" content="作用  在 windows 下使用 hexo时，经常会出现GBK编码与DOS的问题 Windows 下自动将博客发布到github  编码转换 “Trans_To_UTF-8.py” # 请把以下脚本放至/usr/local/bin/目录下 import os,sys  def convert( filename, in_enc = &amp;quot;GBK&amp;quot;, out_enc">
+<meta name="twitter:description" content="作用  在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github  编码转换 “Trans_To_UTF-8.py” 12345678910111213141516171819202122232425262728# 请把以下脚本放至 /usr/local/bin/ 目录下import os,sysdef con">
 
 
 
@@ -453,111 +453,14 @@
       
         <h1 id="作用">作用</h1>
 <blockquote>
-<p>在 windows 下使用 hexo时，经常会出现GBK编码与DOS的问题 Windows 下自动将博客发布到github</p>
+<p>在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
 </blockquote>
 <h1 id="编码转换-trans_to_utf-8.py">编码转换 “Trans_To_UTF-8.py”</h1>
-<pre><code># 请把以下脚本放至/usr/local/bin/目录下
-import os,sys
-
-def convert( filename, in_enc = &quot;GBK&quot;, out_enc=&quot;UTF8&quot; ):
-    try:
-        print &quot;convert &quot; + filename,
-        content = open(filename).read()
-        new_content = content.decode(in_enc).encode(out_enc)
-        open(filename, &#39;w&#39;).write(new_content)
-        print &quot; done&quot;
-    except:
-        print &quot; error&quot;
-
-def explore(dir):
-    for root, dirs, files in os.walk(dir):
-        for file in files:
-            path = os.path.join(root, file)
-            convert(path)
-
-def main():
-    for path in sys.argv[1:]:
-        if os.path.isfile(path):
-            convert(path)
-        elif os.path.isdir(path):
-            explore(path)
-
-if __name__ == &quot;__main__&quot;:
-    main()</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下</span></div><div class="line"><span class="keyword">import</span> os,sys</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">( filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"convert "</span> + filename,</div><div class="line">        content = open(filename).read()</div><div class="line">        new_content = content.decode(in_enc).encode(out_enc)</div><div class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</div><div class="line">        <span class="keyword">print</span> <span class="string">" done"</span></div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">" error"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></div><div class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</div><div class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</div><div class="line">            path = os.path.join(root, file)</div><div class="line">            convert(path)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</div><div class="line">        <span class="keyword">if</span> os.path.isfile(path):</div><div class="line">            convert(path)</div><div class="line">        <span class="keyword">elif</span> os.path.isdir(path):</div><div class="line">            explore(path)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
 <h1 id="准备脚本-prepare.sh">准备脚本 “prepare.sh”</h1>
-<pre><code>POST_DIR=&quot;/cygdrive/e/blog/source/_posts&quot;
-FBS_ESC=`echo -en &quot;\033&quot;`
-COLOR_RED=&quot;${FBS_ESC}[1;31m&quot;       # Error
-COLOR_GREEN=&quot;${FBS_ESC}[1;32m&quot;;    # Success
-COLOR_YELLOW=&quot;${FBS_ESC}[1;33m&quot;    # Warning
-COLOR_CLOSE=&quot;${FBS_ESC}[0m&quot;        # Close
-
-cd $POST_DIR
-
-for i in *; do
-
-    if grep -q &quot;author: dongcj &lt;ntwk@163.com&gt;&quot; $i; then
-        echo &quot;${COLOR_GREEN}SKIP${COLOR_CLOSE}: filename: $i...&quot;
-        continue
-    fi
-
-    if file $i | grep -q &quot;CRLF&quot;; then
-        # change to unix
-        echo -n &quot;${COLOR_YELLOW}WARN${COLOR_CLOSE}: filename: $i, coverting to unix..&quot;
-        dos2unix $i &amp;&amp; echo &quot;done&quot; || echo &quot;${COLOR_RED}failed${COLOR_CLOSE}&quot;
-    fi
-
-    if ! file $i | grep -q &quot;UTF-8&quot;; then
-        # change to UTF-8
-        python /usr/local/bin/Trans_To_UTF-8.py $i &amp;&amp; echo &quot;done&quot; || echo &quot;${COLOR_RED}failed${COLOR_CLOSE}&quot;
-
-    fi
-
-    if ! ls $i | grep -q &quot;\.md$&quot;; then
-        echo -n &quot;${COLOR_YELLOW}WARN${COLOR_CLOSE}: filename: $i, renaming to ${i%.*}.md..&quot;
-
-        # rename suffix to &quot;.md&quot;
-        mv $i ${i%.*}.md &amp;&amp; echo &quot;done&quot; || echo &quot;${COLOR_RED}failed${COLOR_CLOSE}&quot;
-    else
-        echo &quot;filename: $i, skipped rename~&quot;
-    fi
-
-    no_suffix_filename=&quot;${i%.*}&quot;
-
-    # if does not have title
-    if ! grep -q &quot;title:&quot; $i; then
-
-        echo -n &quot;${COLOR_YELLOW}WARN${COLOR_CLOSE}: filename: $i, adding title..&quot;
-        sed -i &quot;1s/^/---\ntitle: $no_suffix_filename\n---\n/&quot; $i
-        echo &quot;done&quot;
-    fi
-
-    # zero title content
-    title_content=`sed -n &#39;/title: /p&#39; $i | awk -F&#39;:&#39; &#39;{print $NF}&#39; | xargs`
-    if [ -z &quot;$title_content&quot; ]; then
-        # update title when it is NULL
-        echo -n &quot;${COLOR_YELLOW}WARN${COLOR_CLOSE}: filename: $i, updating title..&quot;
-        sed -i &quot;s/title: .*/title: $no_suffix_filename/&quot; $i
-        echo &quot;done&quot;
-    else
-        echo &quot;filename: $i, skipped update~&quot;
-    fi
-
-    # add author info
-    if ! grep -q &quot;author: dongcj &lt;ntwk@163.com&gt;&quot; $i; then
-        echo -n &quot;${COLOR_YELLOW}WARN${COLOR_CLOSE}: filename: $i, updating author..&quot;
-        sed -i &#39;/title: /a author: dongcj &lt;ntwk@163.com&gt;&#39; $i
-        echo &quot;done&quot;
-    fi
-
-    echo
-done</code></pre>
-<h1 id="windows-下-更新博客.bat">Windows 下 “更新博客.bat”</h1>
-<pre><code>REM
-cd &quot;/cygdriver/d/blog&quot;
-D:
-hexo g &amp;&amp; hexo d
-echo &quot;success&quot;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></div><div class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</div><div class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></div><div class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></div><div class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></div><div class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></div><div class="line">        <span class="built_in">continue</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to unix</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></div><div class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to UTF-8</span></div><div class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></div><div class="line"></div><div class="line">        <span class="comment"># rename suffix to ".md"</span></div><div class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># if does not have title</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></div><div class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># zero title content</span></div><div class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</div><div class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></div><div class="line">        <span class="comment"># update title when it is NULL</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></div><div class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># add author info</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></div><div class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="built_in">echo</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h1 id="windows-下-更新博客-.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">REM</span></div><div class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</div><div class="line"><span class="function">D:</span></div><div class="line"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></div><div class="line"><span class="title">echo</span> "<span class="title">success</span>"</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -614,8 +517,8 @@ echo &quot;success&quot;</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="next" title="Nginx及upstreamcheck,fair模块安装">
-                <i class="fa fa-chevron-left"></i> Nginx及upstreamcheck,fair模块安装
+              <a href="/cluster/Gearman安装/" rel="next" title="Gearman 安装">
+                <i class="fa fa-chevron-left"></i> Gearman 安装
               </a>
             
           </div>
@@ -624,8 +527,8 @@ echo &quot;success&quot;</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/路由器刷机教程/" rel="prev" title="路由器刷机教程">
-                路由器刷机教程 <i class="fa fa-chevron-right"></i>
+              <a href="/monitor/Graphite安装/" rel="prev" title="Graphite 安装">
+                Graphite 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -705,7 +608,7 @@ echo &quot;success&quot;</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -727,7 +630,7 @@ echo &quot;success&quot;</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -798,7 +701,7 @@ echo &quot;success&quot;</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#作用"><span class="nav-number">1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码转换-trans_to_utf-8.py"><span class="nav-number">2.</span> <span class="nav-text">编码转换 “Trans_To_UTF-8.py”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备脚本-prepare.sh"><span class="nav-number">3.</span> <span class="nav-text">准备脚本 “prepare.sh”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-下-更新博客.bat"><span class="nav-number">4.</span> <span class="nav-text">Windows 下 “更新博客.bat”</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#作用"><span class="nav-number">1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码转换-trans_to_utf-8.py"><span class="nav-number">2.</span> <span class="nav-text">编码转换 “Trans_To_UTF-8.py”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备脚本-prepare.sh"><span class="nav-number">3.</span> <span class="nav-text">准备脚本 “prepare.sh”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#windows-下-更新博客-.bat"><span class="nav-number">4.</span> <span class="nav-text">Windows 下 " 更新博客 .bat"</span></a></li></ol></div>
             
 
           </div>

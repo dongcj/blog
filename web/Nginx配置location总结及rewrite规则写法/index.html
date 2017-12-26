@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="location正则写法 # 一个示例： location  = / {   # 精确匹配 / ，主机名后面不能带任何字符串   [ configuration A ] } location  / {   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求   # 但是正则和最长字符串会优先匹配   [ configuration B ] } location /">
+<meta name="description" content="location 正则写法 # 一个示例： location  = / {   # 精确匹配 / ，主机名后面不能带任何字符串   [ configuration A ] } location  / {   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求   # 但是正则和最长字符串会优先匹配   [ configuration B ] } location">
 <meta name="keywords" content="nginx,location,rewrite">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Nginx配置location总结及rewrite规则写法">
+<meta property="og:title" content="Nginx 配置 location 总结及 rewrite 规则写法">
 <meta property="og:url" content="http://blog.dongcj.com/web/Nginx配置location总结及rewrite规则写法/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="location正则写法 # 一个示例： location  = / {   # 精确匹配 / ，主机名后面不能带任何字符串   [ configuration A ] } location  / {   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求   # 但是正则和最长字符串会优先匹配   [ configuration B ] } location /">
+<meta property="og:description" content="location 正则写法 # 一个示例： location  = / {   # 精确匹配 / ，主机名后面不能带任何字符串   [ configuration A ] } location  / {   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求   # 但是正则和最长字符串会优先匹配   [ configuration B ] } location">
 <meta property="og:updated_time" content="2016-04-28T11:09:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Nginx配置location总结及rewrite规则写法">
-<meta name="twitter:description" content="location正则写法 # 一个示例： location  = / {   # 精确匹配 / ，主机名后面不能带任何字符串   [ configuration A ] } location  / {   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求   # 但是正则和最长字符串会优先匹配   [ configuration B ] } location /">
+<meta name="twitter:title" content="Nginx 配置 location 总结及 rewrite 规则写法">
+<meta name="twitter:description" content="location 正则写法 # 一个示例： location  = / {   # 精确匹配 / ，主机名后面不能带任何字符串   [ configuration A ] } location  / {   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求   # 但是正则和最长字符串会优先匹配   [ configuration B ] } location">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>Nginx配置location总结及rewrite规则写法 | Krrish</title>
+  <title>Nginx 配置 location 总结及 rewrite 规则写法 | Krrish</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Nginx配置location总结及rewrite规则写法</h2>
+          <h2 class="post-title" itemprop="name headline">Nginx 配置 location 总结及 rewrite 规则写法</h2>
         
 
         <div class="post-meta">
@@ -423,7 +423,7 @@
 
           
           
-             <span id="/web/Nginx配置location总结及rewrite规则写法/" class="leancloud_visitors" data-flag-title="Nginx配置location总结及rewrite规则写法">
+             <span id="/web/Nginx配置location总结及rewrite规则写法/" class="leancloud_visitors" data-flag-title="Nginx 配置 location 总结及 rewrite 规则写法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -451,7 +451,7 @@
       
 
       
-        <h1 id="location正则写法">location正则写法</h1>
+        <h1 id="location-正则写法">location 正则写法</h1>
 <pre><code># 一个示例：
 location  = / {
   # 精确匹配 / ，主机名后面不能带任何字符串
@@ -477,7 +477,7 @@ location ^~ /images/ {
   [ configuration D ]
 }
 location ~* \.(gif|jpg|jpeg)$ {
-  # 匹配所有以 gif,jpg或jpeg 结尾的请求
+  # 匹配所有以 gif,jpg 或 jpeg 结尾的请求
   # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则
   [ configuration E ]
 }
@@ -487,7 +487,7 @@ location /images/ {
 }
 location /images/abc {
   # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在
-  # F与G的放置顺序是没有关系的
+  # F 与 G 的放置顺序是没有关系的
   [ configuration G ]
 }
 location ~ /images/abc/ {
@@ -495,93 +495,93 @@ location ~ /images/abc/ {
     [ configuration H ]
 }
 location ~* /js/.*/\.js</code></pre>
-<p>=开头表示精确匹配 如 A 中只匹配根目录结尾的请求，后面不能带任何字符串。 ^~ 开头表示uri以某个常规字符串开头，不是正则匹配 ~ 开头表示区分大小写的正则匹配; ~* 开头表示不区分大小写的正则匹配 / 通用匹配, 如果没有其它匹配,任何请求都会匹配到</p>
-<p>顺序优先级： (location =) &gt; (location 完整路径) &gt; (location ^~ 路径) &gt; (location <sub>,</sub>* 正则顺序) &gt; (location 部分起始路径) &gt; (/) 上面的匹配结果</p>
-<p>按照上面的location写法，以下的匹配示例成立： /-&gt; config A 精确完全匹配，即使/index.html也匹配不了 /downloads/download.html -&gt; config B 匹配B以后，往下没有任何匹配，采用B /images/1.gif -&gt; configuration D 匹配到F，往下匹配到D，停止往下 /images/abc/def -&gt; config D 最长匹配到G，往下匹配D，停止往下</p>
-<p>你可以看到 任何以/images/开头的都会匹配到D并停止，FG写在这里是没有任何意义的，H是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到C，往下没有任何匹配，采用C /documents/1.jpg -&gt; configuration E 匹配到C，往下正则匹配到E /documents/Abc.jpg -&gt; config CC 最长匹配到C，往下正则顺序匹配到CC，不会往下到E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
-<pre><code>#直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。
-#这里是直接转发给后端应用服务器了，也可以是一个静态首页
+<p>= 开头表示精确匹配 如 A 中只匹配根目录结尾的请求，后面不能带任何字符串。 ^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配 ~ 开头表示区分大小写的正则匹配 ; ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到</p>
+<p>顺序优先级： (location =) &gt; (location 完整路径 ) &gt; (location ^~ 路径 ) &gt; (location <sub>,</sub>* 正则顺序 ) &gt; (location 部分起始路径 ) &gt; (/) 上面的匹配结果</p>
+<p>按照上面的 location 写法，以下的匹配示例成立： /-&gt; config A 精确完全匹配，即使 /index.html 也匹配不了 /downloads/download.html -&gt; config B 匹配 B 以后，往下没有任何匹配，采用 B /images/1.gif -&gt; configuration D 匹配到 F，往下匹配到 D，停止往下 /images/abc/def -&gt; config D 最长匹配到 G，往下匹配 D，停止往下</p>
+<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg -&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+<pre><code># 直接匹配网站根，通过域名访问网站首页比较频繁，使用这个会加速处理，官网如是说。
+# 这里是直接转发给后端应用服务器了，也可以是一个静态首页
 # 第一个必选规则
 
     location = / {
         proxy_pass http://tomcat:8080/index
     }
 
-# 第二个必选规则是处理静态文件请求，这是nginx作为http服务器的强项
-# 有两种配置模式，目录匹配或后缀匹配,任选其一或搭配使用 location ^~ /static/ {
+# 第二个必选规则是处理静态文件请求，这是 nginx 作为 http 服务器的强项
+# 有两种配置模式，目录匹配或后缀匹配 , 任选其一或搭配使用 location ^~ /static/ {
 root /webroot/static/; } location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
 root /webroot/res/; }
 
 # 第三个规则就是通用规则，用来转发动态请求到后端应用服务器
 # 非静态文件请求就默认是动态请求，自己根据实际把握
-# 毕竟目前的一些框架的流行，带.php,.jsp后缀的情况很少了
+# 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
 location / {
     proxy_pass http://tomcat:8080/
 }</code></pre>
 <p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
-<h1 id="rewrite规则">Rewrite规则</h1>
-<p>rewrite功能就是，使用nginx提供的全局变量或自己设置的变量，结合正则表达式和标志位实现url重写以及重定向。rewrite只能放在server{},location{},if{}中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对/a/we/index.php重写。语法rewrite regex replacement [flag];</p>
-<p>如果相对域名或参数字符串起作用，可以使用全局变量匹配，也可以使用proxy_pass反向代理。</p>
-<p>表明看rewrite和location功能有点像，都能实现跳转，主要区别在于rewrite是在同一域名内更改获取资源的路径，而location是对一类路径做控制访问或反向代理，可以proxy_pass到其他机器。很多情况下rewrite也会写在location里，它们的执行顺序是：</p>
+<h1 id="rewrite-规则">Rewrite 规则</h1>
+<p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
+<p>如果相对域名或参数字符串起作用，可以使用全局变量匹配，也可以使用 proxy_pass 反向代理。</p>
+<p>表明看 rewrite 和 location 功能有点像，都能实现跳转，主要区别在于 rewrite 是在同一域名内更改获取资源的路径，而 location 是对一类路径做控制访问或反向代理，可以 proxy_pass 到其他机器。很多情况下 rewrite 也会写在 location 里，它们的执行顺序是：</p>
 <ul>
-<li>执行server块的rewrite指令</li>
-<li>执行location匹配</li>
-<li>执行选定的location中的rewrite指令</li>
+<li>执行 server 块的 rewrite 指令</li>
+<li>执行 location 匹配</li>
+<li>执行选定的 location 中的 rewrite 指令</li>
 </ul>
-<p>如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；循环超过10次，则返回500 Internal Server Error错误。</p>
-<h2 id="flag标志位">2.1 flag标志位</h2>
-<p>last : 相当于Apache的[L]标记，表示完成rewrite break : 停止执行当前虚拟主机的后续rewrite指令集 redirect : 返回302临时重定向，地址栏会显示跳转后的地址 permanent : 返回301永久重定向，地址栏会显示跳转后的地址</p>
-<p>因为301和302不能简单的只返回状态码，还必须有重定向的URL，这就是return指令无法返回301,302的原因了。这里 last 和 break 区别有点难以理解： last一般写在server和if中，而break一般使用在location中 last不终止重写后的url匹配，即新的url会再从server走一遍匹配流程，而break终止重写后的匹配 break和last都能组织继续执行后面的rewrite指令</p>
-<h2 id="if指令与全局变量">if指令与全局变量</h2>
-<p>if判断指令 语法为if(condition){…}，对给定的条件condition进行判断。如果为真，大括号内的rewrite指令将被执行，if条件(conditon)可以是如下任何内容： 当表达式只是一个变量时，如果值为空或任何以0开头的字符串都会当做false 直接比较变量和内容时，使用=或!= <sub>正则表达式匹配，</sub>*不区分大小写的匹配，!~区分大小写的不匹配 -f和!-f用来判断是否存在文件 -d和!-d用来判断是否存在目录 -e和!-e用来判断是否存在文件或目录 -x和!-x用来判断文件是否可执行 例如：</p>
+<p>如果其中某步 URI 被重写，则重新循环执行 1-3，直到找到真实存在的文件；循环超过 10 次，则返回 500 Internal Server Error 错误。</p>
+<h2 id="flag-标志位">2.1 flag 标志位</h2>
+<p>last : 相当于 Apache 的[L]标记，表示完成 rewrite break : 停止执行当前虚拟主机的后续 rewrite 指令集 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
+<p>因为 301 和 302 不能简单的只返回状态码，还必须有重定向的 URL，这就是 return 指令无法返回 301,302 的原因了。这里 last 和 break 区别有点难以理解： last 一般写在 server 和 if 中，而 break 一般使用在 location 中 last 不终止重写后的 url 匹配，即新的 url 会再从 server 走一遍匹配流程，而 break 终止重写后的匹配 break 和 last 都能组织继续执行后面的 rewrite 指令</p>
+<h2 id="if-指令与全局变量">if 指令与全局变量</h2>
+<p>if 判断指令 语法为 if(condition){…}，对给定的条件 condition 进行判断。如果为真，大括号内的 rewrite 指令将被执行，if 条件 (conditon) 可以是如下任何内容： 当表达式只是一个变量时，如果值为空或任何以 0 开头的字符串都会当做 false 直接比较变量和内容时，使用 = 或 != ~ 正则表达式匹配，~*不区分大小写的匹配，!~ 区分大小写的不匹配 -f 和 !-f 用来判断是否存在文件 -d 和 !-d 用来判断是否存在目录 -e 和 !-e 用来判断是否存在文件或目录 -x 和 !-x 用来判断文件是否可执行 例如：</p>
 <pre><code>if ($http_user_agent ~ MSIE) {
     rewrite ^(.*)$ /msie/$1 break;
-} //如果UA包含&quot;MSIE&quot;，rewrite请求到/msid/目录下
+} // 如果 UA 包含 &quot;MSIE&quot;，rewrite 请求到 /msid/ 目录下
 if ($http_cookie ~* &quot;id=([^;]+)(?:;|$)&quot;) {
     set $id $1;
- } //如果cookie匹配正则，设置变量$id等于正则引用部分
+ } // 如果 cookie 匹配正则，设置变量 $id 等于正则引用部分
 if ($request_method = POST) {
     return 405;
-} //如果提交方法为POST，则返回状态405（Method not allowed）。return不能返回301,302
+} // 如果提交方法为 POST，则返回状态 405（Method not allowed）。return 不能返回 301,302
 if ($slow) {
     limit_rate 10k;
-} //限速，$slow可以通过 set 指令设置
+} // 限速，$slow 可以通过 set 指令设置
 if (!-f $request_filename){
     break;
     proxy_pass  http://127.0.0.1;
-} //如果请求的文件名不存在，则反向代理到localhost 。这里的break也是停止rewrite检查
+} // 如果请求的文件名不存在，则反向代理到 localhost 。这里的 break 也是停止 rewrite 检查
 if ($args ~ post=140){
     rewrite ^ http://example.com/ permanent;
-} //如果query string中包含&quot;post=140&quot;，永久重定向到example.com
+} // 如果 query string 中包含 &quot;post=140&quot;，永久重定向到 example.com
 location ~* \.(gif|jpg|png|swf|flv)$ {
     valid_referers none blocked www.jefflei.com www.leizhenfang.com;
     if ($invalid_referer) {
         return 404;
-    } //防盗链
+    } // 防盗链
 }</code></pre>
-<p>全局变量 下面是可以用作if判断的全局变量</p>
-<pre><code>$args ： #这个变量等于请求行中的参数，同$query_string
-$content_length ： 请求头中的Content-length字段。
-$content_type ： 请求头中的Content-Type字段。
-$document_root ： 当前请求在root指令中指定的值。
+<p>全局变量 下面是可以用作 if 判断的全局变量</p>
+<pre><code>$args ： # 这个变量等于请求行中的参数，同 $query_string
+$content_length ： 请求头中的 Content-length 字段。
+$content_type ： 请求头中的 Content-Type 字段。
+$document_root ： 当前请求在 root 指令中指定的值。
 $host ： 请求主机头字段，否则为服务器名称。
-$http_user_agent ： 客户端agent信息
-$http_cookie ： 客户端cookie信息
+$http_user_agent ： 客户端 agent 信息
+$http_cookie ： 客户端 cookie 信息
 $limit_rate ： 这个变量可以限制连接速率。
-$request_method ： 客户端请求的动作，通常为GET或POST。
-$remote_addr ： 客户端的IP地址。
+$request_method ： 客户端请求的动作，通常为 GET 或 POST。
+$remote_addr ： 客户端的 IP 地址。
 $remote_port ： 客户端的端口。
-$remote_user ： 已经经过Auth Basic Module验证的用户名。
-$request_filename ： 当前请求的文件路径，由root或alias指令与URI请求生成。
-$scheme ： HTTP方法（如http，https）。
-$server_protocol ： 请求使用的协议，通常是HTTP/1.0或HTTP/1.1。
+$remote_user ： 已经经过 Auth Basic Module 验证的用户名。
+$request_filename ： 当前请求的文件路径，由 root 或 alias 指令与 URI 请求生成。
+$scheme ： HTTP 方法（如 http，https）。
+$server_protocol ： 请求使用的协议，通常是 HTTP/1.0 或 HTTP/1.1。
 $server_addr ： 服务器地址，在完成一次系统调用后可以确定这个值。
 $server_name ： 服务器名称。
 $server_port ： 请求到达服务器的端口号。
-$request_uri ： 包含请求参数的原始URI，不包含主机名，如：”/foo/bar.php?arg=baz”。
+$request_uri ： 包含请求参数的原始 URI，不包含主机名，如：” /foo/bar.php?arg=baz ”。
 
-$uri ： 不带请求参数的当前URI，$uri不包含主机名，如”/foo/bar.html”。
-$document_uri ： 与$uri相同。
+$uri ： 不带请求参数的当前 URI，$uri 不包含主机名，如” /foo/bar.html ”。
+$document_uri ： 与 $uri 相同。
 例：http://localhost:88/test1/test2/test.php
 $host：localhost
 $server_port：88
@@ -591,28 +591,28 @@ $document_root：/var/www/html
 $request_filename：/var/www/html/test1/test2/test.php</code></pre>
 <h2 id="常用正则">常用正则</h2>
 <pre><code>. ： 匹配除换行符以外的任意字符
-? ： 重复0次或1次
-+ ： 重复1次或更多次
-* ： 重复0次或更多次
+? ： 重复 0 次或 1 次
++ ： 重复 1 次或更多次
+* ： 重复 0 次或更多次
 \d ：匹配数字
 ^ ： 匹配字符串的开始
 $ ： 匹配字符串的介绍
-{n} ： 重复n次
-{n,} ： 重复n次或更多次
-[c] ： 匹配单个字符c
-[a-z] ： 匹配a-z小写字母的任意一个
-小括号()之间匹配的内容，可以在后面通过$1来引用，$2表示的是前面第二个()里的内容。正则里面容易让人困惑的是\转义特殊字符。</code></pre>
-<h2 id="rewrite实例">rewrite实例</h2>
-<p>例1： http { # 定义image日志格式 log_format imagelog ‘[$time_local]’ $image_file ‘’ $image_type ‘’ $body_bytes_sent ‘’ $status; # 开启重写日志 rewrite_log on;</p>
+{n} ： 重复 n 次
+{n,} ： 重复 n 次或更多次
+[c] ： 匹配单个字符 c
+[a-z] ： 匹配 a-z 小写字母的任意一个
+小括号 () 之间匹配的内容，可以在后面通过 $1 来引用，$2 表示的是前面第二个 () 里的内容。正则里面容易让人困惑的是 \ 转义特殊字符。</code></pre>
+<h2 id="rewrite-实例">rewrite 实例</h2>
+<p>例 1： http { # 定义 image 日志格式 log_format imagelog ‘[$time_local]’ $image_file ‘’ $image_type ‘’ $body_bytes_sent ‘’ $status; # 开启重写日志 rewrite_log on;</p>
 <pre><code>server {
     root /home/www;
 
     location / {
             # 重写规则信息
             error_log logs/rewrite.log notice;
-            # 注意这里要用‘’单引号引起来，避免{}
+            # 注意这里要用‘’单引号引起来，避免 {}
             rewrite &#39;^/images/([a-z]{2})/([a-z0-9]{5})/(.*)\.(png|jpg|gif)$&#39; /data?file=$3.$4;
-            # 注意不能在上面这条规则后面加上“last”参数，否则下面的set指令不会执行
+            # 注意不能在上面这条规则后面加上“ last ”参数，否则下面的 set 指令不会执行
             set $image_file $3;
             set $image_type $4;
     }
@@ -621,7 +621,7 @@ $ ： 匹配字符串的介绍
             # 指定针对图片的日志格式，来分析图片类型和大小
             access_log logs/images.log mian;
             root /data/images;
-            # 应用前面定义的变量。判断首先文件在不在，不在再判断目录在不在，如果还不在就跳转到最后一个url里
+            # 应用前面定义的变量。判断首先文件在不在，不在再判断目录在不在，如果还不在就跳转到最后一个 url 里
             try_files /$arg_file /image404.html;
     }
     location = /image404.html {
@@ -629,11 +629,11 @@ $ ： 匹配字符串的介绍
             return 404 &quot;image not found\n&quot;;
     }</code></pre>
 <p>}</p>
-<p>对形如/images/ef/uh7b3/test.png的请求，重写到/data?file=test.png，于是匹配到location /data，先看/data/images/test.png文件存不存在，如果存在则正常响应，如果不存在则重写tryfiles到新的image404 location，直接返回404状态码。 例2：</p>
+<p>对形如 /images/ef/uh7b3/test.png 的请求，重写到 /data?file=test.png，于是匹配到 location /data，先看 /data/images/test.png 文件存不存在，如果存在则正常响应，如果不存在则重写 tryfiles 到新的 image404 location，直接返回 404 状态码。 例 2：</p>
 <pre><code>rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&amp;height=$3? last;</code></pre>
-<p>例3： 见 ssl部分页面加密 。</p>
+<p>例 3： 见 ssl 部分页面加密 。</p>
 <hr>
-<p><strong>参考</strong>: 参考以下 &gt; http://www.nginx.cn/216.html &gt; http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/ &gt; 老僧系列nginx之rewrite规则快速上手 http://fantefei.blog.51cto.com/2229719/919431 &gt; 来源： <a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" class="uri" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
+<p><strong>参考</strong>: 参考以下 &gt; http://www.nginx.cn/216.html &gt; http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/ &gt; 老僧系列 nginx 之 rewrite 规则快速上手 http://fantefei.blog.51cto.com/2229719/919431 &gt; 来源： <a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" class="uri" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
 
       
     </div>
@@ -690,8 +690,8 @@ $ ： 匹配字符串的介绍
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Git常用命令与使用/" rel="next" title="Git常用命令与使用">
-                <i class="fa fa-chevron-left"></i> Git常用命令与使用
+              <a href="/linux/Git常用命令与使用/" rel="next" title="git 常用命令与使用">
+                <i class="fa fa-chevron-left"></i> git 常用命令与使用
               </a>
             
           </div>
@@ -781,7 +781,7 @@ $ ： 匹配字符串的介绍
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -803,7 +803,7 @@ $ ： 匹配字符串的介绍
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -874,7 +874,7 @@ $ ： 匹配字符串的介绍
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#location正则写法"><span class="nav-number">1.</span> <span class="nav-text">location正则写法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rewrite规则"><span class="nav-number">2.</span> <span class="nav-text">Rewrite规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flag标志位"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 flag标志位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if指令与全局变量"><span class="nav-number">2.2.</span> <span class="nav-text">if指令与全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用正则"><span class="nav-number">2.3.</span> <span class="nav-text">常用正则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rewrite实例"><span class="nav-number">2.4.</span> <span class="nav-text">rewrite实例</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#location-正则写法"><span class="nav-number">1.</span> <span class="nav-text">location 正则写法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rewrite-规则"><span class="nav-number">2.</span> <span class="nav-text">Rewrite 规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#flag-标志位"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 flag 标志位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-指令与全局变量"><span class="nav-number">2.2.</span> <span class="nav-text">if 指令与全局变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用正则"><span class="nav-number">2.3.</span> <span class="nav-text">常用正则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rewrite-实例"><span class="nav-number">2.4.</span> <span class="nav-text">rewrite 实例</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1010,7 +1010,7 @@ $ ： 匹配字符串的介绍
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/web/Nginx配置location总结及rewrite规则写法/';
           this.page.identifier = 'web/Nginx配置location总结及rewrite规则写法/';
-          this.page.title = 'Nginx配置location总结及rewrite规则写法';
+          this.page.title = 'Nginx 配置 location 总结及 rewrite 规则写法';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';

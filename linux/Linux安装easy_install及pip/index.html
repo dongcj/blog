@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="需要先将 python2.6 升级至 2.7，请参见： python2.6升级至python2.7  安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压: $ tar">
+<meta name="description" content="需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7  安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ t">
 <meta name="keywords" content="easy_install,pip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux安装easy_install及pip">
+<meta property="og:title" content="linux 安装 easy_install 及 pip">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Linux安装easy_install及pip/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="需要先将 python2.6 升级至 2.7，请参见： python2.6升级至python2.7  安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压: $ tar">
-<meta property="og:updated_time" content="2017-12-25T02:22:42.620Z">
+<meta property="og:description" content="需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7  安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ t">
+<meta property="og:updated_time" content="2017-12-26T12:35:03.919Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux安装easy_install及pip">
-<meta name="twitter:description" content="需要先将 python2.6 升级至 2.7，请参见： python2.6升级至python2.7  安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压: $ tar">
+<meta name="twitter:title" content="linux 安装 easy_install 及 pip">
+<meta name="twitter:description" content="需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7  安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ t">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>Linux安装easy_install及pip | Krrish</title>
+  <title>linux 安装 easy_install 及 pip | Krrish</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Linux安装easy_install及pip</h2>
+          <h2 class="post-title" itemprop="name headline">linux 安装 easy_install 及 pip</h2>
         
 
         <div class="post-meta">
@@ -423,7 +423,7 @@
 
           
           
-             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux安装easy_install及pip">
+             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="linux 安装 easy_install 及 pip">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -452,18 +452,18 @@
 
       
         <blockquote>
-<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6升级至python2.7</a></p>
+<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
 </blockquote>
 <h1 id="安装-easy_install">安装 easy_install</h1>
 <pre><code># 获取软件包
 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-# 解压:
+# 解压 :
 $ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
 # 使用 Python 2.7.x 安装 setuptools
 /usr/local/bin/python2.7 setup.py install
 
 更多 easy_install 用法见： easy_install 用法</code></pre>
-<h1 id="安装pip">安装PIP</h1>
+<h1 id="安装-pip">安装 PIP</h1>
 <pre><code># 下载方法 1
 $ curl https://bootstrap.pypa.io/get-pip.py | python -
 # 下载方法 2
@@ -472,13 +472,13 @@ $ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
 # 安装方法 1
 $ yum install python-pip
 
-# 安装方法2
-$ /usr/local/bin/easy_install pip  (建议,如果升级使用此方法！)
+# 安装方法 2
+$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
 
 # 升级 pip
 $ /usr/local/bin/easy_install --upgrade pip
 
-# 升级 distribute(distribute是setuptools的替代方案，pip是easy_install的替代方案)
+# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
 $ pip install -U distribute
 
 # 升级 ez_setup
@@ -487,7 +487,7 @@ $ curl https://bootstrap.pypa.io/ez_setup.py | python -
 &gt; PIP 使用指定源，且不缓存到目录
 $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 
-&gt; 安装墙内PIP
+&gt; 安装墙内 PIP
 http://realfavicongenerator.net/</code></pre>
 <h1 id="easy_install-用法">easy_install 用法</h1>
 <pre><code># 1 直接安装：
@@ -562,8 +562,8 @@ easy_install -m PackageName</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/安装源_RedHat,CentOS备用源/" rel="next" title="安装源_RedHat,CentOS备用源">
-                <i class="fa fa-chevron-left"></i> 安装源_RedHat,CentOS备用源
+              <a href="/linux/dns/Dnsmasq使用本地host为DNS/" rel="next" title="Dnsmasq 使用本地 hosts 配置提供 DNS 服务">
+                <i class="fa fa-chevron-left"></i> Dnsmasq 使用本地 hosts 配置提供 DNS 服务
               </a>
             
           </div>
@@ -572,8 +572,8 @@ easy_install -m PackageName</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Yum,wget,apt-get,npm,gem,yast,git,goAgent代理/" rel="prev" title="Yum,wget,apt-get,npm,gem,yast,git,goAgent代理.md">
-                Yum,wget,apt-get,npm,gem,yast,git,goAgent代理.md <i class="fa fa-chevron-right"></i>
+              <a href="/linux/RedHat、CentOS国内备用安装源/" rel="prev" title="安装源_RedHat,CentOS 备用源">
+                安装源_RedHat,CentOS 备用源 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -653,7 +653,7 @@ easy_install -m PackageName</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -675,7 +675,7 @@ easy_install -m PackageName</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -746,7 +746,7 @@ easy_install -m PackageName</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-easy_install"><span class="nav-number">1.</span> <span class="nav-text">安装 easy_install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装pip"><span class="nav-number">2.</span> <span class="nav-text">安装PIP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easy_install-用法"><span class="nav-number">3.</span> <span class="nav-text">easy_install 用法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-easy_install"><span class="nav-number">1.</span> <span class="nav-text">安装 easy_install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-pip"><span class="nav-number">2.</span> <span class="nav-text">安装 PIP</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#easy_install-用法"><span class="nav-number">3.</span> <span class="nav-text">easy_install 用法</span></a></li></ol></div>
             
 
           </div>
@@ -882,7 +882,7 @@ easy_install -m PackageName</code></pre>
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/linux/Linux安装easy_install及pip/';
           this.page.identifier = 'linux/Linux安装easy_install及pip/';
-          this.page.title = 'Linux安装easy_install及pip';
+          this.page.title = 'linux 安装 easy_install 及 pip';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';

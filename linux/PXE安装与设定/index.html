@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="安装软件 # 安装的软件： dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm(不须装) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config-k">
+<meta name="description" content="��װ��� # ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm syste">
 <meta name="keywords" content="dhcp,pxe,kickstart">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PXE安装与设定">
+<meta property="og:title" content="PXE ��װ���趨">
 <meta property="og:url" content="http://blog.dongcj.com/linux/PXE安装与设定/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="安装软件 # 安装的软件： dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm(不须装) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config-k">
+<meta property="og:description" content="��װ��� # ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm syste">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PXE安装与设定">
-<meta name="twitter:description" content="安装软件 # 安装的软件： dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm(不须装) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config-k">
+<meta name="twitter:title" content="PXE ��װ���趨">
+<meta name="twitter:description" content="��װ��� # ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm syste">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>PXE安装与设定 | Krrish</title>
+  <title>PXE ��װ���趨 | Krrish</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">PXE安装与设定</h2>
+          <h2 class="post-title" itemprop="name headline">PXE ��װ���趨</h2>
         
 
         <div class="post-meta">
@@ -423,7 +423,7 @@
 
           
           
-             <span id="/linux/PXE安装与设定/" class="leancloud_visitors" data-flag-title="PXE安装与设定">
+             <span id="/linux/PXE安装与设定/" class="leancloud_visitors" data-flag-title="PXE ��װ���趨">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -451,18 +451,18 @@
       
 
       
-        <h1 id="安装软件">安装软件</h1>
-<pre><code># 安装的软件：
+        <h1 id="װ">��װ���</h1>
+<pre><code># ��װ�������
 dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
+vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
 xinetd-2.3.14-10.el5.x86_64.rpm
 tftp-server-0.42-3.1.x86_64.rpm
 pykickstart-0.43.3-1.el5.noarch.rpm
 system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
 syslinux
 
-# 关闭 selinux &amp; iptables</code></pre>
-<h1 id="dhcp配置">dhcp配置</h1>
+# �ر� selinux &amp; iptables</code></pre>
+<h1 id="dhcp">dhcp ����</h1>
 <pre><code>ddns-update-style interim;
 ignore client-updates;
 allow booting;
@@ -482,26 +482,26 @@ range dynamic-bootp 10.85.138.100 10.85.138.249;
 default-lease-time 21600;
 max-lease-time 43200;
 }</code></pre>
-<h1 id="增加-tftp-文件">增加 tftp 文件</h1>
-<pre><code>拷文件至tftpboot(注：menu.c32和pxelinux.0要从本机拷贝，否则TIMEOUT无效！)
+<h1 id="tftp-ļ">���� tftp �ļ�</h1>
+<pre><code>���ļ��� tftpboot( ע��menu.c32 �� pxelinux.0 Ҫ�ӱ������������� TIMEOUT ��Ч�� )
 $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
 $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
 
 $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
 $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default文件也可以自己修改</code></pre>
-<h1 id="配置-kickstart">配置 kickstart</h1>
-<pre><code># 在/tftpboot/pxelinux.cfg/default中添加KS入口
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default �ļ�Ҳ�����Լ��޸�</code></pre>
+<h1 id="kickstart">���� kickstart</h1>
+<pre><code># �� /tftpboot/pxelinux.cfg/default ����� KS ���
   label linux
     menu label ^Install or upgrade an existing system
     menu default
     kernel vmlinuz
     append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
-# 修改kickstart自动安装linux(见安装文件)</code></pre>
+# �޸� kickstart �Զ���װ linux( ����װ�ļ� )</code></pre>
 <blockquote>
-<p>附录：完整 DHCP 样例</p>
+<p>��¼������ DHCP ����</p>
 </blockquote>
 <pre><code>ddns-update-style interim;
 ddns-updates on;
@@ -628,8 +628,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/database/Postgresql主从配置/" rel="next" title="Postgresql主从配置">
-                <i class="fa fa-chevron-left"></i> Postgresql主从配置
+              <a href="/linux/DHCP高级配置/" rel="next" title="DHCP 高级配置">
+                <i class="fa fa-chevron-left"></i> DHCP 高级配置
               </a>
             
           </div>
@@ -638,8 +638,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="prev" title="Nginx及upstreamcheck,fair模块安装">
-                Nginx及upstreamcheck,fair模块安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="prev" title="Linux 升级 kernel 及 tcp_BBR">
+                Linux 升级 kernel 及 tcp_BBR <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -719,7 +719,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -741,7 +741,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -812,7 +812,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装软件"><span class="nav-number">1.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dhcp配置"><span class="nav-number">2.</span> <span class="nav-text">dhcp配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#增加-tftp-文件"><span class="nav-number">3.</span> <span class="nav-text">增加 tftp 文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-kickstart"><span class="nav-number">4.</span> <span class="nav-text">配置 kickstart</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#װ"><span class="nav-number">1.</span> <span class="nav-text">��װ���</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dhcp"><span class="nav-number">2.</span> <span class="nav-text">dhcp ����</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tftp-ļ"><span class="nav-number">3.</span> <span class="nav-text">���� tftp �ļ�</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kickstart"><span class="nav-number">4.</span> <span class="nav-text">���� kickstart</span></a></li></ol></div>
             
 
           </div>
@@ -948,7 +948,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/linux/PXE安装与设定/';
           this.page.identifier = 'linux/PXE安装与设定/';
-          this.page.title = 'PXE安装与设定';
+          this.page.title = 'PXE ��װ���趨';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';

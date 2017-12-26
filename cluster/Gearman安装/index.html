@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html  python gearman library home page http://samuelks.com/python-gearman/docs/  Tim Yang：利用Gearman来实现远程监控与管理 http://timyang.net/li">
+<meta name="description" content="参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html  python gearman library home page http://samuelks.com/python-gearman/docs/  Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/">
 <meta name="keywords" content="gearman">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gearman安装">
+<meta property="og:title" content="Gearman 安装">
 <meta property="og:url" content="http://blog.dongcj.com/cluster/Gearman安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html  python gearman library home page http://samuelks.com/python-gearman/docs/  Tim Yang：利用Gearman来实现远程监控与管理 http://timyang.net/li">
+<meta property="og:description" content="参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html  python gearman library home page http://samuelks.com/python-gearman/docs/  Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gearman安装">
-<meta name="twitter:description" content="参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html  python gearman library home page http://samuelks.com/python-gearman/docs/  Tim Yang：利用Gearman来实现远程监控与管理 http://timyang.net/li">
+<meta name="twitter:title" content="Gearman 安装">
+<meta name="twitter:description" content="参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html  python gearman library home page http://samuelks.com/python-gearman/docs/  Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>Gearman安装 | Krrish</title>
+  <title>Gearman 安装 | Krrish</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Gearman安装</h2>
+          <h2 class="post-title" itemprop="name headline">Gearman 安装</h2>
         
 
         <div class="post-meta">
@@ -423,7 +423,7 @@
 
           
           
-             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman安装">
+             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -457,28 +457,28 @@
 <pre><code>python gearman library home page
 http://samuelks.com/python-gearman/docs/
 
-Tim Yang：利用Gearman来实现远程监控与管理
+Tim Yang：利用 Gearman 来实现远程监控与管理
 http://timyang.net/linux/gearman-monitor/</code></pre>
-<h1 id="一安装grarmand及libgearman-devel">一、安装grarmand及libgearman-devel</h1>
-<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个php-pecl-gearman就不用第二步：安装PHP的API了)</code></pre>
-<h1 id="二安装php的api">二、安装PHP的API</h1>
+<h1 id="一安装-grarmand-及-libgearman-devel">一、安装 grarmand 及 libgearman-devel</h1>
+<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 )</code></pre>
+<h1 id="二安装-php-的-api">二、安装 PHP 的 API</h1>
 <pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
 
 $ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
 $ cd gearman-1.1.2
 $ phpize
-$ ./configure; make; make install       // 实际上是给PHP增加了个gearman的extension: /usr/lib64/php/modules/gearman.so
+$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
 
-# 增加php扩展
+# 增加 php 扩展
 $ vi /etc/php.d/gearman.ini
 ; Enable gearman extension module
 extension=gearman.so</code></pre>
-<h1 id="三启动gearmand">三、启动gearmand</h1>
-<pre><code># (如果使用默认参数，需要开启IPV6)
+<h1 id="三启动-gearmand">三、启动 gearmand</h1>
+<pre><code># ( 如果使用默认参数，需要开启 IPV6)
 
 # 可以设置成服务启动：
 $ vi /etc/sysconfig/gearmand
-    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt;根据自己需求设置--verbose
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
 
 $ service gearmand start
 
@@ -488,10 +488,10 @@ $ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 # 如果需要使用数据库
 gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-# 命令行API用法：
-$ gearman -w -f wc -- wc -l // 开启一个worker（-w）, 监听一个函数wc(-f wc)， 函数的内容为wc -l
+# 命令行 API 用法：
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
-# 将/etc/passwd 文件给函数wc进行处理
+# 将 /etc/passwd 文件给函数 wc 进行处理
 $ gearman -f wc &lt; /etc/passwd
 
 
@@ -499,7 +499,7 @@ $ gearadmin --show-jobs
       --status
       --workers
       -- ...</code></pre>
-<h1 id="php-api用法">PHP API用法：</h1>
+<h1 id="php-api-用法">PHP API 用法：</h1>
 <h2 id="worker">1. Worker:</h2>
 <pre><code>&lt;?php
 
@@ -533,7 +533,7 @@ $client-&gt;addServer();
 
 echo &quot;sending job\n&quot;;
 
-$result = $client-&gt;doNormal(&quot;reverse&quot;, &quot;Hello World!&quot;);     --&gt;这里可以换成doBackground就可以后台
+$result = $client-&gt;doNormal(&quot;reverse&quot;, &quot;Hello World!&quot;);     --&gt; 这里可以换成 doBackground 就可以后台
 
 if($result) {
     echo &quot;Success: $result\n&quot;;
@@ -594,8 +594,8 @@ if($result) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" rel="next" title="Curl、resty、httpie、httpstat、wuzz使用介绍">
-                <i class="fa fa-chevron-left"></i> Curl、resty、httpie、httpstat、wuzz使用介绍
+              <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" rel="next" title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
+                <i class="fa fa-chevron-left"></i> VirtualBox 报错 E_FAIL0x80004005 解决方案
               </a>
             
           </div>
@@ -604,8 +604,8 @@ if($result) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/storage/GlusterFS安装/" rel="prev" title="GlusterFS安装">
-                GlusterFS安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/编码与文件格式转换/" rel="prev" title="编码与文件格式转换">
+                编码与文件格式转换 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -685,7 +685,7 @@ if($result) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -707,7 +707,7 @@ if($result) {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -778,7 +778,7 @@ if($result) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一安装grarmand及libgearman-devel"><span class="nav-number">1.</span> <span class="nav-text">一、安装grarmand及libgearman-devel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二安装php的api"><span class="nav-number">2.</span> <span class="nav-text">二、安装PHP的API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三启动gearmand"><span class="nav-number">3.</span> <span class="nav-text">三、启动gearmand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-api用法"><span class="nav-number">4.</span> <span class="nav-text">PHP API用法：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#worker"><span class="nav-number">4.1.</span> <span class="nav-text">1. Worker:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">4.2.</span> <span class="nav-text">2. client:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一安装-grarmand-及-libgearman-devel"><span class="nav-number">1.</span> <span class="nav-text">一、安装 grarmand 及 libgearman-devel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二安装-php-的-api"><span class="nav-number">2.</span> <span class="nav-text">二、安装 PHP 的 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三启动-gearmand"><span class="nav-number">3.</span> <span class="nav-text">三、启动 gearmand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-api-用法"><span class="nav-number">4.</span> <span class="nav-text">PHP API 用法：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#worker"><span class="nav-number">4.1.</span> <span class="nav-text">1. Worker:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">4.2.</span> <span class="nav-text">2. client:</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -914,7 +914,7 @@ if($result) {
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/cluster/Gearman安装/';
           this.page.identifier = 'cluster/Gearman安装/';
-          this.page.title = 'Gearman安装';
+          this.page.title = 'Gearman 安装';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';

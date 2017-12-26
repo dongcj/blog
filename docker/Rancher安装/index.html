@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="准备步骤 服务器时间同步  如果不配置时间同步，可能会导致调度服务有可能不正常 最好使用 UTC time:  rm -rf /etc/localtime 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）  如果要支持 aufs，请安装 linux-image-extra 的包  重要：所有服务器需要设置外部 DNS 123456789# stop and dis">
+<meta name="description" content="准备步骤 服务器时间同步  如果不配置时间同步，可能会导致调度服务有可能不正常  最好使用 UTC time:  rm -rf /etc/localtime 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）  如果要支持 aufs，请安装 linux-image-extra 的包  重要：所有服务器需要设置外部 DNS 123456789# stop and di">
 <meta name="keywords" content="rancher,docker,caas">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Rancher安装">
+<meta property="og:title" content="Rancher 安装">
 <meta property="og:url" content="http://blog.dongcj.com/docker/Rancher安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="准备步骤 服务器时间同步  如果不配置时间同步，可能会导致调度服务有可能不正常 最好使用 UTC time:  rm -rf /etc/localtime 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）  如果要支持 aufs，请安装 linux-image-extra 的包  重要：所有服务器需要设置外部 DNS 123456789# stop and dis">
+<meta property="og:description" content="准备步骤 服务器时间同步  如果不配置时间同步，可能会导致调度服务有可能不正常  最好使用 UTC time:  rm -rf /etc/localtime 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）  如果要支持 aufs，请安装 linux-image-extra 的包  重要：所有服务器需要设置外部 DNS 123456789# stop and di">
 <meta property="og:image" content="https://i.imgur.com/TEg1m2a.png">
 <meta property="og:updated_time" content="2017-12-24T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Rancher安装">
-<meta name="twitter:description" content="准备步骤 服务器时间同步  如果不配置时间同步，可能会导致调度服务有可能不正常 最好使用 UTC time:  rm -rf /etc/localtime 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）  如果要支持 aufs，请安装 linux-image-extra 的包  重要：所有服务器需要设置外部 DNS 123456789# stop and dis">
+<meta name="twitter:title" content="Rancher 安装">
+<meta name="twitter:description" content="准备步骤 服务器时间同步  如果不配置时间同步，可能会导致调度服务有可能不正常  最好使用 UTC time:  rm -rf /etc/localtime 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）  如果要支持 aufs，请安装 linux-image-extra 的包  重要：所有服务器需要设置外部 DNS 123456789# stop and di">
 <meta name="twitter:image" content="https://i.imgur.com/TEg1m2a.png">
 
 
@@ -143,7 +143,7 @@
 
 
 
-  <title>Rancher安装 | Krrish</title>
+  <title>Rancher 安装 | Krrish</title>
   
 
 
@@ -362,7 +362,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Rancher安装</h2>
+          <h2 class="post-title" itemprop="name headline">Rancher 安装</h2>
         
 
         <div class="post-meta">
@@ -425,7 +425,7 @@
 
           
           
-             <span id="/docker/Rancher安装/" class="leancloud_visitors" data-flag-title="Rancher安装">
+             <span id="/docker/Rancher安装/" class="leancloud_visitors" data-flag-title="Rancher 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -456,7 +456,7 @@
         <h1 id="准备步骤">准备步骤</h1>
 <h2 id="服务器时间同步">服务器时间同步</h2>
 <blockquote>
-<p>如果不配置时间同步，可能会导致调度服务有可能不正常<br> 最好使用 UTC time:<br></p>
+<p>如果不配置时间同步，可能会导致调度服务有可能不正常 <br> 最好使用 UTC time:<br></p>
 </blockquote>
 <pre><code>rm -rf /etc/localtime</code></pre>
 <h2 id="支持-bbr请升级内核至-4.9-以上版本弱网环境建议">支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</h2>
@@ -469,7 +469,7 @@
 <pre><code>[root@rancher-server] echo &quot;&lt;HOSTNAME&gt;&quot; &gt;/etc/hostname &amp;&amp; hostname &lt;HOSTNAME&gt;
 [root@rancher-server] hostnamectl set-hostname svi1r01n08</code></pre>
 <h2 id="install-docker">install docker</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@rancher-server]/<span class="comment">#curl -sSL https://get.daocloud.io/docker | sh</span></div><div class="line"></div><div class="line"><span class="comment"># 官方安装脚本: https://releases.rancher.com/install-docker/1.12.sh</span></div><div class="line">[root@rancher-server]/<span class="comment">#systemctl  enable docker.service #Docker开机自启动</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 国内 DaoCloud 镜像安装</span></div><div class="line">curl -sSL https://get.daocloud.io/docker | sh</div><div class="line"></div><div class="line"><span class="comment"># Rancher 官方安装脚本</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</div><div class="line"><span class="built_in">cd</span> ./install-docker &amp;&amp; bash &lt;LATEST__XX&gt;.sh</div><div class="line"></div><div class="line"><span class="comment"># Docker 开机自启动</span></div><div class="line">systemctl  <span class="built_in">enable</span> docker.service</div></pre></td></tr></table></figure>
 <h2 id="配置-docker-加速器用于国内加速">配置 docker 加速器（用于国内加速）</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi /etc/docker/daemon.json</div><div class="line"><span class="comment"># 编辑完后重启 docker 生效</span></div></pre></td></tr></table></figure>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"registry-mirrors"</span>: [</div><div class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</div><div class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -485,28 +485,28 @@
 <h2 id="启动集群模式可选">启动集群模式（可选）</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 手动启动主</span></div><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server --db-host 192.168.1.174 --db-port 3306 --db-user cattle --db-pass cattle --db-name cattle --advertise-address 192.168.1.174</div><div class="line"></div><div class="line"><span class="comment"># 手动启动备</span></div><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server --db-host 192.168.1.174 --db-port 3306 --db-user cattle --db-pass cattle --db-name cattle --advertise-address 192.168.1.184</div></pre></td></tr></table></figure>
 <h2 id="设置-rancher-ssl">设置 Rancher ssl</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mkdir /opt/svicloud/rancher/cert</div><div class="line">cp cert.pem key.pem /opt/svicloud/rancher/cert</div><div class="line"></div><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name rancher-server-ssl \</div><div class="line">--link rancher-server \</div><div class="line">-p 80:80 -p 443:443 \</div><div class="line">-e <span class="string">'RANCHER_URL=console.100gb.org'</span> \</div><div class="line">-e <span class="string">'RANCHER_CONTAINER_NAME=rancher-server'</span> \</div><div class="line">-e <span class="string">'RANCHER_PORT=8080'</span> \</div><div class="line">-v /opt/svicloud/rancher/cert:/etc/nginx/external/ \</div><div class="line">codedevote/nginx-ssl-proxy-rancher</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/svicloud/rancher/cert</div><div class="line">cp cert.pem key.pem /opt/svicloud/rancher/cert</div><div class="line"></div><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name rancher-server-ssl \</div><div class="line">--link rancher-server \</div><div class="line">-p 80:80 -p 443:443 \</div><div class="line">-e <span class="string">'RANCHER_URL=&lt;YOUR_DOMAIN&gt;'</span> \</div><div class="line">-e <span class="string">'RANCHER_CONTAINER_NAME=rancher-server'</span> \</div><div class="line">-e <span class="string">'RANCHER_PORT=8080'</span> \</div><div class="line">-v /opt/svicloud/rancher/cert:/etc/nginx/external/ \</div><div class="line">codedevote/nginx-ssl-proxy-rancher</div></pre></td></tr></table></figure>
 <h2 id="使用-salt-进行自动化安装-serveragent">使用 Salt 进行自动化安装 Server、agent</h2>
 <blockquote>
 <p>参见 GitHub：komljen/rancher-salt</p>
 </blockquote>
 <h1 id="section"></h1>
-<h2 id="registry-v2版本的查询所有镜像">registry v2版本的查询所有镜像：</h2>
+<h2 id="registry-v2-版本的查询所有镜像">registry v2 版本的查询所有镜像：</h2>
 <blockquote>
 <p>https://github.com/docker/distribution/blob/master/docs/spec/api.md#deleting-an-image</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 1. 先查出所有的镜像</span></div><div class="line">curl https://192.168.1.111/v2/_catalog</div><div class="line"></div><div class="line"><span class="comment"># 2. 查出该镜像的tag列表</span></div><div class="line">curl https://192.168.1.111/v2/dongcj/webserver/tags/list</div><div class="line"></div><div class="line"><span class="comment"># 3. 查看详细的镜像信息</span></div><div class="line">curl https://192.168.1.111/v2/dongcj/webserver/manifests/v0.1</div><div class="line"></div><div class="line"><span class="comment"># 4、删除所给的镜像</span></div><div class="line">https://github.com/burnettk/delete-docker-registry-image</div><div class="line"></div><div class="line"><span class="comment"># 或者使用ui进行操作</span></div></pre></td></tr></table></figure>
-<h1 id="将日志展示在web-ui的日志中">将日志展示在WEB UI的日志中</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 1. 先查出所有的镜像</span></div><div class="line">curl https://192.168.1.111/v2/_catalog</div><div class="line"></div><div class="line"><span class="comment"># 2. 查出该镜像的 tag 列表</span></div><div class="line">curl https://192.168.1.111/v2/dongcj/webserver/tags/list</div><div class="line"></div><div class="line"><span class="comment"># 3. 查看详细的镜像信息</span></div><div class="line">curl https://192.168.1.111/v2/dongcj/webserver/manifests/v0.1</div><div class="line"></div><div class="line"><span class="comment"># 4、删除所给的镜像</span></div><div class="line">https://github.com/burnettk/delete-docker-registry-image</div><div class="line"></div><div class="line"><span class="comment"># 或者使用 ui 进行操作</span></div></pre></td></tr></table></figure>
+<h1 id="将日志展示在-web-ui-的日志中">将日志展示在 WEB UI 的日志中</h1>
 <pre><code>/var/log/nginx/error.log -&gt; /dev/stderr
 /var/log/ngnix/access.log -&gt; /dev/stdout</code></pre>
-<h1 id="自定义加入rancher网络">自定义加入rancher网络</h1>
-<pre><code>在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有rancher的网络IP</code></pre>
+<h1 id="自定义加入-rancher-网络">自定义加入 rancher 网络</h1>
+<pre><code>在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有 rancher 的网络 IP</code></pre>
 <h1 id="rancher-将自身也加入主机中">Rancher 将自身也加入主机中</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 需要在启动agent的参数中加 environment: CATTLE_AGENT_IP=&lt;HOST_IP&gt;</span></div><div class="line">sudo docker run -d -e CATTLE_AGENT_IP=&lt;HOST_IP&gt; --privileged \</div><div class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</div><div class="line">    rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx</div></pre></td></tr></table></figure>
-<h1 id="查询dns的所有记录">查询DNS的所有记录</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># external的DNS设置方法相同</span></div><div class="line"><span class="comment"># 进入network-services-metadata-dns-X.</span></div><div class="line">cat /etc/rancher-dns/answers.json</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 需要在启动 agent 的参数中加 environment: CATTLE_AGENT_IP=&lt;HOST_IP&gt;</span></div><div class="line">sudo docker run -d -e CATTLE_AGENT_IP=&lt;HOST_IP&gt; --privileged \</div><div class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</div><div class="line">    rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx</div></pre></td></tr></table></figure>
+<h1 id="查询-dns-的所有记录">查询 DNS 的所有记录</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># external 的 DNS 设置方法相同</span></div><div class="line"><span class="comment"># 进入 network-services-metadata-dns-X.</span></div><div class="line">cat /etc/rancher-dns/answers.json</div></pre></td></tr></table></figure>
 <blockquote>
-<p>注意：在独立的容器中（自建的），DNS只保留最后一个</p>
+<p>注意：在独立的容器中（自建的），DNS 只保留最后一个</p>
 </blockquote>
 <h1 id="rancher-lb-http-redirect-to-https">Rancher LB <code>http</code> redirect to <code>https</code></h1>
 <ul>
@@ -520,7 +520,7 @@
 </ul>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">frontend</span> http-frontend</div><div class="line">    <span class="attribute">bind</span> *:80</div><div class="line">    <span class="attribute">mode</span> http</div><div class="line">    <span class="attribute">redirect</span> scheme https code 301 if !&#123; ssl_fc &#125;</div></pre></td></tr></table></figure>
 <h1 id="rancher-lb-使用-ip-hash">Rancher LB 使用 IP Hash</h1>
-<p>在 <code>自定义 Haproxy.cfg</code> 中增加以下内容: <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">balance source</div></pre></td></tr></table></figure></p>
+<p>在 <code>自定义 Haproxy.cfg</code> 中增加以下内容 : <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">balance source</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -586,6 +586,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/m/Harbor用户手册/" rel="prev" title="Harbor 用户手册">
+                Harbor 用户手册 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -664,7 +668,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -686,7 +690,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -757,7 +761,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备步骤"><span class="nav-number">1.</span> <span class="nav-text">准备步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器时间同步"><span class="nav-number">1.1.</span> <span class="nav-text">服务器时间同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持-bbr请升级内核至-4.9-以上版本弱网环境建议"><span class="nav-number">1.2.</span> <span class="nav-text">支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要所有服务器需要设置外部-dns"><span class="nav-number">1.3.</span> <span class="nav-text">重要：所有服务器需要设置外部 DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-hostname"><span class="nav-number">1.4.</span> <span class="nav-text">设置 hostname</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-docker"><span class="nav-number">1.5.</span> <span class="nav-text">install docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-docker-加速器用于国内加速"><span class="nav-number">1.6.</span> <span class="nav-text">配置 docker 加速器（用于国内加速）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-rancher"><span class="nav-number">2.</span> <span class="nav-text">安装 Rancher</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单机安装"><span class="nav-number">2.1.</span> <span class="nav-text">单机安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ha-模式安装可选"><span class="nav-number">2.2.</span> <span class="nav-text">HA 模式安装（可选）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动集群模式可选"><span class="nav-number">2.3.</span> <span class="nav-text">启动集群模式（可选）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-rancher-ssl"><span class="nav-number">2.4.</span> <span class="nav-text">设置 Rancher ssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-salt-进行自动化安装-serveragent"><span class="nav-number">2.5.</span> <span class="nav-text">使用 Salt 进行自动化安装 Server、agent</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section"><span class="nav-number">3.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#registry-v2版本的查询所有镜像"><span class="nav-number">3.1.</span> <span class="nav-text">registry v2版本的查询所有镜像：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将日志展示在web-ui的日志中"><span class="nav-number">4.</span> <span class="nav-text">将日志展示在WEB UI的日志中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义加入rancher网络"><span class="nav-number">5.</span> <span class="nav-text">自定义加入rancher网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rancher-将自身也加入主机中"><span class="nav-number">6.</span> <span class="nav-text">Rancher 将自身也加入主机中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询dns的所有记录"><span class="nav-number">7.</span> <span class="nav-text">查询DNS的所有记录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rancher-lb-http-redirect-to-https"><span class="nav-number">8.</span> <span class="nav-text">Rancher LB http redirect to https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rancher-lb-使用-ip-hash"><span class="nav-number">9.</span> <span class="nav-text">Rancher LB 使用 IP Hash</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备步骤"><span class="nav-number">1.</span> <span class="nav-text">准备步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器时间同步"><span class="nav-number">1.1.</span> <span class="nav-text">服务器时间同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持-bbr请升级内核至-4.9-以上版本弱网环境建议"><span class="nav-number">1.2.</span> <span class="nav-text">支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重要所有服务器需要设置外部-dns"><span class="nav-number">1.3.</span> <span class="nav-text">重要：所有服务器需要设置外部 DNS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-hostname"><span class="nav-number">1.4.</span> <span class="nav-text">设置 hostname</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#install-docker"><span class="nav-number">1.5.</span> <span class="nav-text">install docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-docker-加速器用于国内加速"><span class="nav-number">1.6.</span> <span class="nav-text">配置 docker 加速器（用于国内加速）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-rancher"><span class="nav-number">2.</span> <span class="nav-text">安装 Rancher</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单机安装"><span class="nav-number">2.1.</span> <span class="nav-text">单机安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ha-模式安装可选"><span class="nav-number">2.2.</span> <span class="nav-text">HA 模式安装（可选）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动集群模式可选"><span class="nav-number">2.3.</span> <span class="nav-text">启动集群模式（可选）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-rancher-ssl"><span class="nav-number">2.4.</span> <span class="nav-text">设置 Rancher ssl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-salt-进行自动化安装-serveragent"><span class="nav-number">2.5.</span> <span class="nav-text">使用 Salt 进行自动化安装 Server、agent</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#section"><span class="nav-number">3.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#registry-v2-版本的查询所有镜像"><span class="nav-number">3.1.</span> <span class="nav-text">registry v2 版本的查询所有镜像：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将日志展示在-web-ui-的日志中"><span class="nav-number">4.</span> <span class="nav-text">将日志展示在 WEB UI 的日志中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义加入-rancher-网络"><span class="nav-number">5.</span> <span class="nav-text">自定义加入 rancher 网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rancher-将自身也加入主机中"><span class="nav-number">6.</span> <span class="nav-text">Rancher 将自身也加入主机中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询-dns-的所有记录"><span class="nav-number">7.</span> <span class="nav-text">查询 DNS 的所有记录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rancher-lb-http-redirect-to-https"><span class="nav-number">8.</span> <span class="nav-text">Rancher LB http redirect to https</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rancher-lb-使用-ip-hash"><span class="nav-number">9.</span> <span class="nav-text">Rancher LB 使用 IP Hash</span></a></li></ol></div>
             
 
           </div>
@@ -893,7 +897,7 @@
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/docker/Rancher安装/';
           this.page.identifier = 'docker/Rancher安装/';
-          this.page.title = 'Rancher安装';
+          this.page.title = 'Rancher 安装';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';

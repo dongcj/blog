@@ -97,19 +97,19 @@
 
 
 
-<meta name="description" content="curl 详细信息 curl -v www.sina.com curl --trace output.txt www.sina.com curl --trace-ascii output.txt www.sina.com curl  -s  --head  www.sina.com 上传文件 curl --form upload=@localfilename --form press">
+<meta name="description" content="curl 下载文件 123456export DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/$&amp;#123;D">
 <meta name="keywords" content="curl,resty,httpie,httpstat,wizz">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Curl、resty、httpie、httpstat、wuzz使用介绍">
+<meta property="og:title" content="Curl、resty、httpie、httpstat、wuzz 使用介绍">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="curl 详细信息 curl -v www.sina.com curl --trace output.txt www.sina.com curl --trace-ascii output.txt www.sina.com curl  -s  --head  www.sina.com 上传文件 curl --form upload=@localfilename --form press">
+<meta property="og:description" content="curl 下载文件 123456export DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/$&amp;#123;D">
 <meta property="og:image" content="http://i.imgur.com/xR2OHZ4.png">
 <meta property="og:image" content="http://i.imgur.com/fdWQco8.gif">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Curl、resty、httpie、httpstat、wuzz使用介绍">
-<meta name="twitter:description" content="curl 详细信息 curl -v www.sina.com curl --trace output.txt www.sina.com curl --trace-ascii output.txt www.sina.com curl  -s  --head  www.sina.com 上传文件 curl --form upload=@localfilename --form press">
+<meta name="twitter:title" content="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+<meta name="twitter:description" content="curl 下载文件 123456export DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/$&amp;#123;D">
 <meta name="twitter:image" content="http://i.imgur.com/xR2OHZ4.png">
 
 
@@ -144,7 +144,7 @@
 
 
 
-  <title>Curl、resty、httpie、httpstat、wuzz使用介绍 | Krrish</title>
+  <title>Curl、resty、httpie、httpstat、wuzz 使用介绍 | Krrish</title>
   
 
 
@@ -363,7 +363,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Curl、resty、httpie、httpstat、wuzz使用介绍</h2>
+          <h2 class="post-title" itemprop="name headline">Curl、resty、httpie、httpstat、wuzz 使用介绍</h2>
         
 
         <div class="post-meta">
@@ -426,7 +426,7 @@
 
           
           
-             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz使用介绍">
+             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -455,6 +455,8 @@
 
       
         <h1 id="curl">curl</h1>
+<h2 id="下载文件">下载文件</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
 <h2 id="详细信息">详细信息</h2>
 <pre><code>curl -v www.sina.com
 curl --trace output.txt www.sina.com
@@ -463,40 +465,40 @@ curl  -s  --head  www.sina.com</code></pre>
 <h2 id="上传文件">上传文件</h2>
 <pre><code>curl --form upload=@localfilename --form press=OK [URL]
 curl -T file.txt</code></pre>
-<h2 id="cookie及认证">Cookie及认证</h2>
+<h2 id="cookie-及认证">Cookie 及认证</h2>
 <pre><code>curl --cookie &quot;name=xxx&quot; www.example.com
 curl --user name@DOMAIN:password http://example.com
 
 curl -fsSL ...</code></pre>
 <h2 id="下载网页保存为文件名">下载网页保存为文件名</h2>
 <pre><code>curl -o [文件名] www.sina.com</code></pre>
-<h2 id="自动跳转重定向">自动跳转,重定向</h2>
+<h2 id="自动跳转-重定向">自动跳转 , 重定向</h2>
 <pre><code>curl -L www.sina.com</code></pre>
 <h2 id="下载并网速限制">下载并网速限制</h2>
 <pre><code>curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html</code></pre>
-<h2 id="对于https的方法添加insecure">对于https的方法，添加–insecure</h2>
+<h2 id="对于-https-的方法添加-insecure">对于 https 的方法，添加 –insecure</h2>
 <pre><code>curl --insecure -LJO https://packages.gitlab.com/gitlab</code></pre>
 <h2 id="发送表单信息">发送表单信息</h2>
 <pre><code>GET：
 curl example.com/form.cgi?data=xxx</code></pre>
-<h2 id="增加头信息-h">增加头信息(-H)</h2>
+<h2 id="增加头信息--h">增加头信息 (-H)</h2>
 <pre><code>curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com
 # 模拟服务地址（例如有些网站只能用域名访问的）
-curl –H Host:web-test.proxy-test.local http://192.168.1.2:8080
+curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080
 
 POST：(-d)
 curl -i -X POST --data &quot;data=xxx&quot;           example.com/form.cgi
 curl -i -X POST --data-urlencode &quot;date=April 1&quot;     example.com/form.cgi</code></pre>
 <h2 id="referer-e">Referer(-e)</h2>
 <pre><code>curl --referer http://www.example.com http://www.example.com</code></pre>
-<h2 id="user-agent字段-a">User Agent字段(-A)</h2>
+<h2 id="user-agent-字段--a">User Agent 字段 (-A)</h2>
 <pre><code>curl --user-agent &quot;[User Agent]&quot; http://www.example.com</code></pre>
-<h2 id="配置压缩-i-means-fetch-the-http-header-only">配置压缩(-I means “Fetch the HTTP-header only”)</h2>
+<h2 id="配置压缩--i-means-fetch-the-http-header-only">配置压缩 (-I means “Fetch the HTTP-header only”)</h2>
 <pre><code>curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom</code></pre>
 <h2 id="超时设置">超时设置</h2>
 <pre><code>--connect-timeout 3     # 3 秒连接时间
--m | --max-time   5     # 连接 5秒后自动断开</code></pre>
-<h2 id="本地socket">本地socket</h2>
+-m | --max-time   5     # 连接 5 秒后自动断开</code></pre>
+<h2 id="本地-socket">本地 socket</h2>
 <pre><code>curl --unix-socket /var/run/docker.sock http:/images/json
 or
 curl --unix-socket /var/run/docker.sock http://localhost/images/json</code></pre>
@@ -519,14 +521,14 @@ Content-Type: application/json
 1. 先得到 https://www.zabbix.com/documentation/2.0/manual/appendix/api/host/create 的 API，修改相应部分将内容 copy 至 linux 主机 /tmp/123.txt 。
 
 2. while read line; do printf &quot;%s &quot; &quot;$line&quot;; done &lt;/tmp/123.txt　将其格式化
-2. echo `cat /tmp/123.txt` --- 这样也可以...
+2. echo `cat /tmp/123.txt` --- 这样也可以 ...
 
-3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39;格式化后的内容&#39; http://192.168.0.54/api_jsonrpc.php
+3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39; 格式化后的内容 &#39; http://192.168.0.54/api_jsonrpc.php
 
-# curl命令注解：
--i|--include :  在输出中包含HTTP头(如服务器名，日期，HTTP版本等)
+# curl 命令注解：
+-i|--include :  在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 )
 -s|--silent  :  静默模式
--X|--request :  请求HTTP服务，默认为GET</code></pre>
+-X|--request :  请求 HTTP 服务，默认为 GET</code></pre>
 <hr>
 <h1 id="resty-模拟请求">resty 模拟请求</h1>
 <pre><code># install resty
@@ -638,8 +640,8 @@ $ http DELETE example.org/todos/7</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" rel="next" title="VirtualBox报错E_FAIL0x80004005解决方案">
-                <i class="fa fa-chevron-left"></i> VirtualBox报错E_FAIL0x80004005解决方案
+              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="next" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
+                <i class="fa fa-chevron-left"></i> Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs
               </a>
             
           </div>
@@ -648,8 +650,8 @@ $ http DELETE example.org/todos/7</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/cluster/Gearman安装/" rel="prev" title="Gearman安装">
-                Gearman安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Mdadm_raid10_raid5/" rel="prev" title="Mdadm_raid10_raid5">
+                Mdadm_raid10_raid5 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -729,7 +731,7 @@ $ http DELETE example.org/todos/7</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -751,7 +753,7 @@ $ http DELETE example.org/todos/7</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -822,7 +824,7 @@ $ http DELETE example.org/todos/7</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#curl"><span class="nav-number">1.</span> <span class="nav-text">curl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#详细信息"><span class="nav-number">1.1.</span> <span class="nav-text">详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传文件"><span class="nav-number">1.2.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie及认证"><span class="nav-number">1.3.</span> <span class="nav-text">Cookie及认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载网页保存为文件名"><span class="nav-number">1.4.</span> <span class="nav-text">下载网页保存为文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动跳转重定向"><span class="nav-number">1.5.</span> <span class="nav-text">自动跳转,重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载并网速限制"><span class="nav-number">1.6.</span> <span class="nav-text">下载并网速限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于https的方法添加insecure"><span class="nav-number">1.7.</span> <span class="nav-text">对于https的方法，添加–insecure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送表单信息"><span class="nav-number">1.8.</span> <span class="nav-text">发送表单信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加头信息-h"><span class="nav-number">1.9.</span> <span class="nav-text">增加头信息(-H)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referer-e"><span class="nav-number">1.10.</span> <span class="nav-text">Referer(-e)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user-agent字段-a"><span class="nav-number">1.11.</span> <span class="nav-text">User Agent字段(-A)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置压缩-i-means-fetch-the-http-header-only"><span class="nav-number">1.12.</span> <span class="nav-text">配置压缩(-I means “Fetch the HTTP-header only”)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超时设置"><span class="nav-number">1.13.</span> <span class="nav-text">超时设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地socket"><span class="nav-number">1.14.</span> <span class="nav-text">本地socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-examples"><span class="nav-number">1.15.</span> <span class="nav-text">curl examples</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#resty-模拟请求"><span class="nav-number">2.</span> <span class="nav-text">resty 模拟请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-httpie"><span class="nav-number">3.</span> <span class="nav-text">使用 httpie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#httpstat"><span class="nav-number">4.</span> <span class="nav-text">httpstat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wuzz"><span class="nav-number">5.</span> <span class="nav-text">wuzz</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#curl"><span class="nav-number">1.</span> <span class="nav-text">curl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载文件"><span class="nav-number">1.1.</span> <span class="nav-text">下载文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细信息"><span class="nav-number">1.2.</span> <span class="nav-text">详细信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传文件"><span class="nav-number">1.3.</span> <span class="nav-text">上传文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cookie-及认证"><span class="nav-number">1.4.</span> <span class="nav-text">Cookie 及认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载网页保存为文件名"><span class="nav-number">1.5.</span> <span class="nav-text">下载网页保存为文件名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动跳转-重定向"><span class="nav-number">1.6.</span> <span class="nav-text">自动跳转 , 重定向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载并网速限制"><span class="nav-number">1.7.</span> <span class="nav-text">下载并网速限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于-https-的方法添加-insecure"><span class="nav-number">1.8.</span> <span class="nav-text">对于 https 的方法，添加 –insecure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送表单信息"><span class="nav-number">1.9.</span> <span class="nav-text">发送表单信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加头信息--h"><span class="nav-number">1.10.</span> <span class="nav-text">增加头信息 (-H)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referer-e"><span class="nav-number">1.11.</span> <span class="nav-text">Referer(-e)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user-agent-字段--a"><span class="nav-number">1.12.</span> <span class="nav-text">User Agent 字段 (-A)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置压缩--i-means-fetch-the-http-header-only"><span class="nav-number">1.13.</span> <span class="nav-text">配置压缩 (-I means “Fetch the HTTP-header only”)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超时设置"><span class="nav-number">1.14.</span> <span class="nav-text">超时设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地-socket"><span class="nav-number">1.15.</span> <span class="nav-text">本地 socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-examples"><span class="nav-number">1.16.</span> <span class="nav-text">curl examples</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#resty-模拟请求"><span class="nav-number">2.</span> <span class="nav-text">resty 模拟请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-httpie"><span class="nav-number">3.</span> <span class="nav-text">使用 httpie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#httpstat"><span class="nav-number">4.</span> <span class="nav-text">httpstat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wuzz"><span class="nav-number">5.</span> <span class="nav-text">wuzz</span></a></li></ol></div>
             
 
           </div>
@@ -958,7 +960,7 @@ $ http DELETE example.org/todos/7</code></pre>
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/';
           this.page.identifier = 'linux/Curl、resty、httpie、httpstat、wuzz使用介绍/';
-          this.page.title = 'Curl、resty、httpie、httpstat、wuzz使用介绍';
+          this.page.title = 'Curl、resty、httpie、httpstat、wuzz 使用介绍';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';

@@ -100,13 +100,13 @@
 <meta name="description" content="安装好二台 postgresql  参见：http://blog.dongcj.com/m/postgresql%E5%AE%89%E8%A3%85/  # 主服务器上 $ vi /etc/profile   export PGDATA=/pgdata $ source /etc/profile  # 从服务器上 $ vi /etc/profile   export PGDA">
 <meta name="keywords" content="postgresql,pg recovery">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Postgresql主从配置">
+<meta property="og:title" content="Postgresql 主从配置">
 <meta property="og:url" content="http://blog.dongcj.com/database/Postgresql主从配置/index.html">
 <meta property="og:site_name" content="Krrish">
 <meta property="og:description" content="安装好二台 postgresql  参见：http://blog.dongcj.com/m/postgresql%E5%AE%89%E8%A3%85/  # 主服务器上 $ vi /etc/profile   export PGDATA=/pgdata $ source /etc/profile  # 从服务器上 $ vi /etc/profile   export PGDA">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Postgresql主从配置">
+<meta name="twitter:title" content="Postgresql 主从配置">
 <meta name="twitter:description" content="安装好二台 postgresql  参见：http://blog.dongcj.com/m/postgresql%E5%AE%89%E8%A3%85/  # 主服务器上 $ vi /etc/profile   export PGDATA=/pgdata $ source /etc/profile  # 从服务器上 $ vi /etc/profile   export PGDA">
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <title>Postgresql主从配置 | Krrish</title>
+  <title>Postgresql 主从配置 | Krrish</title>
   
 
 
@@ -360,7 +360,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Postgresql主从配置</h2>
+          <h2 class="post-title" itemprop="name headline">Postgresql 主从配置</h2>
         
 
         <div class="post-meta">
@@ -423,7 +423,7 @@
 
           
           
-             <span id="/database/Postgresql主从配置/" class="leancloud_visitors" data-flag-title="Postgresql主从配置">
+             <span id="/database/Postgresql主从配置/" class="leancloud_visitors" data-flag-title="Postgresql 主从配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -465,13 +465,13 @@ $ vi /etc/profile
   export PGDATA=/pgdata_backup
 $ source /etc/profile</code></pre>
 <h1 id="配置主服务器-192.168.10.11">配置主服务器 192.168.10.11</h1>
-<pre><code># 使用root帐户
+<pre><code># 使用 root 帐户
 $ mkdir /pgdata
 $ chown -R postgres:postgres /pgdata/
 
 # 配置一个账号进行主从同步
 $ su - postgres
-$ psql
+$ psql [ -p  54321 ]     # 如果修改过端口，需要指定端口
 psql$ CREATE ROLE replica login replication encrypted password &#39;replica&#39;;
 
 # 增加 replica 用户
@@ -481,7 +481,7 @@ $ vi pg_hba.conf
 
 # 配置复制参数
 $ vi postgresql.conf
-  wal_level = hot_standby     # 主为wal的主机
+  wal_level = hot_standby     # 主为 wal 的主机
   max_wal_senders = 32        # 最多几个流复制
   wal_keep_segments = 256     # 设置流复制保留最多的 log 数目，每个 log 16M
   wal_sender_timeout = 60s    # 流复制主机发送数据的超时时间
@@ -490,15 +490,15 @@ $ vi postgresql.conf
 # 修改权限
 $ chmod -R 700 /pgdata/
 
-# 重启pg
+# 重启 pg
 $ pg_ctl restart</code></pre>
 <h1 id="配置从服务器-192.168.10.12">配置从服务器 192.168.10.12</h1>
-<pre><code># 使用root帐户
-$ mkdir /pgdata_backup
-$ chown -R postgres:postgres /pgdata_backup/
+<pre><code># 使用 root 帐户
+# mkdir /pgdata_backup
+# chown -R postgres:postgres /pgdata_backup/
 
-$ su - postgres
-$ pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 23451 -U replica --password
+# su - postgres
+$ pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password
 # password is: replica
 
 $ cd /pgdata_backup
@@ -510,7 +510,7 @@ $ vi recovery.conf
   primary_conninfo = &#39;host=192.168.10.11 port=5432 user=replica password=replica&#39;
 
 $ vi postgresql.conf
-  max_connections = 1000  # (要大于主库的)
+  max_connections = 1000  # ( 要大于主库的 )
   hot_standby = on        # 说明这台机器不仅仅是用于数据归档，也用于数据查询
   max_standby_streaming_delay = 30s   # 多久向主报告一次从的状态，最长的间隔时间
   wal_receiver_status_interval = 5s   # 间隔多久将状态信息发送给主
@@ -520,7 +520,7 @@ $ chmod -R 700 /pgdata_backup/
 
 # 启动从 pg
 $ pg_ctl start</code></pre>
-<h1 id="检测">检测</h1>
+<h1 id="检测配置是否成功">检测配置是否成功</h1>
 <pre><code># 使用 ps -ef 在主从二台上检测进程状态
 # 在主上应该有 sender 进程，在从上有 receiver 进程
 
@@ -528,6 +528,32 @@ $ pg_ctl start</code></pre>
 $ psql$ select * from pg_stat_replication;
 
 # 可以看到 sender 的进程信息</code></pre>
+<h1 id="主从切换命令">主从切换命令</h1>
+<pre><code># node1 上模拟主库故障
+[postgres@node1 ~]$ pg_ctl stop -m f
+# node2 提升备库状态
+[postgres@node2 ~]$ pg_ctl promote
+# node2 更新备数据
+[postgres@node2 ~]$ createdb pgbench
+[postgres@node2 ~]$ pgbench -i -s 10 pgbench
+# node1 将以前 master 恢复为 standby
+[postgres@node1 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server=&#39;host=node2 user=postgres port=5432&#39;
+[postgres@node1 ~]$ vi /opt/pgsql/data/recovery.conf
+standby_mode = &#39;on&#39;
+primary_conninfo = &#39;host=node2 user=postgres port=5432&#39;
+recovery_target_timeline = &#39;latest&#39;
+# 启动 node1 上的数据库：
+[postgres@node1 ~]$ pg_ctl start
+# 将 node1 恢复为 master
+[postgres@node2 ~]$ pg_ctl stop -m f
+[postgres@node1 ~]$ pg_ctl promote
+[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench
+# 恢复 node2 为 standby：
+[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server=&#39;host=node1 user=postgres port=5432&#39;
+[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf
+[postgres@node2 ~]$ vi /opt/pgsql/data/recovery.conf （修改 node2 为 node1）
+# 启动 node2 上的数据库：
+[postgres@node2 ~]$ pg_ctl start</code></pre>
 
       
     </div>
@@ -582,8 +608,8 @@ $ psql$ select * from pg_stat_replication;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="next" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
-                <i class="fa fa-chevron-left"></i> Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs
+              <a href="/storage/GlusterFS安装/" rel="next" title="GlusterFS 安装">
+                <i class="fa fa-chevron-left"></i> GlusterFS 安装
               </a>
             
           </div>
@@ -592,8 +618,8 @@ $ psql$ select * from pg_stat_replication;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/PXE安装与设定/" rel="prev" title="PXE安装与设定">
-                PXE安装与设定 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="prev" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
+                Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -673,7 +699,7 @@ $ psql$ select * from pg_stat_replication;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -695,7 +721,7 @@ $ psql$ select * from pg_stat_replication;
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -766,7 +792,7 @@ $ psql$ select * from pg_stat_replication;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装好二台-postgresql"><span class="nav-number">1.</span> <span class="nav-text">安装好二台 postgresql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置主服务器-192.168.10.11"><span class="nav-number">2.</span> <span class="nav-text">配置主服务器 192.168.10.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置从服务器-192.168.10.12"><span class="nav-number">3.</span> <span class="nav-text">配置从服务器 192.168.10.12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测"><span class="nav-number">4.</span> <span class="nav-text">检测</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装好二台-postgresql"><span class="nav-number">1.</span> <span class="nav-text">安装好二台 postgresql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置主服务器-192.168.10.11"><span class="nav-number">2.</span> <span class="nav-text">配置主服务器 192.168.10.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置从服务器-192.168.10.12"><span class="nav-number">3.</span> <span class="nav-text">配置从服务器 192.168.10.12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测配置是否成功"><span class="nav-number">4.</span> <span class="nav-text">检测配置是否成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从切换命令"><span class="nav-number">5.</span> <span class="nav-text">主从切换命令</span></a></li></ol></div>
             
 
           </div>
@@ -902,7 +928,7 @@ $ psql$ select * from pg_stat_replication;
         var disqus_config = function () {
           this.page.url = 'http://blog.dongcj.com/database/Postgresql主从配置/';
           this.page.identifier = 'database/Postgresql主从配置/';
-          this.page.title = 'Postgresql主从配置';
+          this.page.title = 'Postgresql 主从配置';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://dongcj.disqus.com/embed.js';
