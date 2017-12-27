@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2017-12-27T02:42:22.920Z</updated>
+  <updated>2017-12-27T03:33:47.966Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -17,11 +17,31 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Docker安装及命令</title>
+    <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
+    <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
+    <published>2017-12-27T03:33:47.965Z</published>
+    <updated>2017-12-27T03:33:47.966Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;ubuntu-安装-docker&quot;&gt;Ubuntu 安装 docker&lt;/h1&gt;
+&lt;h2 id=&quot;先升级-kernel-及安装-linux-image-extra-的包-为了支持-bbraufs&quot;&gt;先升级 kernel 及安装 linux-image-extra-
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
     <published>2017-12-26T12:21:40.889Z</published>
-    <updated>2017-12-27T02:42:22.920Z</updated>
+    <updated>2017-12-27T03:33:51.083Z</updated>
     
     <summary type="html">
     
@@ -41,7 +61,7 @@
     <link href="http://blog.dongcj.com/m/Harbor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/"/>
     <id>http://blog.dongcj.com/m/Harbor用户手册/</id>
     <published>2017-12-26T12:21:39.337Z</published>
-    <updated>2017-12-27T02:42:19.795Z</updated>
+    <updated>2017-12-27T03:33:48.705Z</updated>
     
     <summary type="html">
     
@@ -116,26 +136,6 @@
     
     
       <category term="command" scheme="http://blog.dongcj.com/tags/command/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
-    <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2017-06-04T05:13:32.174Z</published>
-    <updated>2017-12-26T10:09:27.548Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;ubuntu安装docker&quot;&gt;Ubuntu安装docker&lt;/h1&gt;
-&lt;h2 id=&quot;先升级kernel及安装linux-image-extra-的包为了支持bbraufs&quot;&gt;先升级kernel及安装linux-image-extra-*的包(为了支持bbr、
-      
-    
-    </summary>
-    
     
   </entry>
   
@@ -253,37 +253,6 @@ yum group
   </entry>
   
   <entry>
-    <title>Centos 部署 lazy-balancer 负载均衡</title>
-    <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
-    <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2017-12-27T02:42:18.204Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /u
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
-    
-      <category term="tengine" scheme="http://blog.dongcj.com/tags/tengine/"/>
-    
-      <category term="lazy-balancer" scheme="http://blog.dongcj.com/tags/lazy-balancer/"/>
-    
-      <category term="负载均衡" scheme="http://blog.dongcj.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Linux 升级 kernel 及 tcp_BBR</title>
     <link href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/"/>
     <id>http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/</id>
@@ -310,6 +279,37 @@ $ cd /u
       <category term="bbr" scheme="http://blog.dongcj.com/tags/bbr/"/>
     
       <category term="tcp_bbr" scheme="http://blog.dongcj.com/tags/tcp-bbr/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Centos 部署 lazy-balancer 负载均衡</title>
+    <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
+    <published>2016-08-28T09:44:33.000Z</published>
+    <updated>2017-12-27T03:33:46.659Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
+$ cd /u
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
+    
+      <category term="tengine" scheme="http://blog.dongcj.com/tags/tengine/"/>
+    
+      <category term="lazy-balancer" scheme="http://blog.dongcj.com/tags/lazy-balancer/"/>
+    
+      <category term="负载均衡" scheme="http://blog.dongcj.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     
   </entry>
   
@@ -428,35 +428,6 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
-    
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
-    
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
-    
-  </entry>
-  
-  <entry>
     <title>PXE ��װ���趨</title>
     <link href="http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/"/>
     <id>http://blog.dongcj.com/linux/PXE安装与设定/</id>
@@ -484,6 +455,35 @@ xinetd-2.3.14-10.el5.
       <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
     
       <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斐讯 K2 路由器刷机</title>
+    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
+    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
+&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
+&lt;h1 id
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
+    
+      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
+    
+      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
   </entry>
   
