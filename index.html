@@ -324,306 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/Docker安装及命令/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/m/Docker安装及命令/" itemprop="url">Docker安装及命令</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-27T11:33:47+08:00">
-                2017-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/m/Docker安装及命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="m/Docker安装及命令/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/m/Docker安装及命令/" class="leancloud_visitors" data-flag-title="Docker安装及命令">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="ubuntu-安装-docker">Ubuntu 安装 docker</h1>
-<h2 id="先升级-kernel-及安装-linux-image-extra-的包-为了支持-bbraufs">先升级 kernel 及安装 linux-image-extra-*的包 ( 为了支持 bbr、aufs)</h2>
-<pre><code># 防止出现第 6 步的错误：WARNING: No swap limit support
-vi /etc/default/grub
-  GRUB_CMDLINE_LINUX_DEFAULT=&quot;cgroup_enable=memory swapaccount=1&quot;
-
-update-grub</code></pre>
-<h2 id="安装-apt-cert">安装 apt cert</h2>
-<pre><code>apt-get update
-apt-get install -y apt-transport-https  ca-certificates  curl  software-properties-common</code></pre>
-<h2 id="install-the-apt-key">install the apt key</h2>
-<pre><code>curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-# Verify the key ID
-apt-key fingerprint 0EBFCD88</code></pre>
-<h2 id="install-the-apt-repository">install the apt repository</h2>
-<pre><code>add-apt-repository &quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable&quot;</code></pre>
-<h2 id="install-docker-engine">install docker-engine</h2>
-<pre><code>apt-get update
-# 查看可用的 docker 版本
-apt-cache madison docker-engine
-
-# 安装指定的版本
-apt-get -y install docker-engine[=&lt;VERSION_STRING&gt;]</code></pre>
-<h2 id="或者直接使用以下方法安装">或者直接使用以下方法安装</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># clone 后直接脚本安装</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</div></pre></td></tr></table></figure>
-<h2 id="检查">检查</h2>
-<pre><code>docker info | grep WARN</code></pre>
-<blockquote>
-<p>WARNING: No swap limit support 解决方法见第 1 步，配置 <code>grub</code> 参数</p>
-</blockquote>
-<blockquote>
-<p>WARNING: bridge-nf-call-ip6tables is disabled 解决方法：</p>
-</blockquote>
-<pre><code>vim /etc/sysctl.conf
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.bridge.bridge-nf-call-iptables = 1
-    net.bridge.bridge-nf-call-arptables = 1
-    sysctl -p</code></pre>
-<h1 id="centos-安装-docker">CentOS 安装 docker</h1>
-<blockquote>
-<p>( 本方法只适用于 <code>centos6</code> 及以下 )</p>
-</blockquote>
-<pre><code>yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-yum install docker-io</code></pre>
-<blockquote>
-<p>( 本方法只适用于 <code>centos7</code> 及以上 )</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># remove existing docker if exist</span></div><div class="line">yum remove docker \</div><div class="line">    docker-common \</div><div class="line">    container-selinux \</div><div class="line">    docker-selinux \</div><div class="line">    docker-engine \</div><div class="line">    docker-engine-selinux</div><div class="line"></div><div class="line"><span class="comment"># 如果需要安装高版本的</span></div><div class="line">curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.10.1 &amp;&amp; chmod +x docker-1.10.1 &amp;&amp; sudo mv docker-1.10.1 /usr/<span class="built_in">local</span>/bin/docker</div></pre></td></tr></table></figure>
-<blockquote>
-<p>针对 “Error starting daemon: Devices cgroup isn’t mounted” 的解决方法：<br> 在 grub.conf 中添加 “cgroup_enable=memory swapaccount=1”</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置源</span></div><div class="line">yum install -y yum-utils</div><div class="line">yum-config-manager \</div><div class="line">    --add-repo \</div><div class="line">    https://download.docker.com/linux/centos/docker-ce.repo</div><div class="line"></div><div class="line"><span class="comment"># 启用源</span></div><div class="line">yum-config-manager --<span class="built_in">enable</span> docker-ce-edge</div><div class="line"></div><div class="line"><span class="comment"># 查找指定版本</span></div><div class="line">yum list docker-ce --showduplicates</div><div class="line"></div><div class="line"><span class="comment"># 安装指定版本</span></div><div class="line">yum install 17.03.1.ce-1.el7.centos</div><div class="line">yum list installed | grep docker</div></pre></td></tr></table></figure>
-<h1 id="配置-docker-加速器用于国内加速">配置 docker 加速器（用于国内加速）</h1>
-<p>vi /etc/docker/daemon.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"registry-mirrors"</span>: [</div><div class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</div><div class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h1 id="安装-docker-compose">安装 docker-compose</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># docker-compose VERSION:</span></div><div class="line"><span class="comment"># https://github.com/docker/compose/releases</span></div><div class="line"></div><div class="line"><span class="comment"># get the latest info</span></div><div class="line">curl -s https://api.github.com/repos/docker/compose/releases/latest | \</div><div class="line">    jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKER_COMPOSE_ARCH&#125;</span>\")) | .browser_download_url"</span></div><div class="line"></div><div class="line"><span class="comment"># download the latest version</span></div><div class="line">curl -L https://github.com/docker/compose/releases/download/<span class="variable">$dockerComposeVersion</span>/docker-compose-`uname -s`-`uname -m` &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</div><div class="line"></div><div class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</div><div class="line">docker-compose --version</div></pre></td></tr></table></figure>
-<h1 id="安装-docker-machine">安装 docker-machine</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">curl -L https://github.com/docker/machine/releases/download/v0.9.0/docker-machine-`uname -s`-`uname -m` &gt;/tmp/docker-machine</div><div class="line">chmod +x /tmp/docker-machine</div><div class="line">cp /tmp/docker-machine /usr/<span class="built_in">local</span>/bin/docker-machine</div><div class="line"></div><div class="line"><span class="comment"># 使用 docker-machine( 支持 virtualbox、阿里云等 )</span></div><div class="line"><span class="comment"># 所有的 Available driver plugins：</span></div><div class="line">&gt; https://github.com/docker/docker.github.io/blob/master/machine/AVAILABLE_DRIVER_PLUGINS.md</div><div class="line"></div><div class="line"><span class="comment"># create aws machine</span></div><div class="line">docker-machine create --driver amazonec2 --amazonec2-access-key AKI******* --amazonec2-secret-key 8T93C*******  aws-sandbox</div><div class="line"></div><div class="line"><span class="comment"># 直接使用本地服务器</span></div><div class="line">docker-machine create --driver none --url=tcp://192.168.1.112:2376 svi1r01n02</div></pre></td></tr></table></figure>
-<h1 id="docker-常用配置">docker 常用配置</h1>
-<h2 id="配置-docker-启动参数在-etcdefaultdocker-中">配置 docker 启动参数：（在 /etc/default/docker 中）</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=<span class="string">"--storage-driver=aufs --tls=true --tlscert=/var/docker/server.pem --tlskey=/var/docker/serverkey.pem -H tcp://192.168.1.112:2376"</span></div><div class="line"></div><div class="line">other_args=<span class="string">"--exec-driver=lxc \</span></div><div class="line">    --selinux-enabled [-H tcp://0.0.0.0:2376] [-b=br0]"   <span class="comment"># 如果用了 -H，连接时也要用 -H 指定 !!</span></div></pre></td></tr></table></figure>
-<h2 id="docker-使用不同的桥接方式">Docker 使用不同的桥接方式</h2>
-<pre><code>docker -d -b br0    # 前台启动
-other_args=&quot;--exec-driver=lxc --selinux-enabled -b=br0&quot;     # 加入默认选项以使用 service</code></pre>
-<h2 id="docker-存储的-login-信息位置">docker 存储的 login 信息位置</h2>
-<pre><code>~/.docker/config.json</code></pre>
-<h2 id="docker-直接使用外部块存储">docker 直接使用外部块存储</h2>
-<blockquote>
-<p>映射为 container 内部盘，可以自定义使用 read、write、mknode 操作</p>
-</blockquote>
-<pre><code>docker run --device=/dev/sdc:/dev/xvdc:[rwm] --device=/dev/sdd --device=/dev/zero:/dev/nulo -i -t ubuntu ls -l /dev/{xvdc,sdd,nulo}</code></pre>
-<h2 id="restart-policies">Restart policies</h2>
-<pre><code>docker run --restart=[always|no|on-failure|unless-stopped] redis</code></pre>
-<h2 id="向容器中增加主机名与-ip-对应-add-etchosts-entry">向容器中增加主机名与 IP 对应 (add /etc/hosts entry)</h2>
-<pre><code>docker run --add-host=docker:10.180.0.1 --rm -it debian</code></pre>
-<h2 id="设置容器的-ulimit">设置容器的 ulimit</h2>
-<pre><code>docker run --ulimit nofile=1024:1024 --rm debian sh -c &quot;ulimit -n&quot;</code></pre>
-<h2 id="docker-重启-daemon-不重启-container-以下二种方法任一种都可以">docker 重启 daemon 不重启 container, 以下二种方法任一种都可以</h2>
-<pre><code>1. 将 /etc/docker/daemon.json 中的 &quot;live-restore&quot; 设置为 true，然后 SIGHUP
-2. sudo dockerd --live-restore</code></pre>
-<h2 id="docker-daemon-的配置文件">Docker Daemon 的配置文件</h2>
-<blockquote>
-<p>可以使用 –config-file 指定，默认位置为 /etc/docker/daemon.json <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"authorization-plugins"</span>: [],</div><div class="line">    <span class="attr">"bridge"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"cluster-advertise"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"cluster-store"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"debug"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"default-ulimits"</span>: &#123;&#125;,</div><div class="line">    <span class="attr">"disable-legacy-registry"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">"dns"</span>: [],</div><div class="line">    <span class="attr">"dns-opts"</span>: [],</div><div class="line">    <span class="attr">"dns-search"</span>: [],</div><div class="line">    <span class="attr">"exec-opts"</span>: [],</div><div class="line">    <span class="attr">"fixed-cidr"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"graph"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"group"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"hosts"</span>: [],</div><div class="line">    <span class="attr">"insecure-registries"</span>: [],</div><div class="line">    <span class="attr">"labels"</span>: [],</div><div class="line">    <span class="attr">"live-restore"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"log-driver"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"log-level"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"mtu"</span>: <span class="number">0</span>,</div><div class="line">    <span class="attr">"pidfile"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"raw-logs"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">"registry-mirrors"</span>: [],</div><div class="line">    <span class="attr">"storage-driver"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"storage-opts"</span>: [],</div><div class="line">    <span class="attr">"swarm-default-advertise-addr"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlscacert"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlscert"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlskey"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlsverify"</span>: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="docker-的-api-操作">Docker 的 API 操作</h1>
-<h2 id="镜像">镜像</h2>
-<pre><code>curl --unix-socket /var/run/docker.sock http://localhost/images/json</code></pre>
-<h2 id="events">events</h2>
-<pre><code>curl --no-buffer -XGET --unix-socket /var/run/docker.sock http://localhost/events</code></pre>
-<h2 id="container-信息">container 信息</h2>
-<pre><code>curl --unix-socket /var/run/docker.sock &quot;http://localhost/containers/json?all=1&amp;before=8dfafdbc3a40&amp;size=1&quot;</code></pre>
-<h1 id="docker-小技巧">Docker 小技巧</h1>
-<h2 id="set-metadata-on-container">set metadata on container</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ( 如下设置了一个 my-label="" 和 com.example.foo=bar)</span></div><div class="line"></div><div class="line">docker run -l my-label --label com.example.foo=bar ubuntu bash</div><div class="line">docker run --label-file ./labels ubuntu bash</div><div class="line"></div><div class="line"><span class="comment"># cat ./labels</span></div><div class="line">com.example.label1=<span class="string">"a label"</span></div><div class="line"></div><div class="line"><span class="comment"># this is a comment</span></div><div class="line">com.example.label2=another\ label</div><div class="line">com.example.label3</div></pre></td></tr></table></figure>
-<h2 id="直接设置-sysctl-不能与-networkhost-同用">直接设置 sysctl( 不能与 –network=host 同用 )</h2>
-<pre><code>docker run --sysctl net.ipv4.ip_forward=1 ubuntu</code></pre>
-<h2 id="从-container-的变化中新建一个-image">从 container 的变化中新建一个 image</h2>
-<pre><code>docker commit $CONTAINER_ID [REPOSITORY[:TAG]]</code></pre>
-<h2 id="docker-传递变量进系统-类似从-kernel-传递至-env-效果一样">docker 传递变量进系统 , 类似从 kernel 传递至 env 效果一样</h2>
-<pre><code>dock run &lt;IMAGEID&gt;:TAG --env-file=xx.yaml</code></pre>
-<h1 id="常用-docker-命令">常用 Docker 命令</h1>
-<h2 id="备份容器中的数据将容器中的数据目录拷贝至当前目录下">备份容器中的数据（将容器中的数据目录拷贝至当前目录下）</h2>
-<pre><code>docker run --rm --volume-from dbdata -v ${pwd}:/backup  ubuntu tar cvf /backup/backup.tar /dbdata</code></pre>
-<h2 id="docker-将本地目录映射给-container">Docker 将本地目录映射给 container</h2>
-<pre><code>docker run -it --rm -v /mnt/Docker:/usr/Download  matthewdailey/ubuntu-openbr:v1 /bin/bash</code></pre>
-<blockquote>
-<p>/mnt/Docker 为宿主机目录 :/usr/Download 为 container 里的目录 (Download 不存在也可 )</p>
-</blockquote>
-<blockquote>
-<p>如果仅使用 -v 选项，则可以将目录 share 出来，供其它 container 共享（使用 –volumes-from=SHARED_CONTAINER_ID）</p>
-</blockquote>
-<h2 id="端口映射">端口映射</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ( 把 container 里的 80 端口映射为本机的 808 )</span></div><div class="line">docker run --rm -d -p 0.0.0.0:808:80 -h HOSTNAME --name NAME -e USER=root -w /opt/ --sig-proxy=<span class="literal">true</span> ehazlett/shipyard sh -c <span class="string">"service httpd start &amp;&amp; tail -f /var/log/httpd/error_log"</span></div></pre></td></tr></table></figure>
-<h2 id="已运行容器通过-iptbles-来-nat">已运行容器通过 iptbles 来 nat</h2>
-<pre><code>iptables -t nat -A  DOCKER -p tcp --dport 3306 -j DNAT --to-destination 172.17.0.2:3306</code></pre>
-<h2 id="使用---link-选项在多个容器内启动">使用 <code>--link</code> 选项在多个容器内启动</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">docker run --rm --name newcentury_mysql -p 3306 \</div><div class="line">    -e HUGINN_MYSQL_DATABASE=huginn \</div><div class="line">    -e HUGINN_MYSQL_USER=huginn \</div><div class="line">    -e HUGINN_MYSQL_PASSWORD=somethingsecret \</div><div class="line">    -e HUGINN_MYSQL_ROOT_PASSWORD=somethingevenmoresecret \</div><div class="line">    cantino/huginn</div><div class="line">docker run --rm --name huginn --link newcentury_mysql:MYSQL -p 5000:5000 \</div><div class="line">    -e HUGINN_DATABASE_NAME=huginn \</div><div class="line">    -e HUGINN_DATABASE_USER=huginn \</div><div class="line">    -e HUGINN_DATABASE_PASSWORD=somethingsecret \</div><div class="line">    cantino/huginn</div></pre></td></tr></table></figure>
-<h1 id="docker-inspect">Docker Inspect</h1>
-<h2 id="如果镜像和名字重名使用-type-区分">如果镜像和名字重名，使用 –type 区分</h2>
-<pre><code>docker inspect --type=image rhel7</code></pre>
-<h2 id="docker-inspect-结合-go-templates-的好处">Docker Inspect 结合 Go Templates 的好处</h2>
-<h3 id="获取正在运行的容器-ip-的示例">获取正在运行的容器 IP 的示例</h3>
-<pre><code>container_ip=$(docker inspect --format &#39;{{.NetworkSettings.IPAddress}}&#39; ${container_id})</code></pre>
-<h3 id="docker-inspect-输出结果的解析">docker inspect 输出结果的解析</h3>
-<blockquote>
-<p>这里会解析出所有的 IP 地址</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">docker inspect `docker ps -q` | grep IPAddress | cut -d <span class="string">'"'</span> -f 4</div><div class="line"><span class="comment"># 或者</span></div><div class="line">docker inspect `dl` | jq -r <span class="string">'.[0].NetworkSettings.IPAddress'</span></div></pre></td></tr></table></figure>
-<h3 id="get-the-ip-address-of-a-container">get the IP address of a container</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">docker inspect \</div><div class="line">  --format=<span class="string">'&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;'</span> \</div><div class="line">  d2cc496561d6</div><div class="line"></div><div class="line">172.17.0.2</div></pre></td></tr></table></figure>
-<h3 id="格式化输出">格式化输出</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 以 json 的格式展示</span></div><div class="line">docker inspect --format <span class="string">'&#123;&#123;json .Mounts&#125;&#125;'</span> pensive_blackwell</div><div class="line"><span class="comment"># 大小写</span></div><div class="line">docker inspect --format <span class="string">"&#123;&#123;lower .Name&#125;&#125;"</span> pensive_blackwell</div></pre></td></tr></table></figure>
-<h3 id="listing-all-port-bindings">Listing all port bindings</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">docker inspect \</div><div class="line">  --format=<span class="string">'&#123;&#123;range $p, $conf := .NetworkSettings.Ports&#125;&#125; \</span></div><div class="line">  &#123;&#123;$p&#125;&#125; -&gt; &#123;&#123;(index $conf 0).HostPort&#125;&#125; &#123;&#123;end&#125;&#125;' \</div><div class="line">  d2cc496561d6</div><div class="line"></div><div class="line">  80/tcp -&gt; 80</div></pre></td></tr></table></figure>
-<h3 id="getting-size-information-on-a-container">Getting size information on a container</h3>
-<pre><code>docker inspect -s d2cc496561d6 |　grep -i Size</code></pre>
-<h3 id="找到-container-的-pid">找到 container 的 pid</h3>
-<pre><code>PID=$(docker inspect --format {{.State.Pid}} &lt;container_name_or_ID&gt;)</code></pre>
-<h3 id="找到-container-使用的镜像">找到 container 使用的镜像</h3>
-<pre><code>docker inspect -f &#39;{{.Config.Image}}&#39; 5cf58382b2f0</code></pre>
-<h3 id="logging-driver">logging driver</h3>
-<pre><code>docker inspect -f &#39;{{.HostConfig.LogConfig.Type}}&#39; &lt;CONTAINER&gt;</code></pre>
-<blockquote>
-<p>详见：https://docs.docker.com/engine/admin/logging/overview/</p>
-</blockquote>
-<h3 id="匹配所有暴露-exposed-的端口">匹配所有暴露 (exposed) 的端口</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 格式 host:port , 并且把他们输入一个 java properties 文件：</span></div><div class="line">sut_ip=<span class="variable">$&#123;BOOT_2_DOCKER_HOST_IP&#125;</span></div><div class="line">template=<span class="string">'&#123;&#123; range $key, $value := .NetworkSettings.Ports &#125;&#125;&#123;&#123; $key &#125;&#125;='</span><span class="string">"<span class="variable">$&#123;BOOT_2_DOCKER_HOST_IP&#125;</span>:"</span><span class="string">'&#123;&#123; (index $value 0).HostPort &#125;&#125; &#123;&#123; end &#125;&#125;'</span></div><div class="line">tomcat_host_port=$(docker inspect --format=<span class="string">"<span class="variable">$&#123;template&#125;</span>"</span> <span class="variable">$&#123;container_id&#125;</span>)</div><div class="line"><span class="keyword">for</span> line <span class="keyword">in</span> <span class="variable">$&#123;tomcat_host_port&#125;</span> ; <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;line&#125;</span>"</span> &gt;&gt; <span class="variable">$&#123;work_dir&#125;</span>/docker_container_hosts.properties</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
-<h3 id="在一个容器中监控另一个容器中的日志文件和文件的使用">在一个容器中监控另一个容器中的日志文件和文件的使用</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 你可以看看 volumes , 例如，检查 tomcat 是否启动：</span></div><div class="line">tomcat_id=$(docker run -d -v /var/<span class="built_in">log</span>/tomcat6 wouterd/tomcat6)</div><div class="line"><span class="comment"># Give Tomcat some time to wake up...</span></div><div class="line">sleep 5</div><div class="line"><span class="keyword">while</span> ! docker run --rm --volumes-from <span class="variable">$&#123;tomcat_id&#125;</span> busybox /bin/sh -c <span class="string">"grep -i -q 'INFO: Server startup in' /var/log/tomcat6/catalina*.log"</span> ; <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> -n <span class="string">"."</span></div><div class="line">    sleep 5</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
-<h1 id="volume">Volume</h1>
-<blockquote>
-<p>http://dockone.io/article/128</p>
-</blockquote>
-<h1 id="network">Network</h1>
-<blockquote>
-<p>https://docs.docker.com/articles/networking/</p>
-</blockquote>
-<h1 id="docker-image-step-by-step">docker image step by step</h1>
-<h2 id="目录结构">目录结构</h2>
-<p>目录大体分为两个：一个是 blobs，一个是 repositories。blobs 中主要存放数据文件，可以看出都是经过 sha256 计算后的 ID。repositories 目录中放镜像的描述信息，记录了一个镜像有哪些 layer，tag 对应的 manifest 文件，link 文件是一个文本文件，内容是一个形如“ sha256:cf34a09a90b54c …”的 64 位 ID，这个 ID 对应在 blob 中的文件其实就是这个 image 的 manifest 文件。</p>
-<h2 id="manifest-文件">manifest 文件</h2>
-<p>manifest 文件描述了一个镜像的元信息，包括了 layer 的数据 ID，layer 的配置等，文件格式是 json 形式的文本文件。</p>
-<h2 id="构建属于自己的原生-docker-images">构建属于自己的原生 docker images</h2>
-<blockquote>
-<p>https://my.oschina.net/xxbAndy/blog/733987</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/SSH_config_proxycommand/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1370,6 +1070,242 @@ rm -f md5sums; find -type f -not -name md5sums -not -name boot.cat -exec md5sum 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">查看系统中所有已经安装的包：rpm -qa 如果分页查看加上｜ more</div><div class="line">查询一个已经安装的文件属于哪个软件包：rpm -qf 文件名</div><div class="line">查询已安装软件包都安装到何处：rpm -ql 软件名 或 rpmquery -ql 软件名</div><div class="line">查询一个已安装软件包的信息：rpm -qi 软件名</div><div class="line">查看一下已安装软件的配置文件：rpm -qc 软件名</div><div class="line">查看一个已经安装软件的文档安装位置：rpm -qd 软件名</div><div class="line">查看一下已安装软件所依赖的软件包及文件：rpm -qR 软件名</div><div class="line"></div><div class="line">对未安装软件的查询</div><div class="line">查看一个软件包的用途、版本等信息：rpm -qpi file.rpm</div><div class="line">查看一件软件包所包含的文件：rpm -qpl file.rpm</div><div class="line">查看软件包的文档所在的位置：rpm -qpd file.rpm</div><div class="line">查看一个软件包的配置文件：rpm -qpc file.rpm</div><div class="line">查看一个软件包的依赖关系：rpm -qpR file.rpm</div></pre></td></tr></table></figure>
 <h1 id="apt-getdpkgapt-cache">apt-get、dpkg、apt-cache</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># apt-get install packagename ——安装一个新软件包（参见下文的 aptitude）</span></div><div class="line"><span class="comment"># apt-get remove packagename ——卸载一个已安装的软件包（保留配置文件）</span></div><div class="line"><span class="comment"># apt-get --purge remove packagename ——卸载一个已安装的软件包（删除配置文件）</span></div><div class="line"><span class="comment"># apt-get autoclean apt 会把已装或已卸的软件都备份在硬盘上，所以如果需要空间的话，可以让这个命令来删除你已经删掉的软件</span></div><div class="line"><span class="comment"># apt-get clean 这个命令会把安装的软件的备份也删除，不过这样不会影响软件的使用的。</span></div><div class="line"><span class="comment"># apt-get upgrade ——更新所有已安装的软件包</span></div><div class="line"><span class="comment"># apt-get dist-upgrade ——将系统升级到新版本</span></div><div class="line"></div><div class="line"><span class="comment"># dpkg -i package 	安装一个 Debian 包</span></div><div class="line"><span class="comment"># dpkg -i --force-overwrite-i package 	强制安装软件</span></div><div class="line"><span class="comment"># dpkg -i --force-all package 		不顾一切的强制安装软件</span></div><div class="line"></div><div class="line"><span class="comment"># dpkg -r package 删除包</span></div><div class="line"><span class="comment"># dpkg -r --purge --force-deps package 强制移除软件</span></div><div class="line"><span class="comment"># dpkg -P package 删除包（包括配置文件）</span></div><div class="line"></div><div class="line"><span class="comment"># dpkg -l    列出当前已安装的包</span></div><div class="line"><span class="comment"># dpkg -l "*package*"   显示该包的版本等相关信息 ( 可通配 )</span></div><div class="line"><span class="comment"># dpkg --get-selections 列出系统中所有安装的软件</span></div><div class="line"><span class="comment"># dpkg -L package 列出与该包关联的文件</span></div><div class="line"><span class="comment"># dpkg -I package 显示特定包的详细信息</span></div><div class="line"></div><div class="line"><span class="comment"># dpkg -unpack package.deb 解开 deb 包的内容</span></div><div class="line"><span class="comment"># dpkg -s package 报告特定包的状态</span></div><div class="line"><span class="comment"># dpkg -S keyword 搜索所属的包内容</span></div><div class="line"><span class="comment"># dpkg -c package.deb 列出 deb 包的内容</span></div><div class="line"></div><div class="line"><span class="comment"># dpkg --configure package 配置包</span></div><div class="line"><span class="comment"># dpkg --pending --remove 移除多余的软件</span></div><div class="line"></div><div class="line">First column: Desired</div><div class="line">u <span class="keyword">for</span> Unknown</div><div class="line">i <span class="keyword">for</span> Install</div><div class="line">r <span class="keyword">for</span> Remove</div><div class="line">p <span class="keyword">for</span> Purge</div><div class="line">h <span class="keyword">for</span> Hold</div><div class="line"></div><div class="line">Second column: Status</div><div class="line">n <span class="keyword">for</span> Not Installed</div><div class="line">i <span class="keyword">for</span> Installed</div><div class="line">c <span class="keyword">for</span> Config-files</div><div class="line">u <span class="keyword">for</span> Unpacked</div><div class="line">f <span class="keyword">for</span> Failed-config</div><div class="line">h <span class="keyword">for</span> Half-installed</div><div class="line"></div><div class="line">Third column: Err? (error?) — If <span class="keyword">in</span> uppercase, bad errors.</div><div class="line">  <span class="keyword">for</span> (none)</div><div class="line">h <span class="keyword">for</span> Hold</div><div class="line">r <span class="keyword">for</span> Reinst-required</div><div class="line">x <span class="keyword">for</span> both-problems</div><div class="line"></div><div class="line">如：rc 状态的包是指卸载了包却保留了配置文件。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># apt-cache search string ——在软件包列表中搜索字符串</span></div><div class="line"><span class="comment"># apt-cache showpkg pkgs ——显示软件包信息。</span></div><div class="line"><span class="comment"># apt-cache dumpavail ——打印可用软件包列表。</span></div><div class="line"><span class="comment"># apt-cache show pkgs ——显示软件包记录，类似于 dpkg – print-avail。</span></div><div class="line"><span class="comment"># apt-cache pkgnames ——打印软件包列表中所有软件包的名称。</span></div><div class="line"><span class="comment"># aptitude ——详细查看已安装或可用的软件包。与 apt-get 类似，aptitude 可以通过命令行方式调用，但仅限于某些命令——最常见的有安装和卸载命令。由于 aptitude 比 apt-get 了解更多信息，可以说它更适合用来进行安装和卸载。</span></div><div class="line"></div><div class="line"><span class="comment"># apt-file search</span></div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/Docker安装及命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/m/Docker安装及命令/" itemprop="url">Docker 安装及命令</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-04T13:13:32+08:00">
+                2017-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/m/Docker安装及命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="m/Docker安装及命令/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/m/Docker安装及命令/" class="leancloud_visitors" data-flag-title="Docker 安装及命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="ubuntu-安装-docker">Ubuntu 安装 docker</h1>
+<h2 id="升级-kernel-及安装-linux-image-extra--包">升级 kernel 及安装 linux-image-extra-* 包</h2>
+<blockquote>
+<p>为了支持 bbr、aufs，必须安装 extra, 详见：<a href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/">Linux 升级 kernel 及 tcp_BBR</a></p>
+</blockquote>
+<h2 id="安装-docker">安装 docker</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># clone 后直接脚本安装</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</div></pre></td></tr></table></figure>
+<h2 id="检查">检查</h2>
+<pre><code>docker info | grep WARN</code></pre>
+<blockquote>
+<p>WARNING: No swap limit support 解决方法见第 1 步，配置 <code>grub</code> 参数</p>
+</blockquote>
+<blockquote>
+<p>WARNING: bridge-nf-call-ip6tables is disabled 解决方法：</p>
+</blockquote>
+<pre><code>vim /etc/sysctl.conf
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.bridge.bridge-nf-call-iptables = 1
+    net.bridge.bridge-nf-call-arptables = 1
+
+sysctl -p</code></pre>
+<h1 id="centos-安装-docker">CentOS 安装 docker</h1>
+<blockquote>
+<p>( 本方法只适用于 <code>centos6</code> 及以下 )</p>
+</blockquote>
+<pre><code>yum -y install http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+yum install docker-io</code></pre>
+<blockquote>
+<p>( 本方法只适用于 <code>centos7</code> 及以上 )</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># remove existing docker if exist</span></div><div class="line">yum remove docker \</div><div class="line">    docker-common \</div><div class="line">    container-selinux \</div><div class="line">    docker-selinux \</div><div class="line">    docker-engine \</div><div class="line">    docker-engine-selinux</div><div class="line"></div><div class="line"><span class="comment"># 如果需要安装高版本的</span></div><div class="line">curl -sSL -O https://get.docker.com/builds/Linux/x86_64/docker-1.10.1 &amp;&amp; chmod +x docker-1.10.1 &amp;&amp; sudo mv docker-1.10.1 /usr/<span class="built_in">local</span>/bin/docker</div></pre></td></tr></table></figure>
+<blockquote>
+<p>针对 “Error starting daemon: Devices cgroup isn’t mounted” 的解决方法：<br> 在 grub.conf 中添加 “cgroup_enable=memory swapaccount=1”</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置源</span></div><div class="line">yum install -y yum-utils</div><div class="line"></div><div class="line">yum-config-manager \</div><div class="line">    --add-repo \</div><div class="line">    https://download.docker.com/linux/centos/docker-ce.repo</div><div class="line"></div><div class="line"><span class="comment"># 启用源</span></div><div class="line">yum-config-manager --<span class="built_in">enable</span> docker-ce-edge</div><div class="line"></div><div class="line"><span class="comment"># 查找指定版本</span></div><div class="line">yum list docker-ce --showduplicates</div><div class="line"></div><div class="line"><span class="comment"># 安装指定版本</span></div><div class="line">yum install 17.03.1.ce-1.el7.centos</div><div class="line">yum list installed | grep docker</div></pre></td></tr></table></figure>
+<h1 id="配置-docker-加速器用于国内加速">配置 docker 加速器（用于国内加速）</h1>
+<p>vi /etc/docker/daemon.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"registry-mirrors"</span>: [</div><div class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</div><div class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="安装-docker-compose">安装 docker-compose</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># docker-compose VERSION:</span></div><div class="line"><span class="comment"># https://github.com/docker/compose/releases</span></div><div class="line"></div><div class="line"><span class="comment"># get the latest info</span></div><div class="line">curl -s https://api.github.com/repos/docker/compose/releases/latest | \</div><div class="line">    jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKER_COMPOSE_ARCH&#125;</span>\")) | .browser_download_url"</span></div><div class="line"></div><div class="line"><span class="comment"># download the latest version</span></div><div class="line">curl -L https://github.com/docker/compose/releases/download/<span class="variable">$dockerComposeVersion</span>/docker-compose-`uname -s`-`uname -m` &gt; /usr/<span class="built_in">local</span>/bin/docker-compose</div><div class="line"></div><div class="line">sudo chmod +x /usr/<span class="built_in">local</span>/bin/docker-compose</div><div class="line">docker-compose --version</div></pre></td></tr></table></figure>
+<h1 id="安装-docker-machine">安装 docker-machine</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">curl -L https://github.com/docker/machine/releases/download/v0.9.0/docker-machine-`uname -s`-`uname -m` &gt;/tmp/docker-machine</div><div class="line">chmod +x /tmp/docker-machine</div><div class="line">cp /tmp/docker-machine /usr/<span class="built_in">local</span>/bin/docker-machine</div><div class="line"></div><div class="line"><span class="comment"># 使用 docker-machine( 支持 virtualbox、阿里云等 )</span></div><div class="line"><span class="comment"># 所有的 Available driver plugins：</span></div><div class="line">&gt; https://github.com/docker/docker.github.io/blob/master/machine/AVAILABLE_DRIVER_PLUGINS.md</div><div class="line"></div><div class="line"><span class="comment"># create aws machine</span></div><div class="line">docker-machine create --driver amazonec2 --amazonec2-access-key AKI******* --amazonec2-secret-key 8T93C*******  aws-sandbox</div><div class="line"></div><div class="line"><span class="comment"># 直接使用本地服务器</span></div><div class="line">docker-machine create --driver none --url=tcp://192.168.1.112:2376 svi1r01n02</div></pre></td></tr></table></figure>
+<h1 id="docker-常用配置">docker 常用配置</h1>
+<h2 id="配置-docker-启动参数在-etcdefaultdocker-中">配置 docker 启动参数：（在 /etc/default/docker 中）</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=<span class="string">"--storage-driver=aufs --tls=true --tlscert=/var/docker/server.pem --tlskey=/var/docker/serverkey.pem -H tcp://192.168.1.112:2376"</span></div><div class="line"></div><div class="line">other_args=<span class="string">"--exec-driver=lxc \</span></div><div class="line">    --selinux-enabled [-H tcp://0.0.0.0:2376] [-b=br0]"   <span class="comment"># 如果用了 -H，连接时也要用 -H 指定 !!</span></div></pre></td></tr></table></figure>
+<h2 id="docker-使用不同的桥接方式">Docker 使用不同的桥接方式</h2>
+<pre><code>docker -d -b br0    # 前台启动
+other_args=&quot;--exec-driver=lxc --selinux-enabled -b=br0&quot;     # 加入默认选项以使用 service</code></pre>
+<h2 id="docker-直接使用外部块存储">docker 直接使用外部块存储</h2>
+<blockquote>
+<p>映射为 container 内部盘，可以自定义使用 read、write、mknode 操作</p>
+</blockquote>
+<pre><code>docker run --device=/dev/sdc:/dev/xvdc:[rwm] --device=/dev/sdd --device=/dev/zero:/dev/nulo -i -t ubuntu ls -l /dev/{xvdc,sdd,nulo}</code></pre>
+<h2 id="restart-policies">Restart policies</h2>
+<pre><code>docker run --restart=[always|no|on-failure|unless-stopped] redis</code></pre>
+<h2 id="向容器中增加主机名与-ip-对应-add-etchosts-entry">向容器中增加主机名与 IP 对应 (add /etc/hosts entry)</h2>
+<pre><code>docker run --add-host=docker:10.180.0.1 --rm -it debian</code></pre>
+<h2 id="设置容器的-ulimit">设置容器的 ulimit</h2>
+<pre><code>docker run --ulimit nofile=1024:1024 --rm debian sh -c &quot;ulimit -n&quot;</code></pre>
+<h2 id="docker-重启-daemon-不重启-container">docker 重启 daemon 不重启 container</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 以下二种方法任一种都可以</span></div><div class="line">  - 将 /etc/docker/daemon.json 中的 <span class="string">"live-restore"</span> 设置为 <span class="literal">true</span>，然后 SIGHUP</div><div class="line">  - sudo dockerd --live-restore</div></pre></td></tr></table></figure>
+<h2 id="docker-daemon-的配置文件">Docker Daemon 的配置文件</h2>
+<blockquote>
+<p>可以使用 –config-file 指定，默认位置为 /etc/docker/daemon.json <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"authorization-plugins"</span>: [],</div><div class="line">    <span class="attr">"bridge"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"cluster-advertise"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"cluster-store"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"debug"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"default-ulimits"</span>: &#123;&#125;,</div><div class="line">    <span class="attr">"disable-legacy-registry"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">"dns"</span>: [],</div><div class="line">    <span class="attr">"dns-opts"</span>: [],</div><div class="line">    <span class="attr">"dns-search"</span>: [],</div><div class="line">    <span class="attr">"exec-opts"</span>: [],</div><div class="line">    <span class="attr">"fixed-cidr"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"graph"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"group"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"hosts"</span>: [],</div><div class="line">    <span class="attr">"insecure-registries"</span>: [],</div><div class="line">    <span class="attr">"labels"</span>: [],</div><div class="line">    <span class="attr">"live-restore"</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">"log-driver"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"log-level"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"mtu"</span>: <span class="number">0</span>,</div><div class="line">    <span class="attr">"pidfile"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"raw-logs"</span>: <span class="literal">false</span>,</div><div class="line">    <span class="attr">"registry-mirrors"</span>: [],</div><div class="line">    <span class="attr">"storage-driver"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"storage-opts"</span>: [],</div><div class="line">    <span class="attr">"swarm-default-advertise-addr"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlscacert"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlscert"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlskey"</span>: <span class="string">""</span>,</div><div class="line">    <span class="attr">"tlsverify"</span>: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="docker-的-api-操作">Docker 的 API 操作</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 镜像</span></div><div class="line">curl --unix-socket /var/run/docker.sock http://localhost/images/json</div><div class="line"></div><div class="line"><span class="comment"># events</span></div><div class="line">curl --no-buffer -XGET --unix-socket /var/run/docker.sock http://localhost/events</div><div class="line"></div><div class="line"><span class="comment"># container 信息</span></div><div class="line">curl --unix-socket /var/run/docker.sock <span class="string">"http://localhost/containers/json?all=1&amp;before=8dfafdbc3a40&amp;size=1"</span></div></pre></td></tr></table></figure>
+<h1 id="docker-小技巧">Docker 小技巧</h1>
+<h2 id="set-metadata-on-container">set metadata on container</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ( 如下设置了一个 my-label="" 和 com.example.foo=bar)</span></div><div class="line"></div><div class="line">docker run -l my-label --label com.example.foo=bar ubuntu bash</div><div class="line">docker run --label-file ./labels ubuntu bash</div><div class="line"></div><div class="line"><span class="comment"># cat ./labels</span></div><div class="line">com.example.label1=<span class="string">"a label"</span></div><div class="line"></div><div class="line"><span class="comment"># this is a comment</span></div><div class="line">com.example.label2=another\ label</div><div class="line">com.example.label3</div></pre></td></tr></table></figure>
+<h2 id="直接设置-sysctl-不能与-networkhost-同用">直接设置 sysctl( 不能与 –network=host 同用 )</h2>
+<pre><code>docker run --sysctl net.ipv4.ip_forward=1 ubuntu</code></pre>
+<h2 id="从-container-的变化中新建一个-image">从 container 的变化中新建一个 image</h2>
+<pre><code>docker commit $CONTAINER_ID [REPOSITORY[:TAG]]</code></pre>
+<h1 id="常用-docker-命令">常用 Docker 命令</h1>
+<h2 id="备份容器中的数据将容器中的数据目录拷贝至当前目录下">备份容器中的数据（将容器中的数据目录拷贝至当前目录下）</h2>
+<pre><code>docker run --rm --volume-from dbdata -v ${pwd}:/backup  ubuntu tar cvf /backup/backup.tar /dbdata</code></pre>
+<h2 id="docker-将本地目录映射给-container">Docker 将本地目录映射给 container</h2>
+<pre><code>docker run -it --rm -v /mnt/Docker:/usr/Download  matthewdailey/ubuntu-openbr:v1 /bin/bash</code></pre>
+<blockquote>
+<p>/mnt/Docker 为宿主机目录 :/usr/Download 为 container 里的目录 (Download 不存在也可 )</p>
+</blockquote>
+<blockquote>
+<p>如果仅使用 -v 选项，则可以将目录 share 出来，供其它 container 共享（使用 –volumes-from=SHARED_CONTAINER_ID）</p>
+</blockquote>
+<h2 id="端口映射">端口映射</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># ( 把 container 里的 80 端口映射为本机的 808 )</span></div><div class="line">docker run --rm -d -p 0.0.0.0:808:80 -h HOSTNAME --name NAME -e USER=root -w /opt/ --sig-proxy=<span class="literal">true</span> ehazlett/shipyard sh -c <span class="string">"service httpd start &amp;&amp; tail -f /var/log/httpd/error_log"</span></div></pre></td></tr></table></figure>
+<h2 id="已运行容器通过-iptbles-来-nat">已运行容器通过 iptbles 来 nat</h2>
+<pre><code>iptables -t nat -A  DOCKER -p tcp --dport 3306 -j DNAT --to-destination 172.17.0.2:3306</code></pre>
+<h2 id="使用---link-选项在多个容器内启动">使用 <code>--link</code> 选项在多个容器内启动</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">docker run --rm --name newcentury_mysql -p 3306 \</div><div class="line">    -e HUGINN_MYSQL_DATABASE=huginn \</div><div class="line">    -e HUGINN_MYSQL_USER=huginn \</div><div class="line">    -e HUGINN_MYSQL_PASSWORD=somethingsecret \</div><div class="line">    -e HUGINN_MYSQL_ROOT_PASSWORD=somethingevenmoresecret \</div><div class="line">    cantino/huginn</div><div class="line">docker run --rm --name huginn --link newcentury_mysql:MYSQL -p 5000:5000 \</div><div class="line">    -e HUGINN_DATABASE_NAME=huginn \</div><div class="line">    -e HUGINN_DATABASE_USER=huginn \</div><div class="line">    -e HUGINN_DATABASE_PASSWORD=somethingsecret \</div><div class="line">    cantino/huginn</div></pre></td></tr></table></figure>
+<h1 id="docker-inspect">Docker Inspect</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 如果镜像和名字重名，使用 --type 区分</span></div><div class="line">docker inspect --<span class="built_in">type</span>=image rhel7</div><div class="line"></div><div class="line"><span class="comment"># 获取正在运行的容器 IP 的示例</span></div><div class="line">container_ip=$(docker inspect --format <span class="string">'&#123;&#123;.NetworkSettings.IPAddress&#125;&#125;'</span> <span class="variable">$&#123;container_id&#125;</span>)</div><div class="line"></div><div class="line"><span class="comment"># docker inspect 输出结果的解析</span></div><div class="line">docker inspect `docker ps -q` | grep IPAddress | cut -d <span class="string">'"'</span> -f 4</div><div class="line"><span class="comment"># 或者</span></div><div class="line">docker inspect `dl` | jq -r <span class="string">'.[0].NetworkSettings.IPAddress'</span></div><div class="line"></div><div class="line"><span class="comment"># get the IP address of a container</span></div><div class="line">docker inspect \</div><div class="line">  --format=<span class="string">'&#123;&#123;range .NetworkSettings.Networks&#125;&#125;&#123;&#123;.IPAddress&#125;&#125;&#123;&#123;end&#125;&#125;'</span> \</div><div class="line">  d2cc496561d6</div><div class="line"></div><div class="line">172.17.0.2</div><div class="line"></div><div class="line"><span class="comment"># 以 json 的格式展示</span></div><div class="line">docker inspect --format <span class="string">'&#123;&#123;json .Mounts&#125;&#125;'</span> pensive_blackwell</div><div class="line"></div><div class="line"><span class="comment"># 大小写</span></div><div class="line">docker inspect --format <span class="string">"&#123;&#123;lower .Name&#125;&#125;"</span> pensive_blackwell</div><div class="line"></div><div class="line"><span class="comment"># Listing all port bindings</span></div><div class="line">docker inspect \</div><div class="line">  --format=<span class="string">'&#123;&#123;range $p, $conf := .NetworkSettings.Ports&#125;&#125; \</span></div><div class="line">  &#123;&#123;$p&#125;&#125; -&gt; &#123;&#123;(index $conf 0).HostPort&#125;&#125; &#123;&#123;end&#125;&#125;' \</div><div class="line">  d2cc496561d6</div><div class="line"></div><div class="line">  80/tcp -&gt; 80</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Getting size information on a container</span></div><div class="line">docker inspect -s d2cc496561d6 |　grep -i Size</div><div class="line"></div><div class="line"><span class="comment"># 找到 container 的 pid</span></div><div class="line">PID=$(docker inspect --format &#123;&#123;.State.Pid&#125;&#125; &lt;container_name_or_ID&gt;)</div><div class="line"></div><div class="line"><span class="comment"># 找到 container 使用的镜像</span></div><div class="line">docker inspect -f <span class="string">'&#123;&#123;.Config.Image&#125;&#125;'</span> 5cf58382b2f0</div><div class="line"></div><div class="line"><span class="comment"># logging driver</span></div><div class="line">docker inspect -f <span class="string">'&#123;&#123;.HostConfig.LogConfig.Type&#125;&#125;'</span> &lt;CONTAINER&gt;</div><div class="line"></div><div class="line"><span class="comment"># 匹配所有暴露 (exposed) 的端口 </span></div><div class="line"><span class="comment"># 格式 host:port , 并且把他们输入一个 java properties 文件：</span></div><div class="line">sut_ip=<span class="variable">$&#123;BOOT_2_DOCKER_HOST_IP&#125;</span></div><div class="line"></div><div class="line">template=<span class="string">'&#123;&#123; range $key, $value := .NetworkSettings.Ports &#125;&#125;&#123;&#123; $key &#125;&#125;='</span><span class="string">"<span class="variable">$&#123;BOOT_2_DOCKER_HOST_IP&#125;</span>:"</span><span class="string">'&#123;&#123; (index $value 0).HostPort &#125;&#125; &#123;&#123; end &#125;&#125;'</span></div><div class="line"></div><div class="line">tomcat_host_port=$(docker inspect --format=<span class="string">"<span class="variable">$&#123;template&#125;</span>"</span> <span class="variable">$&#123;container_id&#125;</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> line <span class="keyword">in</span> <span class="variable">$&#123;tomcat_host_port&#125;</span> ; <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;line&#125;</span>"</span> &gt;&gt; <span class="variable">$&#123;work_dir&#125;</span>/docker_container_hosts.properties</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<blockquote>
+<p>详见：<a href="https://docs.docker.com/engine/admin/logging/overview/" class="uri" target="_blank" rel="external">https://docs.docker.com/engine/admin/logging/overview/</a></p>
+</blockquote>
+<h3 id="在一个容器中监控另一个容器中的日志文件和文件的使用">在一个容器中监控另一个容器中的日志文件和文件的使用</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 检查 tomcat 是否启动：</span></div><div class="line">tomcat_id=$(docker run -d -v /var/<span class="built_in">log</span>/tomcat6 wouterd/tomcat6)</div><div class="line"></div><div class="line"><span class="comment"># Give Tomcat some time to wake up...</span></div><div class="line">sleep 5</div><div class="line"><span class="keyword">while</span> ! docker run --rm --volumes-from <span class="variable">$&#123;tomcat_id&#125;</span> busybox /bin/sh -c <span class="string">"grep -i -q 'INFO: Server startup in' /var/log/tomcat6/catalina*.log"</span> ; <span class="keyword">do</span></div><div class="line">    <span class="built_in">echo</span> -n <span class="string">"."</span></div><div class="line">    sleep 5</div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h2 id="构建属于自己的原生-docker-images">构建属于自己的原生 docker images</h2>
+<blockquote>
+<p>https://my.oschina.net/xxbAndy/blog/733987</p>
+</blockquote>
 
           
         
