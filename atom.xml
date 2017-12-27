@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2017-12-26T12:35:06.346Z</updated>
+  <updated>2017-12-27T02:06:03.565Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
     <published>2017-12-26T12:21:40.889Z</published>
-    <updated>2017-12-26T12:35:06.346Z</updated>
+    <updated>2017-12-27T02:06:03.565Z</updated>
     
     <summary type="html">
     
@@ -41,7 +41,7 @@
     <link href="http://blog.dongcj.com/m/Harbor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/"/>
     <id>http://blog.dongcj.com/m/Harbor用户手册/</id>
     <published>2017-12-26T12:21:39.337Z</published>
-    <updated>2017-12-26T12:35:03.775Z</updated>
+    <updated>2017-12-27T02:06:00.377Z</updated>
     
     <summary type="html">
     
@@ -267,7 +267,7 @@ yum group
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2017-12-26T12:35:02.584Z</updated>
+    <updated>2017-12-27T02:05:59.004Z</updated>
     
     <summary type="html">
     
@@ -515,8 +515,7 @@ $ dd if
       
         &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;参见：http://blog.dongcj.com/m/postgresql%E5%AE%89%E8%A3%85/&lt;/p&gt;
-&lt;/blockquot
+&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
       
     
     </summary>
