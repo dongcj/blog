@@ -174,32 +174,6 @@
   </entry>
   
   <entry>
-    <title>使用 printf 进行格式化</title>
-    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
-    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
-    <published>2016-08-30T09:27:43.000Z</published>
-    <updated>2016-08-30T09:48:08.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
-    
-      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SMATE、XFCE、VNC 配置</title>
     <link href="http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/"/>
     <id>http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/</id>
@@ -229,6 +203,62 @@ yum group
       <category term="xfce" scheme="http://blog.dongcj.com/tags/xfce/"/>
     
       <category term="vnc" scheme="http://blog.dongcj.com/tags/vnc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 printf 进行格式化</title>
+    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
+    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
+    <published>2016-08-30T09:27:43.000Z</published>
+    <updated>2016-08-30T09:48:08.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
+    
+      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux 升级 kernel 及 tcp_BBR</title>
+    <link href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/"/>
+    <id>http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/</id>
+    <published>2016-08-28T09:44:33.000Z</published>
+    <updated>2016-06-07T06:25:00.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Ker
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="升级内核" scheme="http://blog.dongcj.com/tags/%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/"/>
+    
+      <category term="kernel" scheme="http://blog.dongcj.com/tags/kernel/"/>
+    
+      <category term="bbr" scheme="http://blog.dongcj.com/tags/bbr/"/>
+    
+      <category term="tcp_bbr" scheme="http://blog.dongcj.com/tags/tcp-bbr/"/>
     
   </entry>
   
@@ -264,65 +294,6 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Linux 升级 kernel 及 tcp_BBR</title>
-    <link href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/"/>
-    <id>http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/</id>
-    <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2016-06-07T06:25:00.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Ker
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="升级内核" scheme="http://blog.dongcj.com/tags/%E5%8D%87%E7%BA%A7%E5%86%85%E6%A0%B8/"/>
-    
-      <category term="kernel" scheme="http://blog.dongcj.com/tags/kernel/"/>
-    
-      <category term="bbr" scheme="http://blog.dongcj.com/tags/bbr/"/>
-    
-      <category term="tcp_bbr" scheme="http://blog.dongcj.com/tags/tcp-bbr/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
-    
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
-    
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DHCP 高级配置</title>
     <link href="http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/"/>
     <id>http://blog.dongcj.com/linux/DHCP高级配置/</id>
@@ -348,6 +319,37 @@ $ vi /etc/sysconfig/dhcrelay
       <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
     
       <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编码与文件格式转换</title>
+    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;编码转换-t
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+    
+      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
     
   </entry>
   
@@ -381,9 +383,9 @@ $ vi /etc/sysconfig/dhcrelay
   </entry>
   
   <entry>
-    <title>PXE ��װ���趨</title>
-    <link href="http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/"/>
-    <id>http://blog.dongcj.com/linux/PXE安装与设定/</id>
+    <title>Nginx 及 upstreamcheck,fair 模块安装</title>
+    <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -391,23 +393,18 @@ $ vi /etc/sysconfig/dhcrelay
     
       
       
-        &lt;h1 id=&quot;װ&quot;&gt;��װ���&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;# ��װ�������
-dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
-xinetd-2.3.14-10.el5.
+        &lt;h1 id=&quot;download-nginx-module&quot;&gt;download nginx &amp;amp; module&lt;/h1&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div clas
       
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="web" scheme="http://blog.dongcj.com/categories/web/"/>
     
     
-      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
     
-      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
-    
-      <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
+      <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
     
   </entry>
   
@@ -438,9 +435,9 @@ xinetd-2.3.14-10.el5.
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <title>PXE ��װ���趨</title>
+    <link href="http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/"/>
+    <id>http://blog.dongcj.com/linux/PXE安装与设定/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -448,11 +445,11 @@ xinetd-2.3.14-10.el5.
     
       
       
-        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换-t
+        &lt;h1 id=&quot;װ&quot;&gt;��װ���&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# ��װ�������
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
+xinetd-2.3.14-10.el5.
       
     
     </summary>
@@ -460,11 +457,11 @@ xinetd-2.3.14-10.el5.
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
     
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
     
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
+      <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
     
   </entry>
   
@@ -506,9 +503,9 @@ $ dd if
   </entry>
   
   <entry>
-    <title>Nginx 及 upstreamcheck,fair 模块安装</title>
-    <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
+    <title>Postgresql 主从配置</title>
+    <link href="http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"/>
+    <id>http://blog.dongcj.com/database/Postgresql主从配置/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -516,55 +513,27 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;download-nginx-module&quot;&gt;download nginx &amp;amp; module&lt;/h1&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div clas
-      
-    
-    </summary>
-    
-      <category term="web" scheme="http://blog.dongcj.com/categories/web/"/>
-    
-    
-      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
-    
-      <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VirtualBox 报错 E_FAIL0x80004005 解决方案</title>
-    <link href="http://blog.dongcj.com/linux/VirtualBox%E6%8A%A5%E9%94%99E_FAIL0x80004005%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;错误信息&quot;&gt;错误信息：&lt;/h1&gt;
+        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;返回 代码 : E_F
+&lt;p&gt;参见：http://blog.dongcj.com/m/postgresql%E5%AE%89%E8%A3%85/&lt;/p&gt;
+&lt;/blockquot
       
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="database" scheme="http://blog.dongcj.com/categories/database/"/>
     
     
-      <category term="virtualbox" scheme="http://blog.dongcj.com/tags/virtualbox/"/>
+      <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
     
-      <category term="vm" scheme="http://blog.dongcj.com/tags/vm/"/>
+      <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
     
   </entry>
   
   <entry>
-    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
-    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
+    <title>斐讯 K2 路由器刷机</title>
+    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
+    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -572,9 +541,9 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;curl&quot;&gt;curl&lt;/h1&gt;
-&lt;h2 id=&quot;下载文件&quot;&gt;下载文件&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
+        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
+&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
+&lt;h1 id
       
     
     </summary>
@@ -582,15 +551,39 @@ $ dd if
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
+      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
     
-      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
+      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
     
-      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
+      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
-      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
+  </entry>
+  
+  <entry>
+    <title>Puppet ��װ</title>
+    <link href="http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/linux/Puppet安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
     
-      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;etchosts-ping-է&quot;&gt;/etc/hosts ���� ping ͨ�Է�����&lt;/h3&gt;
+&lt;h3 id=&quot;װ-ntp-ʱ&quot;&gt;��װ ntp ��ʱ��ͬ��&lt;/h3&gt;
+&lt;h3 id=&quot;װ-puppet&quot;&gt;��װ puppet&lt;/h3&gt;
+&lt;pre
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="puppet" scheme="http://blog.dongcj.com/tags/puppet/"/>
+    
+      <category term="devops" scheme="http://blog.dongcj.com/tags/devops/"/>
     
   </entry>
   

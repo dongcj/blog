@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
+                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE ��װ���趨</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/编码与文件格式转换/#comments" itemprop="discussionUrl">
+                <a href="/linux/PXE安装与设定/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/编码与文件格式转换/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/PXE安装与设定/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/编码与文件格式转换/" class="leancloud_visitors" data-flag-title="编码与文件格式转换">
+             <span id="/linux/PXE安装与设定/" class="leancloud_visitors" data-flag-title="PXE ��װ���趨">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,16 +436,127 @@
       
         
           
-            <h1 id="作用">作用</h1>
+            <h1 id="װ">��װ���</h1>
+<pre><code># ��װ�������
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
+xinetd-2.3.14-10.el5.x86_64.rpm
+tftp-server-0.42-3.1.x86_64.rpm
+pykickstart-0.43.3-1.el5.noarch.rpm
+system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
+syslinux
+
+# �ر� selinux &amp; iptables</code></pre>
+<h1 id="dhcp">dhcp ����</h1>
+<pre><code>ddns-update-style interim;
+ignore client-updates;
+allow booting;
+allow bootp;
+class &quot;pxeclients&quot;{
+match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
+filename &quot;/pxelinux.0&quot;;
+next-server 10.85.138.9;
+}
+subnet 10.85.138.0 netmask 255.255.254.0 {
+option routers 10.85.138.1;
+option subnet-mask 255.255.254.0;
+option domain-name &quot;gwcloud.com&quot;;
+option domain-name-servers 10.85.138.1;
+option time-offset -18000; # Eastern Standard Time
+range dynamic-bootp 10.85.138.100 10.85.138.249;
+default-lease-time 21600;
+max-lease-time 43200;
+}</code></pre>
+<h1 id="tftp-ļ">���� tftp �ļ�</h1>
+<pre><code>���ļ��� tftpboot( ע��menu.c32 �� pxelinux.0 Ҫ�ӱ������������� TIMEOUT ��Ч�� )
+$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
+$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
+
+
+$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default �ļ�Ҳ�����Լ��޸�</code></pre>
+<h1 id="kickstart">���� kickstart</h1>
+<pre><code># �� /tftpboot/pxelinux.cfg/default ����� KS ���
+  label linux
+    menu label ^Install or upgrade an existing system
+    menu default
+    kernel vmlinuz
+    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
+
+# �޸� kickstart �Զ���װ linux( ����װ�ļ� )</code></pre>
 <blockquote>
-<p>在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
+<p>��¼������ DHCP ����</p>
 </blockquote>
-<h1 id="编码转换-trans_to_utf-8.py">编码转换 “Trans_To_UTF-8.py”</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下</span></div><div class="line"><span class="keyword">import</span> os,sys</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">( filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"convert "</span> + filename,</div><div class="line">        content = open(filename).read()</div><div class="line">        new_content = content.decode(in_enc).encode(out_enc)</div><div class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</div><div class="line">        <span class="keyword">print</span> <span class="string">" done"</span></div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">" error"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></div><div class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</div><div class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</div><div class="line">            path = os.path.join(root, file)</div><div class="line">            convert(path)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</div><div class="line">        <span class="keyword">if</span> os.path.isfile(path):</div><div class="line">            convert(path)</div><div class="line">        <span class="keyword">elif</span> os.path.isdir(path):</div><div class="line">            explore(path)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
-<h1 id="准备脚本-prepare.sh">准备脚本 “prepare.sh”</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></div><div class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</div><div class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></div><div class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></div><div class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></div><div class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></div><div class="line">        <span class="built_in">continue</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to unix</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></div><div class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to UTF-8</span></div><div class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></div><div class="line"></div><div class="line">        <span class="comment"># rename suffix to ".md"</span></div><div class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># if does not have title</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></div><div class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># zero title content</span></div><div class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</div><div class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></div><div class="line">        <span class="comment"># update title when it is NULL</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></div><div class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># add author info</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></div><div class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="built_in">echo</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
-<h1 id="windows-下-更新博客-.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">REM</span></div><div class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</div><div class="line"><span class="function">D:</span></div><div class="line"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></div><div class="line"><span class="title">echo</span> "<span class="title">success</span>"</div></pre></td></tr></table></figure>
+<pre><code>ddns-update-style interim;
+ddns-updates on;
+ignore client-updates;
+allow booting;  # for pxe only
+allow bootp;    # for pxe only
+authoritative;  # Do not know what is meaning??
+
+class &quot;pxeclients&quot;{
+    match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
+    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
+    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+    filename &quot;/pxelinux.0&quot;;     # for pxe only
+    next-server 192.168.88.1;   # for pxe only
+}
+
+
+class &quot;MSFT&quot; {
+    match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
+    option host-name = config-option server.ddns-hostname;
+    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+}
+
+
+option host-name = config-option server.ddns-hostname;
+ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+));
+set vendor-string = option vendor-class-identifier;
+
+
+subnet 192.168.88.0 netmask 255.255.255.0 {
+    option routers 192.168.88.1;
+    option subnet-mask 255.255.255.0;
+    option domain-name &quot;gwcloud.cn&quot;;
+    option domain-name-servers 192.168.88.1;
+    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
+    # option ntp-servers 192.168.88.1   # set the ntp server
+    option time-offset -18000;          # Eastern Standard Time
+    range dynamic-bootp 192.168.88.100 192.168.88.200;
+    default-lease-time 21600;
+    max-lease-time 43200;
+
+    # the next is bonding the mac to static ip address
+    # host pc1 {
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&#39;s ip address
+}</code></pre>
 
           
         
@@ -719,7 +830,7 @@ $ mkpart primary 2048s 100%
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -738,7 +849,7 @@ $ mkpart primary 2048s 100%
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/web/Nginx及upstreamcheck,fair模块安装/" itemprop="url">Nginx 及 upstreamcheck,fair 模块安装</a></h2>
+                <a class="post-title-link" href="/database/Postgresql主从配置/" itemprop="url">Postgresql 主从配置</a></h2>
         
 
         <div class="post-meta">
@@ -773,8 +884,8 @@ $ mkpart primary 2048s 100%
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
+                  <a href="/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
                   </a>
                 </span>
 
@@ -791,9 +902,9 @@ $ mkpart primary 2048s 100%
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/web/Nginx及upstreamcheck,fair模块安装/#comments" itemprop="discussionUrl">
+                <a href="/database/Postgresql主从配置/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="web/Nginx及upstreamcheck,fair模块安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="database/Postgresql主从配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -801,7 +912,7 @@ $ mkpart primary 2048s 100%
 
           
           
-             <span id="/web/Nginx及upstreamcheck,fair模块安装/" class="leancloud_visitors" data-flag-title="Nginx 及 upstreamcheck,fair 模块安装">
+             <span id="/database/Postgresql主从配置/" class="leancloud_visitors" data-flag-title="Postgresql 主从配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -831,15 +942,109 @@ $ mkpart primary 2048s 100%
       
         
           
-            <h1 id="download-nginx-module">download nginx &amp; module</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
-<h1 id="make-install">make &amp; install</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<h1 id="nginx.conf-proxy.conf">nginx.conf &amp; proxy.conf</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表</span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效</span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> /usr/local/nginx/conf/proxy.conf</div><div class="line"></div><div class="line">proxy_redirect <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div></pre></td></tr></table></figure>
-<h2 id="start-auto-start">start &amp; auto-start</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+            <h1 id="安装好二台-postgresql">安装好二台 postgresql</h1>
+<blockquote>
+<p>参见：http://blog.dongcj.com/m/postgresql%E5%AE%89%E8%A3%85/</p>
+</blockquote>
+<pre><code># 主服务器上
+$ vi /etc/profile
+  export PGDATA=/pgdata
+$ source /etc/profile
+
+# 从服务器上
+$ vi /etc/profile
+  export PGDATA=/pgdata_backup
+$ source /etc/profile</code></pre>
+<h1 id="配置主服务器-192.168.10.11">配置主服务器 192.168.10.11</h1>
+<pre><code># 使用 root 帐户
+$ mkdir /pgdata
+$ chown -R postgres:postgres /pgdata/
+
+# 配置一个账号进行主从同步
+$ su - postgres
+$ psql [ -p  54321 ]     # 如果修改过端口，需要指定端口
+psql$ CREATE ROLE replica login replication encrypted password &#39;replica&#39;;
+
+# 增加 replica 用户
+# cd /pgdata
+$ vi pg_hba.conf
+  host    replication     replica       192.168.10.12/32               md5
+
+# 配置复制参数
+$ vi postgresql.conf
+  wal_level = hot_standby     # 主为 wal 的主机
+  max_wal_senders = 32        # 最多几个流复制
+  wal_keep_segments = 256     # 设置流复制保留最多的 log 数目，每个 log 16M
+  wal_sender_timeout = 60s    # 流复制主机发送数据的超时时间
+  max_connections = 100       # 注意：从库的 max_connections 必须要大于主库的
+
+# 修改权限
+$ chmod -R 700 /pgdata/
+
+# 重启 pg
+$ pg_ctl restart</code></pre>
+<h1 id="配置从服务器-192.168.10.12">配置从服务器 192.168.10.12</h1>
+<pre><code># 使用 root 帐户
+# mkdir /pgdata_backup
+# chown -R postgres:postgres /pgdata_backup/
+
+# su - postgres
+$ pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password
+# password is: replica
+
+$ cd /pgdata_backup
+
+$ vi recovery.conf
+  # 如果找不到 recovery.conf，可以新建，只需要下面三行即可
+  recovery_target_timeline = &#39;latest&#39;
+  standby_mode = on
+  primary_conninfo = &#39;host=192.168.10.11 port=5432 user=replica password=replica&#39;
+
+$ vi postgresql.conf
+  max_connections = 1000  # ( 要大于主库的 )
+  hot_standby = on        # 说明这台机器不仅仅是用于数据归档，也用于数据查询
+  max_standby_streaming_delay = 30s   # 多久向主报告一次从的状态，最长的间隔时间
+  wal_receiver_status_interval = 5s   # 间隔多久将状态信息发送给主
+  hot_standby_feedback = on           # 如果有错误的数据复制，是否向主进行反馈
+
+$ chmod -R 700 /pgdata_backup/
+
+# 启动从 pg
+$ pg_ctl start</code></pre>
+<h1 id="检测配置是否成功">检测配置是否成功</h1>
+<pre><code># 使用 ps -ef 在主从二台上检测进程状态
+# 在主上应该有 sender 进程，在从上有 receiver 进程
+
+# 在主上查看复制状态
+$ psql$ select * from pg_stat_replication;
+
+# 可以看到 sender 的进程信息</code></pre>
+<h1 id="主从切换命令">主从切换命令</h1>
+<pre><code># node1 上模拟主库故障
+[postgres@node1 ~]$ pg_ctl stop -m f
+# node2 提升备库状态
+[postgres@node2 ~]$ pg_ctl promote
+# node2 更新备数据
+[postgres@node2 ~]$ createdb pgbench
+[postgres@node2 ~]$ pgbench -i -s 10 pgbench
+# node1 将以前 master 恢复为 standby
+[postgres@node1 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server=&#39;host=node2 user=postgres port=5432&#39;
+[postgres@node1 ~]$ vi /opt/pgsql/data/recovery.conf
+standby_mode = &#39;on&#39;
+primary_conninfo = &#39;host=node2 user=postgres port=5432&#39;
+recovery_target_timeline = &#39;latest&#39;
+# 启动 node1 上的数据库：
+[postgres@node1 ~]$ pg_ctl start
+# 将 node1 恢复为 master
+[postgres@node2 ~]$ pg_ctl stop -m f
+[postgres@node1 ~]$ pg_ctl promote
+[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench
+# 恢复 node2 为 standby：
+[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server=&#39;host=node1 user=postgres port=5432&#39;
+[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf
+[postgres@node2 ~]$ vi /opt/pgsql/data/recovery.conf （修改 node2 为 node1）
+# 启动 node2 上的数据库：
+[postgres@node2 ~]$ pg_ctl start</code></pre>
 
           
         
@@ -883,7 +1088,7 @@ $ mkpart primary 2048s 100%
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -902,7 +1107,7 @@ $ mkpart primary 2048s 100%
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="url">VirtualBox 报错 E_FAIL0x80004005 解决方案</a></h2>
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
         
 
         <div class="post-meta">
@@ -955,9 +1160,9 @@ $ mkpart primary 2048s 100%
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/#comments" itemprop="discussionUrl">
+                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -965,7 +1170,7 @@ $ mkpart primary 2048s 100%
 
           
           
-             <span id="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" class="leancloud_visitors" data-flag-title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
+             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -995,26 +1200,25 @@ $ mkpart primary 2048s 100%
       
         
           
-            <blockquote>
-<p>VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题</p>
-</blockquote>
-<h1 id="错误信息">错误信息：</h1>
-<blockquote>
-<p>返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
-</blockquote>
-<p>总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是新建的也不行。 这个问题困扰了我很多年，从 VirtualBox 更新到 4.3.14 以后就一直让我头大。</p>
-<h1 id="寻找原因">寻找原因</h1>
-<p>直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
-<h1 id="解决方案">解决方案</h1>
-<p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ExcludeModule]</div><div class="line">VBoxSVC.exe</div><div class="line">VirtualBox.exe</div></pre></td></tr></table></figure>
-<h1 id="另一个问题">另一个问题</h1>
-<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written <figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
-<p>还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好</p>
-<p>通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~</p>
-<blockquote>
-<p>参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</p>
-</blockquote>
+            <h1 id="买个-ss-帐号">买个 SS 帐号</h1>
+<p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机">路由刷机</h1>
+<h2 id="连接路由器">连接路由器</h2>
+<ul>
+<li>路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code>注意：不是 WAN 口</code></li>
+<li>查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址</li>
+</ul>
+<figure>
+<img src="http://i.imgur.com/qlfwJ9j.jpg">
+</figure>
+<ul>
+<li>自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 )</li>
+<li>用户名和密码默认 “admin/admin”</li>
+</ul>
+<h2 id="路由器系统降级">路由器系统降级</h2>
+<ul>
+<li>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</li>
+</ul>
 
           
         
@@ -1058,7 +1262,7 @@ $ mkpart primary 2048s 100%
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1077,7 +1281,7 @@ $ mkpart primary 2048s 100%
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet ��װ</a></h2>
         
 
         <div class="post-meta">
@@ -1130,9 +1334,9 @@ $ mkpart primary 2048s 100%
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#comments" itemprop="discussionUrl">
+                <a href="/linux/Puppet安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Puppet安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1140,7 +1344,7 @@ $ mkpart primary 2048s 100%
 
           
           
-             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+             <span id="/linux/Puppet安装/" class="leancloud_visitors" data-flag-title="Puppet ��װ">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1170,132 +1374,92 @@ $ mkpart primary 2048s 100%
       
         
           
-            <h1 id="curl">curl</h1>
-<h2 id="下载文件">下载文件</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
-<h2 id="详细信息">详细信息</h2>
-<pre><code>curl -v www.sina.com
-curl --trace output.txt www.sina.com
-curl --trace-ascii output.txt www.sina.com
-curl  -s  --head  www.sina.com</code></pre>
-<h2 id="上传文件">上传文件</h2>
-<pre><code>curl --form upload=@localfilename --form press=OK [URL]
-curl -T file.txt</code></pre>
-<h2 id="cookie-及认证">Cookie 及认证</h2>
-<pre><code>curl --cookie &quot;name=xxx&quot; www.example.com
-curl --user name@DOMAIN:password http://example.com
+            <h3 id="etchosts-ping-է">/etc/hosts ���� ping ͨ�Է�����</h3>
+<h3 id="װ-ntp-ʱ">��װ ntp ��ʱ��ͬ��</h3>
+<h3 id="װ-puppet">��װ puppet</h3>
+<pre><code>$ yum install ruby ruby-libs ruby-rdoc
+$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( ����汾�����޸�Ϊ���µģ�
+$ yum update
 
-curl -fsSL ...</code></pre>
-<h2 id="下载网页保存为文件名">下载网页保存为文件名</h2>
-<pre><code>curl -o [文件名] www.sina.com</code></pre>
-<h2 id="自动跳转-重定向">自动跳转 , 重定向</h2>
-<pre><code>curl -L www.sina.com</code></pre>
-<h2 id="下载并网速限制">下载并网速限制</h2>
-<pre><code>curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html</code></pre>
-<h2 id="对于-https-的方法添加-insecure">对于 https 的方法，添加 –insecure</h2>
-<pre><code>curl --insecure -LJO https://packages.gitlab.com/gitlab</code></pre>
-<h2 id="发送表单信息">发送表单信息</h2>
-<pre><code>GET：
-curl example.com/form.cgi?data=xxx</code></pre>
-<h2 id="增加头信息--h">增加头信息 (-H)</h2>
-<pre><code>curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com
-# 模拟服务地址（例如有些网站只能用域名访问的）
-curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080
+# ����˰�װ puppet-server
+$ yum install puppet-server
 
-POST：(-d)
-curl -i -X POST --data &quot;data=xxx&quot;           example.com/form.cgi
-curl -i -X POST --data-urlencode &quot;date=April 1&quot;     example.com/form.cgi</code></pre>
-<h2 id="referer-e">Referer(-e)</h2>
-<pre><code>curl --referer http://www.example.com http://www.example.com</code></pre>
-<h2 id="user-agent-字段--a">User Agent 字段 (-A)</h2>
-<pre><code>curl --user-agent &quot;[User Agent]&quot; http://www.example.com</code></pre>
-<h2 id="配置压缩--i-means-fetch-the-http-header-only">配置压缩 (-I means “Fetch the HTTP-header only”)</h2>
-<pre><code>curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom</code></pre>
-<h2 id="超时设置">超时设置</h2>
-<pre><code>--connect-timeout 3     # 3 秒连接时间
--m | --max-time   5     # 连接 5 秒后自动断开</code></pre>
-<h2 id="本地-socket">本地 socket</h2>
-<pre><code>curl --unix-socket /var/run/docker.sock http:/images/json
-or
-curl --unix-socket /var/run/docker.sock http://localhost/images/json</code></pre>
-<h2 id="curl-examples">curl examples</h2>
-<pre><code># zabbix 使用 API 进行认证
-# curl -i -X POST -H &#39;Content-Type:application/json&#39; -d &#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&#39; http://192.168.0.54/api_jsonrpc.php
+# ����˰�װ puppet ͼ�ν��棨��ѡ��
+$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
 
-HTTP/1.1 200 OK
-Date: Mon, 12 Aug 2013 05:53:05 GMT
-Server: Apache/2.2.21 (Linux/SUSE)
-X-Powered-By: PHP/5.3.8
-Content-Length: 68
-Content-Type: application/json
+# �ͻ��˰�װ puppet
+$ yum install puppet</code></pre>
+<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
+<pre><code># ���ڼ������ ca ֤�飬����������ɣ�����ʹ�����������ֶ����ɣ�
+$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
 
-{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0}
+# �鿴���ɵ�֤����Ϣ
+$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem</code></pre>
+<h3 id="section">�������������֤��</h3>
+<pre><code>$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
+*.xxx.com
+EOF
 
+$ service puppetmaster restart
+$ puppet cert list --all    --&gt; �鿴��֤�飬��ʱ��û�пͻ����ģ�ֻ���Լ�</code></pre>
+<h3 id="ͻ">�ͻ�������֤��</h3>
+<pre><code>�� /etc/puppet/puppet.conf ����� server = bigdata.xxxx.com һ�У�Ϊ�˷���������Բ��� --server bigdata.xxxx.com
 
-# zabbix 利用 tokern 和 id 进行注册主机
+$ puppetd --server bigdata.xxxx.com --test
+����
+$ puppet agent --no-daemonize --onetime --verbose --debug
 
-1. 先得到 https://www.zabbix.com/documentation/2.0/manual/appendix/api/host/create 的 API，修改相应部分将内容 copy 至 linux 主机 /tmp/123.txt 。
+# �ٵ�����˲鿴һ��֤��
+$ puppet cert list --all    --&gt; �鿴��֤�飬��ʱ�����˿ͻ��˵ģ���ͷΪ + ��</code></pre>
+<h3 id="װ-dashboard">��װ dashboard</h3>
+<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
+production:
+database: puppet
+username: root
+password: passw0rd
+encoding: utf8
+adapter: mysql
 
-2. while read line; do printf &quot;%s &quot; &quot;$line&quot;; done &lt;/tmp/123.txt　将其格式化
-2. echo `cat /tmp/123.txt` --- 这样也可以 ...
+$ vi /usr/share/puppet-dashboard/config/environment.rb
+config.time_zone = &#39;Beijing&#39;</code></pre>
+<h3 id="ʼݿ">��ʼ�����ݿ�</h3>
+<pre><code>$ cd /usr/share/puppet-dashboard/
+rake RAILS_ENV=production db:migrate</code></pre>
+<h3 id="passenger-apache">���� Passenger �� apache</h3>
+<pre><code>$ vi /etc/httpd/conf.d/passenger.conf
 
-3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39; 格式化后的内容 &#39; http://192.168.0.54/api_jsonrpc.php
+LoadModule passenger_module modules/mod_passenger.so
+PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21
+PassengerRuby /usr/bin/ruby
+PassengerHighPerformance on
+PassengerMaxPoolSize 12
+PassengerPoolIdleTime 1500
+PassengerStatThrottleRate 120
+RailsAutoDetect On
 
-# curl 命令注解：
--i|--include :  在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 )
--s|--silent  :  静默模式
--X|--request :  请求 HTTP 服务，默认为 GET</code></pre>
-<hr>
-<h1 id="resty-模拟请求">resty 模拟请求</h1>
-<pre><code># install resty
-curl -L http://github.com/micha/resty/raw/master/resty &gt; resty
-# 导入变量
-. resty
-$ resty http://127.0.0.1:8080/data
-  http://127.0.0.1:8080/data*
-
-$ GET /blogs.json
-[ {&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ]
-
-$ PUT /blogs/2.json &#39;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&#39;
-{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}
-
-$ DELETE /blogs/2
-
-$ POST /blogs.json &#39;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&#39;
-{&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}</code></pre>
-<hr>
-<h1 id="使用-httpie">使用 httpie</h1>
-<pre><code># install
-$ apt-get install httpie
-
-# usage
-$http httpie.org
-$ http PUT example.org X-API-Token:123 name=John
-
-$ http -f POST example.org hello=World
-$ http -v example.org
-$ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&#39;HTTPie is awesome! :heart:&#39;
-
-$ http example.org &lt; file.json
-$ http example.org/file &gt; file
-
-$ http --download example.org/file
-
-$ http --session=logged-in -a username:password httpbin.org/get API-Key:123
-$ http --session=logged-in httpbin.org/headers
-$ http localhost:8000 Host:example.com
-$ http DELETE example.org/todos/7</code></pre>
-<hr>
-<h1 id="httpstat">httpstat</h1>
-<figure>
-<img src="http://i.imgur.com/xR2OHZ4.png" alt="httpstat"><figcaption>httpstat</figcaption>
-</figure>
-<hr>
-<h1 id="wuzz">wuzz</h1>
-<figure>
-<img src="http://i.imgur.com/fdWQco8.gif" alt="wuzz"><figcaption>wuzz</figcaption>
-</figure>
+&lt;VirtualHost *&gt;
+  ServerName bigdata.xxxx.com
+  DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot;
+  ErrorLog /var/log/httpd/puppet-dashboard_error.log
+  LogLevel warn
+  CustomLog /var/log/httpd/puppet-dashboard_access.log combined
+&lt;/VirtualHost&gt;</code></pre>
+<h3 id="dashboard-ʹ-reports">�� Dashboard ʹ�� Reports</h3>
+<pre><code>$ vi /etc/puppet/puppet.conf
+[master]
+reports = store, http
+reporturl = http://bigdata.xxxx.com:80/reports/upload</code></pre>
+<h3 id="puppetmaster">���� puppetmaster ����</h3>
+<pre><code>$ /etc/init.d/puppetmaster restart</code></pre>
+<h3 id="뱨">���뱨��</h3>
+<pre><code>$ cd /usr/share/puppet-dashboard
+$ rake RAILS_ENV=production reports:import</code></pre>
+<h3 id="е-reports">ִ�е���� reports</h3>
+<pre><code>$ rake jobs:work RAILS_ENV=&quot;production&quot;</code></pre>
+<h3 id="ؼĵ">���ؼ��ĵ���ַ</h3>
+<pre><code>http://code.google.com/p/puppet-manifest-share/downloads/list
+http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
+http://dongxicheng.org/cluster-managemant/puppet/</code></pre>
 
           
         
