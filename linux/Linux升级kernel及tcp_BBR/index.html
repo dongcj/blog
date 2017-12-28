@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。   快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-cert">
+<meta name="description" content="只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。   快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;amp;&amp;amp; chmod +x bbr.sh &amp;">
 <meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux 升级 kernel 及 tcp_BBR">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。   快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-cert">
+<meta property="og:description" content="只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。   快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;amp;&amp;amp; chmod +x bbr.sh &amp;">
 <meta property="og:updated_time" content="2016-06-07T06:25:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux 升级 kernel 及 tcp_BBR">
-<meta name="twitter:description" content="https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。   快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-cert">
+<meta name="twitter:description" content="只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。   快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;amp;&amp;amp; chmod +x bbr.sh &amp;">
 
 
 
@@ -433,15 +433,15 @@
 
       
         <blockquote>
-<p>https://www.mf8.biz/linux-kernel-with-tcp-bbr/?from=groupmessage 只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。</p>
+<p>只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。</p>
 </blockquote>
 <blockquote>
-<p>快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+） wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; bash bbr.sh</p>
+<p>快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br> wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; bash bbr.sh</p>
 </blockquote>
 <h2 id="修改系统变量">修改系统变量：</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效</span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line"><span class="comment"># 检测 BBR 是否开启。</span></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
 <h1 id="debianubuntu-升级内核">Debian、Ubuntu 升级内核</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 下载内核</span></div><div class="line">wget http://kernel.ubuntu.com/~kernel-ppa/mainline/v4.11.6/linux-image-4.11.6-041106-generic_4.11.6-041106.201706170517_amd64.deb</div><div class="line"></div><div class="line"><span class="comment"># 安装内核</span></div><div class="line">dpkg -i linux-image-4.11.6-041106-generic_4.11.6-041106.201706170517_amd64.deb</div><div class="line"></div><div class="line"><span class="comment"># 查看已经安装的内核</span></div><div class="line">dpkg -l|grep linux-image</div><div class="line"></div><div class="line"><span class="comment"># 卸载旧内核</span></div><div class="line">apt-get remove ` 内核名 `</div><div class="line"></div><div class="line"><span class="comment"># 更新引导并重启</span></div><div class="line">update-grub  <span class="comment"># 更新引导</span></div><div class="line">reboot</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># 然后我们可以查看一下目前的内核版本：</span></div><div class="line">uname -r</div><div class="line">4.9.0-rc8-amd64</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核</span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核</span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line"><span class="comment"># 查看已经安装的内核</span></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line"><span class="comment"># 卸载旧内核</span></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line"><span class="comment"># 更新引导并重启</span></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本</span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
 <h1 id="rhelcentos-升级内核">RHEL、CentOS 升级内核</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核</span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核</span></div><div class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效</div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
 <h1 id="rhelcentos-升级内核下载并手动升级">RHEL、CentOS 升级内核（下载并手动升级）</h1>
@@ -464,6 +464,7 @@ grub2-set-default &#39;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&#39;</code></pre>
 
 # 输出结果：
 saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
+
 # 重启就可以完成更新内核了！</code></pre>
 
       
@@ -523,8 +524,8 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="next" title="Nginx 及 upstreamcheck,fair 模块安装">
-                <i class="fa fa-chevron-left"></i> Nginx 及 upstreamcheck,fair 模块安装
+              <a href="/database/Postgresql主从配置/" rel="next" title="Postgresql 主从配置">
+                <i class="fa fa-chevron-left"></i> Postgresql 主从配置
               </a>
             
           </div>
