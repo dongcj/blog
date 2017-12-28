@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/DHCP高级配置/#comments" itemprop="discussionUrl">
+                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/DHCP高级配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/DHCP高级配置/" class="leancloud_visitors" data-flag-title="DHCP 高级配置">
+             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,56 +436,142 @@
       
         
           
-            <h2 id="一dhcp-中继代理配置"># 一、DHCP 中继代理配置</h2>
-<pre><code># ( 在其它服务上安装 dhcpd 软件 )：
+            <blockquote>
+<p>建议：<br>如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+</blockquote>
+<h3 id="每块硬盘分一个区"><a href="#每块硬盘分一个区" class="headerlink" title="每块硬盘分一个区"></a>每块硬盘分一个区</h3><pre><code># 分区格式为 Linux software raid：
 
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
+$ fdisk /dev/sda
 
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1
+  WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+           switch off the mode (command &apos;c&apos;) and change display units to
+           sectors (command &apos;u&apos;).
 
-# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
-<h2 id="二dhcp-超网配置"># 二、DHCP 超网配置</h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式*/
-ignore client-updates;          /*忽略客户端 DNS 动态更新*/
-shared-network mynet {          /*超网作用域选项，共同部分*/
-    option subnet-mask 255.255.255.0;            /*子网掩码*/
-    option domain-name &quot;koumm.net&quot;;              /*域名*/
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /*广播地址*/
-    default-lease-time 86400;                    /*租期 1 天，秒数*/
-    max-lease-time 172800;                       /*最长租期 2 天*/
+  Command (m for help): n
+  Command action
+     e   extended
+     p   primary partition (1-4)
+  p
+  Partition number (1-4): 1
+  First cylinder (1-91201, default 1):
+  Using default value 1
+  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
+  Using default value 91201
 
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段*/
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围*/
-        option routers 192.168.1.1;               /*网关地址*/
-        /*绑定 pc1 主机 ip 地址配置*/
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /*绑定 pc2 主机 ip 地址配置*/
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
+  Command (m for help): p
 
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段*/
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围*/
-        option routers 192.168.2.1;                /*网关地址*/
-    }
+  Disk /dev/sda: 750.2 GB, 750156374016 bytes
+  255 heads, 63 sectors/track, 91201 cylinders
+  Units = cylinders of 16065 * 512 = 8225280 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disk identifier: 0x0005c259
 
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段*/
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围*/
-        option routers 192.168.3.1;                /*网关地址*/
-    }
+     Device Boot      Start         End      Blocks   Id  System
+  /dev/sda1               1       91201   732572001   83  Linux
 
-}</code></pre>
+  Command (m for help): t
+  Selected partition 1
+  Hex code (type L to list codes): fd
+  Changed system type of partition 1 to fd (Linux raid autodetect)
 
+  Command (m for help): w
+  The partition table has been altered!
+
+  Calling ioctl() to re-read partition table.
+  Syncing disks.
+</code></pre><h1 id="更改分区格式"><a href="#更改分区格式" class="headerlink" title="更改分区格式"></a>更改分区格式</h1><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+$ fdisk /dev/sdc
+...
+$ fdisk /dev/sdd
+...
+$ fdisk /dev/sde
+...
+$ fdisk /dev/sdf
+...
+$ fdisk /dev/sdg
+...
+</code></pre><h1 id="创建-RAID"><a href="#创建-RAID" class="headerlink" title="创建 RAID"></a>创建 RAID</h1><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
+mdadm: layout defaults to n2
+mdadm: layout defaults to n2
+mdadm: chunk size defaults to 512K
+mdadm: size set to 732440576K
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+
+# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
+# watch cat /proc/mdstat
+Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+
+Personalities : [raid10]
+md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
+      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
+      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
+0948K/sec
+
+unused devices:
+</code></pre><h1 id="给-md0-设备创建分区和文件系统"><a href="#给-md0-设备创建分区和文件系统" class="headerlink" title="给 md0 设备创建分区和文件系统"></a>给 md0 设备创建分区和文件系统</h1><pre><code>$ fdisk /dev/md0
+$ mkfs.ext4 /dev/md0p1
+
+$ mkdir /raid10
+$ mount /dev/md0p1 /raid10
+</code></pre><h1 id="修改-etc-fstab-启动时自动挂载"><a href="#修改-etc-fstab-启动时自动挂载" class="headerlink" title="修改 /etc/fstab 启动时自动挂载"></a>修改 /etc/fstab 启动时自动挂载</h1><pre><code>$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+</code></pre><blockquote>
+<p>在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法，<br>因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID：<br>    $ blkid<br>      …<br>      /dev/md0p1: UUID=”093e0605-1fa2-4279-99b2-746c70b78f1b” TYPE=”ext4”</p>
+</blockquote>
+<pre><code># 然后修改相应的 fstab，使用 UUID 挂载：
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
+</code></pre><h1 id="查看-RAID-的状态"><a href="#查看-RAID-的状态" class="headerlink" title="查看 RAID 的状态"></a>查看 RAID 的状态</h1><pre><code>$ mdadm --query --detail /dev/md0
+/dev/md0:
+        Version : 1.2
+  Creation Time : Tue Feb 11 12:50:38 2014
+     Raid Level : raid10
+     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
+  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
+   Raid Devices : 6
+  Total Devices : 6
+    Persistence : Superblock is persistent
+
+    Update Time : Tue Feb 11 18:48:10 2014
+          State : clean
+ Active Devices : 6
+Working Devices : 6
+ Failed Devices : 0
+  Spare Devices : 0
+
+         Layout : near=2
+     Chunk Size : 512K
+
+           Name : local:0  (local to host local)
+           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
+         Events : 70
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       33        1      active sync   /dev/sdc1
+       2       8       49        2      active sync   /dev/sdd1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       81        4      active sync   /dev/sdf1
+       5       8       97        5      active sync   /dev/sdg1
+</code></pre><h1 id="配置-raid-的配置文件"><a href="#配置-raid-的配置文件" class="headerlink" title="配置 raid 的配置文件"></a>配置 raid 的配置文件</h1><pre><code>$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre><h1 id="RAID-维护命令"><a href="#RAID-维护命令" class="headerlink" title="RAID 维护命令"></a>RAID 维护命令</h1><h2 id="删除故障盘"><a href="#删除故障盘" class="headerlink" title="删除故障盘"></a>删除故障盘</h2><pre><code>$ mdadm /dev/md0 -r /dev/sdb1
+</code></pre><h2 id="增加新盘"><a href="#增加新盘" class="headerlink" title="增加新盘"></a>增加新盘</h2><pre><code>$ mdadm /dev/md0 -a /dev/sde1
+</code></pre><h2 id="停止并移除阵列"><a href="#停止并移除阵列" class="headerlink" title="停止并移除阵列"></a>停止并移除阵列</h2><pre><code>$ mdadm --stop /dev/md99    // 停止
+$ mdadm -As /dev/md0        // 启动
+$ mdadm --remove /dev/md99
+</code></pre><h2 id="销毁系统中的阵列"><a href="#销毁系统中的阵列" class="headerlink" title="销毁系统中的阵列"></a>销毁系统中的阵列</h2><pre><code>mdadm --manage /dev/md99 --fail /dev/sd[cde]1
+mdadm --manage /dev/md99 --remove /dev/sd[cde]1
+mdadm --manage /dev/md99 --stop
+mdadm --zero-superblock /dev/sd[cde]1
+</code></pre>
           
         
       
@@ -528,7 +614,7 @@ shared-network mynet {          /*超网作用域选项，共同部分*/
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -547,7 +633,7 @@ shared-network mynet {          /*超网作用域选项，共同部分*/
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE ��װ���趨</a></h2>
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
         
 
         <div class="post-meta">
@@ -600,9 +686,9 @@ shared-network mynet {          /*超网作用域选项，共同部分*/
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/PXE安装与设定/#comments" itemprop="discussionUrl">
+                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/PXE安装与设定/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -610,7 +696,7 @@ shared-network mynet {          /*超网作用域选项，共同部分*/
 
           
           
-             <span id="/linux/PXE安装与设定/" class="leancloud_visitors" data-flag-title="PXE ��װ���趨">
+             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -640,127 +726,19 @@ shared-network mynet {          /*超网作用域选项，共同部分*/
       
         
           
-            <h1 id="װ">��װ���</h1>
-<pre><code># ��װ�������
-dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
-xinetd-2.3.14-10.el5.x86_64.rpm
-tftp-server-0.42-3.1.x86_64.rpm
-pykickstart-0.43.3-1.el5.noarch.rpm
-system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
-syslinux
-
-# �ر� selinux &amp; iptables</code></pre>
-<h1 id="dhcp">dhcp ����</h1>
-<pre><code>ddns-update-style interim;
-ignore client-updates;
-allow booting;
-allow bootp;
-class &quot;pxeclients&quot;{
-match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
-filename &quot;/pxelinux.0&quot;;
-next-server 10.85.138.9;
-}
-subnet 10.85.138.0 netmask 255.255.254.0 {
-option routers 10.85.138.1;
-option subnet-mask 255.255.254.0;
-option domain-name &quot;gwcloud.com&quot;;
-option domain-name-servers 10.85.138.1;
-option time-offset -18000; # Eastern Standard Time
-range dynamic-bootp 10.85.138.100 10.85.138.249;
-default-lease-time 21600;
-max-lease-time 43200;
-}</code></pre>
-<h1 id="tftp-ļ">���� tftp �ļ�</h1>
-<pre><code>���ļ��� tftpboot( ע��menu.c32 �� pxelinux.0 Ҫ�ӱ������������� TIMEOUT ��Ч�� )
-$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
-$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
-
-
-$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default �ļ�Ҳ�����Լ��޸�</code></pre>
-<h1 id="kickstart">���� kickstart</h1>
-<pre><code># �� /tftpboot/pxelinux.cfg/default ����� KS ���
-  label linux
-    menu label ^Install or upgrade an existing system
-    menu default
-    kernel vmlinuz
-    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
-
-# �޸� kickstart �Զ���װ linux( ����װ�ļ� )</code></pre>
-<blockquote>
-<p>��¼������ DHCP ����</p>
-</blockquote>
-<pre><code>ddns-update-style interim;
-ddns-updates on;
-ignore client-updates;
-allow booting;  # for pxe only
-allow bootp;    # for pxe only
-authoritative;  # Do not know what is meaning??
-
-class &quot;pxeclients&quot;{
-    match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
-    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-    filename &quot;/pxelinux.0&quot;;     # for pxe only
-    next-server 192.168.88.1;   # for pxe only
-}
-
-
-class &quot;MSFT&quot; {
-    match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
-    option host-name = config-option server.ddns-hostname;
-    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-}
-
-
-option host-name = config-option server.ddns-hostname;
-ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-));
-set vendor-string = option vendor-class-identifier;
-
-
-subnet 192.168.88.0 netmask 255.255.255.0 {
-    option routers 192.168.88.1;
-    option subnet-mask 255.255.255.0;
-    option domain-name &quot;gwcloud.cn&quot;;
-    option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
-    # option ntp-servers 192.168.88.1   # set the ntp server
-    option time-offset -18000;          # Eastern Standard Time
-    range dynamic-bootp 192.168.88.100 192.168.88.200;
-    default-lease-time 21600;
-    max-lease-time 43200;
-
-    # the next is bonding the mac to static ip address
-    # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
-    #    fixed-address 192.168.1.30;             # host&#39;s ip address
-}</code></pre>
+            <h1 id="买个-SS-帐号"><a href="#买个-SS-帐号" class="headerlink" title="买个 SS 帐号"></a>买个 SS 帐号</h1><p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机"><a href="#路由刷机" class="headerlink" title="路由刷机"></a>路由刷机</h1><h2 id="连接路由器"><a href="#连接路由器" class="headerlink" title="连接路由器"></a>连接路由器</h2><ul>
+<li>路由器通电，网线一端连接 “ 自己电脑的网口 “，一头连接路由器的 “LAN” 口，<code>注意：不是 WAN 口</code></li>
+<li>查看自己电脑的 “ 网络连接 “，选中 “ 本地连接 “，点击右键，选择 “ 状态 “ -&gt; “ 详细信息 “ 查看自己的 IP 地址</li>
+</ul>
+<p><img src="http://i.imgur.com/qlfwJ9j.jpg" alt=""></p>
+<ul>
+<li>自己电脑中打开浏览器：<a href="http://192.168.1.1" target="_blank" rel="external">http://192.168.1.1</a> ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 “ 本地连接 “ 中看到的 IP 一致，但最后一位修改为 1 )</li>
+<li>用户名和密码默认 “admin/admin”</li>
+</ul>
+<h2 id="路由器系统降级"><a href="#路由器系统降级" class="headerlink" title="路由器系统降级"></a>路由器系统降级</h2><ul>
+<li>登陆 WEB 后，点击菜单 “ 系统 “ -&gt; “ 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地 “breed_k2_163_v17_breed.bin” 文件</li>
+</ul>
 
           
         
@@ -916,8 +894,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
       
         
           
-            <h1 id="虚拟机增加系统盘根分区大小方法">虚拟机增加系统盘根分区大小方法</h1>
-<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
+            <h1 id="虚拟机增加系统盘根分区大小方法"><a href="#虚拟机增加系统盘根分区大小方法" class="headerlink" title="虚拟机增加系统盘根分区大小方法"></a>虚拟机增加系统盘根分区大小方法</h1><pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
 # 先增加实例文件大小，可以使用 dd 命令
 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
@@ -927,13 +904,13 @@ $ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
 # If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &apos;Linux swap&apos; |awk &apos;{print $1}&apos;`
 
 # Del swap
 $ parted -s ${loop} rm ${swap_part_num}
 
 
-# If does&#39;t have, add the new swap device
+# If does&apos;t have, add the new swap device
 $ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
 # 或者先只划分空间，再用 mkswap 进行操作
@@ -948,8 +925,8 @@ $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 $ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
 # 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239      ( 样例，要修改 )
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
+  new_root=401625,14227239        ( 样例，要修改 )
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &apos;s/\//\\\\\//g&apos;`
 $ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
 # 重新刷新新变更的分区
@@ -958,9 +935,8 @@ $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
 # fs resize
 $ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1</code></pre>
-<h1 id="parted-使用">parted 使用</h1>
-<pre><code># create all 100% space to one part
+$ resize2fs -f /dev/mapper/loop0p1
+</code></pre><h1 id="parted-使用"><a href="#parted-使用" class="headerlink" title="parted 使用"></a>parted 使用</h1><pre><code># create all 100% space to one part
 $ parted -s /dev/sdb mklabel gpt
 $ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
 
@@ -970,9 +946,8 @@ parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
 
 # remove part
 parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3</code></pre>
-<h1 id="分区对齐">分区对齐</h1>
-<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
+parted -s /dev/sdb rm 3
+</code></pre><h1 id="分区对齐"><a href="#分区对齐" class="headerlink" title="分区对齐"></a>分区对齐</h1><pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
   1048576
 $ cat /sys/block/sdb/queue/minimum_io_size
   262144
@@ -990,8 +965,8 @@ $ mkpart primary 2048s 100%
 # 检查分区是否对齐
 
 (parted) align-check optimal 1
-  1 aligned</code></pre>
-
+  1 aligned
+</code></pre>
           
         
       
@@ -1146,24 +1121,19 @@ $ mkpart primary 2048s 100%
       
         
           
-            <h1 id="安装好二台-postgresql">安装好二台 postgresql</h1>
-<blockquote>
-<p>参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上</span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line"><span class="comment"># 从服务器上</span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure></p>
+            <h1 id="安装好二台-postgresql"><a href="#安装好二台-postgresql" class="headerlink" title="安装好二台 postgresql"></a>安装好二台 postgresql</h1><blockquote>
+<p>参见：<a href="http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/">http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上</span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line"><span class="comment"># 从服务器上</span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure></p>
 </blockquote>
-<h1 id="配置主服务器-192.168.10.11">配置主服务器 192.168.10.11</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户</span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 配置一个账号进行主从同步</span></div><div class="line">su - postgres</div><div class="line">psql [ -p  54321 ]     <span class="comment"># 如果修改过端口，需要指定端口</span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户</span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数</span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机</span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制</span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间</span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的</span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限</span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
-<h1 id="配置从服务器-192.168.10.12">配置从服务器 192.168.10.12</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户</span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置</span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可</span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置</span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># ( 要大于主库的 )</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询</span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间</span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主</span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈</span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
-<h1 id="检测配置是否成功">检测配置是否成功</h1>
-<pre><code># 使用 ps -ef 在主从二台上检测进程状态
+<h1 id="配置主服务器-192-168-10-11"><a href="#配置主服务器-192-168-10-11" class="headerlink" title="配置主服务器 192.168.10.11"></a>配置主服务器 192.168.10.11</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户</span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 配置一个账号进行主从同步</span></div><div class="line">su - postgres</div><div class="line">psql [ -p  54321 ]     <span class="comment"># 如果修改过端口，需要指定端口</span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户</span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数</span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机</span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制</span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间</span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的</span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限</span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
+<h1 id="配置从服务器-192-168-10-12"><a href="#配置从服务器-192-168-10-12" class="headerlink" title="配置从服务器 192.168.10.12"></a>配置从服务器 192.168.10.12</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户</span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置</span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可</span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置</span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># ( 要大于主库的 )</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询</span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间</span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主</span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈</span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
+<h1 id="检测配置是否成功"><a href="#检测配置是否成功" class="headerlink" title="检测配置是否成功"></a>检测配置是否成功</h1><pre><code># 使用 ps -ef 在主从二台上检测进程状态
 # 在主上应该有 sender 进程，在从上有 receiver 进程
 
 # 在主上查看复制状态
 $ psql$ select * from pg_stat_replication;
 
-# 可以看到 sender 的进程信息</code></pre>
-<h1 id="主从切换命令">主从切换命令</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># node1 上模拟主库故障</span></div><div class="line">[postgres@node1 ~]$ pg_ctl stop -m f</div><div class="line"></div><div class="line"><span class="comment"># node2 提升备库状态</span></div><div class="line">[postgres@node2 ~]$ pg_ctl promote</div><div class="line"></div><div class="line"><span class="comment"># node2 更新备数据</span></div><div class="line">[postgres@node2 ~]$ createdb pgbench</div><div class="line">[postgres@node2 ~]$ pgbench -i -s 10 pgbench</div><div class="line"></div><div class="line"><span class="comment"># node1 将以前 master 恢复为 standby</span></div><div class="line">pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node2 user=postgres port=5432'</span></div><div class="line"></div><div class="line">vi /opt/pgsql/data/recovery.conf</div><div class="line">standby_mode = <span class="string">'on'</span></div><div class="line">primary_conninfo = <span class="string">'host=node2 user=postgres port=5432'</span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line"></div><div class="line"><span class="comment"># 启动 node1 上的数据库：</span></div><div class="line">[postgres@node1 ~]$ pg_ctl start</div><div class="line"></div><div class="line"><span class="comment"># 将 node1 恢复为 master</span></div><div class="line">[postgres@node2 ~]$ pg_ctl stop -m f</div><div class="line">[postgres@node1 ~]$ pg_ctl promote</div><div class="line">[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench</div><div class="line"></div><div class="line"><span class="comment"># 恢复 node2 为 standby：</span></div><div class="line">[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node1 user=postgres port=5432'</span></div><div class="line">[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf</div><div class="line"></div><div class="line"><span class="comment"># 修改 node2 为 node1</span></div><div class="line">vi /opt/pgsql/data/recovery.conf </div><div class="line"></div><div class="line"><span class="comment"># 启动 node2 上的数据库：</span></div><div class="line">[postgres@node2 ~]$ pg_ctl start</div></pre></td></tr></table></figure>
+# 可以看到 sender 的进程信息
+</code></pre><h1 id="主从切换命令"><a href="#主从切换命令" class="headerlink" title="主从切换命令"></a>主从切换命令</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># node1 上模拟主库故障</span></div><div class="line">[postgres@node1 ~]$ pg_ctl stop -m f</div><div class="line"></div><div class="line"><span class="comment"># node2 提升备库状态</span></div><div class="line">[postgres@node2 ~]$ pg_ctl promote</div><div class="line"></div><div class="line"><span class="comment"># node2 更新备数据</span></div><div class="line">[postgres@node2 ~]$ createdb pgbench</div><div class="line">[postgres@node2 ~]$ pgbench -i -s 10 pgbench</div><div class="line"></div><div class="line"><span class="comment"># node1 将以前 master 恢复为 standby</span></div><div class="line">pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node2 user=postgres port=5432'</span></div><div class="line"></div><div class="line">vi /opt/pgsql/data/recovery.conf</div><div class="line">standby_mode = <span class="string">'on'</span></div><div class="line">primary_conninfo = <span class="string">'host=node2 user=postgres port=5432'</span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line"></div><div class="line"><span class="comment"># 启动 node1 上的数据库：</span></div><div class="line">[postgres@node1 ~]$ pg_ctl start</div><div class="line"></div><div class="line"><span class="comment"># 将 node1 恢复为 master</span></div><div class="line">[postgres@node2 ~]$ pg_ctl stop -m f</div><div class="line">[postgres@node1 ~]$ pg_ctl promote</div><div class="line">[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench</div><div class="line"></div><div class="line"><span class="comment"># 恢复 node2 为 standby：</span></div><div class="line">[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node1 user=postgres port=5432'</span></div><div class="line">[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf</div><div class="line"></div><div class="line"><span class="comment"># 修改 node2 为 node1</span></div><div class="line">vi /opt/pgsql/data/recovery.conf </div><div class="line"></div><div class="line"><span class="comment"># 启动 node2 上的数据库：</span></div><div class="line">[postgres@node2 ~]$ pg_ctl start</div></pre></td></tr></table></figure>
 
           
         
@@ -1207,7 +1177,7 @@ $ psql$ select * from pg_stat_replication;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1226,7 +1196,7 @@ $ psql$ select * from pg_stat_replication;
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
+                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
         
 
         <div class="post-meta">
@@ -1261,8 +1231,8 @@ $ psql$ select * from pg_stat_replication;
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/monitor/" itemprop="url" rel="index">
-                    <span itemprop="name">monitor</span>
+                  <a href="/categories/storage/" itemprop="url" rel="index">
+                    <span itemprop="name">storage</span>
                   </a>
                 </span>
 
@@ -1279,9 +1249,9 @@ $ psql$ select * from pg_stat_replication;
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
+                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1289,7 +1259,7 @@ $ psql$ select * from pg_stat_replication;
 
           
           
-             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite 安装">
+             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1320,65 +1290,82 @@ $ psql$ select * from pg_stat_replication;
         
           
             <blockquote>
-<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+<p>参考： <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="external">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
 </blockquote>
-<blockquote>
-<p>更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+<h1 id="下载源"><a href="#下载源" class="headerlink" title="下载源"></a>下载源</h1><pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
+</code></pre><h1 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><pre><code>yum install glusterfs{,-fuse,-server}
+yum install glusterfs-geo-replication.x86_64
+</code></pre><blockquote>
+<p>如遇到以下错误：<br>    Transaction check error:<br>    file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package  lvm2-7:2.02.105-14.el7.x86_64<br>    file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64<br>    file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
 </blockquote>
-<h1 id="使用-yum-安装环境">使用 yum 安装环境</h1>
-<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+<pre><code># 删除 lvm2
+$ rpm -e lvm2
+</code></pre><h1 id="挂载分区及配置防火墙"><a href="#挂载分区及配置防火墙" class="headerlink" title="挂载分区及配置防火墙"></a>挂载分区及配置防火墙</h1><pre><code># mkdir
+$ mkdir /export/brick1
 
-# 其它的使得 pip 安装就可以
-$ pip install whisper
-$ pip install carbon
-$ pip install graphite-web</code></pre>
-<h1 id="安装并升级为最新的-zope.interface-及-twisted">安装并升级为最新的 zope.interface 及 twisted</h1>
-<pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
-$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
-$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
+$ chmod 777 /export/brick1
 
-# test twisted
-[root@bigdata twisted]# python
-Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-&gt;&gt;&gt; from twisted.python.compat import _PY3
-&gt;&gt;&gt;</code></pre>
-<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
-<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
-<h1 id="设置权限">设置权限</h1>
-<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
-<h1 id="配置文件">配置文件</h1>
-<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
-$ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
-$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf</code></pre>
-<h1 id="同步数据库">同步数据库</h1>
-<pre><code># 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
-$ python /opt/graphite/webapp/graphite/manage.py syncdb
+# firewall
+$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
 
-$ cd /opt/graphite/conf/
-$ cp graphite.wsgi.example graphite.wsgi
-$ cp storage-schemas.conf.example storage-schemas.conf
-$ cp carbon.conf.example carbon.conf
+$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
+$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
+--add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
+$ firewall-cmd --reload
+</code></pre><h1 id="启动-glusterd-服务"><a href="#启动-glusterd-服务" class="headerlink" title="启动 glusterd 服务"></a>启动 glusterd 服务</h1><pre><code>$ service glusterd start
 
-$ cd /opt/graphite/webapp/graphite
-$ cp local_settings.py.example local_settings.py</code></pre>
-<h1 id="在-httpd-中启用-virtualhost">在 httpd 中启用 virtualHost</h1>
-<pre><code>$ cd ../../
-$ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
+# if centos7:
+$ systemctl enable glusterd
+$ systemctl start glusterd
+$ systemctl status glusterd
+</code></pre><h1 id="配置信任池"><a href="#配置信任池" class="headerlink" title="配置信任池"></a>配置信任池</h1><pre><code># from server1
+$ gluster peer probe SERVER2
+
+# from server2
+$ gluster peer probe SERVER1
+
+# check peer
+$ gluster peer status
+</code></pre><h1 id="设置一个-Gluster-卷"><a href="#设置一个-Gluster-卷" class="headerlink" title="设置一个 Gluster 卷"></a>设置一个 Gluster 卷</h1><pre><code>$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
+$ gluster volume start gv0
+
+$ gluster volume info
+$ gluster volume status
 
 
-# 并修改
-$ vi /etc/httpd/conf.d/vhost-graphite.conf
-WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
-<h1 id="修改已知的-bug">修改已知的 bug</h1>
-<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
+# How to remove a volume or peer
+# stop Volume
+$ gluster volume stop gv0
 
-def fetch(self, startTime, endTime, now=None):
-    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now</code></pre>
-<h1 id="替换-graphite-的界面">替换 graphite 的界面</h1>
-<pre><code>graph-index-master
-graphite-web-master</code></pre>
+# delete Volume
+$ gluster volume delete gv0
+
+# detach 命令：
+$ gluster peer detach NAME_OF_PEERNODE
+</code></pre><h1 id="Test-Gluster-volume"><a href="#Test-Gluster-volume" class="headerlink" title="Test Gluster volume"></a>Test Gluster volume</h1><pre><code># mount to /mnt
+$ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
+
+$ vi /etc/fstab
+gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
+
+
+# 如果使用 nfs 协议使用
+# GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
+$ vi /etc/nfsmount.conf
+Defaultvers=3
+
+$ systemctl restart glusterd.service
+
+# start force
+$ gluster volume set gv0 nfs.disable off
+$ gluster volume start gv0 force
+
+$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
+</code></pre><h1 id="配置-Quorum"><a href="#配置-Quorum" class="headerlink" title="配置 Quorum()"></a>配置 Quorum()</h1><pre><code>......
+</code></pre><blockquote>
+<p>通过 CIFS 从 Linux ／ Windows 计算机进行访问<br>参考 : <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="external">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
+</blockquote>
 
           
         

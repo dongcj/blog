@@ -436,8 +436,7 @@
       
         
           
-            <h1 id="screen-后台">screen 后台</h1>
-<pre><code>screen -S   yourname -&gt; 新建一个叫 yourname 的 session，然后进入
+            <h1 id="screen-后台"><a href="#screen-后台" class="headerlink" title="screen 后台"></a>screen 后台</h1><pre><code>screen -S   yourname -&gt; 新建一个叫 yourname 的 session，然后进入
 screen -ls -&gt; 列出当前所有的 session
 screen -r yourname -&gt; 回到 yourname 这个 session
 screen -d yourname -&gt; 远程 detach 某个 session
@@ -452,16 +451,12 @@ screen -X -S [session_you_want_to_kill] quit
 # 在在脚本中使用 screen（直接在指定的 screen 中运行命令，并 Detach 出去）
 screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
 
-ctrl A 然后再按 D 退出会话</code></pre>
-<h1 id="nohup-后台">nohup 后台</h1>
-<pre><code>nohup ping www.ibm.com &amp;</code></pre>
-<h1 id="setsid-后台">setsid 后台</h1>
-<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了 )</code></pre>
-<h1 id="subshell-后台">subshell 后台</h1>
-<pre><code>(ping www.ibm.com &amp;)</code></pre>
-<h1 id="disown-后台">disown 后台</h1>
-<pre><code>disown -h JOBID</code></pre>
-
+ctrl A 然后再按 D 退出会话
+</code></pre><h1 id="nohup-后台"><a href="#nohup-后台" class="headerlink" title="nohup 后台"></a>nohup 后台</h1><pre><code>nohup ping www.ibm.com &amp;
+</code></pre><h1 id="setsid-后台"><a href="#setsid-后台" class="headerlink" title="setsid 后台"></a>setsid 后台</h1><pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了 )
+</code></pre><h1 id="subshell-后台"><a href="#subshell-后台" class="headerlink" title="subshell 后台"></a>subshell 后台</h1><pre><code>(ping www.ibm.com &amp;)
+</code></pre><h1 id="disown-后台"><a href="#disown-后台" class="headerlink" title="disown 后台"></a>disown 后台</h1><pre><code>disown -h JOBID
+</code></pre>
           
         
       
@@ -617,12 +612,10 @@ ctrl A 然后再按 D 退出会话</code></pre>
         
           
             <blockquote>
-<p>�ο��� http://linux.vbird.org/linux_server/0350dns.php#server_settings DDNS �İ�װ����http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
+<p>�ο���<br><a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="external">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a><br>DDNS �İ�װ����<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="external">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
 </blockquote>
-<h1 id="װ">��װ</h1>
-<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
-<h1 id="section">����</h1>
-<pre><code>1. ���� rndc key
+<h1 id="��װ"><a href="#��װ" class="headerlink" title="��װ"></a>��װ</h1><pre><code>$ rpm -ivh bind bind-chroot
+</code></pre><h1 id="����"><a href="#����" class="headerlink" title="����"></a>����</h1><pre><code>1. ���� rndc key
 $ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
 $ chown root:named /etc/rndc.conf
 
@@ -687,9 +680,8 @@ controls {
 
 logging {                               // ��ֹ�ⲿ������������ log ��¼
         category lame-servers { null; };
-};</code></pre>
-<h1 id="zone">zone ����</h1>
-<pre><code>1. ���� zone ��������
+};
+</code></pre><h1 id="zone-����"><a href="#zone-����" class="headerlink" title="zone ����"></a>zone ����</h1><pre><code>1. ���� zone ��������
 $ vi /var/named/named.xdol.vicp.net
 
 $TTL    600
@@ -699,7 +691,7 @@ master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS ����
 @                       IN      MX      10 www.xdol.vicp.net.   ; �ʼ�������
 
 ; ���� 192.168.1.109 �ⲿ�����������趨
-www.xdol.vicp.net.      IN      A       192.168.1.109       ; �ڲ������� IP
+www.xdol.vicp.net.      IN      A       192.168.1.109        ; �ڲ������� IP
 ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 
@@ -713,11 +705,11 @@ $ vi /var/named/named.xdol.vicp.net.inter
 $TTL    600
 @                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
 @                       IN      NS      master.xdol.vicp.net.   ;DNS ����������
-master.xdol.vicp.net.   IN      A       11.11.11.11     ;DNS ������ IP
+master.xdol.vicp.net.   IN      A       11.11.11.11        ;DNS ������ IP
 @                       IN      MX      10 www.xdol.vicp.net.   ; �ʼ�������
 
 ; ���� 192.168.1.109 �ⲿ�����������趨
-www.xdol.vicp.net.      IN      A       11.11.11.11     ; �ⲿ������ IP
+www.xdol.vicp.net.      IN      A       11.11.11.11        ; �ⲿ������ IP
 ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
 
@@ -733,12 +725,10 @@ $TTL    600
 109     IN      PTR     master.xdol.vicp.net. ; ��ԭ���� A ��Ϊ PTR ��־����
 
 109     IN      PTR     www.xdol.vicp.net.
-246     IN      PTR     client.xdol.vicp.net.</code></pre>
-<h1 id="section-1">�����</h1>
-<pre><code>service named start
-chkconfig named on</code></pre>
-<h1 id="ddns-ѡ">���� DDNS( ��ѡ )</h1>
-<pre><code>1. DNS ��������������˵� key( �ڵ�ǰĿ¼�»�����һ����Կ��һ��˽Կ )
+246     IN      PTR     client.xdol.vicp.net.
+</code></pre><h1 id="�����"><a href="#�����" class="headerlink" title="�����"></a>�����</h1><pre><code>service named start
+chkconfig named on
+</code></pre><h1 id="����-DDNS-��ѡ"><a href="#����-DDNS-��ѡ" class="headerlink" title="���� DDNS( ��ѡ )"></a>���� DDNS( ��ѡ )</h1><pre><code>1. DNS ��������������˵� key( �ڵ�ǰĿ¼�»�����һ����Կ��һ��˽Կ )
 dnssec-keygen -r /dev/urandom -a HMAC-MD5 -b 512 -n HOST greatwall
 
 
@@ -754,7 +744,7 @@ key &quot;greatwall&quot; {
 zone &quot;centos.vbird&quot; IN {
         type master;
         file &quot;named.centos.vbird&quot;;
-        update-policy {                 // ��� update-policy �����������ӵ�
+        update-policy {                    // ��� update-policy �����������ӵ�
                 grant greatwall name greatwall.xdol.vicp.net. A;
         };
 };
@@ -762,7 +752,7 @@ zone &quot;centos.vbird&quot; IN {
 $ chmod g+w /var/named
 $ chown named /var/named/named.centos.vbird
 $ /etc/init.d/named restart
-$ setsebool -P named_write_master_zones=1       // selinux ��
+$ setsebool -P named_write_master_zones=1        // selinux ��
 
 
 
@@ -771,39 +761,39 @@ $ setsebool -P named_write_master_zones=1       // selinux ��
 
 #!/bin/bash
 #
-# Update your Dynamic IP by using BIND 9 &#39;s tools
+# Update your Dynamic IP by using BIND 9 &apos;s tools
 #
 ###############################################
 # History
-# 2004/10/27    VBird   First time release
+# 2004/10/27    VBird    First time release
 #
 ##############################################
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 export PATH
 
 # 0. keyin your parameters
-basedir=&quot;/usr/local/ddns&quot;           # working directory
-keyfile=&quot;$basedir&quot;/&quot;Kgreatwall.+157+60932.key&quot;  # your ddns&#39; key (filename)
-ttl=600                     # the ttl time ( 10 min. )
+basedir=&quot;/usr/local/ddns&quot;            # working directory
+keyfile=&quot;$basedir&quot;/&quot;Kgreatwall.+157+60932.key&quot;    # your ddns&apos; key (filename)
+ttl=600                        # the ttl time ( 10 min. )
 outif=&quot;eth0&quot;                    # Your interface (connect to internet)
-hostname=&quot;greatwall.xdol.vicp.net&quot;      # Your hostname
-servername=&quot;192.168.1.109&quot;          # The update primary DNS server name (or IP)
+hostname=&quot;greatwall.xdol.vicp.net&quot;        # Your hostname
+servername=&quot;192.168.1.109&quot;            # The update primary DNS server name (or IP)
 showmesg=no                                     # if yes then show messages
 
 # Get your new IP
-newip=`ifconfig &quot;$outif&quot; | grep &#39;inet addr&#39; | \
-    awk &#39;{print $2}&#39; | sed -e &quot;s/addr\://&quot;`
+newip=`ifconfig &quot;$outif&quot; | grep &apos;inet addr&apos; | \
+    awk &apos;{print $2}&apos; | sed -e &quot;s/addr\://&quot;`
 checkip=`echo $newip | grep &quot;^[0-9]&quot;`
 if [ &quot;$checkip&quot; == &quot;&quot; ]; then
-    echo &quot;$0: The interface can&#39;t connect internet....&quot;
+    echo &quot;$0: The interface can&apos;t connect internet....&quot;
     exit 1
 fi
 
 # check if the DNS is the same with your IP
-dnsip=`host $hostname | head -n 1 | awk &#39;{print $4}&#39;`
+dnsip=`host $hostname | head -n 1 | awk &apos;{print $4}&apos;`
 if [ &quot;$newip&quot; == &quot;$dnsip&quot; ]; then
         if [ &quot;$showmesg&quot; == &quot;yes&quot; ]; then
-                echo &quot;$0: The IP is the same with DNS, Don&#39;t change it.&quot;
+                echo &quot;$0: The IP is the same with DNS, Don&apos;t change it.&quot;
         fi
         exit 0
 fi
@@ -811,32 +801,42 @@ fi
 # create the temporal file
 tmpfile=$basedir/ns_auto_update.txt
 cd $basedir
-echo &quot;server $servername&quot;           &gt;  $tmpfile
-echo &quot;update delete $hostname A &quot;       &gt;&gt; $tmpfile
-echo &quot;update add    $hostname $ttl A $newip&quot;    &gt;&gt; $tmpfile
+echo &quot;server $servername&quot;             &gt;  $tmpfile
+echo &quot;update delete $hostname A &quot;         &gt;&gt; $tmpfile
+echo &quot;update add    $hostname $ttl A $newip&quot;     &gt;&gt; $tmpfile
 echo &quot;send&quot;                     &gt;&gt; $tmpfile
 
 
-# send yo</code></pre>
-<h2 id="ʽ"># ��¼�� ���ʽ���</h2>
-<p>TLD: Top Level Domain ccTLD: Country code TLD TTL: Time to live</p>
+# send yo
+</code></pre><h1 id="��¼��-���ʽ���"><a href="#��¼��-���ʽ���" class="headerlink" title="��¼�� ���ʽ���"></a>��¼�� ���ʽ���</h1><hr>
+<p>TLD:     Top Level Domain<br>ccTLD:     Country code TLD<br>TTL: Time to live</p>
 <p>��Ո DNS �I���ԃ�ڙ�</p>
-<p>NS ��¼�� NameServer A ��¼�� Address MX ��¼�� Mail CNAME ���H�����@�����C�e�������C����</p>
+<p>NS ��¼�� NameServer<br>A ��¼��  Address<br>MX ��¼�� Mail<br>CNAME       ���H�����@�����C�e�������C����</p>
 <p>SOA�������_ʼ��C (Start of Authority) �Ŀs��</p>
 <p>PTR������ָ�� (PoinTeR) �Ŀs��������ӛ䛵��Y�Ͼ��Ƿ��⵽���C���Q�ӣ�</p>
 <p>ӛ� . �� zone ����ͣ��ͱ��҂��Q�� hint ���</p>
 <p>���ʹ�� DHCP �r��ϵ�y�����ӵ�ʹ�� DHCP �ŷ���������Y���M��ϵ�y�O���n����ӆ����ˣ����횸�֪ϵ�y����Ҫʹ�� DHCP ������ŷ����O��ֵ�� �˕r�����Ҫ�� /etc/sysconfig/network-scripts/ifcfg-eth0 �����P�n���ȣ�����һ�У���PEERDNS=no����Ȼ�������ӾW·���ɡ�</p>
 <p>�� domain �Ĳ��֣�����ܵ�Ԓ��Ո�M��ʹ�� FQDN���༴�����C���Q�Yβ����һ��С���c</p>
-<p>SOA ��Ҫ���c�I�����P������ǰ�殔ȻҪ�� ksu.edu.tw �@���I�������� SOA ���湲�����߂��������@�߂����������x�����ǣ� 1.Master DNS �ŷ������C���Q���@���I����Ҫ���Ĳ� DNS ���� master ����˼���ڱ����У� dns1.ksu.edu.tw �� ksu.edu.tw �@���I�����Ҫ DNS �ŷ����ӣ�</p>
-<ol start="2" type="1">
-<li><p>����T�� email�����N����T�� email ��Σ��l�����}����“�j�@������T��Ҫע����ǣ� ��� @ ���Y�ώ�n���������؄e���x�ģ�����@�e�͌� abuse@mail.ksu.edu.tw �Č��� abuse.mail.ksu.edu.tw ���@�ӿ��Ķ��ˆ᣿</p></li>
-<li><p>��̖ (Serial)���@����̖��������@���Y�ώ�n�������f����̖Խ�����Խ�¡� �� slave Ҫ�Д��Ƿ��������d�µ��Y�ώ�r��������̖�Ƿ�� slave �ϵ�߀Ҫ���Д࣬���Ǆt���d�����Ǆt�����d�� ���Ԯ�����ӆ���Y�ώ���ݕr��ӛ��Ҫ���@����ֵ�Ŵ���У� ���˷���ʹ����ӛ����ͨ����̖����ʹ�����ڸ�ʽ��YYYYMMDDNU����ӛ�������獋ɽ�ƴ�� 2010080369 ��̖���� 2010/08/03 ����ĵ� 69 �θ��µĸ��X�����^����̖���ɴ�� 2 �� 32 �η����༴���С� 4294967296 ����ม�</p></li>
-<li><p>�����l�� (Refresh)�����Nɶ�r slave ��ȥ�� master Ҫ���Y�ϸ��µ��Дࣿ �����@����ֵ���x�ġ���ɽ�ƴ�� DNS �O��ÿ 1800 ���M��һ�� slave �� master Ҫ���Y�ϸ��¡���ÿ�� slave ȥ���r�� ����l�F��̖�]�б��^���ǾͲ������d�Y�ώ�n����</p></li>
-<li><p>ʧ�����Lԇ�r�g (Retry)��������ĳЩ���أ����� slave �o���� master �_���B���� ���N�ڶ�õĕr�g�ȣ�slave ���Lԇ�����B���� master���ڍ�ɽ�ƴ���O���У�900 ������Lԇһ�Ρ���˼���f��ÿ 1800 �� slave �������� master �B���������ԓ���B���]�гɹ����ǽ���Lԇ�B���ĕr�g��׃�� 900 �롣������гɹ����t�֕��֏͵� 1800 �����һ���B����</p></li>
-<li><p>ʧЧ�r�g (Expire)�����һֱʧ���Lԇ�r�g�����m�B�����<em>�@���O��ֵ�r�ޣ� ���N slave �������^�m�Lԇ�B�����K�҇Lԇ�h���@�����d�� zone file �YӍ����ɽ�ƴ��O���� 604800 �롣��˼���f�����B��һֱʧ����ÿ 900 ��Lԇ���</em> 604800 ���ᣬ��ɽ�ƴ�� slave �����ٸ��£�ֻ�ܵȴ�ϵ�y����T��̎��</p></li>
-<li><p>��ȡ�r�g (Minumum TTL)������@���Y�ώ� zone file �У�ÿ�P RR ӛ䛶��]�Ќ��� TTL ��ȡ�r�g��Ԓ�����N�����@�� SOA ���O��ֵ������</p></li>
+<p>SOA ��Ҫ���c�I�����P������ǰ�殔ȻҪ�� ksu.edu.tw �@���I�������� SOA ���湲�����߂��������@�߂����������x�����ǣ�<br>1.Master DNS �ŷ������C���Q���@���I����Ҫ���Ĳ� DNS ���� master ����˼���ڱ����У� dns1.ksu.edu.tw �� ksu.edu.tw �@���I�����Ҫ DNS �ŷ����ӣ�</p>
+<ol>
+<li>����T�� email�����N����T�� email ��Σ��l�����}�����j�@������T��Ҫע����ǣ� ��� @ ���Y�ώ�n���������؄e���x�ģ�����@�e�͌� abuse@mail.ksu.edu.tw �Č��� abuse.mail.ksu.edu.tw ���@�ӿ��Ķ��ˆ᣿</li>
 </ol>
-<p>���� Serial �����Գ��^ 2 �� 32 �η�֮�⣬�Л]�����������ư�ᘌ��@�ׂ���ֵ�����еģ������Ͼ����@�ӣ� Refresh &gt;= Retry <em>2 Refresh + Retry &lt; Expire Expire &gt;= Rrtry </em> 10 Expire &gt;= 7Days</p>
+<ol>
+<li>��̖ (Serial)���@����̖��������@���Y�ώ�n�������f����̖Խ�����Խ�¡� �� slave Ҫ�Д��Ƿ��������d�µ��Y�ώ�r��������̖�Ƿ�� slave �ϵ�߀Ҫ���Д࣬���Ǆt���d�����Ǆt�����d�� ���Ԯ�����ӆ���Y�ώ���ݕr��ӛ��Ҫ���@����ֵ�Ŵ���У� ���˷���ʹ����ӛ����ͨ����̖����ʹ�����ڸ�ʽ��YYYYMMDDNU����ӛ�������獋ɽ�ƴ�� 2010080369 ��̖���� 2010/08/03 ����ĵ� 69 �θ��µĸ��X�����^����̖���ɴ�� 2 �� 32 �η����༴���С� 4294967296 ����ม�</li>
+</ol>
+<ol>
+<li>�����l�� (Refresh)�����Nɶ�r slave ��ȥ�� master Ҫ���Y�ϸ��µ��Дࣿ �����@����ֵ���x�ġ���ɽ�ƴ�� DNS �O��ÿ 1800 ���M��һ�� slave �� master Ҫ���Y�ϸ��¡���ÿ�� slave ȥ���r�� ����l�F��̖�]�б��^���ǾͲ������d�Y�ώ�n����</li>
+</ol>
+<ol>
+<li>ʧ�����Lԇ�r�g (Retry)��������ĳЩ���أ����� slave �o���� master �_���B���� ���N�ڶ�õĕr�g�ȣ�slave ���Lԇ�����B���� master���ڍ�ɽ�ƴ���O���У�900 ������Lԇһ�Ρ���˼���f��ÿ 1800 �� slave �������� master �B���������ԓ���B���]�гɹ����ǽ���Lԇ�B���ĕr�g��׃�� 900 �롣������гɹ����t�֕��֏͵� 1800 �����һ���B����</li>
+</ol>
+<ol>
+<li>ʧЧ�r�g (Expire)�����һֱʧ���Lԇ�r�g�����m�B�����<em>�@���O��ֵ�r�ޣ� ���N slave �������^�m�Lԇ�B�����K�҇Lԇ�h���@�����d�� zone file �YӍ����ɽ�ƴ��O���� 604800 �롣��˼���f�����B��һֱʧ����ÿ 900 ��Lԇ���</em> 604800 ���ᣬ��ɽ�ƴ�� slave �����ٸ��£�ֻ�ܵȴ�ϵ�y����T��̎��</li>
+</ol>
+<ol>
+<li>��ȡ�r�g (Minumum TTL)������@���Y�ώ� zone file �У�ÿ�P RR ӛ䛶��]�Ќ��� TTL ��ȡ�r�g��Ԓ�����N�����@�� SOA ���O��ֵ������</li>
+</ol>
+<p>���� Serial �����Գ��^ 2 �� 32 �η�֮�⣬�Л]�����������ư�ᘌ��@�ׂ���ֵ�����еģ������Ͼ����@�ӣ�<br>Refresh &gt;= Retry <em>2<br>Refresh + Retry &lt; Expire<br>Expire &gt;= Rrtry </em> 10<br>Expire &gt;= 7Days</p>
 <p>һ����f����� DNS RR �Y��׃����r�l���ģ����N���������P��ֵ����ӆ����СһЩ����� DNS RR �Ǻܷ����ģ� ���˹�ʡ�l�����t���Ԍ� Refresh �O�����^��һЩ��</p>
 
           
@@ -958,8 +958,7 @@ echo &quot;send&quot;                     &gt;&gt; $tmpfile
       
         
           
-            <h1 id="生日照片">生日照片</h1>
-<p><img src="http://i.imgur.com/Tmquu1O.jpg"> <img src="http://i.imgur.com/FHb3huu.jpg"> <img src="http://i.imgur.com/lJwF5Tu.jpg"> <img src="http://i.imgur.com/hoAQij1.jpg"></p>
+            <h1 id="生日照片"><a href="#生日照片" class="headerlink" title="生日照片"></a>生日照片</h1><p><img src="http://i.imgur.com/Tmquu1O.jpg" alt=""><br><img src="http://i.imgur.com/FHb3huu.jpg" alt=""><br><img src="http://i.imgur.com/lJwF5Tu.jpg" alt=""><br><img src="http://i.imgur.com/hoAQij1.jpg" alt=""></p>
 
           
         
@@ -1115,22 +1114,18 @@ echo &quot;send&quot;                     &gt;&gt; $tmpfile
       
         
           
-            <h1 id="安装">安装</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
-<h1 id="配置">配置</h1>
-<blockquote>
+            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
+<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><blockquote>
 <p>生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选</span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选</span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令</span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动</span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选</span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选</span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<h1 id="启动">启动</h1>
-<pre><code>$ service supervisord start
+<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><pre><code>$ service supervisord start
 
-&gt; 如果使用 pip 安装，需要自已写启动脚本</code></pre>
-<h1 id="检查安装">检查安装</h1>
-<pre><code># 如下即表示正常
+&gt; 如果使用 pip 安装，需要自已写启动脚本
+</code></pre><h1 id="检查安装"><a href="#检查安装" class="headerlink" title="检查安装"></a>检查安装</h1><pre><code># 如下即表示正常
 supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
-
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
+</code></pre>
           
         
       
@@ -1285,9 +1280,7 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
       
         
           
-            <h1 id="systemd-和-systemctl-基础命令">Systemd 和 Systemctl 基础命令</h1>
-<h2 id="几个常用的服务控制">几个常用的服务控制</h2>
-<pre><code>查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
+            <h1 id="Systemd-和-Systemctl-基础命令"><a href="#Systemd-和-Systemctl-基础命令" class="headerlink" title="Systemd 和 Systemctl 基础命令"></a>Systemd 和 Systemctl 基础命令</h1><h2 id="几个常用的服务控制"><a href="#几个常用的服务控制" class="headerlink" title="几个常用的服务控制"></a>几个常用的服务控制</h2><pre><code>查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
 
 [ 启动 | 停止 ]:    systemctl [ start | stop ] &lt;SERVICE_NAME&gt;
 
@@ -1305,19 +1298,16 @@ systemctl stop &lt;SERVICE_NAME&gt;
 systemctl disable &lt;SERVICE_NAME&gt;
 rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
 systemctl daemon-reload
-`systemctl reset-failed`   # 只有运行这样才可以看到服务消失</code></pre>
-<h3 id="首先检查你的系统中是否安装有-systemd-并确定当前安装的版本">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</h3>
-<pre><code>[root@manage ~]# systemctl --version
+`systemctl reset-failed`   # 只有运行这样才可以看到服务消失
+</code></pre><h3 id="1-首先检查你的系统中是否安装有-systemd-并确定当前安装的版本"><a href="#1-首先检查你的系统中是否安装有-systemd-并确定当前安装的版本" class="headerlink" title="1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本"></a>1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</h3><pre><code>[root@manage ~]# systemctl --version
 systemd 215
 +PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
-上例中很清楚地表明，我们安装了 215 版本的 systemd。</code></pre>
-<h3 id="检查-systemd-和-systemctl-的二进制文件和库文件的安装位置">2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置</h3>
-<pre><code>[root@manage ~]# whereis systemd
+上例中很清楚地表明，我们安装了 215 版本的 systemd。
+</code></pre><h3 id="2-检查-systemd-和-systemctl-的二进制文件和库文件的安装位置"><a href="#2-检查-systemd-和-systemctl-的二进制文件和库文件的安装位置" class="headerlink" title="2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置"></a>2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置</h3><pre><code>[root@manage ~]# whereis systemd
 systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
 [root@manage ~]# whereis systemctl
-systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
-<h3 id="检查-systemd-是否运行">3. 检查 systemd 是否运行</h3>
-<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz
+</code></pre><h3 id="3-检查-systemd-是否运行"><a href="#3-检查-systemd-是否运行" class="headerlink" title="3. 检查 systemd 是否运行"></a>3. 检查 systemd 是否运行</h3><pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
 root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
 root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
 root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
@@ -1325,12 +1315,10 @@ root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
 dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
 注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
 
-也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。</code></pre>
-<h3 id="分析-systemd-启动进程">4. 分析 systemd 启动进程</h3>
-<pre><code>[root@manage ~]# systemd-analyze
-Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
-<h3 id="分析启动时各个进程花费的时间">5. 分析启动时各个进程花费的时间</h3>
-<pre><code>[root@manage ~]# systemd-analyze blame
+也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。
+</code></pre><h3 id="4-分析-systemd-启动进程"><a href="#4-分析-systemd-启动进程" class="headerlink" title="4. 分析 systemd 启动进程"></a>4. 分析 systemd 启动进程</h3><pre><code>[root@manage ~]# systemd-analyze
+Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s
+</code></pre><h3 id="5-分析启动时各个进程花费的时间"><a href="#5-分析启动时各个进程花费的时间" class="headerlink" title="5. 分析启动时各个进程花费的时间"></a>5. 分析启动时各个进程花费的时间</h3><pre><code>[root@manage ~]# systemd-analyze blame
 8.565s mariadb.service
 7.991s webmin.service
 6.095s postfix.service
@@ -1341,9 +1329,8 @@ Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.
 1.712s network.service
 1.394s lvm2-monitor.service
 1.126s systemd-logind.service
-....</code></pre>
-<h3 id="分析启动时的关键链">6. 分析启动时的关键链</h3>
-<pre><code>[root@manage ~]# systemd-analyze critical-chain
+....
+</code></pre><h3 id="6-分析启动时的关键链"><a href="#6-分析启动时的关键链" class="headerlink" title="6. 分析启动时的关键链"></a>6. 分析启动时的关键链</h3><pre><code>[root@manage ~]# systemd-analyze critical-chain
 The time after the unit is active or started is printed after the &quot;@&quot; character.
 The time the unit takes to start is printed after the &quot;+&quot; character.
 multi-user.target @20.222s
@@ -1364,12 +1351,11 @@ multi-user.target @20.222s
                             └─ boot.mount @4.286s +31ms
                               └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d19608096
                                 └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
-重要：Systemctl 接受服务（.service），挂载点（.mount），套接口（.socket）和设备（.device）作为单元。</code></pre>
-<h3 id="列出所有可用单元-state-static-enabled-disabled-invalid">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</h3>
-<pre><code>                type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
+重要：Systemctl 接受服务（.service），挂载点（.mount），套接口（.socket）和设备（.device）作为单元。
+</code></pre><h3 id="7-列出所有可用单元-state-static-enabled-disabled-invalid"><a href="#7-列出所有可用单元-state-static-enabled-disabled-invalid" class="headerlink" title="7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]"></a>7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</h3><pre><code>                type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
 
-[root@manage ~]# systemctl list-unit-files [ --type=TYPE ] [ --state=STATE ]</code></pre>
-<p><code>这个作用类似于 chkconfig</code></p>
+[root@manage ~]# systemctl list-unit-files [ --type=TYPE ] [ --state=STATE ]
+</code></pre><p><code>这个作用类似于 chkconfig</code></p>
 <pre><code>UNIT FILE                                   STATE
 proc-sys-fs-binfmt_misc.automount           static
 dev-hugepages.mount                         static
@@ -1380,34 +1366,29 @@ sys-kernel-config.mount                     static
 sys-kernel-debug.mount                      static
 tmp.mount                                   disabled
 brandbot.path                               disabled
-.....</code></pre>
-<h3 id="列出所有运行中单元">8. 列出所有运行中单元</h3>
-<pre><code>[root@manage ~]# systemctl list-units
+.....
+</code></pre><h3 id="8-列出所有运行中单元"><a href="#8-列出所有运行中单元" class="headerlink" title="8. 列出所有运行中单元"></a>8. 列出所有运行中单元</h3><pre><code>[root@manage ~]# systemctl list-units
 UNIT                                        LOAD   ACTIVE SUB       DESCRIPTION
 proc-sys-fs-binfmt_misc.automount           loaded active waiting   Arbitrary Executable File Formats File Syste
 sys-devices-pc...0-1:0:0:0-block-sr0.device loaded active plugged   VBOX_CD-ROM
 sys-devices-pc...:00:03.0-net-enp0s3.device loaded active plugged   PRO/1000 MT Desktop Adapter
-sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC&#39;97 Audio Controller
+sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC&apos;97 Audio Controller
 sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
-sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8</code></pre>
-<h3 id="列出所有失败单元">9. 列出所有失败单元</h3>
-<pre><code>[root@manage ~]# systemctl --failed
+sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8
+</code></pre><h3 id="9-列出所有失败单元"><a href="#9-列出所有失败单元" class="headerlink" title="9. 列出所有失败单元"></a>9. 列出所有失败单元</h3><pre><code>[root@manage ~]# systemctl --failed
 UNIT          LOAD   ACTIVE SUB    DESCRIPTION
 kdump.service loaded failed failed Crash recovery kernel arming
 LOAD   = Reflects whether the unit definition was properly loaded.
 ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
 SUB    = The low-level unit activation state, values depend on unit type.
 1 loaded units listed. Pass --all to see loaded but inactive units, too.
-To show all installed unit files use &#39;systemctl list-unit-files&#39;.</code></pre>
-<h3 id="检查某个单元如-cron.service是否启用">10. 检查某个单元（如 cron.service）是否启用</h3>
-<pre><code>[root@manage ~]# systemctl is-enabled crond.service
-enabled</code></pre>
-<h3 id="如何激活服务并在启动时启用或禁用服务即系统启动时自动启动服务">11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</h3>
-<pre><code>[root@manage ~]# systemctl is-active httpd.service
+To show all installed unit files use &apos;systemctl list-unit-files&apos;.
+</code></pre><h3 id="10-检查某个单元（如-cron-service）是否启用"><a href="#10-检查某个单元（如-cron-service）是否启用" class="headerlink" title="10. 检查某个单元（如 cron.service）是否启用"></a>10. 检查某个单元（如 cron.service）是否启用</h3><pre><code>[root@manage ~]# systemctl is-enabled crond.service
+enabled
+</code></pre><h3 id="11-如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）"><a href="#11-如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）" class="headerlink" title="11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）"></a>11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</h3><pre><code>[root@manage ~]# systemctl is-active httpd.service
 [root@manage ~]# systemctl enable    httpd.service
-[root@manage ~]# systemctl disable   httpd.service</code></pre>
-<h3 id="检查某个单元或服务是否运行">12. 检查某个单元或服务是否运行</h3>
-<pre><code>[root@manage ~]# systemctl status firewalld.service
+[root@manage ~]# systemctl disable   httpd.service
+</code></pre><h3 id="12-检查某个单元或服务是否运行"><a href="#12-检查某个单元或服务是否运行" class="headerlink" title="12. 检查某个单元或服务是否运行"></a>12. 检查某个单元或服务是否运行</h3><pre><code>[root@manage ~]# systemctl status firewalld.service
 firewalld.service - firewalld - dynamic firewall daemon
    Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled)
    Active: active (running) since Tue 2015-04-28 16:27:55 IST; 34min ago
@@ -1416,9 +1397,8 @@ firewalld.service - firewalld - dynamic firewall daemon
            └─ 549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
 Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
 Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
-使用 Systemctl 控制并管理服务</code></pre>
-<h3 id="linux-中如何启动重启停止重载服务以及检查服务如-httpd.service状态">14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</h3>
-<pre><code>[root@manage ~]# systemctl start httpd.service
+使用 Systemctl 控制并管理服务
+</code></pre><h3 id="14-Linux-中如何启动、重启、停止、重载服务以及检查服务（如-httpd-service）状态"><a href="#14-Linux-中如何启动、重启、停止、重载服务以及检查服务（如-httpd-service）状态" class="headerlink" title="14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态"></a>14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</h3><pre><code>[root@manage ~]# systemctl start httpd.service
 [root@manage ~]# systemctl restart httpd.service
 [root@manage ~]# systemctl stop httpd.service
 [root@manage ~]# systemctl reload httpd.service
@@ -1439,20 +1419,18 @@ httpd.service - The Apache HTTP Server
            ├─ 2887 /usr/sbin/httpd -DFOREGROUND
            └─ 2888 /usr/sbin/httpd -DFOREGROUND
 Apr 28 17:21:30 tecmint systemd[1]: Starting The Apache HTTP Server...
-Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server&#39;s fully q...ssage
+Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server&apos;s fully q...ssage
 Apr 28 17:21:30 tecmint systemd[1]: Started The Apache HTTP Server.
 Hint: Some lines were ellipsized, use -l to show in full.
-注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。</code></pre>
-<h3 id="如何屏蔽让它不能启动或显示服务如-httpd.service">15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</h3>
-<pre><code># 注意：这是一个演示如何增加一个服务
+注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。
+</code></pre><h3 id="15-如何屏蔽（让它不能启动）或显示服务（如-httpd-service）"><a href="#15-如何屏蔽（让它不能启动）或显示服务（如-httpd-service）" class="headerlink" title="15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）"></a>15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</h3><pre><code># 注意：这是一个演示如何增加一个服务
 [root@manage ~]# systemctl mask httpd.service
-ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/httpd.service&#39;
+ln -s &apos;/dev/null&apos; &apos;/etc/systemd/system/httpd.service&apos;
 
 # 删除服务
 [root@manage ~]# systemctl unmask httpd.service
-rm &#39;/etc/systemd/system/httpd.service&#39;</code></pre>
-<h3 id="使用-systemctl-命令杀死服务">16. 使用 systemctl 命令杀死服务</h3>
-<pre><code>[root@manage ~]# systemctl kill httpd
+rm &apos;/etc/systemd/system/httpd.service&apos;
+</code></pre><h3 id="16-使用-systemctl-命令杀死服务"><a href="#16-使用-systemctl-命令杀死服务" class="headerlink" title="16. 使用 systemctl 命令杀死服务"></a>16. 使用 systemctl 命令杀死服务</h3><pre><code>[root@manage ~]# systemctl kill httpd
 [root@manage ~]# systemctl status httpd
 httpd.service - The Apache HTTP Server
    Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
@@ -1470,9 +1448,8 @@ Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from
 Apr 28 18:01:42 tecmint systemd[1]: httpd.service: control process exited, code=exited status=226
 Apr 28 18:01:42 tecmint systemd[1]: Unit httpd.service entered failed state.
 Hint: Some lines were ellipsized, use -l to show in full.
-使用 Systemctl 控制并管理挂载点</code></pre>
-<h3 id="列出所有系统挂载点">17. 列出所有系统挂载点</h3>
-<pre><code>[root@manage ~]# systemctl list-unit-files --type=mount
+使用 Systemctl 控制并管理挂载点
+</code></pre><h3 id="17-列出所有系统挂载点"><a href="#17-列出所有系统挂载点" class="headerlink" title="17. 列出所有系统挂载点"></a>17. 列出所有系统挂载点</h3><pre><code>[root@manage ~]# systemctl list-unit-files --type=mount
 UNIT FILE                     STATE
 dev-hugepages.mount           static
 dev-mqueue.mount              static
@@ -1480,9 +1457,8 @@ proc-sys-fs-binfmt_misc.mount static
 sys-fs-fuse-connections.mount static
 sys-kernel-config.mount       static
 sys-kernel-debug.mount        static
-tmp.mount                     disabled</code></pre>
-<h3 id="挂载卸载重新挂载重载系统挂载点并检查系统中挂载点状态">18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</h3>
-<pre><code>[root@manage ~]# systemctl start tmp.mount
+tmp.mount                     disabled
+</code></pre><h3 id="18-挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态"><a href="#18-挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态" class="headerlink" title="18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态"></a>18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</h3><pre><code>[root@manage ~]# systemctl start tmp.mount
 [root@manage ~]# systemctl stop tmp.mount
 [root@manage ~]# systemctl restart tmp.mount
 [root@manage ~]# systemctl reload tmp.mount
@@ -1497,19 +1473,16 @@ http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems
   Process: 3908 ExecMount=/bin/mount tmpfs /tmp -t tmpfs -o mode=1777,strictatime (code=exited, status=0/SUCCESS)
 Apr 28 17:46:06 tecmint systemd[1]: Mounting Temporary Directory...
 Apr 28 17:46:06 tecmint systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
-Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.</code></pre>
-<h3 id="在启动时激活启用或禁用挂载点系统启动时自动挂载">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</h3>
-<pre><code>[root@manage ~]# systemctl is-active tmp.mount
+Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.
+</code></pre><h3 id="19-在启动时激活、启用或禁用挂载点（系统启动时自动挂载）"><a href="#19-在启动时激活、启用或禁用挂载点（系统启动时自动挂载）" class="headerlink" title="19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）"></a>19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</h3><pre><code>[root@manage ~]# systemctl is-active tmp.mount
 [root@manage ~]# systemctl enable tmp.mount
-[root@manage ~]# systemctl disable  tmp.mount</code></pre>
-<h3 id="在-linux-中屏蔽让它不能启用或可见挂载点">20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点</h3>
-<pre><code>[root@manage ~]# systemctl mask tmp.mount
-ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/tmp.mount&#39;
+[root@manage ~]# systemctl disable  tmp.mount
+</code></pre><h3 id="20-在-Linux-中屏蔽（让它不能启用）或可见挂载点"><a href="#20-在-Linux-中屏蔽（让它不能启用）或可见挂载点" class="headerlink" title="20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点"></a>20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点</h3><pre><code>[root@manage ~]# systemctl mask tmp.mount
+ln -s &apos;/dev/null&apos; &apos;/etc/systemd/system/tmp.mount&apos;
 [root@manage ~]# systemctl unmask tmp.mount
-rm &#39;/etc/systemd/system/tmp.mount&#39;
-使用 Systemctl 控制并管理套接口</code></pre>
-<h3 id="列出所有可用系统套接口">21. 列出所有可用系统套接口</h3>
-<pre><code>[root@manage ~]# systemctl list-unit-files --type=socket
+rm &apos;/etc/systemd/system/tmp.mount&apos;
+使用 Systemctl 控制并管理套接口
+</code></pre><h3 id="21-列出所有可用系统套接口"><a href="#21-列出所有可用系统套接口" class="headerlink" title="21. 列出所有可用系统套接口"></a>21. 列出所有可用系统套接口</h3><pre><code>[root@manage ~]# systemctl list-unit-files --type=socket
 UNIT FILE                    STATE
 dbus.socket                  static
 dm-event.socket              enabled
@@ -1522,9 +1495,8 @@ systemd-journald.socket      static
 systemd-shutdownd.socket     static
 systemd-udevd-control.socket static
 systemd-udevd-kernel.socket  static
-11 unit files listed.</code></pre>
-<h3 id="在-linux-中启动重启停止重载套接口并检查其状态">22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态</h3>
-<pre><code>[root@manage ~]# systemctl start cups.socket
+11 unit files listed.
+</code></pre><h3 id="22-在-Linux-中启动、重启、停止、重载套接口并检查其状态"><a href="#22-在-Linux-中启动、重启、停止、重载套接口并检查其状态" class="headerlink" title="22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态"></a>22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态</h3><pre><code>[root@manage ~]# systemctl start cups.socket
 [root@manage ~]# systemctl restart cups.socket
 [root@manage ~]# systemctl stop cups.socket
 [root@manage ~]# systemctl reload cups.socket
@@ -1534,27 +1506,22 @@ cups.socket - CUPS Printing Service Sockets
    Active: active (listening) since Tue 2015-04-28 18:10:59 IST; 8s ago
    Listen: /var/run/cups/cups.sock (Stream)
 Apr 28 18:10:59 tecmint systemd[1]: Starting CUPS Printing Service Sockets.
-Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.</code></pre>
-<h3 id="在启动时激活套接口并启用或禁用它系统启动时自启动">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</h3>
-<pre><code>[root@manage ~]# systemctl is-active cups.socket
+Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.
+</code></pre><h3 id="23-在启动时激活套接口，并启用或禁用它（系统启动时自启动）"><a href="#23-在启动时激活套接口，并启用或禁用它（系统启动时自启动）" class="headerlink" title="23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）"></a>23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</h3><pre><code>[root@manage ~]# systemctl is-active cups.socket
 [root@manage ~]# systemctl enable cups.socket
-[root@manage ~]# systemctl disable cups.socket</code></pre>
-<h1 id="服务的-cpu-利用率分配额">服务的 CPU 利用率（分配额）</h1>
-<h3 id="获取当前某个服务的-cpu-分配额如-httpd">25. 获取当前某个服务的 CPU 分配额（如 httpd）</h3>
-<pre><code>[root@manage ~]# systemctl show -p CPUShares httpd.service
+[root@manage ~]# systemctl disable cups.socket
+</code></pre><h1 id="服务的-CPU-利用率（分配额）"><a href="#服务的-CPU-利用率（分配额）" class="headerlink" title="服务的 CPU 利用率（分配额）"></a>服务的 CPU 利用率（分配额）</h1><h3 id="25-获取当前某个服务的-CPU-分配额（如-httpd）"><a href="#25-获取当前某个服务的-CPU-分配额（如-httpd）" class="headerlink" title="25. 获取当前某个服务的 CPU 分配额（如 httpd）"></a>25. 获取当前某个服务的 CPU 分配额（如 httpd）</h3><pre><code>[root@manage ~]# systemctl show -p CPUShares httpd.service
 CPUShares=1024
-[root@manage ~]# 注意：各个服务的默认 CPU 分配份额 =1024，你可以增加 / 减少某个进程的 CPU 分配份额。</code></pre>
-<h3 id="将某个服务httpd.service的-cpu-分配份额限制为-2000-cpushares">26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/</h3>
-<pre><code>[root@manage ~]# systemctl set-property httpd.service CPUShares=2000
+[root@manage ~]# 注意：各个服务的默认 CPU 分配份额 =1024，你可以增加 / 减少某个进程的 CPU 分配份额。
+</code></pre><h3 id="26-将某个服务（httpd-service）的-CPU-分配份额限制为-2000-CPUShares"><a href="#26-将某个服务（httpd-service）的-CPU-分配份额限制为-2000-CPUShares" class="headerlink" title="26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/"></a>26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/</h3><pre><code>[root@manage ~]# systemctl set-property httpd.service CPUShares=2000
 [root@manage ~]# systemctl show -p CPUShares httpd.service
 CPUShares=2000
 [root@manage ~]# 注意：当你为某个服务设置 CPUShares，会自动创建一个以服务名命名的目录（如 httpd.service），里面包含了一个名为 90-CPUShares.conf 的文件，该文件含有 CPUShare 限制信息，你可以通过以下方式查看该文件：
 
 [root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
 [Service]
-CPUShares=2000</code></pre>
-<h3 id="检查某个服务的所有配置细节">27. 检查某个服务的所有配置细节</h3>
-<pre><code>[root@manage ~]# systemctl show httpd
+CPUShares=2000
+</code></pre><h3 id="27-检查某个服务的所有配置细节"><a href="#27-检查某个服务的所有配置细节" class="headerlink" title="27. 检查某个服务的所有配置细节"></a>27. 检查某个服务的所有配置细节</h3><pre><code>[root@manage ~]# systemctl show httpd
 Id=httpd.service
 Names=httpd.service
 Requires=basic.target
@@ -1568,9 +1535,8 @@ LoadState=loaded
 ActiveState=active
 SubState=running
 FragmentPath=/usr/lib/systemd/system/httpd.service
-....</code></pre>
-<h3 id="分析某个服务httpd的关键链">28. 分析某个服务（httpd）的关键链</h3>
-<pre><code>[root@manage ~]# systemd-analyze critical-chain httpd.service
+....
+</code></pre><h3 id="28-分析某个服务（httpd）的关键链"><a href="#28-分析某个服务（httpd）的关键链" class="headerlink" title="28. 分析某个服务（httpd）的关键链"></a>28. 分析某个服务（httpd）的关键链</h3><pre><code>[root@manage ~]# systemd-analyze critical-chain httpd.service
 The time after the unit is active or started is printed after the &quot;@&quot; character.
 The time the unit takes to start is printed after the &quot;+&quot; character.
 httpd.service +142ms
@@ -1589,9 +1555,8 @@ httpd.service +142ms
                         └─ local-fs.target @4.324s
                           └─ boot.mount @4.286s +31ms
                             └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
-                              └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s</code></pre>
-<h3 id="获取某个服务httpd的依赖性列表">29. 获取某个服务（httpd）的依赖性列表</h3>
-<pre><code>[root@manage ~]# systemctl list-dependencies httpd.service
+                              └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
+</code></pre><h3 id="29-获取某个服务（httpd）的依赖性列表"><a href="#29-获取某个服务（httpd）的依赖性列表" class="headerlink" title="29. 获取某个服务（httpd）的依赖性列表"></a>29. 获取某个服务（httpd）的依赖性列表</h3><pre><code>[root@manage ~]# systemctl list-dependencies httpd.service
 httpd.service
 ├─ system.slice
 └─ basic.target
@@ -1608,9 +1573,8 @@ httpd.service
   │ └─ system.slice
   ├─ sockets.target
   │ ├─ dbus.socket
-....</code></pre>
-<h3 id="按等级列出控制组">30. 按等级列出控制组</h3>
-<pre><code>[root@manage ~]# systemd-cgls
+....
+</code></pre><h3 id="30-按等级列出控制组"><a href="#30-按等级列出控制组" class="headerlink" title="30. 按等级列出控制组"></a>30. 按等级列出控制组</h3><pre><code>[root@manage ~]# systemd-cgls
 ├─ 1 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
 ├─ user.slice
 │ └─ user-0.slice
@@ -1629,9 +1593,8 @@ httpd.service
   │ └─ 4446 /usr/sbin/httpd -DFOREGROUND
   ├─ polkit.service
   │ └─ 721 /usr/lib/polkit-1/polkitd --no-debug
-....</code></pre>
-<h3 id="按-cpu内存输入和输出列出控制组">31. 按 CPU、内存、输入和输出列出控制组</h3>
-<pre><code>[root@manage ~]# systemd-cgtop
+....
+</code></pre><h3 id="31-按-CPU、内存、输入和输出列出控制组"><a href="#31-按-CPU、内存、输入和输出列出控制组" class="headerlink" title="31. 按 CPU、内存、输入和输出列出控制组"></a>31. 按 CPU、内存、输入和输出列出控制组</h3><pre><code>[root@manage ~]# systemd-cgtop
 Path                                                              Tasks   %CPU   Memory  Input/s Output/s
 /                                                                    83    1.0   437.8M        -        -
 /system.slice                                                         -    0.1        -        -        -
@@ -1655,37 +1618,30 @@ Path                                                              Tasks   %CPU  
 /system.slice/systemd-udevd.service                                   1      -        -        -        -
 /system.slice/webmin.service                                          1      -        -        -        -
 /user.slice/user-0.slice/session-1.scope                              3      -        -        -        -
-控制系统运行等级</code></pre>
-<h3 id="启动系统救援模式">32. 启动系统救援模式</h3>
-<pre><code>[root@manage ~]# systemctl rescue
+控制系统运行等级
+</code></pre><h3 id="32-启动系统救援模式"><a href="#32-启动系统救援模式" class="headerlink" title="32. 启动系统救援模式"></a>32. 启动系统救援模式</h3><pre><code>[root@manage ~]# systemctl rescue
 Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
-The system is going down to rescue mode NOW!</code></pre>
-<h3 id="进入紧急模式">33. 进入紧急模式</h3>
-<pre><code>[root@manage ~]# systemctl emergency
+The system is going down to rescue mode NOW!
+</code></pre><h3 id="33-进入紧急模式"><a href="#33-进入紧急模式" class="headerlink" title="33. 进入紧急模式"></a>33. 进入紧急模式</h3><pre><code>[root@manage ~]# systemctl emergency
 Welcome to emergency mode! After logging in, type &quot;journalctl -xb&quot; to view
 system logs, &quot;systemctl reboot&quot; to reboot, &quot;systemctl default&quot; to try again
-to boot into default mode.</code></pre>
-<h3 id="列出当前使用的运行等级">34. 列出当前使用的运行等级</h3>
-<pre><code>[root@manage ~]# systemctl get-default
-multi-user.target</code></pre>
-<h3 id="启动运行等级-5即图形模式">35. 启动运行等级 5，即图形模式</h3>
-<pre><code>[root@manage ~]# systemctl isolate runlevel5.target
+to boot into default mode.
+</code></pre><h3 id="34-列出当前使用的运行等级"><a href="#34-列出当前使用的运行等级" class="headerlink" title="34. 列出当前使用的运行等级"></a>34. 列出当前使用的运行等级</h3><pre><code>[root@manage ~]# systemctl get-default
+multi-user.target
+</code></pre><h3 id="35-启动运行等级-5，即图形模式"><a href="#35-启动运行等级-5，即图形模式" class="headerlink" title="35. 启动运行等级 5，即图形模式"></a>35. 启动运行等级 5，即图形模式</h3><pre><code>[root@manage ~]# systemctl isolate runlevel5.target
 或
-[root@manage ~]# systemctl isolate graphical.target</code></pre>
-<h3 id="启动运行等级-3即多用户模式命令行">36. 启动运行等级 3，即多用户模式（命令行）</h3>
-<pre><code>[root@manage ~]# systemctl isolate runlevel3.target
+[root@manage ~]# systemctl isolate graphical.target
+</code></pre><h3 id="36-启动运行等级-3，即多用户模式（命令行）"><a href="#36-启动运行等级-3，即多用户模式（命令行）" class="headerlink" title="36. 启动运行等级 3，即多用户模式（命令行）"></a>36. 启动运行等级 3，即多用户模式（命令行）</h3><pre><code>[root@manage ~]# systemctl isolate runlevel3.target
 或
-[root@manage ~]# systemctl isolate multiuser.target</code></pre>
-<h3 id="设置多用户模式或图形模式为默认运行等级">37. 设置多用户模式或图形模式为默认运行等级</h3>
-<pre><code>[root@manage ~]# systemctl set-default runlevel3.target
-[root@manage ~]# systemctl set-default runlevel5.target</code></pre>
-<h3 id="重启停止挂起休眠系统或使系统进入混合睡眠">38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</h3>
-<pre><code>[root@manage ~]# systemctl reboot
+[root@manage ~]# systemctl isolate multiuser.target
+</code></pre><h3 id="37-设置多用户模式或图形模式为默认运行等级"><a href="#37-设置多用户模式或图形模式为默认运行等级" class="headerlink" title="37. 设置多用户模式或图形模式为默认运行等级"></a>37. 设置多用户模式或图形模式为默认运行等级</h3><pre><code>[root@manage ~]# systemctl set-default runlevel3.target
+[root@manage ~]# systemctl set-default runlevel5.target
+</code></pre><h3 id="38-重启、停止、挂起、休眠系统或使系统进入混合睡眠"><a href="#38-重启、停止、挂起、休眠系统或使系统进入混合睡眠" class="headerlink" title="38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠"></a>38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</h3><pre><code>[root@manage ~]# systemctl reboot
 [root@manage ~]# systemctl halt
 [root@manage ~]# systemctl suspend
 [root@manage ~]# systemctl hibernate
-[root@manage ~]# systemctl hybrid-sleep</code></pre>
-
+[root@manage ~]# systemctl hybrid-sleep
+</code></pre>
           
         
       
