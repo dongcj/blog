@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
+                <a href="/linux/DHCP高级配置/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/DHCP高级配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
+             <span id="/linux/DHCP高级配置/" class="leancloud_visitors" data-flag-title="DHCP 高级配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,25 +436,55 @@
       
         
           
-            <h1 id="买个-ss-帐号">买个 SS 帐号</h1>
-<p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
-<h1 id="路由刷机">路由刷机</h1>
-<h2 id="连接路由器">连接路由器</h2>
-<ul>
-<li>路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code>注意：不是 WAN 口</code></li>
-<li>查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址</li>
-</ul>
-<figure>
-<img src="http://i.imgur.com/qlfwJ9j.jpg">
-</figure>
-<ul>
-<li>自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 )</li>
-<li>用户名和密码默认 “admin/admin”</li>
-</ul>
-<h2 id="路由器系统降级">路由器系统降级</h2>
-<ul>
-<li>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</li>
-</ul>
+            <h2 id="一dhcp-中继代理配置"># 一、DHCP 中继代理配置</h2>
+<pre><code># ( 在其它服务上安装 dhcpd 软件 )：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
+<h2 id="二dhcp-超网配置"># 二、DHCP 超网配置</h2>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式*/
+ignore client-updates;          /*忽略客户端 DNS 动态更新*/
+shared-network mynet {          /*超网作用域选项，共同部分*/
+    option subnet-mask 255.255.255.0;            /*子网掩码*/
+    option domain-name &quot;koumm.net&quot;;              /*域名*/
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /*广播地址*/
+    default-lease-time 86400;                    /*租期 1 天，秒数*/
+    max-lease-time 172800;                       /*最长租期 2 天*/
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段*/
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围*/
+        option routers 192.168.1.1;               /*网关地址*/
+        /*绑定 pc1 主机 ip 地址配置*/
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /*绑定 pc2 主机 ip 地址配置*/
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段*/
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围*/
+        option routers 192.168.2.1;                /*网关地址*/
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段*/
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围*/
+        option routers 192.168.3.1;                /*网关地址*/
+    }
+
+}</code></pre>
 
           
         
@@ -1177,7 +1207,7 @@ $ psql$ select * from pg_stat_replication;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1196,7 +1226,7 @@ $ psql$ select * from pg_stat_replication;
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
         
 
         <div class="post-meta">
@@ -1231,8 +1261,8 @@ $ psql$ select * from pg_stat_replication;
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -1249,9 +1279,9 @@ $ psql$ select * from pg_stat_replication;
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
+                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1259,7 +1289,7 @@ $ psql$ select * from pg_stat_replication;
 
           
           
-             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
+             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1290,90 +1320,65 @@ $ psql$ select * from pg_stat_replication;
         
           
             <blockquote>
-<p>参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
+<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
 </blockquote>
-<h1 id="下载源">下载源</h1>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件">安装软件</h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
 <blockquote>
-<p>如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+<p>更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
 </blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙">挂载分区及配置防火墙</h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
+<h1 id="使用-yum-安装环境">使用 yum 安装环境</h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的-zope.interface-及-twisted">安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
 
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限">设置权限</h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+<h1 id="配置文件">配置文件</h1>
+<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
+$ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
+$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf</code></pre>
+<h1 id="同步数据库">同步数据库</h1>
+<pre><code># 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
+$ python /opt/graphite/webapp/graphite/manage.py syncdb
 
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动-glusterd-服务">启动 glusterd 服务</h1>
-<pre><code>$ service glusterd start
+$ cd /opt/graphite/conf/
+$ cp graphite.wsgi.example graphite.wsgi
+$ cp storage-schemas.conf.example storage-schemas.conf
+$ cp carbon.conf.example carbon.conf
 
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd</code></pre>
-<h1 id="配置信任池">配置信任池</h1>
-<pre><code># from server1
-$ gluster peer probe SERVER2
-
-# from server2
-$ gluster peer probe SERVER1
-
-# check peer
-$ gluster peer status</code></pre>
-<h1 id="设置一个-gluster-卷">设置一个 Gluster 卷</h1>
-<pre><code>$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
-
-$ gluster volume info
-$ gluster volume status
-
-
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
-
-# delete Volume
-$ gluster volume delete gv0
-
-# detach 命令：
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
-<h1 id="test-gluster-volume">Test Gluster volume</h1>
-<pre><code># mount to /mnt
-$ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
-
-$ vi /etc/fstab
-gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
+$ cd /opt/graphite/webapp/graphite
+$ cp local_settings.py.example local_settings.py</code></pre>
+<h1 id="在-httpd-中启用-virtualhost">在 httpd 中启用 virtualHost</h1>
+<pre><code>$ cd ../../
+$ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
 
-# 如果使用 nfs 协议使用
-# GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
-$ vi /etc/nfsmount.conf
-Defaultvers=3
+# 并修改
+$ vi /etc/httpd/conf.d/vhost-graphite.conf
+WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
+<h1 id="修改已知的-bug">修改已知的 bug</h1>
+<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
 
-$ systemctl restart glusterd.service
-
-# start force
-$ gluster volume set gv0 nfs.disable off
-$ gluster volume start gv0 force
-
-$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs</code></pre>
-<h1 id="配置-quorum">配置 Quorum()</h1>
-<pre><code>......</code></pre>
-<blockquote>
-<p>通过 CIFS 从 Linux ／ Windows 计算机进行访问 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
+def fetch(self, startTime, endTime, now=None):
+    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now</code></pre>
+<h1 id="替换-graphite-的界面">替换 graphite 的界面</h1>
+<pre><code>graph-index-master
+graphite-web-master</code></pre>
 
           
         
