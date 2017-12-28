@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2017-12-28T04:10:06.209Z</updated>
+  <updated>2017-12-28T04:25:23.470Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
     <published>2017-12-26T12:21:40.889Z</published>
-    <updated>2017-12-28T04:10:06.209Z</updated>
+    <updated>2017-12-28T04:25:23.470Z</updated>
     
     <summary type="html">
     
@@ -41,7 +41,7 @@
     <link href="http://blog.dongcj.com/m/Harbor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/"/>
     <id>http://blog.dongcj.com/m/Harbor用户手册/</id>
     <published>2017-12-26T12:21:39.337Z</published>
-    <updated>2017-12-28T04:10:03.005Z</updated>
+    <updated>2017-12-28T04:25:20.680Z</updated>
     
     <summary type="html">
     
@@ -124,7 +124,7 @@
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
     <published>2017-06-04T05:13:32.174Z</published>
-    <updated>2017-12-28T04:10:02.057Z</updated>
+    <updated>2017-12-28T04:25:19.813Z</updated>
     
     <summary type="html">
     
@@ -195,32 +195,6 @@
   </entry>
   
   <entry>
-    <title>使用 printf 进行格式化</title>
-    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
-    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
-    <published>2016-08-30T09:27:43.000Z</published>
-    <updated>2016-08-30T09:48:08.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
-    
-      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SMATE、XFCE、VNC 配置</title>
     <link href="http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/"/>
     <id>http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/</id>
@@ -254,19 +228,18 @@ yum group
   </entry>
   
   <entry>
-    <title>Centos 部署 lazy-balancer 负载均衡</title>
-    <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
-    <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2017-12-28T04:10:01.365Z</updated>
+    <title>使用 printf 进行格式化</title>
+    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
+    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
+    <published>2016-08-30T09:27:43.000Z</published>
+    <updated>2016-08-30T09:48:08.000Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /u
+        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
       
     
     </summary>
@@ -274,13 +247,9 @@ $ cd /u
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
+      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
     
-      <category term="tengine" scheme="http://blog.dongcj.com/tags/tengine/"/>
-    
-      <category term="lazy-balancer" scheme="http://blog.dongcj.com/tags/lazy-balancer/"/>
-    
-      <category term="负载均衡" scheme="http://blog.dongcj.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
     
   </entry>
   
@@ -318,46 +287,19 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Postgresql 主从配置</title>
-    <link href="http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"/>
-    <id>http://blog.dongcj.com/database/Postgresql主从配置/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
+    <title>Centos 部署 lazy-balancer 负载均衡</title>
+    <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
+    <published>2016-08-28T09:44:33.000Z</published>
+    <updated>2017-12-28T04:25:19.119Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
-      
-    
-    </summary>
-    
-      <category term="database" scheme="http://blog.dongcj.com/categories/database/"/>
-    
-    
-      <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
-    
-      <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
+        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
+$ cd /u
       
     
     </summary>
@@ -365,18 +307,20 @@ $ cd /u
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
     
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
+      <category term="tengine" scheme="http://blog.dongcj.com/tags/tengine/"/>
     
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
+      <category term="lazy-balancer" scheme="http://blog.dongcj.com/tags/lazy-balancer/"/>
+    
+      <category term="负载均衡" scheme="http://blog.dongcj.com/tags/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <title>Puppet 安装</title>
+    <link href="http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/linux/Puppet安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -384,11 +328,10 @@ $ cd /u
     
       
       
-        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换-t
+        &lt;h3 id=&quot;etchosts-可以-ping-通对方域名&quot;&gt;/etc/hosts 可以 ping 通对方域名&lt;/h3&gt;
+&lt;h3 id=&quot;安装-ntp-做时间同步&quot;&gt;安装 ntp 做时间同步&lt;/h3&gt;
+&lt;h3 id=&quot;安装-puppet&quot;&gt;安装 puppet&lt;/h3&gt;
+&lt;
       
     
     </summary>
@@ -396,40 +339,9 @@ $ cd /u
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+      <category term="puppet" scheme="http://blog.dongcj.com/tags/puppet/"/>
     
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mdadm_raid10_raid5</title>
-    <link href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/"/>
-    <id>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;每块硬盘分一个区&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="soft raid" scheme="http://blog.dongcj.com/tags/soft-raid/"/>
-    
-      <category term="mdadm" scheme="http://blog.dongcj.com/tags/mdadm/"/>
+      <category term="devops" scheme="http://blog.dongcj.com/tags/devops/"/>
     
   </entry>
   
@@ -464,6 +376,35 @@ $ cd /u
   </entry>
   
   <entry>
+    <title>Mdadm_raid10_raid5</title>
+    <link href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/"/>
+    <id>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;每块硬盘分一个区&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="soft raid" scheme="http://blog.dongcj.com/tags/soft-raid/"/>
+    
+      <category term="mdadm" scheme="http://blog.dongcj.com/tags/mdadm/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Nginx 及 upstreamcheck,fair 模块安装</title>
     <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
     <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
@@ -486,6 +427,61 @@ $ cd /u
       <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
     
       <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Graphite 安装</title>
+    <link href="http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/monitor/Graphite安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration
+      
+    
+    </summary>
+    
+      <category term="monitor" scheme="http://blog.dongcj.com/categories/monitor/"/>
+    
+    
+      <category term="graphite" scheme="http://blog.dongcj.com/tags/graphite/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PXE ��װ���趨</title>
+    <link href="http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/"/>
+    <id>http://blog.dongcj.com/linux/PXE安装与设定/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;װ&quot;&gt;��װ���&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# ��װ�������
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
+xinetd-2.3.14-10.el5.
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
+    
+      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
+    
+      <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
     
   </entry>
   
@@ -527,9 +523,9 @@ $ dd if
   </entry>
   
   <entry>
-    <title>PXE ��װ���趨</title>
-    <link href="http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/"/>
-    <id>http://blog.dongcj.com/linux/PXE安装与设定/</id>
+    <title>Postgresql 主从配置</title>
+    <link href="http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"/>
+    <id>http://blog.dongcj.com/database/Postgresql主从配置/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -537,11 +533,36 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;װ&quot;&gt;��װ���&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;# ��װ�������
-dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
-xinetd-2.3.14-10.el5.
+        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
+      
+    
+    </summary>
+    
+      <category term="database" scheme="http://blog.dongcj.com/categories/database/"/>
+    
+    
+      <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
+    
+      <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
+    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;curl&quot;&gt;curl&lt;/h1&gt;
+&lt;h2 id=&quot;下载文件&quot;&gt;下载文件&lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
       
     
     </summary>
@@ -549,37 +570,15 @@ xinetd-2.3.14-10.el5.
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
+      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
     
-      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
+      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
     
-      <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
+      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
     
-  </entry>
-  
-  <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
+      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
     
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;python gearman library hom
-      
-    
-    </summary>
-    
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
-    
-    
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
+      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
     
   </entry>
   
