@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="��װ���# ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config">
+<meta name="description" content="��װ��� # ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm syste">
 <meta name="keywords" content="dhcp,pxe,kickstart">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PXE ��װ���趨">
 <meta property="og:url" content="http://blog.dongcj.com/linux/PXE安装与设定/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="��װ���# ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config">
+<meta property="og:description" content="��װ��� # ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm syste">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PXE ��װ���趨">
-<meta name="twitter:description" content="��װ���# ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config">
+<meta name="twitter:description" content="��װ��� # ��װ������� dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ ) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm syste">
 
 
 
@@ -432,7 +432,8 @@
       
 
       
-        <h1 id="��װ���"><a href="#��װ���" class="headerlink" title="��װ���"></a>��װ���</h1><pre><code># ��װ�������
+        <h1 id="װ">��װ���</h1>
+<pre><code># ��װ�������
 dhcp-3.0.5-7.el5.x86_64.rpm
 vsftpd-2.0.5-10.el5.x86_64.rpm( ����װ )
 xinetd-2.3.14-10.el5.x86_64.rpm
@@ -441,8 +442,9 @@ pykickstart-0.43.3-1.el5.noarch.rpm
 system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
 syslinux
 
-# �ر� selinux &amp; iptables
-</code></pre><h1 id="dhcp-����"><a href="#dhcp-����" class="headerlink" title="dhcp ����"></a>dhcp ����</h1><pre><code>ddns-update-style interim;
+# �ر� selinux &amp; iptables</code></pre>
+<h1 id="dhcp">dhcp ����</h1>
+<pre><code>ddns-update-style interim;
 ignore client-updates;
 allow booting;
 allow bootp;
@@ -460,24 +462,26 @@ option time-offset -18000; # Eastern Standard Time
 range dynamic-bootp 10.85.138.100 10.85.138.249;
 default-lease-time 21600;
 max-lease-time 43200;
-}
-</code></pre><h1 id="����-tftp-�l�"><a href="#����-tftp-�l�" class="headerlink" title="���� tftp �ļ�"></a>���� tftp �ļ�</h1><pre><code>���ļ��� tftpboot( ע��menu.c32 �� pxelinux.0 Ҫ�ӱ������������� TIMEOUT ��Ч�� )
+}</code></pre>
+<h1 id="tftp-ļ">���� tftp �ļ�</h1>
+<pre><code>���ļ��� tftpboot( ע��menu.c32 �� pxelinux.0 Ҫ�ӱ������������� TIMEOUT ��Ч�� )
 $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
 $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
 
 $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
 $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default �ļ�Ҳ�����Լ��޸�
-</code></pre><h1 id="����-kickstart"><a href="#����-kickstart" class="headerlink" title="���� kickstart"></a>���� kickstart</h1><pre><code># �� /tftpboot/pxelinux.cfg/default ����� KS ���
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default �ļ�Ҳ�����Լ��޸�</code></pre>
+<h1 id="kickstart">���� kickstart</h1>
+<pre><code># �� /tftpboot/pxelinux.cfg/default ����� KS ���
   label linux
     menu label ^Install or upgrade an existing system
     menu default
     kernel vmlinuz
     append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
-# �޸� kickstart �Զ���װ linux( ����װ�ļ� )
-</code></pre><blockquote>
+# �޸� kickstart �Զ���װ linux( ����װ�ļ� )</code></pre>
+<blockquote>
 <p>��¼������ DHCP ����</p>
 </blockquote>
 <pre><code>ddns-update-style interim;
@@ -485,12 +489,12 @@ ddns-updates on;
 ignore client-updates;
 allow booting;  # for pxe only
 allow bootp;    # for pxe only
-authoritative;    # Do not know what is meaning??
+authoritative;  # Do not know what is meaning??
 
 class &quot;pxeclients&quot;{
     match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
     # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&apos;s hostname, only for linux???
+    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
     ddns-hostname = concat(&quot;v&quot;,
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
@@ -508,7 +512,7 @@ class &quot;MSFT&quot; {
     match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
     option host-name = config-option server.ddns-hostname;
     #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,     # Windows instances will apply for a hostname by default
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
     ddns-hostname = concat(&quot;v&quot;,
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
@@ -537,7 +541,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
     option subnet-mask 255.255.255.0;
     option domain-name &quot;gwcloud.cn&quot;;
     option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&apos;s hostname, only for linux???
+    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
     # option ntp-servers 192.168.88.1   # set the ntp server
     option time-offset -18000;          # Eastern Standard Time
     range dynamic-bootp 192.168.88.100 192.168.88.200;
@@ -546,10 +550,10 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
     # the next is bonding the mac to static ip address
     # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&apos;s mac address
-    #    fixed-address 192.168.1.30;             # host&apos;s ip address
-}
-</code></pre>
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&#39;s ip address
+}</code></pre>
+
       
     </div>
 
@@ -605,8 +609,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/cluster/Gearman安装/" rel="next" title="Gearman 安装">
-                <i class="fa fa-chevron-left"></i> Gearman 安装
+              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="next" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
+                <i class="fa fa-chevron-left"></i> Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs
               </a>
             
           </div>
@@ -615,8 +619,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/DHCP高级配置/" rel="prev" title="DHCP 高级配置">
-                DHCP 高级配置 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/斐讯K2路由器刷机/" rel="prev" title="斐讯 K2 路由器刷机">
+                斐讯 K2 路由器刷机 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -812,7 +816,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#��װ���"><span class="nav-number">1.</span> <span class="nav-text">��װ���</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dhcp-����"><span class="nav-number">2.</span> <span class="nav-text">dhcp ����</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#����-tftp-�l�"><span class="nav-number">3.</span> <span class="nav-text">���� tftp �ļ�</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#����-kickstart"><span class="nav-number">4.</span> <span class="nav-text">���� kickstart</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#װ"><span class="nav-number">1.</span> <span class="nav-text">��װ���</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dhcp"><span class="nav-number">2.</span> <span class="nav-text">dhcp ����</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#tftp-ļ"><span class="nav-number">3.</span> <span class="nav-text">���� tftp �ļ�</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#kickstart"><span class="nav-number">4.</span> <span class="nav-text">���� kickstart</span></a></li></ol></div>
             
 
           </div>

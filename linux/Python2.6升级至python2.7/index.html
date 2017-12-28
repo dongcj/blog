@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="升级 pythoninstall# 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel 如果要安装 MySQL-python，需要安装以下软件$">
+<meta name="description" content="升级 python install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel 如果要安装 MySQL-python，需要安">
 <meta name="keywords" content="python 升级">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python2.6 升级至 python2.7">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Python2.6升级至python2.7/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="升级 pythoninstall# 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel 如果要安装 MySQL-python，需要安装以下软件$">
+<meta property="og:description" content="升级 python install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel 如果要安装 MySQL-python，需要安">
 <meta property="og:updated_time" content="2017-08-09T01:03:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python2.6 升级至 python2.7">
-<meta name="twitter:description" content="升级 pythoninstall# 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel 如果要安装 MySQL-python，需要安装以下软件$">
+<meta name="twitter:description" content="升级 python install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel 如果要安装 MySQL-python，需要安">
 
 
 
@@ -432,11 +432,16 @@
       
 
       
-        <h1 id="升级-python"><a href="#升级-python" class="headerlink" title="升级 python"></a>升级 python</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
-$ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
-</code></pre><h2 id="如果要安装-MySQL-python，需要安装以下软件"><a href="#如果要安装-MySQL-python，需要安装以下软件" class="headerlink" title="如果要安装 MySQL-python，需要安装以下软件"></a>如果要安装 MySQL-python，需要安装以下软件</h2><pre><code>$ yum -y install mysql mysql-devel
-</code></pre><h2 id="如果要安装-lxml，需要安装以下软件"><a href="#如果要安装-lxml，需要安装以下软件" class="headerlink" title="如果要安装 lxml，需要安装以下软件"></a>如果要安装 lxml，需要安装以下软件</h2><pre><code>$ yum -y install libxml2-devel  libxslt-devel
-</code></pre><h2 id="编译安装-python-新版"><a href="#编译安装-python-新版" class="headerlink" title="编译安装 python 新版"></a>编译安装 python 新版</h2><pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
+        <h1 id="升级-python">升级 python</h1>
+<h2 id="install">install</h2>
+<pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
+$ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel</code></pre>
+<h2 id="如果要安装-mysql-python需要安装以下软件">如果要安装 MySQL-python，需要安装以下软件</h2>
+<pre><code>$ yum -y install mysql mysql-devel</code></pre>
+<h2 id="如果要安装-lxml需要安装以下软件">如果要安装 lxml，需要安装以下软件</h2>
+<pre><code>$ yum -y install libxml2-devel  libxslt-devel</code></pre>
+<h2 id="编译安装-python-新版">编译安装 python 新版</h2>
+<pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
 
 # 加上 --enable-shared 解决 &quot;Cannot build PL/Python because libpython is not a shared library&quot;
 $ tar -xzf Python-2.7.13.tgz &amp;&amp; cd Python-2.7.13 &amp;&amp; ./configure  --enable-shared
@@ -449,14 +454,18 @@ $ ln -s /usr/local/bin/python /usr/bin/python
 
 # copy bz2 module
 $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
-$ python -V
-</code></pre><h1 id="安装-easy-install-和-pip"><a href="#安装-easy-install-和-pip" class="headerlink" title="安装 easy_install 和 pip"></a>安装 easy_install 和 pip</h1><pre><code># 参见：[《linux 安装 easy_install 及 pip》][1]
-</code></pre><h2 id="修改-yum-中的-python-版本为-python2-6"><a href="#修改-yum-中的-python-版本为-python2-6" class="headerlink" title="修改 yum 中的 python 版本为 python2.6"></a>修改 yum 中的 python 版本为 <strong>python2.6</strong></h2><pre><code>$ vi /usr/bin/yum
-$ vi /usr/bin/yum-config-manager
-</code></pre><h2 id="安装一些基础软件"><a href="#安装一些基础软件" class="headerlink" title="安装一些基础软件"></a>安装一些基础软件</h2><pre><code>$ pip install readline
-</code></pre><h2 id="在-virtualenv-里安装亦可"><a href="#在-virtualenv-里安装亦可" class="headerlink" title="在 virtualenv 里安装亦可"></a>在 virtualenv 里安装亦可</h2><pre><code>$ pip install MySQL-python pssh flask
-$ pip install lxml virtualenv virtualenvwrapper websockify
-</code></pre>
+$ python -V</code></pre>
+<h1 id="安装-easy_install-和-pip">安装 easy_install 和 pip</h1>
+<pre><code># 参见：[《linux 安装 easy_install 及 pip》][1]</code></pre>
+<h2 id="修改-yum-中的-python-版本为-python2.6">修改 yum 中的 python 版本为 <strong>python2.6</strong></h2>
+<pre><code>$ vi /usr/bin/yum
+$ vi /usr/bin/yum-config-manager</code></pre>
+<h2 id="安装一些基础软件">安装一些基础软件</h2>
+<pre><code>$ pip install readline</code></pre>
+<h2 id="在-virtualenv-里安装亦可">在 virtualenv 里安装亦可</h2>
+<pre><code>$ pip install MySQL-python pssh flask
+$ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
+
       
     </div>
 
@@ -508,8 +517,8 @@ $ pip install lxml virtualenv virtualenvwrapper websockify
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/使用printf进行格式化/" rel="next" title="使用 printf 进行格式化">
-                <i class="fa fa-chevron-left"></i> 使用 printf 进行格式化
+              <a href="/linux/SMATE、XFCE、VNC配置/" rel="next" title="SMATE、XFCE、VNC 配置">
+                <i class="fa fa-chevron-left"></i> SMATE、XFCE、VNC 配置
               </a>
             
           </div>
@@ -715,7 +724,7 @@ $ pip install lxml virtualenv virtualenvwrapper websockify
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-python"><span class="nav-number">1.</span> <span class="nav-text">升级 python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果要安装-MySQL-python，需要安装以下软件"><span class="nav-number">1.2.</span> <span class="nav-text">如果要安装 MySQL-python，需要安装以下软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果要安装-lxml，需要安装以下软件"><span class="nav-number">1.3.</span> <span class="nav-text">如果要安装 lxml，需要安装以下软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装-python-新版"><span class="nav-number">1.4.</span> <span class="nav-text">编译安装 python 新版</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-easy-install-和-pip"><span class="nav-number">2.</span> <span class="nav-text">安装 easy_install 和 pip</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-yum-中的-python-版本为-python2-6"><span class="nav-number">2.1.</span> <span class="nav-text">修改 yum 中的 python 版本为 python2.6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装一些基础软件"><span class="nav-number">2.2.</span> <span class="nav-text">安装一些基础软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-virtualenv-里安装亦可"><span class="nav-number">2.3.</span> <span class="nav-text">在 virtualenv 里安装亦可</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#升级-python"><span class="nav-number">1.</span> <span class="nav-text">升级 python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果要安装-mysql-python需要安装以下软件"><span class="nav-number">1.2.</span> <span class="nav-text">如果要安装 MySQL-python，需要安装以下软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如果要安装-lxml需要安装以下软件"><span class="nav-number">1.3.</span> <span class="nav-text">如果要安装 lxml，需要安装以下软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装-python-新版"><span class="nav-number">1.4.</span> <span class="nav-text">编译安装 python 新版</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-easy_install-和-pip"><span class="nav-number">2.</span> <span class="nav-text">安装 easy_install 和 pip</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-yum-中的-python-版本为-python2.6"><span class="nav-number">2.1.</span> <span class="nav-text">修改 yum 中的 python 版本为 python2.6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装一些基础软件"><span class="nav-number">2.2.</span> <span class="nav-text">安装一些基础软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-virtualenv-里安装亦可"><span class="nav-number">2.3.</span> <span class="nav-text">在 virtualenv 里安装亦可</span></a></li></ol></li></ol></div>
             
 
           </div>
