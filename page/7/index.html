@@ -324,175 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Autossh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Autossh/" itemprop="url">Autossh</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T16:32:12+08:00">
-                2016-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Autossh/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Autossh/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Autossh/" class="leancloud_visitors" data-flag-title="Autossh">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
-</blockquote>
-<h1 id="用-autossh-保证-ssh-隧道稳定性">用 autossh 保证 ssh 隧道稳定性 :</h1>
-<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  </code></pre>
-<h1 id="autossh-代理">autossh 代理</h1>
-<pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
-export AUTOSSH_POLL=60
-export AUTOSSH_FIRST_POLL=30
-export AUTOSSH_GATETIME=0
-export AUTOSSH_DEBUG=1
-autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
-    -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
-    -o StrictHostKeyChecking=no USER@HOSTNAME</code></pre>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Screen、nohup、setsid、disown后台运行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -630,6 +461,383 @@ ctrl A 然后再按 D 退出会话</code></pre>
 <pre><code>(ping www.ibm.com &amp;)</code></pre>
 <h1 id="disown-后台">disown 后台</h1>
 <pre><code>disown -h JOBID</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Bind安装配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Bind安装配置/" itemprop="url">Bind 安装配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-11T15:40:19+08:00">
+                2016-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Bind安装配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Bind安装配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Bind安装配置/" class="leancloud_visitors" data-flag-title="Bind 安装配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>参考： http://linux.vbird.org/linux_server/0350dns.php#server_settings DDNS 的安装见：http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
+</blockquote>
+<h1 id="安装">安装</h1>
+<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
+<h1 id="配置">配置</h1>
+<pre><code>1. 生成 rndc key
+$ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
+$ chown root:named /etc/rndc.conf
+
+2. 配置 named.conf
+$ vi /etc/named.conf
+options
+{
+        // Put files that named is allowed to write in the data/ directory:
+        directory               &quot;/var/named&quot;;           // &quot;Working&quot; directory
+        dump-file               &quot;data/cache_dump.db&quot;;
+        statistics-file         &quot;data/named_stats.txt&quot;;
+        memstatistics-file      &quot;data/named_mem_stats.txt&quot;;
+        allow-query             { any; };
+        recursion               yes;
+        listen-on port 53       { any; };
+        allow-transfer          { none; }; // 不允许别人进行 zone 转移 , 如果有 slave DNS，则可以开启
+};
+
+acl intranet { 192.168.1.0/24; }; // 本地来源 IP
+acl internet { ! 192.168.1.0/24; any; }; // 外部来源 IP. 惊叹号表示反向选择
+
+view &quot;lan&quot; {                    // lan 只是一个名字而已，代表的是内网
+        match-clients { &quot;intranet&quot;; };  // 吻合的才使用底下的 zone
+        zone &quot;.&quot; IN {
+                type hint;
+                file &quot;named.ca&quot;;
+        };
+
+        zone &quot;xdol.vicp.net&quot; IN {
+                type master;
+                file &quot;named.xdol.vicp.net&quot;;
+        };
+
+        zone &quot;1.168.192.in-addr.arpa&quot; IN {
+                type master;
+                file &quot;named.192.168.1&quot;;
+        };
+};
+
+view &quot;wan&quot; {
+        match-clients { &quot;internet&quot;; };  // 吻合的才使用底下的 zone
+        zone &quot;.&quot; IN {
+                type hint;
+                file &quot;named.ca&quot;;
+        };
+
+        zone &quot;xdol.vicp.net&quot; IN {
+                type master;
+                file &quot;named.xdol.vicp.net.inter&quot;;
+        };
+};
+
+key &quot;rndc-key&quot; {            // 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
+      algorithm hmac-md5;
+      secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
+};
+
+controls {
+      inet 127.0.0.1 port 953
+              allow { 127.0.0.1; } keys { &quot;rndc-key&quot;; };
+};
+
+logging {                               // 防止外部服务器错误导致 log 记录
+        category lame-servers { null; };
+};</code></pre>
+<h1 id="zone-配置">zone 配置</h1>
+<pre><code>1. 正向 zone 内网配置
+$ vi /var/named/named.xdol.vicp.net
+
+$TTL    600
+@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
+@                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
+master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS 服务器 IP
+@                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
+
+; 关于 192.168.1.109 这部主机的正解设定
+www.xdol.vicp.net.      IN      A       192.168.1.109       ; 内部网卡的 IP
+ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
+ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
+
+; 其它主机的正确设定
+client.xdol.vicp.net.   IN      A       192.168.1.246
+
+
+2. 正向 zone 外网配置
+$ vi /var/named/named.xdol.vicp.net.inter
+
+$TTL    600
+@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
+@                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
+master.xdol.vicp.net.   IN      A       11.11.11.11     ;DNS 服务器 IP
+@                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
+
+; 关于 192.168.1.109 这部主机的正解设定
+www.xdol.vicp.net.      IN      A       11.11.11.11     ; 外部网卡的 IP
+ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
+ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
+
+; 其它主机的正确设定
+client.xdol.vicp.net.   IN      A       192.168.1.246
+
+3. 反向 zone 内、外网设置 ( 外网不需要反向 zone)
+$ vi /var/named/named.192.168.1
+
+$TTL    600
+@       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D )
+@       IN      NS      master.xdol.vicp.net.
+109     IN      PTR     master.xdol.vicp.net. ; 将原来的 A 改为 PTR 标志而已
+
+109     IN      PTR     www.xdol.vicp.net.
+246     IN      PTR     client.xdol.vicp.net.</code></pre>
+<h1 id="启动服务">启动服务</h1>
+<pre><code>service named start
+chkconfig named on</code></pre>
+<h1 id="配置-ddns-可选">配置 DDNS( 可选 )</h1>
+<pre><code>1. DNS 服务端生成主机端的 key( 在当前目录下会生成一个公钥及一个私钥 )
+dnssec-keygen -r /dev/urandom -a HMAC-MD5 -b 512 -n HOST greatwall
+
+
+2. 将公钥加入到配置文件中
+$ vi /etc/named.conf
+// 先在任意地方加入這個 Key 的相關密碼資訊！ ( 加而不是更新其它的 )
+key &quot;greatwall&quot; {
+        algorithm hmac-md5;
+        secret &quot;xZmUo8ozG8f2OSg/cqH8Bqxk59Ho8....3s9IjUxpFB4Q==&quot;;  // 这里换成算出的公钥 cat 出来的内容
+};
+
+// 然後將你原本的 zone 加入底下這一段宣示
+zone &quot;centos.vbird&quot; IN {
+        type master;
+        file &quot;named.centos.vbird&quot;;
+        update-policy {                 // 这个 update-policy 及后面就是添加的
+                grant greatwall name greatwall.xdol.vicp.net. A;
+        };
+};
+
+$ chmod g+w /var/named
+$ chown named /var/named/named.centos.vbird
+$ /etc/init.d/named restart
+$ setsebool -P named_write_master_zones=1       // selinux 的
+
+
+
+3. 客户端更新
+将 ddns 的 key 传给客户端，并在客户端 crontab 中添加以下自动运行的脚本
+
+#!/bin/bash
+#
+# Update your Dynamic IP by using BIND 9 &#39;s tools
+#
+###############################################
+# History
+# 2004/10/27    VBird   First time release
+#
+##############################################
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+export PATH
+
+# 0. keyin your parameters
+basedir=&quot;/usr/local/ddns&quot;           # working directory
+keyfile=&quot;$basedir&quot;/&quot;Kgreatwall.+157+60932.key&quot;  # your ddns&#39; key (filename)
+ttl=600                     # the ttl time ( 10 min. )
+outif=&quot;eth0&quot;                    # Your interface (connect to internet)
+hostname=&quot;greatwall.xdol.vicp.net&quot;      # Your hostname
+servername=&quot;192.168.1.109&quot;          # The update primary DNS server name (or IP)
+showmesg=no                                     # if yes then show messages
+
+# Get your new IP
+newip=`ifconfig &quot;$outif&quot; | grep &#39;inet addr&#39; | \
+    awk &#39;{print $2}&#39; | sed -e &quot;s/addr\://&quot;`
+checkip=`echo $newip | grep &quot;^[0-9]&quot;`
+if [ &quot;$checkip&quot; == &quot;&quot; ]; then
+    echo &quot;$0: The interface can&#39;t connect internet....&quot;
+    exit 1
+fi
+
+# check if the DNS is the same with your IP
+dnsip=`host $hostname | head -n 1 | awk &#39;{print $4}&#39;`
+if [ &quot;$newip&quot; == &quot;$dnsip&quot; ]; then
+        if [ &quot;$showmesg&quot; == &quot;yes&quot; ]; then
+                echo &quot;$0: The IP is the same with DNS, Don&#39;t change it.&quot;
+        fi
+        exit 0
+fi
+
+# create the temporal file
+tmpfile=$basedir/ns_auto_update.txt
+cd $basedir
+echo &quot;server $servername&quot;           &gt;  $tmpfile
+echo &quot;update delete $hostname A &quot;       &gt;&gt; $tmpfile
+echo &quot;update add    $hostname $ttl A $newip&quot;    &gt;&gt; $tmpfile
+echo &quot;send&quot;                     &gt;&gt; $tmpfile
+
+
+# send yo</code></pre>
+<h2 id="附录-名词解释"># 附录： 名词解释</h2>
+<p>TLD: Top Level Domain ccTLD: Country code TLD TTL: Time to live</p>
+<p>申請 DNS 領域查詢授權</p>
+<p>NS 记录： NameServer A 记录： Address MX 记录： Mail CNAME 實際代表這個主機別名的主機名字</p>
+<p>SOA：就是開始驗證 (Start of Authority) 的縮寫</p>
+<p>PTR：就是指向 (PoinTeR) 的縮寫，後面記錄的資料就是反解到主機名稱囉！</p>
+<p>記錄 . 的 zone 的類型，就被我們稱為 hint 類型</p>
+<p>因為使用 DHCP 時，系統會主動的使用 DHCP 伺服器傳來的資料進行系統設定檔的修訂。因此，你必須告知系統，不要使用 DHCP 傳來的伺服器設定值。 此時，你得要在 /etc/sysconfig/network-scripts/ifcfg-eth0 等相關檔案內，增加一行：『PEERDNS=no』，然後重新啟動網路即可。</p>
+<p>在 domain 的部分，若可能的話，請盡量使用 FQDN，亦即是主機名稱結尾加上一個小數點</p>
+<p>SOA 主要是與領域有關，所以前面當然要寫 ksu.edu.tw 這個領域名。而 SOA 後面共會接七個參數，這七個參數的意義依序是： 1.Master DNS 伺服器主機名稱：這個領域主要是哪部 DNS 作為 master 的意思。在本例中， dns1.ksu.edu.tw 為 ksu.edu.tw 這個領域的主要 DNS 伺服器囉；</p>
+<ol start="2" type="1">
+<li><p>管理員的 email：那麼管理員的 email 為何？發生問題可以聯絡這個管理員。要注意的是， 由於 @ 在資料庫檔案中是有特別意義的，因此這裡就將 abuse@mail.ksu.edu.tw 改寫成 abuse.mail.ksu.edu.tw ，這樣看的懂了嗎？</p></li>
+<li><p>序號 (Serial)：這個序號代表的是這個資料庫檔案的新舊，序號越大代表越新。 當 slave 要判斷是否主動下載新的資料庫時，就以序號是否比 slave 上的還要新來判斷，若是則下載，若不是則不下載。 所以當你修訂了資料庫內容時，記得要將這個數值放大才行！ 為了方便使用者記憶，通常序號都會使用日期格式『YYYYMMDDNU』來記憶，例如崑山科大的 2010080369 序號代表 2010/08/03 當天的第 69 次更新的感覺。不過，序號不可大於 2 的 32 次方，亦即必須小於 4294967296 才行喔。</p></li>
+<li><p>更新頻率 (Refresh)：那麼啥時 slave 會去向 master 要求資料更新的判斷？ 就是這個數值定義的。崑山科大的 DNS 設定每 1800 秒進行一次 slave 向 master 要求資料更新。那每次 slave 去更新時， 如果發現序號沒有比較大，那就不會下載資料庫檔案。</p></li>
+<li><p>失敗重新嘗試時間 (Retry)：如果因為某些因素，導致 slave 無法對 master 達成連線， 那麼在多久的時間內，slave 會嘗試重新連線到 master。在崑山科大的設定中，900 秒會重新嘗試一次。意思是說，每 1800 秒 slave 會主動向 master 連線，但如果該次連線沒有成功，那接下來嘗試連線的時間會變成 900 秒。若後來有成功，則又會恢復到 1800 秒才再一次連線。</p></li>
+<li><p>失效時間 (Expire)：如果一直失敗嘗試時間，持續連線到達這個設定值時限， 那麼 slave 將不再繼續嘗試連線，並且嘗試刪除這份下載的 zone file 資訊。崑山科大設定為 604800 秒。意思是說，當連線一直失敗，每 900 秒嘗試到達 604800 秒後，崑山科大的 slave 將不再更新，只能等待系統管理員的處理。</p></li>
+<li><p>快取時間 (Minumum TTL)：如果這個資料庫 zone file 中，每筆 RR 記錄都沒有寫到 TTL 快取時間的話，那麼就以這個 SOA 的設定值為主。</p></li>
+</ol>
+<p>除了 Serial 不可以超過 2 的 32 次方之外，有沒有其它的限制啊針對這幾個數值？是有的，基本上就是這樣： Refresh &gt;= Retry <em>2 Refresh + Retry &lt; Expire Expire &gt;= Rrtry </em> 10 Expire &gt;= 7Days</p>
+<p>一般來說，如果 DNS RR 資料變更情況頻繁的，那麼上述的相關數值可以訂定的小一些，如果 DNS RR 是很穩定的， 為了節省頻寬，則可以將 Refresh 設定的較大一些。</p>
 
           
         
@@ -1350,7 +1558,7 @@ multi-user.target</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1369,7 +1577,7 @@ multi-user.target</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
+                <a class="post-title-link" href="/database/Postgresql安装/" itemprop="url">Postgresql 安装</a></h2>
         
 
         <div class="post-meta">
@@ -1404,8 +1612,8 @@ multi-user.target</code></pre>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
                   </a>
                 </span>
 
@@ -1422,9 +1630,9 @@ multi-user.target</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Supervisor安装与配置/#comments" itemprop="discussionUrl">
+                <a href="/database/Postgresql安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Supervisor安装与配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="database/Postgresql安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1432,7 +1640,7 @@ multi-user.target</code></pre>
 
           
           
-             <span id="/linux/Supervisor安装与配置/" class="leancloud_visitors" data-flag-title="Supervisor 安装与配置">
+             <span id="/database/Postgresql安装/" class="leancloud_visitors" data-flag-title="Postgresql 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1462,21 +1670,20 @@ multi-user.target</code></pre>
       
         
           
-            <h1 id="安装">安装</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
-<h1 id="配置">配置</h1>
-<blockquote>
-<p>生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选</span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选</span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令</span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动</span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选</span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选</span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<h1 id="启动">启动</h1>
-<pre><code>$ service supervisord start
-
-&gt; 如果使用 pip 安装，需要自已写启动脚本</code></pre>
-<h1 id="检查安装">检查安装</h1>
-<pre><code># 如下即表示正常
-supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+            <h1 id="安装相关依赖库">安装相关依赖库</h1>
+<pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
+  openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
+$ yum -y install wget gcc systemtap systemtap-sdt-devel \
+  sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
+  libxml2 libxml2-devel bison flex libreadline6-devel</code></pre>
+<h1 id="安装">安装</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量</span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h1 id="初始化数据库">初始化数据库</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 数据库参数修改</span></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
+<h1 id="启动数据库-快速">启动数据库 [快速]</h1>
+<pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
+<h1 id="创建并导入库">创建并导入库</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">su postgres</div><div class="line">psql</div><div class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></div><div class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></div><div class="line">\i &lt;DB_FILE&gt;.sql</div></pre></td></tr></table></figure>
 
           
         
@@ -1582,7 +1789,7 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
