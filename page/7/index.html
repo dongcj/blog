@@ -324,6 +324,175 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Autossh/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Autossh/" itemprop="url">Autossh</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T16:32:12+08:00">
+                2016-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Autossh/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Autossh/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Autossh/" class="leancloud_visitors" data-flag-title="Autossh">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
+</blockquote>
+<h1 id="用-autossh-保证-ssh-隧道稳定性">用 autossh 保证 ssh 隧道稳定性 :</h1>
+<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  </code></pre>
+<h1 id="autossh-代理">autossh 代理</h1>
+<pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
+export AUTOSSH_POLL=60
+export AUTOSSH_FIRST_POLL=30
+export AUTOSSH_GATETIME=0
+export AUTOSSH_DEBUG=1
+autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
+    -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
+    -o StrictHostKeyChecking=no USER@HOSTNAME</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Screen、nohup、setsid、disown后台运行/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -461,383 +630,6 @@ ctrl A 然后再按 D 退出会话</code></pre>
 <pre><code>(ping www.ibm.com &amp;)</code></pre>
 <h1 id="disown-后台">disown 后台</h1>
 <pre><code>disown -h JOBID</code></pre>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Bind安装配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Bind安装配置/" itemprop="url">Bind ��װ����</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-11T15:40:19+08:00">
-                2016-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Bind安装配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Bind安装配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Bind安装配置/" class="leancloud_visitors" data-flag-title="Bind ��װ����">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>�ο��� http://linux.vbird.org/linux_server/0350dns.php#server_settings DDNS �İ�װ����http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
-</blockquote>
-<h1 id="װ">��װ</h1>
-<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
-<h1 id="section">����</h1>
-<pre><code>1. ���� rndc key
-$ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
-$ chown root:named /etc/rndc.conf
-
-2. ���� named.conf
-$ vi /etc/named.conf
-options
-{
-        // Put files that named is allowed to write in the data/ directory:
-        directory               &quot;/var/named&quot;;           // &quot;Working&quot; directory
-        dump-file               &quot;data/cache_dump.db&quot;;
-        statistics-file         &quot;data/named_stats.txt&quot;;
-        memstatistics-file      &quot;data/named_mem_stats.txt&quot;;
-        allow-query             { any; };
-        recursion               yes;
-        listen-on port 53       { any; };
-        allow-transfer          { none; }; // ��������˽��� zone ת�� , ����� slave DNS������Կ���
-};
-
-acl intranet { 192.168.1.0/24; }; // ������Դ IP
-acl internet { ! 192.168.1.0/24; any; }; // �ⲿ��Դ IP. ��̾�ű�ʾ����ѡ��
-
-view &quot;lan&quot; {                    // lan ֻ��һ�����ֶ��ѣ������������
-        match-clients { &quot;intranet&quot;; };  // �ǺϵĲ�ʹ�õ��µ� zone
-        zone &quot;.&quot; IN {
-                type hint;
-                file &quot;named.ca&quot;;
-        };
-
-        zone &quot;xdol.vicp.net&quot; IN {
-                type master;
-                file &quot;named.xdol.vicp.net&quot;;
-        };
-
-        zone &quot;1.168.192.in-addr.arpa&quot; IN {
-                type master;
-                file &quot;named.192.168.1&quot;;
-        };
-};
-
-view &quot;wan&quot; {
-        match-clients { &quot;internet&quot;; };  // �ǺϵĲ�ʹ�õ��µ� zone
-        zone &quot;.&quot; IN {
-                type hint;
-                file &quot;named.ca&quot;;
-        };
-
-        zone &quot;xdol.vicp.net&quot; IN {
-                type master;
-                file &quot;named.xdol.vicp.net.inter&quot;;
-        };
-};
-
-key &quot;rndc-key&quot; {            // ������ rndc ����Կ����Ҫ�޸�Ϊ /etc/rndc.conf ��һ���� secret
-      algorithm hmac-md5;
-      secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
-};
-
-controls {
-      inet 127.0.0.1 port 953
-              allow { 127.0.0.1; } keys { &quot;rndc-key&quot;; };
-};
-
-logging {                               // ��ֹ�ⲿ������������ log ��¼
-        category lame-servers { null; };
-};</code></pre>
-<h1 id="zone">zone ����</h1>
-<pre><code>1. ���� zone ��������
-$ vi /var/named/named.xdol.vicp.net
-
-$TTL    600
-@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
-@                       IN      NS      master.xdol.vicp.net.   ;DNS ����������
-master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS ������ IP
-@                       IN      MX      10 www.xdol.vicp.net.   ; �ʼ�������
-
-; ���� 192.168.1.109 �ⲿ�����������趨
-www.xdol.vicp.net.      IN      A       192.168.1.109       ; �ڲ������� IP
-ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-
-; ������������ȷ�趨
-client.xdol.vicp.net.   IN      A       192.168.1.246
-
-
-2. ���� zone ��������
-$ vi /var/named/named.xdol.vicp.net.inter
-
-$TTL    600
-@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D );
-@                       IN      NS      master.xdol.vicp.net.   ;DNS ����������
-master.xdol.vicp.net.   IN      A       11.11.11.11     ;DNS ������ IP
-@                       IN      MX      10 www.xdol.vicp.net.   ; �ʼ�������
-
-; ���� 192.168.1.109 �ⲿ�����������趨
-www.xdol.vicp.net.      IN      A       11.11.11.11     ; �ⲿ������ IP
-ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
-
-; ������������ȷ�趨
-client.xdol.vicp.net.   IN      A       192.168.1.246
-
-3. ���� zone �ڡ��������� ( ��������Ҫ���� zone)
-$ vi /var/named/named.192.168.1
-
-$TTL    600
-@       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. ( 2012040702 3H 15M 1W 1D )
-@       IN      NS      master.xdol.vicp.net.
-109     IN      PTR     master.xdol.vicp.net. ; ��ԭ���� A ��Ϊ PTR ��־����
-
-109     IN      PTR     www.xdol.vicp.net.
-246     IN      PTR     client.xdol.vicp.net.</code></pre>
-<h1 id="section-1">�����</h1>
-<pre><code>service named start
-chkconfig named on</code></pre>
-<h1 id="ddns-ѡ">���� DDNS( ��ѡ )</h1>
-<pre><code>1. DNS ��������������˵� key( �ڵ�ǰĿ¼�»�����һ����Կ��һ��˽Կ )
-dnssec-keygen -r /dev/urandom -a HMAC-MD5 -b 512 -n HOST greatwall
-
-
-2. ����Կ���뵽�����ļ���
-$ vi /etc/named.conf
-// ��������ط������@�� Key �����P�ܴa�YӍ�� ( �Ӷ����Ǹ��������� )
-key &quot;greatwall&quot; {
-        algorithm hmac-md5;
-        secret &quot;xZmUo8ozG8f2OSg/cqH8Bqxk59Ho8....3s9IjUxpFB4Q==&quot;;  // ���ﻻ������Ĺ�Կ cat ����������
-};
-
-// Ȼ�ጢ��ԭ���� zone ��������@һ����ʾ
-zone &quot;centos.vbird&quot; IN {
-        type master;
-        file &quot;named.centos.vbird&quot;;
-        update-policy {                 // ��� update-policy �����������ӵ�
-                grant greatwall name greatwall.xdol.vicp.net. A;
-        };
-};
-
-$ chmod g+w /var/named
-$ chown named /var/named/named.centos.vbird
-$ /etc/init.d/named restart
-$ setsebool -P named_write_master_zones=1       // selinux ��
-
-
-
-3. �ͻ��˸���
-�� ddns �� key �����ͻ��ˣ����ڿͻ��� crontab ����������Զ����еĽű�
-
-#!/bin/bash
-#
-# Update your Dynamic IP by using BIND 9 &#39;s tools
-#
-###############################################
-# History
-# 2004/10/27    VBird   First time release
-#
-##############################################
-PATH=/sbin:/bin:/usr/sbin:/usr/bin
-export PATH
-
-# 0. keyin your parameters
-basedir=&quot;/usr/local/ddns&quot;           # working directory
-keyfile=&quot;$basedir&quot;/&quot;Kgreatwall.+157+60932.key&quot;  # your ddns&#39; key (filename)
-ttl=600                     # the ttl time ( 10 min. )
-outif=&quot;eth0&quot;                    # Your interface (connect to internet)
-hostname=&quot;greatwall.xdol.vicp.net&quot;      # Your hostname
-servername=&quot;192.168.1.109&quot;          # The update primary DNS server name (or IP)
-showmesg=no                                     # if yes then show messages
-
-# Get your new IP
-newip=`ifconfig &quot;$outif&quot; | grep &#39;inet addr&#39; | \
-    awk &#39;{print $2}&#39; | sed -e &quot;s/addr\://&quot;`
-checkip=`echo $newip | grep &quot;^[0-9]&quot;`
-if [ &quot;$checkip&quot; == &quot;&quot; ]; then
-    echo &quot;$0: The interface can&#39;t connect internet....&quot;
-    exit 1
-fi
-
-# check if the DNS is the same with your IP
-dnsip=`host $hostname | head -n 1 | awk &#39;{print $4}&#39;`
-if [ &quot;$newip&quot; == &quot;$dnsip&quot; ]; then
-        if [ &quot;$showmesg&quot; == &quot;yes&quot; ]; then
-                echo &quot;$0: The IP is the same with DNS, Don&#39;t change it.&quot;
-        fi
-        exit 0
-fi
-
-# create the temporal file
-tmpfile=$basedir/ns_auto_update.txt
-cd $basedir
-echo &quot;server $servername&quot;           &gt;  $tmpfile
-echo &quot;update delete $hostname A &quot;       &gt;&gt; $tmpfile
-echo &quot;update add    $hostname $ttl A $newip&quot;    &gt;&gt; $tmpfile
-echo &quot;send&quot;                     &gt;&gt; $tmpfile
-
-
-# send yo</code></pre>
-<h2 id="ʽ"># ��¼�� ���ʽ���</h2>
-<p>TLD: Top Level Domain ccTLD: Country code TLD TTL: Time to live</p>
-<p>��Ո DNS �I���ԃ�ڙ�</p>
-<p>NS ��¼�� NameServer A ��¼�� Address MX ��¼�� Mail CNAME ���H�����@�����C�e�������C����</p>
-<p>SOA�������_ʼ��C (Start of Authority) �Ŀs��</p>
-<p>PTR������ָ�� (PoinTeR) �Ŀs��������ӛ䛵��Y�Ͼ��Ƿ��⵽���C���Q�ӣ�</p>
-<p>ӛ� . �� zone ����ͣ��ͱ��҂��Q�� hint ���</p>
-<p>���ʹ�� DHCP �r��ϵ�y�����ӵ�ʹ�� DHCP �ŷ���������Y���M��ϵ�y�O���n����ӆ����ˣ����횸�֪ϵ�y����Ҫʹ�� DHCP ������ŷ����O��ֵ�� �˕r�����Ҫ�� /etc/sysconfig/network-scripts/ifcfg-eth0 �����P�n���ȣ�����һ�У���PEERDNS=no����Ȼ�������ӾW·���ɡ�</p>
-<p>�� domain �Ĳ��֣�����ܵ�Ԓ��Ո�M��ʹ�� FQDN���༴�����C���Q�Yβ����һ��С���c</p>
-<p>SOA ��Ҫ���c�I�����P������ǰ�殔ȻҪ�� ksu.edu.tw �@���I�������� SOA ���湲�����߂��������@�߂����������x�����ǣ� 1.Master DNS �ŷ������C���Q���@���I����Ҫ���Ĳ� DNS ���� master ����˼���ڱ����У� dns1.ksu.edu.tw �� ksu.edu.tw �@���I�����Ҫ DNS �ŷ����ӣ�</p>
-<ol start="2" type="1">
-<li><p>����T�� email�����N����T�� email ��Σ��l�����}����“�j�@������T��Ҫע����ǣ� ��� @ ���Y�ώ�n���������؄e���x�ģ�����@�e�͌� abuse@mail.ksu.edu.tw �Č��� abuse.mail.ksu.edu.tw ���@�ӿ��Ķ��ˆ᣿</p></li>
-<li><p>��̖ (Serial)���@����̖��������@���Y�ώ�n�������f����̖Խ�����Խ�¡� �� slave Ҫ�Д��Ƿ��������d�µ��Y�ώ�r��������̖�Ƿ�� slave �ϵ�߀Ҫ���Д࣬���Ǆt���d�����Ǆt�����d�� ���Ԯ�����ӆ���Y�ώ���ݕr��ӛ��Ҫ���@����ֵ�Ŵ���У� ���˷���ʹ����ӛ����ͨ����̖����ʹ�����ڸ�ʽ��YYYYMMDDNU����ӛ�������獋ɽ�ƴ�� 2010080369 ��̖���� 2010/08/03 ����ĵ� 69 �θ��µĸ��X�����^����̖���ɴ�� 2 �� 32 �η����༴���С� 4294967296 ����ม�</p></li>
-<li><p>�����l�� (Refresh)�����Nɶ�r slave ��ȥ�� master Ҫ���Y�ϸ��µ��Дࣿ �����@����ֵ���x�ġ���ɽ�ƴ�� DNS �O��ÿ 1800 ���M��һ�� slave �� master Ҫ���Y�ϸ��¡���ÿ�� slave ȥ���r�� ����l�F��̖�]�б��^���ǾͲ������d�Y�ώ�n����</p></li>
-<li><p>ʧ�����Lԇ�r�g (Retry)��������ĳЩ���أ����� slave �o���� master �_���B���� ���N�ڶ�õĕr�g�ȣ�slave ���Lԇ�����B���� master���ڍ�ɽ�ƴ���O���У�900 ������Lԇһ�Ρ���˼���f��ÿ 1800 �� slave �������� master �B���������ԓ���B���]�гɹ����ǽ���Lԇ�B���ĕr�g��׃�� 900 �롣������гɹ����t�֕��֏͵� 1800 �����һ���B����</p></li>
-<li><p>ʧЧ�r�g (Expire)�����һֱʧ���Lԇ�r�g�����m�B�����<em>�@���O��ֵ�r�ޣ� ���N slave �������^�m�Lԇ�B�����K�҇Lԇ�h���@�����d�� zone file �YӍ����ɽ�ƴ��O���� 604800 �롣��˼���f�����B��һֱʧ����ÿ 900 ��Lԇ���</em> 604800 ���ᣬ��ɽ�ƴ�� slave �����ٸ��£�ֻ�ܵȴ�ϵ�y����T��̎��</p></li>
-<li><p>��ȡ�r�g (Minumum TTL)������@���Y�ώ� zone file �У�ÿ�P RR ӛ䛶��]�Ќ��� TTL ��ȡ�r�g��Ԓ�����N�����@�� SOA ���O��ֵ������</p></li>
-</ol>
-<p>���� Serial �����Գ��^ 2 �� 32 �η�֮�⣬�Л]�����������ư�ᘌ��@�ׂ���ֵ�����еģ������Ͼ����@�ӣ� Refresh &gt;= Retry <em>2 Refresh + Retry &lt; Expire Expire &gt;= Rrtry </em> 10 Expire &gt;= 7Days</p>
-<p>һ����f����� DNS RR �Y��׃����r�l���ģ����N���������P��ֵ����ӆ����СһЩ����� DNS RR �Ǻܷ����ģ� ���˹�ʡ�l�����t���Ԍ� Refresh �O�����^��һЩ��</p>
 
           
         
@@ -1790,7 +1582,7 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">91</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
