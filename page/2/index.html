@@ -1094,7 +1094,7 @@ vncserver -kill :1</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1113,7 +1113,7 @@ vncserver -kill :1</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/CentOS部署lazy-balancer负载均衡/" itemprop="url">Centos 部署 lazy-balancer 负载均衡</a></h2>
+                <a class="post-title-link" href="/linux/Linux升级kernel及tcp_BBR/" itemprop="url">Linux 升级 kernel 及 tcp_BBR</a></h2>
         
 
         <div class="post-meta">
@@ -1166,9 +1166,9 @@ vncserver -kill :1</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/CentOS部署lazy-balancer负载均衡/#comments" itemprop="discussionUrl">
+                <a href="/linux/Linux升级kernel及tcp_BBR/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/CentOS部署lazy-balancer负载均衡/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Linux升级kernel及tcp_BBR/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1176,7 +1176,7 @@ vncserver -kill :1</code></pre>
 
           
           
-             <span id="/linux/CentOS部署lazy-balancer负载均衡/" class="leancloud_visitors" data-flag-title="Centos 部署 lazy-balancer 负载均衡">
+             <span id="/linux/Linux升级kernel及tcp_BBR/" class="leancloud_visitors" data-flag-title="Linux 升级 kernel 及 tcp_BBR">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1206,31 +1206,40 @@ vncserver -kill :1</code></pre>
       
         
           
-            <h1 id="clone-soft">clone soft</h1>
-<pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /usr/local/lazy_balancer</code></pre>
-<h1 id="install-tengine">install tengine</h1>
-<pre><code>$ git submodule update --init --recursive
+            <blockquote>
+<p>只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。</p>
+</blockquote>
+<blockquote>
+<p>快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br> wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; bash bbr.sh</p>
+</blockquote>
+<h2 id="修改系统变量">修改系统变量：</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效</span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line"><span class="comment"># 检测 BBR 是否开启。</span></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
+<h1 id="debianubuntu-升级内核">Debian、Ubuntu 升级内核</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核</span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核</span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line"><span class="comment"># 查看已经安装的内核</span></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line"><span class="comment"># 卸载旧内核</span></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line"><span class="comment"># 更新引导并重启</span></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本</span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
+<h1 id="rhelcentos-升级内核">RHEL、CentOS 升级内核</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核</span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核</span></div><div class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效</div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
+<h1 id="rhelcentos-升级内核下载并手动升级">RHEL、CentOS 升级内核（下载并手动升级）</h1>
+<h2 id="下载内核二进制包">下载内核二进制包</h2>
+<blockquote>
+<p>链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
+</blockquote>
+<h2 id="解压安装">解压安装</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb</div><div class="line">bzip2 -d data.tar.bz2</div><div class="line">tar -xf data.tar</div><div class="line">install -m644 boot/vmlinuz-4.9.0-11-generic /boot/vmlinuz-4.9.0-11-generic</div><div class="line">cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/</div><div class="line">depmod -a 4.9.0-11-generic</div></pre></td></tr></table></figure>
+<h2 id="加入引导">加入引导</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dracut -f -v --hostonly -k <span class="string">'/lib/modules/4.9.0-11-generic'</span>  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic</div><div class="line"><span class="comment"># 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；</span></div><div class="line"></div><div class="line"><span class="comment"># centos7 是 grub2 可以用下面命令 :</span></div><div class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</div></pre></td></tr></table></figure>
+<h2 id="修改引导顺序">修改引导顺序</h2>
+<h3 id="查看引导内有哪些内核">查看引导内有哪些内核</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">cat /boot/grub2/grub.cfg |grep menuentry</div><div class="line"></div><div class="line"><span class="comment"># 输出结果：</span></div><div class="line">cat /boot/grub2/grub.cfg |grep menuentry</div><div class="line"><span class="keyword">if</span> [ x<span class="string">"<span class="variable">$&#123;feature_menuentry_id&#125;</span>"</span> = xy ]; <span class="keyword">then</span></div><div class="line">  menuentry_id_option=<span class="string">"--id"</span></div><div class="line">  menuentry_id_option=<span class="string">""</span></div><div class="line">  <span class="built_in">export</span> menuentry_id_option</div><div class="line">  menuentry <span class="string">'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-4.9.0-rc8-amd64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div><div class="line">  menuentry <span class="string">'CentOS Linux (3.10.0-327.36.3.el7.x86_64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-3.10.0-327.36.3.el7.x86_64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div><div class="line">  menuentry <span class="string">'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div></pre></td></tr></table></figure>
+<h3 id="配置从默认内核启动">配置从默认内核启动</h3>
+<pre><code># 下面命令的内核名称根据系统内部查到的实际名称来替换：
+grub2-set-default &#39;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&#39;</code></pre>
+<h2 id="验证是否配置成功">验证是否配置成功：</h2>
+<pre><code>grub2-editenv list
 
-$ cd resource/nginx/tengine
-$ yum -y install pcre-devel
+# 输出结果：
+saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
 
-$ ./configure --user=nginx --group=nginx --prefix=/etc/nginx --sbin-path=/usr/sbin --error-log-path=/var/log/nginx/error.log --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid
-$ make &amp;&amp; make install
-
-# add nginx user
-$ adduser --system --no-create-home --shell /bin/false   nginx</code></pre>
-<h1 id="install-supervisor">install supervisor</h1>
-<pre><code>$ yum -y install supervisor
-
-# add to supervisor config file
-$ echo &quot;[include]&quot; &gt;&gt;/etc/supervisord.conf
-$ echo &quot;files = /etc/supervisor/conf.d/*.conf&quot; &gt;&gt;/etc/supervisord.conf
-
-$ cp -rf /usr/local/lazy_balancer/service/* /etc/supervisor/
-$ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
-<h1 id="start-service">start service</h1>
-<pre><code>$ service supervisor restart</code></pre>
+# 重启就可以完成更新内核了！</code></pre>
 
           
         
