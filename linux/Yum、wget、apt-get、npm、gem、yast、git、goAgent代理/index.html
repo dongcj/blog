@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git,yum,wget,apt-get,npm,gem,yast,goAgent,代理,proxy," />
+  <meta name="keywords" content="git,yum,wget,apt-get,npm,gem,yast,goAgent,代理," />
 
 
 
@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="# yum 配置代理 $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty   # yum 出现以下错误： &amp;gt; UnicodeDecodeError: &amp;#39;ascii&amp;#3">
-<meta name="keywords" content="git,yum,wget,apt-get,npm,gem,yast,goAgent,代理,proxy">
+<meta name="description" content="proxy  yum 配置代理 $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  # yum 出现以下错误： &amp;gt; UnicodeDecodeError: &amp;#39;a">
+<meta name="keywords" content="git,yum,wget,apt-get,npm,gem,yast,goAgent,代理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .md">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Yum、wget、apt-get、npm、gem、yast、git、goAgent代理/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="# yum 配置代理 $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty   # yum 出现以下错误： &amp;gt; UnicodeDecodeError: &amp;#39;ascii&amp;#3">
+<meta property="og:description" content="proxy  yum 配置代理 $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  # yum 出现以下错误： &amp;gt; UnicodeDecodeError: &amp;#39;a">
 <meta property="og:updated_time" content="2016-08-11T07:22:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .md">
-<meta name="twitter:description" content="# yum 配置代理 $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty   # yum 出现以下错误： &amp;gt; UnicodeDecodeError: &amp;#39;ascii&amp;#3">
+<meta name="twitter:description" content="proxy  yum 配置代理 $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  # yum 出现以下错误： &amp;gt; UnicodeDecodeError: &amp;#39;a">
 
 
 
@@ -432,13 +432,15 @@
       
 
       
-        <h2 id="yum-配置代理"># yum 配置代理</h2>
+        <ul>
+<li>proxy</li>
+</ul>
+<h1 id="yum-配置代理">yum 配置代理</h1>
 <pre><code>$ vi /etc/yum.conf
   proxy=http://mycache.mydomain.com:808
   用于 yum 连接的帐户细节
   proxy_username=yum-user
   proxy_password=qwerty
-
 
 # yum 出现以下错误：
 &gt; UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xd1 in position 72: ordinal not in range(128)
@@ -446,7 +448,7 @@
 # 解决方法：
 使用光盘中的 GPGKEY：
 $ rpm --import RPM-GPG-KEY-redhat-release</code></pre>
-<h2 id="wget-配置代理"># wget 配置代理</h2>
+<h1 id="wget-配置代理">wget 配置代理</h1>
 <pre><code># 配置 .wgetrc
   use_proxy=on
   http_proxy=http://proxy.yoyodyne.com:18023/
@@ -457,7 +459,7 @@ $ wget -Y on &quot;http_proxy=http://192.168.88.57:808&quot; &quot;www.baidu.com
 
 # 进行断点下载示例
 $ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip</code></pre>
-<h2 id="apt-get-配置代理"># apt-get 配置代理</h2>
+<h1 id="apt-get-配置代理">apt-get 配置代理</h1>
 <pre><code># 方法 1：将以下代码写入 /etc/apt/apt_proxy.conf （位置自定，临时使用）
   Acquire {
    Retries &quot;0 ″ ;
@@ -468,23 +470,22 @@ $ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip</code>
 
 $ apt-get install postfix -c /etc/apt/apt.proxy.conf
 
-
 # 方法 2：将以下代码写入 /etc/apt/apt.conf( 永久使用 )
   Acquire::http::proxy  &quot;http:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
   Acquire::https::proxy  &quot;https:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
   Acquire::ftp::proxy  &quot;ftp:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;</code></pre>
-<h2 id="curl-配置代理"># curl 配置代理</h2>
+<h1 id="curl-配置代理">curl 配置代理</h1>
 <pre><code>$ curl -x 192.168.88.57:808 &quot;www.baidu.com&quot;
 
 # 或者
 $ vi /root/.bashrc
   export http_proxy = http://PROXYSERVER:18023</code></pre>
-<h2 id="git-配置代理"># git 配置代理</h2>
+<h1 id="git-配置代理">git 配置代理</h1>
 <pre><code># 如果是 git clone http:// 或 git clone https:// 的话直接把代理服务器加到环境变量就可以了：
 $ export http_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 $ export https_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 
-----------------------------------------------------------------------
+-
 
 # 这样 git 就会自动使用环境变量里的代理服务器了。http 方式正常，但是 https 方式 git 就会提示 CA 证书不受信任了，
 # 可以通过以下方式把 goagent 的 CA 加到系统信任列表里：
@@ -494,7 +495,7 @@ $ export https_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 
 # 最后一个命令会有一个图形界面，在里面勾选 goagent 的 CA 就可以了。
 
-----------------------------------------------------------------------
+-
 
 # 如果是 git clone git:// 的话麻烦一些（可能有的 git 源不提供 http/https 的方式 )
 # 下载一个 connect.c
@@ -506,33 +507,31 @@ $ chmod a+x /root/git_proxy
 $ git config --global core.gitproxy /root/git_proxy
 
 # 然后就可以使用 git 了</code></pre>
-<hr>
-<h2 id="yast-配置代理"># yast 配置代理</h2>
+<ul>
+<li></li>
+</ul>
+<h1 id="yast-配置代理">yast 配置代理</h1>
 <pre><code>$ vi /etc/sysconfig/proxy
 
   PROXY_ENABLED=&quot;on&quot;
   HTTP_PROXY=&quot;http://192.168.11.35:808&quot;</code></pre>
-<h2 id="goagent-代理"># GoAgent 代理</h2>
+<h1 id="goagent-代理">GoAgent 代理</h1>
 <pre><code># 重建证书目录：
 （如果不建，则会报：certutil: could not authenticate to token NSS Certificate DB.: An I/O error occurred during security authorization.）
 $ modutil -changepw &quot;NSS Certificate DB&quot; -dbdir $HOME/.pki/nssdb
 
-
 # 查看证书
 $ certutil -d sql:$HOME/.pki/nssdb -L
-
 
 # 导入证书
 $ pk12util -d sql:$HOME/.pki/nssdb -i XXXX.pfx
 
-
 # GoAgent 证书导入
 $ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;GoAgent&quot; -i /tmp/CA.crt
 
-
 # 删除证书
 $ certutil -d sql:$HOME/.pki/nssdb -D -t &quot;C,,&quot; -n GoAgent</code></pre>
-<h2 id="npm-代理"># npm 代理：</h2>
+<h1 id="npm-代理">npm 代理：</h1>
 <pre><code># 设置 :
 $ npm config set proxy=http://proxy.mysite.com:8080
   或在 /root/.npmrc 中设置：
@@ -540,7 +539,7 @@ $ proxy=http://192.168.109.1:808
 
 # 取消 :
 $ npm config delete proxy</code></pre>
-<h2 id="gem-代理"># gem 代理：</h2>
+<h1 id="gem-代理">gem 代理：</h1>
 <pre><code># 安装时加上 --http-proxy 参数
 $ gem install --http-proxy http://proxy.mysite.com:8080 sass
 
@@ -594,8 +593,6 @@ $ gem install sass</code></pre>
           
             <a href="/tags/代理/" rel="tag"># 代理</a>
           
-            <a href="/tags/proxy/" rel="tag"># proxy</a>
-          
         </div>
       
 
@@ -627,8 +624,8 @@ $ gem install sass</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" rel="prev" title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
-                Curl、resty、httpie、httpstat、wuzz 使用介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/斐讯K2路由器刷机/" rel="prev" title="斐讯 K2 路由器刷机">
+                斐讯 K2 路由器刷机 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -731,7 +728,7 @@ $ gem install sass</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -753,7 +750,7 @@ $ gem install sass</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -824,7 +821,7 @@ $ gem install sass</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#yum-配置代理"><span class="nav-number">1.</span> <span class="nav-text"># yum 配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#wget-配置代理"><span class="nav-number">2.</span> <span class="nav-text"># wget 配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apt-get-配置代理"><span class="nav-number">3.</span> <span class="nav-text"># apt-get 配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-配置代理"><span class="nav-number">4.</span> <span class="nav-text"># curl 配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-配置代理"><span class="nav-number">5.</span> <span class="nav-text"># git 配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#yast-配置代理"><span class="nav-number">6.</span> <span class="nav-text"># yast 配置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goagent-代理"><span class="nav-number">7.</span> <span class="nav-text"># GoAgent 代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#npm-代理"><span class="nav-number">8.</span> <span class="nav-text"># npm 代理：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gem-代理"><span class="nav-number">9.</span> <span class="nav-text"># gem 代理：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-配置代理"><span class="nav-number">1.</span> <span class="nav-text">yum 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-配置代理"><span class="nav-number">2.</span> <span class="nav-text">wget 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apt-get-配置代理"><span class="nav-number">3.</span> <span class="nav-text">apt-get 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#curl-配置代理"><span class="nav-number">4.</span> <span class="nav-text">curl 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-配置代理"><span class="nav-number">5.</span> <span class="nav-text">git 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yast-配置代理"><span class="nav-number">6.</span> <span class="nav-text">yast 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#goagent-代理"><span class="nav-number">7.</span> <span class="nav-text">GoAgent 代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#npm-代理"><span class="nav-number">8.</span> <span class="nav-text">npm 代理：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#gem-代理"><span class="nav-number">9.</span> <span class="nav-text">gem 代理：</span></a></li></ol></div>
             
 
           </div>
@@ -847,7 +844,7 @@ $ gem install sass</code></pre>
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

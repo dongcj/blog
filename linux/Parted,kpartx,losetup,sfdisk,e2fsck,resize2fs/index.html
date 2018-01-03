@@ -448,7 +448,6 @@ $ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{
 # Del swap
 $ parted -s ${loop} rm ${swap_part_num}
 
-
 # If does&#39;t have, add the new swap device
 $ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
@@ -569,8 +568,8 @@ $ mkpart primary 2048s 100%
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/database/Postgresql主从配置/" rel="next" title="Postgresql 主从配置">
-                <i class="fa fa-chevron-left"></i> Postgresql 主从配置
+              <a href="/linux/PXE安装与设定/" rel="next" title="PXE 安装与设定">
+                <i class="fa fa-chevron-left"></i> PXE 安装与设定
               </a>
             
           </div>
@@ -579,8 +578,8 @@ $ mkpart primary 2048s 100%
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/PXE安装与设定/" rel="prev" title="PXE 安装与设定">
-                PXE 安装与设定 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Mdadm_raid10_raid5/" rel="prev" title="Mdadm_raid10_raid5">
+                Mdadm_raid10_raid5 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -683,7 +682,7 @@ $ mkpart primary 2048s 100%
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -705,7 +704,7 @@ $ mkpart primary 2048s 100%
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -799,7 +798,7 @@ $ mkpart primary 2048s 100%
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

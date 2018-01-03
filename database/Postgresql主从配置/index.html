@@ -449,7 +449,25 @@ $ psql$ select * from pg_stat_replication;
 
 # 可以看到 sender 的进程信息</code></pre>
 <h1 id="主从切换命令">主从切换命令</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># node1 上模拟主库故障</span></div><div class="line">[postgres@node1 ~]$ pg_ctl stop -m f</div><div class="line"></div><div class="line"><span class="comment"># node2 提升备库状态</span></div><div class="line">[postgres@node2 ~]$ pg_ctl promote</div><div class="line"></div><div class="line"><span class="comment"># node2 更新备数据</span></div><div class="line">[postgres@node2 ~]$ createdb pgbench</div><div class="line">[postgres@node2 ~]$ pgbench -i -s 10 pgbench</div><div class="line"></div><div class="line"><span class="comment"># node1 将以前 master 恢复为 standby</span></div><div class="line">pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node2 user=postgres port=5432'</span></div><div class="line"></div><div class="line">vi /opt/pgsql/data/recovery.conf</div><div class="line">standby_mode = <span class="string">'on'</span></div><div class="line">primary_conninfo = <span class="string">'host=node2 user=postgres port=5432'</span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line"></div><div class="line"><span class="comment"># 启动 node1 上的数据库：</span></div><div class="line">[postgres@node1 ~]$ pg_ctl start</div><div class="line"></div><div class="line"><span class="comment"># 将 node1 恢复为 master</span></div><div class="line">[postgres@node2 ~]$ pg_ctl stop -m f</div><div class="line">[postgres@node1 ~]$ pg_ctl promote</div><div class="line">[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench</div><div class="line"></div><div class="line"><span class="comment"># 恢复 node2 为 standby：</span></div><div class="line">[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node1 user=postgres port=5432'</span></div><div class="line">[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf</div><div class="line"></div><div class="line"><span class="comment"># 修改 node2 为 node1</span></div><div class="line">vi /opt/pgsql/data/recovery.conf </div><div class="line"></div><div class="line"><span class="comment"># 启动 node2 上的数据库：</span></div><div class="line">[postgres@node2 ~]$ pg_ctl start</div></pre></td></tr></table></figure>
+<h1 id="node1-上模拟主库故障">node1 上模拟主库故障</h1>
+<p>[postgres@node1 ~]$ pg_ctl stop -m f</p>
+<h1 id="node2-提升备库状态">node2 提升备库状态</h1>
+<p>[postgres@node2 ~]$ pg_ctl promote</p>
+<h1 id="node2-更新备数据">node2 更新备数据</h1>
+<p>[postgres@node2 ~]$ createdb pgbench [postgres@node2 ~]$ pgbench -i -s 10 pgbench</p>
+<h1 id="node1-将以前-master-恢复为-standby">node1 将以前 master 恢复为 standby</h1>
+<p>pg_rewind -D /opt/pgsql/data/ –source-server=‘host=node2 user=postgres port=5432’</p>
+<p>vi /opt/pgsql/data/recovery.conf standby_mode = ‘on’ primary_conninfo = ‘host=node2 user=postgres port=5432’ recovery_target_timeline = ‘latest’</p>
+<h1 id="启动-node1-上的数据库">启动 node1 上的数据库：</h1>
+<p>[postgres@node1 ~]$ pg_ctl start</p>
+<h1 id="将-node1-恢复为-master">将 node1 恢复为 master</h1>
+<p>[postgres@node2 ~]$ pg_ctl stop -m f [postgres@node1 ~]$ pg_ctl promote [postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench</p>
+<h1 id="恢复-node2-为-standby">恢复 node2 为 standby：</h1>
+<p>[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ –source-server=‘host=node1 user=postgres port=5432’ [postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf</p>
+<h1 id="修改-node2-为-node1">修改 node2 为 node1</h1>
+<p>vi /opt/pgsql/data/recovery.conf</p>
+<h1 id="启动-node2-上的数据库">启动 node2 上的数据库：</h1>
+<p>[postgres@node2 ~]$ pg_ctl start ```</p>
 
       
     </div>
@@ -504,8 +522,8 @@ $ psql$ select * from pg_stat_replication;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" rel="next" title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
-                <i class="fa fa-chevron-left"></i> VirtualBox 报错 E_FAIL0x80004005 解决方案
+              <a href="/storage/GlusterFS安装/" rel="next" title="GlusterFS 安装">
+                <i class="fa fa-chevron-left"></i> GlusterFS 安装
               </a>
             
           </div>
@@ -514,8 +532,8 @@ $ psql$ select * from pg_stat_replication;
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="prev" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
-                Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs <i class="fa fa-chevron-right"></i>
+              <a href="/linux/PXE安装与设定/" rel="prev" title="PXE 安装与设定">
+                PXE 安装与设定 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -618,7 +636,7 @@ $ psql$ select * from pg_stat_replication;
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -640,7 +658,7 @@ $ psql$ select * from pg_stat_replication;
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -711,7 +729,7 @@ $ psql$ select * from pg_stat_replication;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装好二台-postgresql"><span class="nav-number">1.</span> <span class="nav-text">安装好二台 postgresql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置主服务器-192.168.10.11"><span class="nav-number">2.</span> <span class="nav-text">配置主服务器 192.168.10.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置从服务器-192.168.10.12"><span class="nav-number">3.</span> <span class="nav-text">配置从服务器 192.168.10.12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测配置是否成功"><span class="nav-number">4.</span> <span class="nav-text">检测配置是否成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从切换命令"><span class="nav-number">5.</span> <span class="nav-text">主从切换命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装好二台-postgresql"><span class="nav-number">1.</span> <span class="nav-text">安装好二台 postgresql</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置主服务器-192.168.10.11"><span class="nav-number">2.</span> <span class="nav-text">配置主服务器 192.168.10.11</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置从服务器-192.168.10.12"><span class="nav-number">3.</span> <span class="nav-text">配置从服务器 192.168.10.12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#检测配置是否成功"><span class="nav-number">4.</span> <span class="nav-text">检测配置是否成功</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从切换命令"><span class="nav-number">5.</span> <span class="nav-text">主从切换命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node1-上模拟主库故障"><span class="nav-number">6.</span> <span class="nav-text">node1 上模拟主库故障</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node2-提升备库状态"><span class="nav-number">7.</span> <span class="nav-text">node2 提升备库状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node2-更新备数据"><span class="nav-number">8.</span> <span class="nav-text">node2 更新备数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#node1-将以前-master-恢复为-standby"><span class="nav-number">9.</span> <span class="nav-text">node1 将以前 master 恢复为 standby</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动-node1-上的数据库"><span class="nav-number">10.</span> <span class="nav-text">启动 node1 上的数据库：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将-node1-恢复为-master"><span class="nav-number">11.</span> <span class="nav-text">将 node1 恢复为 master</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#恢复-node2-为-standby"><span class="nav-number">12.</span> <span class="nav-text">恢复 node2 为 standby：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改-node2-为-node1"><span class="nav-number">13.</span> <span class="nav-text">修改 node2 为 node1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动-node2-上的数据库"><span class="nav-number">14.</span> <span class="nav-text">启动 node2 上的数据库：</span></a></li></ol></div>
             
 
           </div>
@@ -734,7 +752,7 @@ $ psql$ select * from pg_stat_replication;
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

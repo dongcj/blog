@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
+<meta name="description" content="Sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
 <meta name="keywords" content="monitor,sysdig">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常用监控工具">
 <meta property="og:url" content="http://blog.dongcj.com/monitor/常用监控工具/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
+<meta property="og:description" content="Sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
 <meta property="og:updated_time" content="2016-08-04T08:45:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常用监控工具">
-<meta name="twitter:description" content="sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
+<meta name="twitter:description" content="Sysdig 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556# 网络sysdig -c topprocs_net      # 查看网络带宽占用最多的进程sysdig -c fdcount_by fd.sport &quot;evt.type=ac">
 
 
 
@@ -432,8 +432,12 @@
       
 
       
-        <h1 id="sysdig">sysdig</h1>
+        <h1 id="sysdig">Sysdig</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line"><span class="comment"># 进程和 CPU 使用率</span></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line"><span class="comment"># 性能和错误</span></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
+<h1 id="bcc">BCC</h1>
+<blockquote>
+<p><a href="https://github.com/iovisor/bcc" class="uri" target="_blank" rel="external">https://github.com/iovisor/bcc</a></p>
+</blockquote>
 <h1 id="常用工具">常用工具</h1>
 <pre><code>uptime          CPU + Disks 的测量，1，5，15 分钟
 ps -eLf         打印线程
@@ -478,11 +482,9 @@ ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any 匹配所�
                 # 相当于：
                 tcpdump &#39;port 5901 and (host 192.168.109.1)&#39;
 
-
 iperf       # 测试 TCP 和 UDP 带宽质量
             # 服务端 : iperf [ -u] -s    客户端 : iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M
                                               (-u UDP 测试 ;  -f 单位 , 可以是 kmKM;  -t 测试时间 ;  -P 线程数 ;  -b 测试数据包大小 )
-
 
 speed-test          # 网速测试工具 npm install --global speed-test
 traceroute/mtr/dig  # trace 工具
@@ -490,7 +492,6 @@ tcptrace            # 不在 linux 默认，需要安装
 ss -l/-s            # Socket Statistics
 pstree -alpha       # ps 树形列表
 pstree -al pid      # 单个进程的树形列表
-
 
 lsof -iTCP -sTCP:ESTABLISHED    # tcp/udp 网络服务
 lsof -i :22                     # 知道 22 端口现在运行什么程序
@@ -510,7 +511,6 @@ pmap PID        # 查看进程打开的文件 , 等同于 lsof -p PID</code></pr
 strace -r php worker.php    # 查看 worker.php 的 trace
 strace -p &lt;PID&gt;             # 查看正在运行的进程的 trace
 ltrace /bin/ls              # 运行 /bin/ls 命令，查看这个命令具体调用哪些库
-
 
 ldd /bin/ls                 # 打印共享库依赖
 blktrace -d /dev/sda        # 生成块设备的跟踪中信息，需要先 mount -t debugfs none /sys/kernel/debug, 再 blkparse
@@ -714,7 +714,7 @@ ipcrm -m &lt;SHMID&gt;</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -736,7 +736,7 @@ ipcrm -m &lt;SHMID&gt;</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">91</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -807,7 +807,7 @@ ipcrm -m &lt;SHMID&gt;</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sysdig"><span class="nav-number">1.</span> <span class="nav-text">sysdig</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用工具"><span class="nav-number">2.</span> <span class="nav-text">常用工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sysstat-包含工具"><span class="nav-number">3.</span> <span class="nav-text">sysstat 包含工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络监测工具"><span class="nav-number">4.</span> <span class="nav-text">网络监测工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它监测工具"><span class="nav-number">5.</span> <span class="nav-text">其它监测工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strace-查看内核空间ltrace-查看用户空间"><span class="nav-number">6.</span> <span class="nav-text">Strace 查看内核空间，ltrace 查看用户空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#共享内存"><span class="nav-number">7.</span> <span class="nav-text">共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#free-字段说明"><span class="nav-number">7.1.</span> <span class="nav-text">free 字段说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">7.2.</span> <span class="nav-text">buffer:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache"><span class="nav-number">7.3.</span> <span class="nav-text">cache:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-监控脚本"><span class="nav-number">7.4.</span> <span class="nav-text">Linux 监控脚本</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#sysdig"><span class="nav-number">1.</span> <span class="nav-text">Sysdig</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#bcc"><span class="nav-number">2.</span> <span class="nav-text">BCC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常用工具"><span class="nav-number">3.</span> <span class="nav-text">常用工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#sysstat-包含工具"><span class="nav-number">4.</span> <span class="nav-text">sysstat 包含工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络监测工具"><span class="nav-number">5.</span> <span class="nav-text">网络监测工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它监测工具"><span class="nav-number">6.</span> <span class="nav-text">其它监测工具</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#strace-查看内核空间ltrace-查看用户空间"><span class="nav-number">7.</span> <span class="nav-text">Strace 查看内核空间，ltrace 查看用户空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#共享内存"><span class="nav-number">8.</span> <span class="nav-text">共享内存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#free-字段说明"><span class="nav-number">8.1.</span> <span class="nav-text">free 字段说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer"><span class="nav-number">8.2.</span> <span class="nav-text">buffer:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cache"><span class="nav-number">8.3.</span> <span class="nav-text">cache:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#linux-监控脚本"><span class="nav-number">8.4.</span> <span class="nav-text">Linux 监控脚本</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -830,7 +830,7 @@ ipcrm -m &lt;SHMID&gt;</code></pre>
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
