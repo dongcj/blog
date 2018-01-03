@@ -37,22 +37,39 @@
   </entry>
   
   <entry>
-    <title>Harbor 用户手册</title>
-    <link href="http://blog.dongcj.com/m/Harbor%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/"/>
-    <id>http://blog.dongcj.com/m/Harbor用户手册/</id>
+    <title>Harbor 支持 Https</title>
+    <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
+    <id>http://blog.dongcj.com/m/Harbor支持https/</id>
     <published>2018-01-03T09:45:36.719Z</published>
-    <updated>2018-01-03T09:45:36.720Z</updated>
+    <updated>2018-01-03T10:05:51.751Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;docker-compose-或自建商店安装&quot;&gt;docker-compose 或自建商店安装&lt;/h1&gt;
+      &lt;h1 id=&quot;docker-compose-或自建商店安装&quot;&gt;docker-compose 或自建商店安装&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt;如果之前有安装失败记录，需要进行清理，见『清理及故障处理』章节&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;ol type=&quot;
-      
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;从阿里云或第三方证书提供商下载免费证书。&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;新建仓库目录&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mkdir -p /opt/svicloud/tools/harbor/data/cert/&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol start=&quot;3&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;将证书的 &lt;code&gt;server.crt&lt;/code&gt; 和 &lt;code&gt;server.key&lt;/code&gt; 放置于上述目录&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;生成一个 &lt;code&gt;secretkey&lt;/code&gt; 文件，也放置于以上目录&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;svicloud85509336&quot;&lt;/span&gt; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol start=&quot;5&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;使用 docker-compose 安装 harbor&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;docker-compose &lt;a href=&quot;http://download.svicloud.com/harbor-docker-compose-v1.2.2.yml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mv harbor-docker-compose-v1.2.2.yml docker-compose.yml &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;docker-compose up -d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol start=&quot;6&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;测试下，应该可以成功，如无法成功，运行步骤 7&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;（&lt;code&gt;可选&lt;/code&gt;）修改 &lt;code&gt;registry&lt;/code&gt; 中的证书 &lt;code&gt;root.crt&lt;/code&gt; 和 &lt;code&gt;ui&lt;/code&gt; 的 &lt;code&gt;private_key.pem&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
     
     </summary>
     
@@ -227,7 +244,7 @@ yum group
   </entry>
   
   <entry>
-    <title>使用 printf 进行格式化</title>
+    <title>使用 Printf 进行格式化</title>
     <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
     <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
     <published>2016-08-30T09:27:43.000Z</published>
@@ -253,7 +270,7 @@ yum group
   </entry>
   
   <entry>
-    <title>CentOS 部署 lazy-balancer 负载均衡　</title>
+    <title>CentOS 部署 Lazy-Balancer 负载均衡　</title>
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
@@ -282,7 +299,7 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Linux 升级 kernel 及 tcp_BBR</title>
+    <title>Linux 升级 Kernel 及 tcp_BBR</title>
     <link href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/"/>
     <id>http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/</id>
     <published>2016-08-28T09:44:33.000Z</published>
@@ -315,7 +332,7 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Nginx 及 upstreamcheck,fair 模块安装</title>
+    <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
     <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
     <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
