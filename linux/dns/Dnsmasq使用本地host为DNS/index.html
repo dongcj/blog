@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="使用 dnsmasq 提供外网 dns 服务 $ apt-get install dnsmasq 修改 dnsmasq 主配置文件 # 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts">
+<meta name="description" content="使用 dnsmasq 提供外网 dns 服务$ apt-get install dnsmasq 修改 dnsmasq 主配置文件# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts">
 <meta name="keywords" content="dns dhcp,dnsmasq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
 <meta property="og:url" content="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="使用 dnsmasq 提供外网 dns 服务 $ apt-get install dnsmasq 修改 dnsmasq 主配置文件 # 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts">
-<meta property="og:updated_time" content="2018-01-03T14:00:19.000Z">
+<meta property="og:description" content="使用 dnsmasq 提供外网 dns 服务$ apt-get install dnsmasq 修改 dnsmasq 主配置文件# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts">
+<meta property="og:updated_time" content="2018-01-04T04:10:18.156Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
-<meta name="twitter:description" content="使用 dnsmasq 提供外网 dns 服务 $ apt-get install dnsmasq 修改 dnsmasq 主配置文件 # 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts">
+<meta name="twitter:description" content="使用 dnsmasq 提供外网 dns 服务$ apt-get install dnsmasq 修改 dnsmasq 主配置文件# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts">
 
 
 
@@ -443,26 +443,20 @@
       
 
       
-        <h1 id="使用-dnsmasq-提供外网-dns-服务">使用 dnsmasq 提供外网 dns 服务</h1>
-<pre><code>$ apt-get install dnsmasq</code></pre>
-<h2 id="修改-dnsmasq-主配置文件">修改 dnsmasq 主配置文件</h2>
-<pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
+        <h1 id="使用-dnsmasq-提供外网-dns-服务"><a href="#使用-dnsmasq-提供外网-dns-服务" class="headerlink" title="使用 dnsmasq 提供外网 dns 服务"></a>使用 dnsmasq 提供外网 dns 服务</h1><pre><code>$ apt-get install dnsmasq
+</code></pre><h2 id="修改-dnsmasq-主配置文件"><a href="#修改-dnsmasq-主配置文件" class="headerlink" title="修改 dnsmasq 主配置文件"></a>修改 dnsmasq 主配置文件</h2><pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
 listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
 addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
 resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个 )
-conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析</code></pre>
-<h2 id="生成域名映射">生成域名映射</h2>
-<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析
+</code></pre><h2 id="生成域名映射"><a href="#生成域名映射" class="headerlink" title="生成域名映射"></a>生成域名映射</h2><pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
 vi /etc/dnsmasq.d/dns.conf
 
 # 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
-address=&quot;/google.com/172.17.0.4&quot;</code></pre>
-<h2 id="启动服务">启动服务</h2>
-<pre><code>/etc/init.d/dnsmasq start</code></pre>
-<h2 id="测试">测试</h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
-<h1 id="本地-hosts-配合-networkmanager-方式">本地 hosts 配合 NetworkManager 方式</h1>
-<pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
+address=&quot;/google.com/172.17.0.4&quot;
+</code></pre><h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><pre><code>/etc/init.d/dnsmasq start
+</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4
+</code></pre><h1 id="本地-hosts-配合-NetworkManager-方式"><a href="#本地-hosts-配合-NetworkManager-方式" class="headerlink" title="本地 hosts 配合 NetworkManager 方式"></a>本地 hosts 配合 NetworkManager 方式</h1><pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
 addn-hosts=/etc/hosts
 
 $ sudo service networking restart
@@ -471,8 +465,8 @@ $ sudo /etc/init.d/dns-clean restart
 # 修改后要求下面的几个命令输出相同的 IP 地址：
 $ host u1
 $ nslookup u1
-$ getent ahosts u1</code></pre>
-
+$ getent ahosts u1
+</code></pre>
       
     </div>
 
@@ -536,8 +530,8 @@ $ getent ahosts u1</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Linux安装easy_install及pip/" rel="prev" title="Linux 安装 Easy_install 及 Pip">
-                Linux 安装 Easy_install 及 Pip <i class="fa fa-chevron-right"></i>
+              <a href="/linux/RedHat、CentOS国内备用安装源/" rel="prev" title="安装源_RedHat,CentOS 备用源">
+                安装源_RedHat,CentOS 备用源 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -733,7 +727,7 @@ $ getent ahosts u1</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-dnsmasq-提供外网-dns-服务"><span class="nav-number">1.</span> <span class="nav-text">使用 dnsmasq 提供外网 dns 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-dnsmasq-主配置文件"><span class="nav-number">1.1.</span> <span class="nav-text">修改 dnsmasq 主配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成域名映射"><span class="nav-number">1.2.</span> <span class="nav-text">生成域名映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">1.3.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">1.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地-hosts-配合-networkmanager-方式"><span class="nav-number">2.</span> <span class="nav-text">本地 hosts 配合 NetworkManager 方式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-dnsmasq-提供外网-dns-服务"><span class="nav-number">1.</span> <span class="nav-text">使用 dnsmasq 提供外网 dns 服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改-dnsmasq-主配置文件"><span class="nav-number">1.1.</span> <span class="nav-text">修改 dnsmasq 主配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成域名映射"><span class="nav-number">1.2.</span> <span class="nav-text">生成域名映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动服务"><span class="nav-number">1.3.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">1.4.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地-hosts-配合-NetworkManager-方式"><span class="nav-number">2.</span> <span class="nav-text">本地 hosts 配合 NetworkManager 方式</span></a></li></ol></div>
             
 
           </div>
