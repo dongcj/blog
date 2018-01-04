@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题  错误信息： 返回 代码 : E_FAIL (0x80004005)组件 : MachineWrap界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是">
+<meta name="description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题  错误信息：  返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无">
 <meta name="keywords" content="virtualbox,vm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VirtualBox 报错 E_FAIL0x80004005 解决方案">
 <meta property="og:url" content="http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题  错误信息： 返回 代码 : E_FAIL (0x80004005)组件 : MachineWrap界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是">
+<meta property="og:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题  错误信息：  返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VirtualBox 报错 E_FAIL0x80004005 解决方案">
-<meta name="twitter:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题  错误信息： 返回 代码 : E_FAIL (0x80004005)组件 : MachineWrap界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是">
+<meta name="twitter:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题  错误信息：  返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无">
 
 
 
@@ -435,18 +435,22 @@
         <blockquote>
 <p>VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题</p>
 </blockquote>
-<h1 id="错误信息："><a href="#错误信息：" class="headerlink" title="错误信息："></a>错误信息：</h1><blockquote>
-<p>返回 代码 : E_FAIL (0x80004005)<br>组件 : MachineWrap<br>界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
+<h1 id="错误信息">错误信息：</h1>
+<blockquote>
+<p>返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
 </blockquote>
-<p>总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是新建的也不行。<br>这个问题困扰了我很多年，从 VirtualBox 更新到 4.3.14 以后就一直让我头大。</p>
-<h1 id="寻找原因"><a href="#寻找原因" class="headerlink" title="寻找原因"></a>寻找原因</h1><p>直到最近重装系统，我才找到了问题的原因—— MacType。<br>是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。<br>尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
+<p>总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是新建的也不行。 这个问题困扰了我很多年，从 VirtualBox 更新到 4.3.14 以后就一直让我头大。</p>
+<h1 id="寻找原因">寻找原因</h1>
+<p>直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
+<h1 id="解决方案">解决方案</h1>
+<p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ExcludeModule]</div><div class="line">VBoxSVC.exe</div><div class="line">VirtualBox.exe</div></pre></td></tr></table></figure>
-<h1 id="另一个问题"><a href="#另一个问题" class="headerlink" title="另一个问题"></a>另一个问题</h1><p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
+<h1 id="另一个问题">另一个问题</h1>
+<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written <figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
 <p>还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好</p>
 <p>通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~</p>
 <blockquote>
-<p>参考：<a href="https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html" target="_blank" rel="external">https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</a></p>
+<p>参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</p>
 </blockquote>
 
       
@@ -502,8 +506,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="next" title="Nginx 及 Upstreamcheck,fair 模块安装">
-                <i class="fa fa-chevron-left"></i> Nginx 及 Upstreamcheck,fair 模块安装
+              <a href="/linux/Mdadm_raid10_raid5/" rel="next" title="Mdadm_raid10_raid5">
+                <i class="fa fa-chevron-left"></i> Mdadm_raid10_raid5
               </a>
             
           </div>
@@ -512,8 +516,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Mdadm_raid10_raid5/" rel="prev" title="Mdadm_raid10_raid5">
-                Mdadm_raid10_raid5 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/DHCP高级配置/" rel="prev" title="DHCP 高级配置">
+                DHCP 高级配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -709,7 +713,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#错误信息："><span class="nav-number">1.</span> <span class="nav-text">错误信息：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻找原因"><span class="nav-number">2.</span> <span class="nav-text">寻找原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另一个问题"><span class="nav-number">4.</span> <span class="nav-text">另一个问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#错误信息"><span class="nav-number">1.</span> <span class="nav-text">错误信息：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寻找原因"><span class="nav-number">2.</span> <span class="nav-text">寻找原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另一个问题"><span class="nav-number">4.</span> <span class="nav-text">另一个问题</span></a></li></ol></div>
             
 
           </div>

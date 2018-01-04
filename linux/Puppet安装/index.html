@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="/etc/hosts 可以 ping 通对方域名安装 ntp 做时间同步安装 puppet$ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的） $ yum upda">
+<meta name="description" content="/etc/hosts 可以 ping 通对方域名 安装 ntp 做时间同步 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的） $">
 <meta name="keywords" content="puppet,devops">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Puppet 安装">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Puppet安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="/etc/hosts 可以 ping 通对方域名安装 ntp 做时间同步安装 puppet$ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的） $ yum upda">
+<meta property="og:description" content="/etc/hosts 可以 ping 通对方域名 安装 ntp 做时间同步 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的） $">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Puppet 安装">
-<meta name="twitter:description" content="/etc/hosts 可以 ping 通对方域名安装 ntp 做时间同步安装 puppet$ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的） $ yum upda">
+<meta name="twitter:description" content="/etc/hosts 可以 ping 通对方域名 安装 ntp 做时间同步 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的） $">
 
 
 
@@ -432,7 +432,10 @@
       
 
       
-        <h3 id="etc-hosts-可以-ping-通对方域名"><a href="#etc-hosts-可以-ping-通对方域名" class="headerlink" title="/etc/hosts 可以 ping 通对方域名"></a>/etc/hosts 可以 ping 通对方域名</h3><h3 id="安装-ntp-做时间同步"><a href="#安装-ntp-做时间同步" class="headerlink" title="安装 ntp 做时间同步"></a>安装 ntp 做时间同步</h3><h3 id="安装-puppet"><a href="#安装-puppet" class="headerlink" title="安装 puppet"></a>安装 puppet</h3><pre><code>$ yum install ruby ruby-libs ruby-rdoc
+        <h3 id="etchosts-可以-ping-通对方域名">/etc/hosts 可以 ping 通对方域名</h3>
+<h3 id="安装-ntp-做时间同步">安装 ntp 做时间同步</h3>
+<h3 id="安装-puppet">安装 puppet</h3>
+<pre><code>$ yum install ruby ruby-libs ruby-rdoc
 $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
 $ yum update
 
@@ -443,27 +446,31 @@ $ yum install puppet-server
 $ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
 
 # 客户端安装 puppet
-$ yum install puppet
-</code></pre><h3 id="service-puppetmaster-start"><a href="#service-puppetmaster-start" class="headerlink" title="service puppetmaster start"></a>service puppetmaster start</h3><pre><code># 启动期间会生成 ca 证书，如果不能生成，可以使用以下命令手动生成：
+$ yum install puppet</code></pre>
+<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
+<pre><code># 启动期间会生成 ca 证书，如果不能生成，可以使用以下命令手动生成：
 $ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
 
 # 查看生成的证书信息
-$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
-</code></pre><h3 id="服务端允许请求证书"><a href="#服务端允许请求证书" class="headerlink" title="服务端允许请求证书"></a>服务端允许请求证书</h3><pre><code>$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
+$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem</code></pre>
+<h3 id="服务端允许请求证书">服务端允许请求证书</h3>
+<pre><code>$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
 *.xxx.com
 EOF
 
 $ service puppetmaster restart
-$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
-</code></pre><h3 id="客户端请求证书"><a href="#客户端请求证书" class="headerlink" title="客户端请求证书"></a>客户端请求证书</h3><pre><code>在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
+$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己</code></pre>
+<h3 id="客户端请求证书">客户端请求证书</h3>
+<pre><code>在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
 
 $ puppetd --server bigdata.xxxx.com --test
 或者
 $ puppet agent --no-daemonize --onetime --verbose --debug
 
 # 再到服务端查看一下证书
-$ puppet cert list --all    --&gt; 查看下证书，此时生成了客户端的，开头为 + 号
-</code></pre><h3 id="安装-dashboard"><a href="#安装-dashboard" class="headerlink" title="安装 dashboard"></a>安装 dashboard</h3><pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
+$ puppet cert list --all    --&gt; 查看下证书，此时生成了客户端的，开头为 + 号</code></pre>
+<h3 id="安装-dashboard">安装 dashboard</h3>
+<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
 production:
 database: puppet
 username: root
@@ -472,10 +479,12 @@ encoding: utf8
 adapter: mysql
 
 $ vi /usr/share/puppet-dashboard/config/environment.rb
-config.time_zone = &apos;Beijing&apos;
-</code></pre><h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><pre><code>$ cd /usr/share/puppet-dashboard/
-rake RAILS_ENV=production db:migrate
-</code></pre><h3 id="整合-Passenger-和-apache"><a href="#整合-Passenger-和-apache" class="headerlink" title="整合 Passenger 和 apache"></a>整合 Passenger 和 apache</h3><pre><code>$ vi /etc/httpd/conf.d/passenger.conf
+config.time_zone = &#39;Beijing&#39;</code></pre>
+<h3 id="初始化数据库">初始化数据库</h3>
+<pre><code>$ cd /usr/share/puppet-dashboard/
+rake RAILS_ENV=production db:migrate</code></pre>
+<h3 id="整合-passenger-和-apache">整合 Passenger 和 apache</h3>
+<pre><code>$ vi /etc/httpd/conf.d/passenger.conf
 
 LoadModule passenger_module modules/mod_passenger.so
 PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21
@@ -492,19 +501,24 @@ RailsAutoDetect On
   ErrorLog /var/log/httpd/puppet-dashboard_error.log
   LogLevel warn
   CustomLog /var/log/httpd/puppet-dashboard_access.log combined
-&lt;/VirtualHost&gt;
-</code></pre><h3 id="让-Dashboard-使用-Reports"><a href="#让-Dashboard-使用-Reports" class="headerlink" title="让 Dashboard 使用 Reports"></a>让 Dashboard 使用 Reports</h3><pre><code>$ vi /etc/puppet/puppet.conf
+&lt;/VirtualHost&gt;</code></pre>
+<h3 id="让-dashboard-使用-reports">让 Dashboard 使用 Reports</h3>
+<pre><code>$ vi /etc/puppet/puppet.conf
 [master]
 reports = store, http
-reporturl = http://bigdata.xxxx.com:80/reports/upload
-</code></pre><h3 id="重启-puppetmaster-服务"><a href="#重启-puppetmaster-服务" class="headerlink" title="重启 puppetmaster 服务"></a>重启 puppetmaster 服务</h3><pre><code>$ /etc/init.d/puppetmaster restart
-</code></pre><h3 id="导入报告"><a href="#导入报告" class="headerlink" title="导入报告"></a>导入报告</h3><pre><code>$ cd /usr/share/puppet-dashboard
-$ rake RAILS_ENV=production reports:import
-</code></pre><h3 id="执行导入的-reports"><a href="#执行导入的-reports" class="headerlink" title="执行导入的 reports"></a>执行导入的 reports</h3><pre><code>$ rake jobs:work RAILS_ENV=&quot;production&quot;
-</code></pre><h3 id="下载及文档地址"><a href="#下载及文档地址" class="headerlink" title="下载及文档地址"></a>下载及文档地址</h3><pre><code>http://code.google.com/p/puppet-manifest-share/downloads/list
+reporturl = http://bigdata.xxxx.com:80/reports/upload</code></pre>
+<h3 id="重启-puppetmaster-服务">重启 puppetmaster 服务</h3>
+<pre><code>$ /etc/init.d/puppetmaster restart</code></pre>
+<h3 id="导入报告">导入报告</h3>
+<pre><code>$ cd /usr/share/puppet-dashboard
+$ rake RAILS_ENV=production reports:import</code></pre>
+<h3 id="执行导入的-reports">执行导入的 reports</h3>
+<pre><code>$ rake jobs:work RAILS_ENV=&quot;production&quot;</code></pre>
+<h3 id="下载及文档地址">下载及文档地址</h3>
+<pre><code>http://code.google.com/p/puppet-manifest-share/downloads/list
 http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
-http://dongxicheng.org/cluster-managemant/puppet/
-</code></pre>
+http://dongxicheng.org/cluster-managemant/puppet/</code></pre>
+
       
     </div>
 
@@ -558,8 +572,8 @@ http://dongxicheng.org/cluster-managemant/puppet/
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Yum、wget、apt-get、npm、gem、yast、git、goAgent代理/" rel="next" title="Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .Md">
-                <i class="fa fa-chevron-left"></i> Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .Md
+              <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" rel="next" title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+                <i class="fa fa-chevron-left"></i> Curl、resty、httpie、httpstat、wuzz 使用介绍
               </a>
             
           </div>
@@ -568,8 +582,8 @@ http://dongxicheng.org/cluster-managemant/puppet/
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/DHCP高级配置/" rel="prev" title="DHCP 高级配置">
-                DHCP 高级配置 <i class="fa fa-chevron-right"></i>
+              <a href="/monitor/Graphite安装/" rel="prev" title="Graphite 安装">
+                Graphite 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -765,7 +779,7 @@ http://dongxicheng.org/cluster-managemant/puppet/
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#etc-hosts-可以-ping-通对方域名"><span class="nav-number">1.</span> <span class="nav-text">/etc/hosts 可以 ping 通对方域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-ntp-做时间同步"><span class="nav-number">2.</span> <span class="nav-text">安装 ntp 做时间同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-puppet"><span class="nav-number">3.</span> <span class="nav-text">安装 puppet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service-puppetmaster-start"><span class="nav-number">4.</span> <span class="nav-text">service puppetmaster start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端允许请求证书"><span class="nav-number">5.</span> <span class="nav-text">服务端允许请求证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端请求证书"><span class="nav-number">6.</span> <span class="nav-text">客户端请求证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-dashboard"><span class="nav-number">7.</span> <span class="nav-text">安装 dashboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据库"><span class="nav-number">8.</span> <span class="nav-text">初始化数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整合-Passenger-和-apache"><span class="nav-number">9.</span> <span class="nav-text">整合 Passenger 和 apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让-Dashboard-使用-Reports"><span class="nav-number">10.</span> <span class="nav-text">让 Dashboard 使用 Reports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启-puppetmaster-服务"><span class="nav-number">11.</span> <span class="nav-text">重启 puppetmaster 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入报告"><span class="nav-number">12.</span> <span class="nav-text">导入报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行导入的-reports"><span class="nav-number">13.</span> <span class="nav-text">执行导入的 reports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载及文档地址"><span class="nav-number">14.</span> <span class="nav-text">下载及文档地址</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#etchosts-可以-ping-通对方域名"><span class="nav-number">1.</span> <span class="nav-text">/etc/hosts 可以 ping 通对方域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-ntp-做时间同步"><span class="nav-number">2.</span> <span class="nav-text">安装 ntp 做时间同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-puppet"><span class="nav-number">3.</span> <span class="nav-text">安装 puppet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#service-puppetmaster-start"><span class="nav-number">4.</span> <span class="nav-text">service puppetmaster start</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端允许请求证书"><span class="nav-number">5.</span> <span class="nav-text">服务端允许请求证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端请求证书"><span class="nav-number">6.</span> <span class="nav-text">客户端请求证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-dashboard"><span class="nav-number">7.</span> <span class="nav-text">安装 dashboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化数据库"><span class="nav-number">8.</span> <span class="nav-text">初始化数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整合-passenger-和-apache"><span class="nav-number">9.</span> <span class="nav-text">整合 Passenger 和 apache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#让-dashboard-使用-reports"><span class="nav-number">10.</span> <span class="nav-text">让 Dashboard 使用 Reports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启-puppetmaster-服务"><span class="nav-number">11.</span> <span class="nav-text">重启 puppetmaster 服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入报告"><span class="nav-number">12.</span> <span class="nav-text">导入报告</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行导入的-reports"><span class="nav-number">13.</span> <span class="nav-text">执行导入的 reports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载及文档地址"><span class="nav-number">14.</span> <span class="nav-text">下载及文档地址</span></a></li></ol></div>
             
 
           </div>
