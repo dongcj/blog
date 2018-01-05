@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-05T07:26:57.552Z</updated>
+  <updated>2018-01-05T07:35:23.148Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -17,15 +17,17 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>修改 Npm 安装源为国内源</title>
+    <title>修改Npm安装源为国内源</title>
     <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
     <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
-    <published>2018-01-05T07:26:57.551Z</published>
-    <updated>2018-01-05T07:26:57.552Z</updated>
+    <published>2018-01-05T07:35:23.147Z</published>
+    <updated>2018-01-05T07:35:23.148Z</updated>
     
     <summary type="html">
     
-      &lt;table&gt;
+      
+      
+        &lt;table&gt;
 &lt;thead&gt;
 &lt;tr class=&quot;header&quot;&gt;
 &lt;th&gt;tegories:&lt;/th&gt;
@@ -35,24 +37,8 @@
 &lt;tr class=&quot;odd&quot;&gt;
 &lt;td&gt;dated:&lt;/td&gt;
 &lt;/tr&gt;
-&lt;tr class=&quot;even&quot;&gt;
-&lt;td&gt;te:&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;blockquote&gt;
-&lt;p&gt;淘宝源地址：http://npm.taobao.org/&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;删除已有源&quot;&gt;删除已有源&lt;/h1&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看已安装的 npm package&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm -g ls        &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 删除所有 gem&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;gem list --no-versions&#39;&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;do&lt;/span&gt; sudo gem uninstall -aIx &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;done&lt;/span&gt;  *&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 删除所有 npm&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ls -gp | awk -F/ &lt;span class=&quot;string&quot;&gt;&#39;/node_modules/ &amp;amp;&amp;amp; !/node_modules.*node_modules/ &amp;#123;print $NF&amp;#125;&#39;&lt;/span&gt; | xargs npm -g rm&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;blockquote&gt;
-&lt;p&gt;npm ls -g 如果报错，可以进行以下处理 :&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# （原因是 node-modules 中不允许用软链接，但 inherits 却用了）：&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by undefined@undefined&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by block-stream@0.0.7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by fstream@0.1.24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 进行如下操作即可：&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /usr/lib/node_modules/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;unlink inherit&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;mv inherits@2/ inherits/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;`&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;更新为淘宝源&quot;&gt;更新为淘宝源&lt;/h1&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;npm update npm -g --registry=https://registry.npm.taobao.org&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm config set ca &amp;quot;&amp;quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm install npm -g --registry=https://registry.npm.taobao.org&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm config delete ca&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm install -g cnpm --registry=https://registry.npm.taobao.org&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;或者做个-cnpm-的-alias&quot;&gt;或者做个 cnpm 的 alias&lt;/h1&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;alias&lt;/span&gt; cnpm=&lt;span class=&quot;string&quot;&gt;&quot;npm --registry=https://registry.npm.taobao.org \&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;--cache=&lt;span class=&quot;variable&quot;&gt;$HOME&lt;/span&gt;/.npm/.cache/cnpm \&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;--disturl=https://npm.taobao.org/dist \&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;--userconfig=&lt;span class=&quot;variable&quot;&gt;$HOME&lt;/span&gt;/.cnpmrc&quot;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Or alias it in .bashrc or .zshrc&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;$ &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;\n#alias for cnpm\nalias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  --cache=$HOME/.npm/.cache/cnpm \&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  --disturl=https://npm.taobao.org/dist \&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;  --userconfig=$HOME/.cnpmrc&quot;&#39; &amp;gt;&amp;gt; ~/.zshrc &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; ~/.zshrc&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;tr class=&quot;ev
+      
     
     </summary>
     
@@ -63,8 +49,8 @@
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-05T07:26:48.664Z</published>
-    <updated>2018-01-05T07:26:48.665Z</updated>
+    <published>2018-01-05T07:35:13.703Z</published>
+    <updated>2018-01-05T07:35:13.704Z</updated>
     
     <summary type="html">
     
@@ -83,8 +69,8 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-05T07:26:35.908Z</published>
-    <updated>2018-01-05T07:26:35.909Z</updated>
+    <published>2018-01-05T07:35:00.465Z</published>
+    <updated>2018-01-05T07:35:00.466Z</updated>
     
     <summary type="html">
     
@@ -119,8 +105,8 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-05T07:26:32.667Z</published>
-    <updated>2018-01-05T07:26:32.669Z</updated>
+    <published>2018-01-05T07:34:56.895Z</published>
+    <updated>2018-01-05T07:34:56.897Z</updated>
     
     <summary type="html">
     
@@ -360,7 +346,7 @@ yum group
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-05T07:26:30.025Z</updated>
+    <updated>2018-01-05T07:34:53.933Z</updated>
     
     <summary type="html">
     
@@ -385,9 +371,9 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>DHCP 高级配置</title>
-    <link href="http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/"/>
-    <id>http://blog.dongcj.com/linux/DHCP高级配置/</id>
+    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
+    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -395,11 +381,9 @@ $ cd /u
     
       
       
-        &lt;h2 id=&quot;一dhcp-中继代理配置&quot;&gt;# 一、DHCP 中继代理配置&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# ( 在其它服务上安装 dhcpd 软件 )：
-
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options he
+        &lt;h1 id=&quot;curl&quot;&gt;curl&lt;/h1&gt;
+&lt;h2 id=&quot;下载文件&quot;&gt;下载文件&lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
       
     
     </summary>
@@ -407,9 +391,15 @@ $ vi /etc/sysconfig/dhcrelay
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
+      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
     
-      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
+      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
+    
+      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
+    
+      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
+    
+      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
     
   </entry>
   
