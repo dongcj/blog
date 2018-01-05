@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+                <a class="post-title-link" href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="url">VirtualBox 报错 E_FAIL0x80004005 解决方案</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#comments" itemprop="discussionUrl">
+                <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+             <span id="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" class="leancloud_visitors" data-flag-title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,106 +436,26 @@
       
         
           
-            <h1 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h1><h2 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
-<h2 id="详细信息"><a href="#详细信息" class="headerlink" title="详细信息"></a>详细信息</h2><pre><code>curl -v www.sina.com
-curl --trace output.txt www.sina.com
-curl --trace-ascii output.txt www.sina.com
-curl  -s  --head  www.sina.com
-</code></pre><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><pre><code>curl --form upload=@localfilename --form press=OK [URL]
-curl -T file.txt
-</code></pre><h2 id="Cookie-及认证"><a href="#Cookie-及认证" class="headerlink" title="Cookie 及认证"></a>Cookie 及认证</h2><pre><code>curl --cookie &quot;name=xxx&quot; www.example.com
-curl --user name@DOMAIN:password http://example.com
-
-curl -fsSL ...
-</code></pre><h2 id="下载网页保存为文件名"><a href="#下载网页保存为文件名" class="headerlink" title="下载网页保存为文件名"></a>下载网页保存为文件名</h2><pre><code>curl -o [文件名] www.sina.com
-</code></pre><h2 id="自动跳转-重定向"><a href="#自动跳转-重定向" class="headerlink" title="自动跳转 , 重定向"></a>自动跳转 , 重定向</h2><pre><code>curl -L www.sina.com
-</code></pre><h2 id="下载并网速限制"><a href="#下载并网速限制" class="headerlink" title="下载并网速限制"></a>下载并网速限制</h2><pre><code>curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html
-</code></pre><h2 id="对于-https-的方法，添加-–insecure"><a href="#对于-https-的方法，添加-–insecure" class="headerlink" title="对于 https 的方法，添加 –insecure"></a>对于 https 的方法，添加 –insecure</h2><pre><code>curl --insecure -LJO https://packages.gitlab.com/gitlab
-</code></pre><h2 id="发送表单信息"><a href="#发送表单信息" class="headerlink" title="发送表单信息"></a>发送表单信息</h2><pre><code>GET：
-curl example.com/form.cgi?data=xxx
-</code></pre><h2 id="增加头信息-H"><a href="#增加头信息-H" class="headerlink" title="增加头信息 (-H)"></a>增加头信息 (-H)</h2><pre><code>curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com
-# 模拟服务地址（例如有些网站只能用域名访问的）
-curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080
-
-POST：(-d)
-curl -i -X POST --data &quot;data=xxx&quot;           example.com/form.cgi
-curl -i -X POST --data-urlencode &quot;date=April 1&quot;     example.com/form.cgi
-</code></pre><h2 id="Referer-e"><a href="#Referer-e" class="headerlink" title="Referer(-e)"></a>Referer(-e)</h2><pre><code>curl --referer http://www.example.com http://www.example.com
-</code></pre><h2 id="User-Agent-字段-A"><a href="#User-Agent-字段-A" class="headerlink" title="User Agent 字段 (-A)"></a>User Agent 字段 (-A)</h2><pre><code>curl --user-agent &quot;[User Agent]&quot; http://www.example.com
-</code></pre><h2 id="配置压缩-I-means-“Fetch-the-HTTP-header-only”"><a href="#配置压缩-I-means-“Fetch-the-HTTP-header-only”" class="headerlink" title="配置压缩 (-I means “Fetch the HTTP-header only”)"></a>配置压缩 (-I means “Fetch the HTTP-header only”)</h2><pre><code>curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom
-</code></pre><h2 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h2><pre><code>--connect-timeout 3     # 3 秒连接时间
--m | --max-time   5     # 连接 5 秒后自动断开
-</code></pre><h2 id="本地-socket"><a href="#本地-socket" class="headerlink" title="本地 socket"></a>本地 socket</h2><pre><code>curl --unix-socket /var/run/docker.sock http:/images/json
-or
-curl --unix-socket /var/run/docker.sock http://localhost/images/json
-</code></pre><h2 id="curl-examples"><a href="#curl-examples" class="headerlink" title="curl examples"></a>curl examples</h2><pre><code># zabbix 使用 API 进行认证
-# curl -i -X POST -H &apos;Content-Type:application/json&apos; -d &apos;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&apos; http://192.168.0.54/api_jsonrpc.php
-
-HTTP/1.1 200 OK
-Date: Mon, 12 Aug 2013 05:53:05 GMT
-Server: Apache/2.2.21 (Linux/SUSE)
-X-Powered-By: PHP/5.3.8
-Content-Length: 68
-Content-Type: application/json
-
-{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0}
-
-# zabbix 利用 tokern 和 id 进行注册主机
-
-1. 先得到 https://www.zabbix.com/documentation/2.0/manual/appendix/api/host/create 的 API，修改相应部分将内容 copy 至 linux 主机 /tmp/123.txt 。
-
-2. while read line; do printf &quot;%s &quot; &quot;$line&quot;; done &lt;/tmp/123.txt　将其格式化
-2. echo `cat /tmp/123.txt` --- 这样也可以 ...
-
-3. curl -i -X POST -H &apos;Content-Type: application/json&apos; -d &apos; 格式化后的内容 &apos; http://192.168.0.54/api_jsonrpc.php
-
-# curl 命令注解：
--i|--include :  在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 )
--s|--silent  :  静默模式
--X|--request :  请求 HTTP 服务，默认为 GET
-</code></pre><hr>
-<h1 id="resty-模拟请求"><a href="#resty-模拟请求" class="headerlink" title="resty 模拟请求"></a>resty 模拟请求</h1><pre><code># install resty
-curl -L http://github.com/micha/resty/raw/master/resty &gt; resty
-# 导入变量
-. resty
-$ resty http://127.0.0.1:8080/data
-  http://127.0.0.1:8080/data*
-
-$ GET /blogs.json
-[ {&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ]
-
-$ PUT /blogs/2.json &apos;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&apos;
-{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}
-
-$ DELETE /blogs/2
-
-$ POST /blogs.json &apos;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&apos;
-{&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}
-</code></pre><hr>
-<h1 id="使用-httpie"><a href="#使用-httpie" class="headerlink" title="使用 httpie"></a>使用 httpie</h1><pre><code># install
-$ apt-get install httpie
-
-# usage
-$http httpie.org
-$ http PUT example.org X-API-Token:123 name=John
-
-$ http -f POST example.org hello=World
-$ http -v example.org
-$ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&apos;HTTPie is awesome! :heart:&apos;
-
-$ http example.org &lt; file.json
-$ http example.org/file &gt; file
-
-$ http --download example.org/file
-
-$ http --session=logged-in -a username:password httpbin.org/get API-Key:123
-$ http --session=logged-in httpbin.org/headers
-$ http localhost:8000 Host:example.com
-$ http DELETE example.org/todos/7
-</code></pre><hr>
-<h1 id="httpstat"><a href="#httpstat" class="headerlink" title="httpstat"></a>httpstat</h1><p><img src="http://i.imgur.com/xR2OHZ4.png" alt="httpstat"></p>
-<hr>
-<h1 id="wuzz"><a href="#wuzz" class="headerlink" title="wuzz"></a>wuzz</h1><p><img src="http://i.imgur.com/fdWQco8.gif" alt="wuzz"></p>
+            <blockquote>
+<p>VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题</p>
+</blockquote>
+<h1 id="错误信息">错误信息：</h1>
+<blockquote>
+<p>返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
+</blockquote>
+<p>总而言之这个问题就是 4.3.12 以后的 VirtualBox 全都无法启动 VM，即使是新建的也不行。 这个问题困扰了我很多年，从 VirtualBox 更新到 4.3.14 以后就一直让我头大。</p>
+<h1 id="寻找原因">寻找原因</h1>
+<p>直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
+<h1 id="解决方案">解决方案</h1>
+<p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ExcludeModule]</div><div class="line">VBoxSVC.exe</div><div class="line">VirtualBox.exe</div></pre></td></tr></table></figure>
+<h1 id="另一个问题">另一个问题</h1>
+<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written <figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
+<p>还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好</p>
+<p>通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~</p>
+<blockquote>
+<p>参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</p>
+</blockquote>
 
           
         
@@ -694,19 +614,21 @@ $ http DELETE example.org/todos/7
             <ul>
 <li>proxy</li>
 </ul>
-<h1 id="yum-配置代理"><a href="#yum-配置代理" class="headerlink" title="yum 配置代理"></a>yum 配置代理</h1><pre><code>$ vi /etc/yum.conf
+<h1 id="yum-配置代理">yum 配置代理</h1>
+<pre><code>$ vi /etc/yum.conf
   proxy=http://mycache.mydomain.com:808
   用于 yum 连接的帐户细节
   proxy_username=yum-user
   proxy_password=qwerty
 
 # yum 出现以下错误：
-&gt; UnicodeDecodeError: &apos;ascii&apos; codec can&apos;t decode byte 0xd1 in position 72: ordinal not in range(128)
+&gt; UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xd1 in position 72: ordinal not in range(128)
 
 # 解决方法：
 使用光盘中的 GPGKEY：
-$ rpm --import RPM-GPG-KEY-redhat-release
-</code></pre><h1 id="wget-配置代理"><a href="#wget-配置代理" class="headerlink" title="wget 配置代理"></a>wget 配置代理</h1><pre><code># 配置 .wgetrc
+$ rpm --import RPM-GPG-KEY-redhat-release</code></pre>
+<h1 id="wget-配置代理">wget 配置代理</h1>
+<pre><code># 配置 .wgetrc
   use_proxy=on
   http_proxy=http://proxy.yoyodyne.com:18023/
   #ftp_proxy=http://proxy.yoyodyne.com:18023/
@@ -715,8 +637,9 @@ $ rpm --import RPM-GPG-KEY-redhat-release
 $ wget -Y on &quot;http_proxy=http://192.168.88.57:808&quot; &quot;www.baidu.com&quot;
 
 # 进行断点下载示例
-$ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip
-</code></pre><h1 id="apt-get-配置代理"><a href="#apt-get-配置代理" class="headerlink" title="apt-get 配置代理"></a>apt-get 配置代理</h1><pre><code># 方法 1：将以下代码写入 /etc/apt/apt_proxy.conf （位置自定，临时使用）
+$ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip</code></pre>
+<h1 id="apt-get-配置代理">apt-get 配置代理</h1>
+<pre><code># 方法 1：将以下代码写入 /etc/apt/apt_proxy.conf （位置自定，临时使用）
   Acquire {
    Retries &quot;0 ″ ;
    HTTP {
@@ -729,13 +652,15 @@ $ apt-get install postfix -c /etc/apt/apt.proxy.conf
 # 方法 2：将以下代码写入 /etc/apt/apt.conf( 永久使用 )
   Acquire::http::proxy  &quot;http:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
   Acquire::https::proxy  &quot;https:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
-  Acquire::ftp::proxy  &quot;ftp:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
-</code></pre><h1 id="curl-配置代理"><a href="#curl-配置代理" class="headerlink" title="curl 配置代理"></a>curl 配置代理</h1><pre><code>$ curl -x 192.168.88.57:808 &quot;www.baidu.com&quot;
+  Acquire::ftp::proxy  &quot;ftp:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;</code></pre>
+<h1 id="curl-配置代理">curl 配置代理</h1>
+<pre><code>$ curl -x 192.168.88.57:808 &quot;www.baidu.com&quot;
 
 # 或者
 $ vi /root/.bashrc
-  export http_proxy = http://PROXYSERVER:18023
-</code></pre><h1 id="git-配置代理"><a href="#git-配置代理" class="headerlink" title="git 配置代理"></a>git 配置代理</h1><pre><code># 如果是 git clone http:// 或 git clone https:// 的话直接把代理服务器加到环境变量就可以了：
+  export http_proxy = http://PROXYSERVER:18023</code></pre>
+<h1 id="git-配置代理">git 配置代理</h1>
+<pre><code># 如果是 git clone http:// 或 git clone https:// 的话直接把代理服务器加到环境变量就可以了：
 $ export http_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 $ export https_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 
@@ -760,13 +685,17 @@ $ chmod a+x /root/git_proxy
 
 $ git config --global core.gitproxy /root/git_proxy
 
-# 然后就可以使用 git 了
-</code></pre><p>-</p>
-<h1 id="yast-配置代理"><a href="#yast-配置代理" class="headerlink" title="yast 配置代理"></a>yast 配置代理</h1><pre><code>$ vi /etc/sysconfig/proxy
+# 然后就可以使用 git 了</code></pre>
+<ul>
+<li></li>
+</ul>
+<h1 id="yast-配置代理">yast 配置代理</h1>
+<pre><code>$ vi /etc/sysconfig/proxy
 
   PROXY_ENABLED=&quot;on&quot;
-  HTTP_PROXY=&quot;http://192.168.11.35:808&quot;
-</code></pre><h1 id="GoAgent-代理"><a href="#GoAgent-代理" class="headerlink" title="GoAgent 代理"></a>GoAgent 代理</h1><pre><code># 重建证书目录：
+  HTTP_PROXY=&quot;http://192.168.11.35:808&quot;</code></pre>
+<h1 id="goagent-代理">GoAgent 代理</h1>
+<pre><code># 重建证书目录：
 （如果不建，则会报：certutil: could not authenticate to token NSS Certificate DB.: An I/O error occurred during security authorization.）
 $ modutil -changepw &quot;NSS Certificate DB&quot; -dbdir $HOME/.pki/nssdb
 
@@ -780,21 +709,23 @@ $ pk12util -d sql:$HOME/.pki/nssdb -i XXXX.pfx
 $ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;GoAgent&quot; -i /tmp/CA.crt
 
 # 删除证书
-$ certutil -d sql:$HOME/.pki/nssdb -D -t &quot;C,,&quot; -n GoAgent
-</code></pre><h1 id="npm-代理："><a href="#npm-代理：" class="headerlink" title="npm 代理："></a>npm 代理：</h1><pre><code># 设置 :
+$ certutil -d sql:$HOME/.pki/nssdb -D -t &quot;C,,&quot; -n GoAgent</code></pre>
+<h1 id="npm-代理">npm 代理：</h1>
+<pre><code># 设置 :
 $ npm config set proxy=http://proxy.mysite.com:8080
   或在 /root/.npmrc 中设置：
 $ proxy=http://192.168.109.1:808
 
 # 取消 :
-$ npm config delete proxy
-</code></pre><h1 id="gem-代理："><a href="#gem-代理：" class="headerlink" title="gem 代理："></a>gem 代理：</h1><pre><code># 安装时加上 --http-proxy 参数
+$ npm config delete proxy</code></pre>
+<h1 id="gem-代理">gem 代理：</h1>
+<pre><code># 安装时加上 --http-proxy 参数
 $ gem install --http-proxy http://proxy.mysite.com:8080 sass
 
 # 取消 :
 # 安装时不加上 --http-proxy 参数
-$ gem install sass
-</code></pre>
+$ gem install sass</code></pre>
+
           
         
       
@@ -949,37 +880,262 @@ $ gem install sass
       
         
           
-            <h1 id="yum-更新"><a href="#yum-更新" class="headerlink" title="yum 更新"></a>yum 更新</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum search fastestmirror</div><div class="line">yum install yum-fastestmirror* -y</div><div class="line">yum update yum*</div><div class="line">yum update kernel*</div><div class="line">yum update</div></pre></td></tr></table></figure>
-<h1 id="常用源"><a href="#常用源" class="headerlink" title="常用源"></a>常用源</h1><h2 id="rpmforge-源"><a href="#rpmforge-源" class="headerlink" title="rpmforge 源"></a>rpmforge 源</h2><pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+            <h1 id="yum-更新">yum 更新</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum search fastestmirror</div><div class="line">yum install yum-fastestmirror* -y</div><div class="line">yum update yum*</div><div class="line">yum update kernel*</div><div class="line">yum update</div></pre></td></tr></table></figure>
+<h1 id="常用源">常用源</h1>
+<h2 id="rpmforge-源">rpmforge 源</h2>
+<pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
 rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm
-</code></pre><h2 id="epel-源-elrepo-org"><a href="#epel-源-elrepo-org" class="headerlink" title="epel 源 (elrepo.org)"></a>epel 源 (elrepo.org)</h2><pre><code>yum install epel-release
-</code></pre><h2 id="elrepo-update-kernel"><a href="#elrepo-update-kernel" class="headerlink" title="elrepo(update kernel)"></a>elrepo(update kernel)</h2><pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
-</code></pre><h2 id="remi-源"><a href="#remi-源" class="headerlink" title="remi 源"></a>remi 源</h2><pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-</code></pre><h2 id="rpmfusion-源"><a href="#rpmfusion-源" class="headerlink" title="rpmfusion 源"></a>rpmfusion 源</h2><pre><code># redhat/centos 6
+rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
+<h2 id="epel-源-elrepo.org">epel 源 (elrepo.org)</h2>
+<pre><code>yum install epel-release</code></pre>
+<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
+<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</code></pre>
+<h2 id="remi-源">remi 源</h2>
+<pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</code></pre>
+<h2 id="rpmfusion-源">rpmfusion 源</h2>
+<pre><code># redhat/centos 6
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm
-</code></pre><h1 id="redhat-centos-7-only-have-x86-64-packages"><a href="#redhat-centos-7-only-have-x86-64-packages" class="headerlink" title="redhat/centos 7 only have x86_64 packages"></a>redhat/centos 7 only have x86_64 packages</h1><pre><code>rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
-</code></pre><h1 id="国内镜像站"><a href="#国内镜像站" class="headerlink" title="国内镜像站"></a>国内镜像站</h1><h2 id="CentOS-中国科学技术大学-USTC-mirror-每小时更新一次"><a href="#CentOS-中国科学技术大学-USTC-mirror-每小时更新一次" class="headerlink" title="CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )"></a>CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )</h2><blockquote>
-<p>地址：<a href="http://centos.ustc.edu.cn/" target="_blank" rel="external">http://centos.ustc.edu.cn/</a></p>
+rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
+<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
+<h1 id="国内镜像站">国内镜像站</h1>
+<h2 id="centos-中国科学技术大学-ustc-mirror-每小时更新一次">CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )</h2>
+<blockquote>
+<p>地址：http://centos.ustc.edu.cn/</p>
 </blockquote>
 <pre><code>cd /etc/yum.repos.d
-mv CentOS-Base.repo  CentOS-Base.repo.save-`date +%F`
-</code></pre><h3 id="centos-7"><a href="#centos-7" class="headerlink" title="centos 7"></a>centos 7</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">vi USTC.repo</div><div class="line">[base]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Base</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#released updates</span></div><div class="line">[updates]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Updates</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#additional packages that may be useful</span></div><div class="line">[extras]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Extras</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></div><div class="line">[centosplus]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Plus</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div></pre></td></tr></table></figure>
-<h3 id="centos-6"><a href="#centos-6" class="headerlink" title="centos 6"></a>centos 6</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">[base]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Base - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#released updates</span></div><div class="line">[updates]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Updates - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#additional packages that may be useful</span></div><div class="line">[extras]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Extras - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></div><div class="line">[centosplus]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Plus - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span></div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#contrib - packages by Centos Users</span></div><div class="line">[contrib]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Contrib - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/contrib/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contrib</span></div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div></pre></td></tr></table></figure>
-<h2 id="网易开源镜像站"><a href="#网易开源镜像站" class="headerlink" title="网易开源镜像站"></a>网易开源镜像站</h2><blockquote>
-<p>地址：<a href="http://mirrors.163.com/.help/centos.html" target="_blank" rel="external">http://mirrors.163.com/.help/centos.html</a></p>
+mv CentOS-Base.repo  CentOS-Base.repo.save-`date +%F`</code></pre>
+<h3 id="centos-7">centos 7</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">vi USTC.repo</div><div class="line">[base]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Base</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#released updates</span></div><div class="line">[updates]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Updates</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#additional packages that may be useful</span></div><div class="line">[extras]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Extras</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></div><div class="line">[centosplus]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Plus</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div></pre></td></tr></table></figure>
+<h3 id="centos-6">centos 6</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">[base]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Base - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#released updates</span></div><div class="line">[updates]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Updates - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#additional packages that may be useful</span></div><div class="line">[extras]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Extras - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></div><div class="line">[centosplus]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Plus - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span></div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#contrib - packages by Centos Users</span></div><div class="line">[contrib]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Contrib - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/contrib/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contrib</span></div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div></pre></td></tr></table></figure>
+<h2 id="网易开源镜像站">网易开源镜像站</h2>
+<blockquote>
+<p>地址：http://mirrors.163.com/.help/centos.html</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">cd</span> /etc/yum.repos.d</div><div class="line"><span class="comment"># centos6</span></div><div class="line">wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS6-Base-163.repo</div><div class="line"></div><div class="line"><span class="comment"># centos7</span></div><div class="line">wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS7-Base-163.repo</div><div class="line"></div><div class="line"><span class="comment"># 生成缓存</span></div><div class="line">yum makecache</div></pre></td></tr></table></figure>
-<h1 id="yum-排除-32-位安装"><a href="#yum-排除-32-位安装" class="headerlink" title="yum 排除 32 位安装"></a>yum 排除 32 位安装</h1><pre><code># 删除 32 位组件：
+<h1 id="yum-排除-32-位安装">yum 排除 32 位安装</h1>
+<pre><code># 删除 32 位组件：
 yum remove \*.i\?86
 
 # 防止 32 位元组件在未来更新时被安装
 # 编辑 /etc/yum.conf 并加入以下一行：
-exclude = *.i?86
-</code></pre>
+exclude = *.i?86</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Linux安装easy_install及pip/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Linux安装easy_install及pip/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux 安装 Easy_install 及 Pip">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
+</blockquote>
+<h1 id="安装-easy_install">安装 easy_install</h1>
+<pre><code># 获取软件包
+$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
+# 解压 :
+$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
+# 使用 Python 2.7.x 安装 setuptools
+/usr/local/bin/python2.7 setup.py install
+
+更多 easy_install 用法见： easy_install 用法</code></pre>
+<h1 id="安装-pip">安装 PIP</h1>
+<pre><code># 下载方法 1
+$ curl https://bootstrap.pypa.io/get-pip.py | python -
+# 下载方法 2
+$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
+
+# 安装方法 1
+$ yum install python-pip
+
+# 安装方法 2
+$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
+
+# 升级 pip
+$ /usr/local/bin/easy_install --upgrade pip
+
+# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
+$ pip install -U distribute
+
+# 升级 ez_setup
+$ curl https://bootstrap.pypa.io/ez_setup.py | python -
+
+&gt; PIP 使用指定源，且不缓存到目录
+$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+&gt; 安装墙内 PIP
+http://realfavicongenerator.net/</code></pre>
+<h1 id="easy_install-用法">easy_install 用法</h1>
+<pre><code># 1 直接安装：
+  easy_install SQLObject
+# 2 使用下载页面地址安装
+  easy_install -f http://pythonpaste.org/package_index.html SQLObject
+# 3 直接给出下载 url 安装
+  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
+# 4 .egg 文件的安装
+  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
+# 5 跟新安装过的包
+  easy_install --upgrade PyProtocols
+# 6 安装已经下载和提取在当前目录下的包
+  easy_install .
+# 7 安装特定特定版本的库
+  easy_install &quot;SomePackage==2.0&quot;
+# 8 大于某个版本
+  easy_install &quot;SomePackage&gt;2.0
+# 9 卸载库
+easy_install -m PackageName</code></pre>
+
           
         
       
@@ -1145,20 +1301,26 @@ exclude = *.i?86
       
         
           
-            <h1 id="使用-dnsmasq-提供外网-dns-服务"><a href="#使用-dnsmasq-提供外网-dns-服务" class="headerlink" title="使用 dnsmasq 提供外网 dns 服务"></a>使用 dnsmasq 提供外网 dns 服务</h1><pre><code>$ apt-get install dnsmasq
-</code></pre><h2 id="修改-dnsmasq-主配置文件"><a href="#修改-dnsmasq-主配置文件" class="headerlink" title="修改 dnsmasq 主配置文件"></a>修改 dnsmasq 主配置文件</h2><pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
+            <h1 id="使用-dnsmasq-提供外网-dns-服务">使用 dnsmasq 提供外网 dns 服务</h1>
+<pre><code>$ apt-get install dnsmasq</code></pre>
+<h2 id="修改-dnsmasq-主配置文件">修改 dnsmasq 主配置文件</h2>
+<pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
 listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
 addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
 resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个 )
-conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析
-</code></pre><h2 id="生成域名映射"><a href="#生成域名映射" class="headerlink" title="生成域名映射"></a>生成域名映射</h2><pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析</code></pre>
+<h2 id="生成域名映射">生成域名映射</h2>
+<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
 vi /etc/dnsmasq.d/dns.conf
 
 # 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
-address=&quot;/google.com/172.17.0.4&quot;
-</code></pre><h2 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h2><pre><code>/etc/init.d/dnsmasq start
-</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4
-</code></pre><h1 id="本地-hosts-配合-NetworkManager-方式"><a href="#本地-hosts-配合-NetworkManager-方式" class="headerlink" title="本地 hosts 配合 NetworkManager 方式"></a>本地 hosts 配合 NetworkManager 方式</h1><pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
+address=&quot;/google.com/172.17.0.4&quot;</code></pre>
+<h2 id="启动服务">启动服务</h2>
+<pre><code>/etc/init.d/dnsmasq start</code></pre>
+<h2 id="测试">测试</h2>
+<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+<h1 id="本地-hosts-配合-networkmanager-方式">本地 hosts 配合 NetworkManager 方式</h1>
+<pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
 addn-hosts=/etc/hosts
 
 $ sudo service networking restart
@@ -1167,217 +1329,8 @@ $ sudo /etc/init.d/dns-clean restart
 # 修改后要求下面的几个命令输出相同的 IP 地址：
 $ host u1
 $ nslookup u1
-$ getent ahosts u1
-</code></pre>
-          
-        
-      
-    </div>
+$ getent ahosts u1</code></pre>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Linux安装easy_install及pip/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Linux安装easy_install及pip/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux 安装 Easy_install 及 Pip">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
-</blockquote>
-<h1 id="安装-easy-install"><a href="#安装-easy-install" class="headerlink" title="安装 easy_install"></a>安装 easy_install</h1><pre><code># 获取软件包
-$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-# 解压 :
-$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
-# 使用 Python 2.7.x 安装 setuptools
-/usr/local/bin/python2.7 setup.py install
-
-更多 easy_install 用法见： easy_install 用法
-</code></pre><h1 id="安装-PIP"><a href="#安装-PIP" class="headerlink" title="安装 PIP"></a>安装 PIP</h1><pre><code># 下载方法 1
-$ curl https://bootstrap.pypa.io/get-pip.py | python -
-# 下载方法 2
-$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
-
-# 安装方法 1
-$ yum install python-pip
-
-# 安装方法 2
-$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
-
-# 升级 pip
-$ /usr/local/bin/easy_install --upgrade pip
-
-# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
-$ pip install -U distribute
-
-# 升级 ez_setup
-$ curl https://bootstrap.pypa.io/ez_setup.py | python -
-
-&gt; PIP 使用指定源，且不缓存到目录
-$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-
-&gt; 安装墙内 PIP
-http://realfavicongenerator.net/
-</code></pre><h1 id="easy-install-用法"><a href="#easy-install-用法" class="headerlink" title="easy_install 用法"></a>easy_install 用法</h1><pre><code># 1 直接安装：
-  easy_install SQLObject
-# 2 使用下载页面地址安装
-  easy_install -f http://pythonpaste.org/package_index.html SQLObject
-# 3 直接给出下载 url 安装
-  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
-# 4 .egg 文件的安装
-  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
-# 5 跟新安装过的包
-  easy_install --upgrade PyProtocols
-# 6 安装已经下载和提取在当前目录下的包
-  easy_install .
-# 7 安装特定特定版本的库
-  easy_install &quot;SomePackage==2.0&quot;
-# 8 大于某个版本
-  easy_install &quot;SomePackage&gt;2.0
-# 9 卸载库
-easy_install -m PackageName
-</code></pre>
           
         
       
