@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-04T07:43:46.222Z</updated>
+  <updated>2018-01-05T07:22:03.230Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -17,18 +17,38 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>SSH_config_proxycommand</title>
-    <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
-    <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-04T07:43:46.221Z</published>
-    <updated>2018-01-04T07:43:46.222Z</updated>
+    <title>修改Npm安装源为国内源</title>
+    <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
+    <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
+    <published>2018-01-05T07:22:03.229Z</published>
+    <updated>2018-01-05T07:22:03.230Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;proxycommand&quot;&gt;ProxyCommand&lt;/h1&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div cla
+        &lt;p&gt;categories: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;updated:&lt;br&gt;date:&lt;br&gt;author: dongcj &lt;a href=&quot;&amp;#109;&amp;#x61;&amp;#x69;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#110;&amp;#116;&amp;#119;&amp;#x6b;&amp;
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SSH_config_proxycommand</title>
+    <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
+    <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
+    <published>2018-01-05T07:21:54.068Z</published>
+    <updated>2018-01-05T07:21:54.069Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;ProxyCommand&quot;&gt;&lt;a href=&quot;#ProxyCommand&quot; class=&quot;headerlink&quot; title=&quot;ProxyCommand&quot;&gt;&lt;/a&gt;ProxyCommand&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;t
       
     
     </summary>
@@ -40,19 +60,35 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-04T07:43:32.416Z</published>
-    <updated>2018-01-04T07:43:32.417Z</updated>
+    <published>2018-01-05T07:21:42.335Z</published>
+    <updated>2018-01-05T07:21:42.336Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;docker-compose-或自建商店安装&quot;&gt;docker-compose 或自建商店安装&lt;/h1&gt;
-&lt;blockquote&gt;
+      &lt;h1 id=&quot;docker-compose-或自建商店安装&quot;&gt;&lt;a href=&quot;#docker-compose-或自建商店安装&quot; class=&quot;headerlink&quot; title=&quot;docker-compose 或自建商店安装&quot;&gt;&lt;/a&gt;docker-compose 或自建商店安装&lt;/h1&gt;&lt;blockquote&gt;
 &lt;p&gt;如果之前有安装失败记录，需要进行清理，见『清理及故障处理』章节&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;ol type=&quot;
-      
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;从阿里云或第三方证书提供商下载免费证书。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;新建仓库目录&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mkdir -p /opt/svicloud/tools/harbor/data/cert/&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;将证书的 &lt;code&gt;server.crt&lt;/code&gt; 和 &lt;code&gt;server.key&lt;/code&gt; 放置于上述目录&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;生成一个 &lt;code&gt;secretkey&lt;/code&gt; 文件，也放置于以上目录&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;svicloud85509336&quot;&lt;/span&gt; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol&gt;
+&lt;li&gt;使用 docker-compose 安装 harbor&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;docker-compose &lt;a href=&quot;http://download.svicloud.com/harbor-docker-compose-v1.2.2.yml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mv harbor-docker-compose-v1.2.2.yml docker-compose.yml &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;docker-compose up -d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -63,30 +99,27 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-04T07:43:28.859Z</published>
-    <updated>2018-01-04T07:43:28.862Z</updated>
+    <published>2018-01-05T07:21:39.072Z</published>
+    <updated>2018-01-05T07:21:39.073Z</updated>
     
     <summary type="html">
     
       &lt;blockquote&gt;
 &lt;p&gt;为了支持 bbr、aufs，必须安装 extra, 详见：&lt;a href=&quot;http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/&quot;&gt;Linux 升级 kernel 及 tcp_BBR&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;安装-docker&quot;&gt;安装 Docker&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# clone 后直接脚本安装&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/rancher/install-docker.git&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;检查&quot;&gt;检查&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;docker info | grep WARN&lt;/code&gt;&lt;/pre&gt;
-&lt;blockquote&gt;
-&lt;p&gt;WARNING: No swap limit support 解决方法见第 1 步，配置 &lt;code&gt;grub&lt;/code&gt; 参数&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;WARNING: bridge-nf-call-ip6tables is disabled 解决方法：&lt;/p&gt;
+&lt;h2 id=&quot;安装-Docker&quot;&gt;&lt;a href=&quot;#安装-Docker&quot; class=&quot;headerlink&quot; title=&quot;安装 Docker&quot;&gt;&lt;/a&gt;安装 Docker&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# clone 后直接脚本安装&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/rancher/install-docker.git&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;检查&quot;&gt;&lt;a href=&quot;#检查&quot; class=&quot;headerlink&quot; title=&quot;检查&quot;&gt;&lt;/a&gt;检查&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;docker info | grep WARN
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;WARNING: No swap limit support&lt;br&gt;解决方法见第 1 步，配置 &lt;code&gt;grub&lt;/code&gt; 参数&lt;/p&gt;
+&lt;p&gt;WARNING: bridge-nf-call-ip6tables is disabled&lt;br&gt;解决方法：&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;vim /etc/sysctl.conf
     net.bridge.bridge-nf-call-ip6tables = 1
     net.bridge.bridge-nf-call-iptables = 1
     net.bridge.bridge-nf-call-arptables = 1
 
-sysctl -p&lt;/code&gt;&lt;/pre&gt;
+sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -104,11 +137,7 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     
       
       
-        &lt;h1 id=&quot;准备步骤&quot;&gt;准备步骤&lt;/h1&gt;
-&lt;h2 id=&quot;服务器时间同步&quot;&gt;服务器时间同步&lt;/h2&gt;
-&lt;blockquote&gt;
-&lt;p&gt;如果不配置时间同步，可能会导致调度服务有可能不正常 &lt;br&gt; 最好使用 UTC time:&lt;br&gt;&lt;/p&gt;
-&lt;/blockquote
+        &lt;h1 id=&quot;准备步骤&quot;&gt;&lt;a href=&quot;#准备步骤&quot; class=&quot;headerlink&quot; title=&quot;准备步骤&quot;&gt;&lt;/a&gt;准备步骤&lt;/h1&gt;&lt;h2 id=&quot;服务器时间同步&quot;&gt;&lt;a href=&quot;#服务器时间同步&quot; class=&quot;headerlink&quot; title=&quot;服务器
       
     
     </summary>
@@ -135,13 +164,11 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     
       
       
-        &lt;h1 id=&quot;软件更新图标示例&quot;&gt;软件更新图标示例：&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;[+]新增
+        &lt;h1 id=&quot;软件更新图标示例：&quot;&gt;&lt;a href=&quot;#软件更新图标示例：&quot; class=&quot;headerlink&quot; title=&quot;软件更新图标示例：&quot;&gt;&lt;/a&gt;软件更新图标示例：&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;[+]新增
 [-]删除
 [^]升级
-[#]修复&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;高亮-tail--f-搜索&quot;&gt;高亮 tail -f 搜索&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;
+[#]修复
+&lt;/code&gt;&lt;/p
       
     
     </summary>
@@ -164,9 +191,7 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     
       
       
-        &lt;h1 id=&quot;install&quot;&gt;install&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;&amp;gt; client: curl client (eg: 116.23.45.8)
-&amp;gt; server: rfw servers (default port: 7393)&lt;/code&gt;&lt;/
+        &lt;h1 id=&quot;install&quot;&gt;&lt;a href=&quot;#install&quot; class=&quot;headerlink&quot; title=&quot;install&quot;&gt;&lt;/a&gt;install&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;&amp;gt; client: curl client (eg: 116.23.45.8)
       
     
     </summary>
@@ -193,9 +218,7 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     
       
       
-        &lt;h1 id=&quot;升级-python&quot;&gt;升级 python&lt;/h1&gt;
-&lt;h2 id=&quot;install&quot;&gt;install&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然
+        &lt;h1 id=&quot;升级-python&quot;&gt;&lt;a href=&quot;#升级-python&quot; class=&quot;headerlink&quot; title=&quot;升级 python&quot;&gt;&lt;/a&gt;升级 python&lt;/h1&gt;&lt;h2 id=&quot;install&quot;&gt;&lt;a href=&quot;#install&quot; class=&quot;he
       
     
     </summary>
@@ -204,6 +227,31 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     
     
       <category term="python 升级" scheme="http://blog.dongcj.com/tags/python-%E5%8D%87%E7%BA%A7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用 Printf 进行格式化</title>
+    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
+    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
+    <published>2016-08-30T09:27:43.000Z</published>
+    <updated>2016-08-30T09:48:08.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;表格输出&quot;&gt;&lt;a href=&quot;#表格输出&quot; class=&quot;headerlink&quot; title=&quot;表格输出&quot;&gt;&lt;/a&gt;表格输出&lt;/h2&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
+    
+      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
     
   </entry>
   
@@ -218,11 +266,7 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     
       
       
-        &lt;h1 id=&quot;yum-安装图像界面及-vnc&quot;&gt;YUM 安装图像界面及 VNC&lt;/h1&gt;
-&lt;p&gt;( 参考：http://www.ha97.com/4634.html )&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;yum install epel-release
-
-yum group
+        &lt;h1 id=&quot;YUM-安装图像界面及-VNC&quot;&gt;&lt;a href=&quot;#YUM-安装图像界面及-VNC&quot; class=&quot;headerlink&quot; title=&quot;YUM 安装图像界面及 VNC&quot;&gt;&lt;/a&gt;YUM 安装图像界面及 VNC&lt;/h1&gt;&lt;p&gt;( 参考：&lt;a href=&quot;http
       
     
     </summary>
@@ -241,45 +285,17 @@ yum group
   </entry>
   
   <entry>
-    <title>使用 Printf 进行格式化</title>
-    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
-    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
-    <published>2016-08-30T09:27:43.000Z</published>
-    <updated>2016-08-30T09:48:08.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
-    
-      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
-    
-  </entry>
-  
-  <entry>
     <title>CentOS 部署 Lazy-Balancer 负载均衡　</title>
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-04T07:43:25.983Z</updated>
+    <updated>2018-01-05T07:21:36.573Z</updated>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /u
+        &lt;h1 id=&quot;clone-soft&quot;&gt;&lt;a href=&quot;#clone-soft&quot; class=&quot;headerlink&quot; title=&quot;clone soft&quot;&gt;&lt;/a&gt;clone soft&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ git clone https://github.com
       
     
     </summary>
@@ -308,9 +324,7 @@ $ cd /u
       
         &lt;blockquote&gt;
 &lt;p&gt;只要 Linux 发行版的 Kernel 即内核版本大于等于 4.9 即可开启，开启方法是通用的，如何升级至 Kernel 将在下面介绍。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;快速自动化安装方法（仅支持 De
+&lt;p&gt;快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）&lt;br&gt;&lt;br&gt;wget
       
     
     </summary>
@@ -329,9 +343,9 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>DHCP 高级配置</title>
-    <link href="http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/"/>
-    <id>http://blog.dongcj.com/linux/DHCP高级配置/</id>
+    <title>编码与文件格式转换</title>
+    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -339,11 +353,8 @@ $ cd /u
     
       
       
-        &lt;h2 id=&quot;一dhcp-中继代理配置&quot;&gt;# 一、DHCP 中继代理配置&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;# ( 在其它服务上安装 dhcpd 软件 )：
-
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options he
+        &lt;h1 id=&quot;作用&quot;&gt;&lt;a href=&quot;#作用&quot; class=&quot;headerlink&quot; title=&quot;作用&quot;&gt;&lt;/a&gt;作用&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题&lt;br&gt;Windows 下自动
       
     
     </summary>
@@ -351,16 +362,18 @@ $ vi /etc/sysconfig/dhcrelay
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
+      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
     
-      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
+      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
     
   </entry>
   
   <entry>
-    <title>VirtualBox 报错 E_FAIL0x80004005 解决方案</title>
-    <link href="http://blog.dongcj.com/linux/VirtualBox%E6%8A%A5%E9%94%99E_FAIL0x80004005%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
-    <id>http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/</id>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -369,28 +382,22 @@ $ vi /etc/sysconfig/dhcrelay
       
       
         &lt;blockquote&gt;
-&lt;p&gt;VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;错误信息&quot;&gt;错误信息：&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;返回 代码 : E_F
+&lt;p&gt;参考&lt;br&gt;    &lt;a href=&quot;http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://www
       
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
     
     
-      <category term="virtualbox" scheme="http://blog.dongcj.com/tags/virtualbox/"/>
-    
-      <category term="vm" scheme="http://blog.dongcj.com/tags/vm/"/>
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
   <entry>
-    <title>Mdadm_raid10_raid5</title>
-    <link href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/"/>
-    <id>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</id>
+    <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
+    <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -398,11 +405,32 @@ $ vi /etc/sysconfig/dhcrelay
     
       
       
-        &lt;blockquote&gt;
-&lt;p&gt;建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;每块硬盘分一个区&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;
+        &lt;h1 id=&quot;download-nginx-amp-module&quot;&gt;&lt;a href=&quot;#download-nginx-amp-module&quot; class=&quot;headerlink&quot; title=&quot;download nginx &amp;amp; module&quot;&gt;&lt;/a&gt;download 
+      
+    
+    </summary>
+    
+      <category term="web" scheme="http://blog.dongcj.com/categories/web/"/>
+    
+    
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
+    
+      <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斐讯 K2 路由器刷机</title>
+    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
+    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;买个-SS-帐号&quot;&gt;&lt;a href=&quot;#买个-SS-帐号&quot; class=&quot;headerlink&quot; title=&quot;买个 SS 帐号&quot;&gt;&lt;/a&gt;买个 SS 帐号&lt;/h1&gt;&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，
       
     
     </summary>
@@ -410,9 +438,11 @@ $ vi /etc/sysconfig/dhcrelay
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="soft raid" scheme="http://blog.dongcj.com/tags/soft-raid/"/>
+      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
     
-      <category term="mdadm" scheme="http://blog.dongcj.com/tags/mdadm/"/>
+      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
+    
+      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
   </entry>
   
@@ -427,11 +457,9 @@ $ vi /etc/sysconfig/dhcrelay
     
       
       
-        &lt;h1 id=&quot;安装软件&quot;&gt;安装软件&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;# 安装的软件：
+        &lt;h1 id=&quot;安装软件&quot;&gt;&lt;a href=&quot;#安装软件&quot; class=&quot;headerlink&quot; title=&quot;安装软件&quot;&gt;&lt;/a&gt;安装软件&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# 安装的软件：
 dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm( 不须装 )
-xinetd-2.3.14-10.el5.x86_6
+vsftpd-2.0.5-10.e
       
     
     </summary>
@@ -448,32 +476,6 @@ xinetd-2.3.14-10.el5.x86_6
   </entry>
   
   <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;python gearman library hom
-      
-    
-    </summary>
-    
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
-    
-    
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</title>
     <link href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/"/>
     <id>http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/</id>
@@ -484,11 +486,7 @@ xinetd-2.3.14-10.el5.x86_6
     
       
       
-        &lt;h1 id=&quot;虚拟机增加系统盘根分区大小方法&quot;&gt;虚拟机增加系统盘根分区大小方法&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;# 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
-
-# 先增加实例文件大小，可以使用 dd 命令
-$ dd if
+        &lt;h1 id=&quot;虚拟机增加系统盘根分区大小方法&quot;&gt;&lt;a href=&quot;#虚拟机增加系统盘根分区大小方法&quot; class=&quot;headerlink&quot; title=&quot;虚拟机增加系统盘根分区大小方法&quot;&gt;&lt;/a&gt;虚拟机增加系统盘根分区大小方法&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# 此方法适用于分区
       
     
     </summary>
@@ -511,9 +509,9 @@ $ dd if
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <title>VirtualBox 报错 E_FAIL0x80004005 解决方案</title>
+    <link href="http://blog.dongcj.com/linux/VirtualBox%E6%8A%A5%E9%94%99E_FAIL0x80004005%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/"/>
+    <id>http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -521,11 +519,10 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
+        &lt;blockquote&gt;
+&lt;p&gt;VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换-t
+&lt;h1 id=&quot;错误信息：&quot;&gt;&lt;a href=&quot;#错误信息：&quot; class=&quot;headerlink&quot; title=
       
     
     </summary>
@@ -533,11 +530,9 @@ $ dd if
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+      <category term="virtualbox" scheme="http://blog.dongcj.com/tags/virtualbox/"/>
     
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
+      <category term="vm" scheme="http://blog.dongcj.com/tags/vm/"/>
     
   </entry>
   
@@ -552,9 +547,8 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
+        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;&lt;a href=&quot;#安装好二台-postgresql&quot; class=&quot;headerlink&quot; title=&quot;安装好二台 postgresql&quot;&gt;&lt;/a&gt;安装好二台 postgresql&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;参
       
     
     </summary>
@@ -565,35 +559,6 @@ $ dd if
       <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
     
       <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
-    
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
-    
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
   </entry>
   
