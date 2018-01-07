@@ -324,6 +324,228 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/docker/Rancher安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/docker/Rancher安装/" itemprop="url">Rancher 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T15:43:19+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/docker/Rancher安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="docker/Rancher安装/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/docker/Rancher安装/" class="leancloud_visitors" data-flag-title="Rancher 安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="准备步骤">准备步骤</h1>
+<h2 id="服务器时间同步">服务器时间同步</h2>
+<blockquote>
+<p>如果不配置时间同步，可能会导致调度服务有可能不正常 <br> 最好使用 UTC time:<br></p>
+</blockquote>
+<pre><code>rm -rf /etc/localtime</code></pre>
+<h2 id="支持-bbr请升级内核至-4.9-以上版本弱网环境建议">支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</h2>
+<blockquote>
+<p>如果要支持 aufs，请安装 linux-image-extra 的包</p>
+</blockquote>
+<h2 id="重要所有服务器需要设置外部-dns">重要：所有服务器需要设置外部 DNS</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># stop and disable the local dns generator</span></div><div class="line">systemctl <span class="built_in">disable</span> systemd-resolved.service;</div><div class="line">systemctl stop systemd-resolved.service;</div><div class="line">systemctl status systemd-resolved.service;</div><div class="line"></div><div class="line">vi /etc/network/interfaces</div><div class="line"></div><div class="line"><span class="comment"># 修改为外部 DNS 服务器</span></div><div class="line">dns-nameservers 114.114.114.114</div></pre></td></tr></table></figure>
+<h2 id="设置-hostname">设置 hostname</h2>
+<pre><code>[root@rancher-server] echo &quot;&lt;HOSTNAME&gt;&quot; &gt;/etc/hostname &amp;&amp; hostname &lt;HOSTNAME&gt;
+[root@rancher-server] hostnamectl set-hostname svi1r01n08</code></pre>
+<h2 id="install-docker">install docker</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 国内 DaoCloud 镜像安装</span></div><div class="line">curl -sSL https://get.daocloud.io/docker | sh</div><div class="line"></div><div class="line"><span class="comment"># Rancher 官方安装脚本</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</div><div class="line"><span class="built_in">cd</span> ./install-docker &amp;&amp; bash &lt;LATEST__XX&gt;.sh</div><div class="line"></div><div class="line"><span class="comment"># Docker 开机自启动</span></div><div class="line">systemctl  <span class="built_in">enable</span> docker.service</div></pre></td></tr></table></figure>
+<h2 id="配置-docker-加速器用于国内加速">配置 docker 加速器（用于国内加速）</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi /etc/docker/daemon.json</div><div class="line"><span class="comment"># 编辑完后重启 docker 生效</span></div></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"registry-mirrors"</span>: [</div><div class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</div><div class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</div><div class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="安装-rancher">安装 Rancher</h1>
+<h2 id="单机安装">单机安装</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">docker pull rancher/server</div><div class="line">docker run -d --restart=always \</div><div class="line">-v /opt/svicloud/rancher/server_db:/var/lib/mysql \</div><div class="line">--name rancher-server -p 8080:8080  rancher/server</div></pre></td></tr></table></figure>
+<h2 id="ha-模式安装可选">HA 模式安装（可选）</h2>
+<ol type="1">
+<li>安装一个外部主从模式的 MySQL</li>
+<li>在主备两边执行</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server \</div><div class="line">  --db-host myhost.example.com \</div><div class="line">  --db-port 3306 \</div><div class="line">  --db-user username \</div><div class="line">  --db-pass password \</div><div class="line">  --db-name cattle \</div><div class="line">  --advertise-address &lt;IP_of_the_Node&gt;</div><div class="line"></div><div class="line">db.cattle.database=mysql</div><div class="line">db.cattle.username=cattle</div><div class="line">db.cattle.password=cattle</div><div class="line">db.cattle.mysql.host=localhost</div><div class="line">db.cattle.mysql.port=3306</div><div class="line">db.cattle.mysql.name=cattle</div><div class="line"><span class="comment"># All values above are the defaults except db.cattle.database. If the defaults are fine, then all you need to set is db.cattle.database=mysql.</span></div></pre></td></tr></table></figure>
+<h2 id="启动集群模式可选">启动集群模式（可选）</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 手动启动主</span></div><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server --db-host 192.168.1.174 --db-port 3306 --db-user cattle --db-pass cattle --db-name cattle --advertise-address 192.168.1.174</div><div class="line"></div><div class="line"><span class="comment"># 手动启动备</span></div><div class="line">docker run -d --restart=unless-stopped -p 8080:8080 -p 9345:9345 --name rancher-server rancher/server --db-host 192.168.1.174 --db-port 3306 --db-user cattle --db-pass cattle --db-name cattle --advertise-address 192.168.1.184</div></pre></td></tr></table></figure>
+<h2 id="设置-rancher-ssl">设置 Rancher ssl</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/svicloud/rancher/cert</div><div class="line">cp cert.pem key.pem /opt/svicloud/rancher/cert</div><div class="line"></div><div class="line">docker run -d \</div><div class="line">--restart=always \</div><div class="line">--name rancher-server-ssl \</div><div class="line">--link rancher-server \</div><div class="line">-p 80:80 -p 443:443 \</div><div class="line">-e <span class="string">'RANCHER_URL=&lt;YOUR_DOMAIN&gt;'</span> \</div><div class="line">-e <span class="string">'RANCHER_CONTAINER_NAME=rancher-server'</span> \</div><div class="line">-e <span class="string">'RANCHER_PORT=8080'</span> \</div><div class="line">-v /opt/svicloud/rancher/cert:/etc/nginx/external/ \</div><div class="line">codedevote/nginx-ssl-proxy-rancher</div></pre></td></tr></table></figure>
+<h2 id="使用-salt-进行自动化安装-serveragent">使用 Salt 进行自动化安装 Server、agent</h2>
+<blockquote>
+<p>参见 GitHub：komljen/rancher-salt</p>
+</blockquote>
+<h2 id="registry-v2-版本的查询所有镜像">registry v2 版本的查询所有镜像：</h2>
+<blockquote>
+<p>https://github.com/docker/distribution/blob/master/docs/spec/api.md#deleting-an-image</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 1. 先查出所有的镜像</span></div><div class="line">curl https://192.168.1.111/v2/_catalog</div><div class="line"></div><div class="line"><span class="comment"># 2. 查出该镜像的 tag 列表</span></div><div class="line">curl https://192.168.1.111/v2/dongcj/webserver/tags/list</div><div class="line"></div><div class="line"><span class="comment"># 3. 查看详细的镜像信息</span></div><div class="line">curl https://192.168.1.111/v2/dongcj/webserver/manifests/v0.1</div><div class="line"></div><div class="line"><span class="comment"># 4、删除所给的镜像</span></div><div class="line">https://github.com/burnettk/delete-docker-registry-image</div><div class="line"></div><div class="line"><span class="comment"># 或者使用 ui 进行操作</span></div></pre></td></tr></table></figure>
+<h1 id="将日志展示在-web-ui-的日志中">将日志展示在 WEB UI 的日志中</h1>
+<pre><code>/var/log/nginx/error.log -&gt; /dev/stderr
+/var/log/ngnix/access.log -&gt; /dev/stdout</code></pre>
+<h1 id="自定义加入-rancher-网络">自定义加入 rancher 网络</h1>
+<pre><code>在启动参数中加入 --label io.rancher.container.network=true，这样网络就会有 rancher 的网络 IP</code></pre>
+<h1 id="rancher-将自身也加入主机中">Rancher 将自身也加入主机中</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 需要在启动 agent 的参数中加 environment: CATTLE_AGENT_IP=&lt;HOST_IP&gt;</span></div><div class="line">sudo docker run -d -e CATTLE_AGENT_IP=&lt;HOST_IP&gt; --privileged \</div><div class="line">    -v /var/run/docker.sock:/var/run/docker.sock \</div><div class="line">    rancher/agent:v0.8.2 http://SERVER_IP:8080/v1/scripts/xxxx</div></pre></td></tr></table></figure>
+<h1 id="查询-dns-的所有记录">查询 DNS 的所有记录</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># external 的 DNS 设置方法相同</span></div><div class="line"><span class="comment"># 进入 network-services-metadata-dns-X.</span></div><div class="line">cat /etc/rancher-dns/answers.json</div></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：在独立的容器中（自建的），DNS 只保留最后一个</p>
+</blockquote>
+<h1 id="rancher-lb-http-redirect-to-https">Rancher LB <code>http</code> redirect to <code>https</code></h1>
+<ul>
+<li>按照如下模式，自定义请求头信息</li>
+</ul>
+<figure>
+<img src="https://i.imgur.com/TEg1m2a.png">
+</figure>
+<ul>
+<li>在 <code>自定义 Haproxy.cfg</code> 中增加以下内容</li>
+</ul>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">frontend</span> http-frontend</div><div class="line">    <span class="attribute">bind</span> *:80</div><div class="line">    <span class="attribute">mode</span> http</div><div class="line">    <span class="attribute">redirect</span> scheme https code 301 if !&#123; ssl_fc &#125;</div></pre></td></tr></table></figure>
+<h1 id="rancher-lb-使用-ip-hash">Rancher LB 使用 IP Hash</h1>
+<p>在 <code>自定义 Haproxy.cfg</code> 中增加以下内容 : <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">balance source</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/常用命令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1139,197 +1361,6 @@ $ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/SMATE、XFCE、VNC配置/" itemprop="url">SMATE、XFCE、VNC 配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-30T17:27:43+08:00">
-                2016-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/SMATE、XFCE、VNC配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/SMATE、XFCE、VNC配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/SMATE、XFCE、VNC配置/" class="leancloud_visitors" data-flag-title="SMATE、XFCE、VNC 配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="yum-安装图像界面及-vnc">YUM 安装图像界面及 VNC</h1>
-<p>( 参考：http://www.ha97.com/4634.html )</p>
-<pre><code>yum install epel-release
-
-yum grouplist
-yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
-yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
-
-yum groupinstall [ xfce | &quot;MATE Desktop&quot; ]（CentOS 安装 xfce 桌面环境，可选）
-
-# runlevel 5
-systemctl isolate graphical.target
-
-# Start the GUI on boot
-systemctl set-default graphical.target
-
-# 切换 display manager
-# 查看
-ls -l /etc/systemd/system/display-manager.service
-
-# 切换
-systemctl disable gdm &amp;&amp; systemctl enable lightdm
-
-# 刷新
-systemctl isolate graphical.target</code></pre>
-<h1 id="安装-vnc-server">安装 vnc server</h1>
-<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
-yum install vnc-server vnc* （CentOS 5.x 里）
-yum install tigervnc-server tigervnc （CentOS 6.x 里）
-/etc/init.d/vncserver restart
-
-# 关闭具体的 vncserver 命令 :
-vncserver -kill :1</code></pre>
-<blockquote>
-<p>http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1379,7 +1410,7 @@ vncserver -kill :1</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1390,7 +1421,7 @@ vncserver -kill :1</code></pre>
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1401,7 +1432,7 @@ vncserver -kill :1</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">88</span>
+                <span class="site-state-item-count">84</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

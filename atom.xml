@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-05T07:35:23.148Z</updated>
+  <updated>2018-01-07T14:27:26.326Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -17,28 +17,25 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>修改Npm安装源为国内源</title>
+    <title>修改 Npm 安装源为国内源</title>
     <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
     <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
-    <published>2018-01-05T07:35:23.147Z</published>
-    <updated>2018-01-05T07:35:23.148Z</updated>
+    <published>2018-01-07T14:27:26.325Z</published>
+    <updated>2018-01-07T14:27:26.326Z</updated>
     
     <summary type="html">
     
-      
-      
-        &lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;tegories:&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;dated:&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;ev
-      
+      &lt;blockquote&gt;
+&lt;p&gt;淘宝源地址：&lt;a href=&quot;http://npm.taobao.org/&quot; class=&quot;uri&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;http://npm.taobao.org/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;删除已有-npm-包-可选&quot;&gt;删除已有 npm 包 ( 可选 )&lt;/h1&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看已安装的 npm package&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm -g ls        &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 删除所有 npm&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ls -gp | awk -F/ &lt;span class=&quot;string&quot;&gt;&#39;/node_modules/ &amp;amp;&amp;amp; !/node_modules.*node_modules/ &amp;#123;print $NF&amp;#125;&#39;&lt;/span&gt; | xargs npm -g rm&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;blockquote&gt;
+&lt;p&gt;npm ls -g 如果报错，可以进行以下处理 :&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# （原因是 node-modules 中不允许用软链接，但 inherits 却用了）：&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by undefined@undefined&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by block-stream@0.0.7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by fstream@0.1.24&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 进行如下操作即可：&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /usr/lib/node_modules/&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;unlink inherit&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;mv inherits@2/ inherits/&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;升级-npm-并更新为淘宝源&quot;&gt;升级 npm 并更新为淘宝源&lt;/h1&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;npm update npm -g &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; registry=https://registry.npm.taobao.org&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm config &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; ca &lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm install npm -g &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; registry=https://registry.npm.taobao.org&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;npm config delete ca&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -49,8 +46,8 @@
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-05T07:35:13.703Z</published>
-    <updated>2018-01-05T07:35:13.704Z</updated>
+    <published>2018-01-07T14:27:18.357Z</published>
+    <updated>2018-01-07T14:27:18.358Z</updated>
     
     <summary type="html">
     
@@ -69,8 +66,8 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-05T07:35:00.465Z</published>
-    <updated>2018-01-05T07:35:00.466Z</updated>
+    <published>2018-01-07T14:27:05.383Z</published>
+    <updated>2018-01-07T14:27:05.384Z</updated>
     
     <summary type="html">
     
@@ -105,8 +102,8 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-05T07:34:56.895Z</published>
-    <updated>2018-01-05T07:34:56.897Z</updated>
+    <published>2018-01-07T14:27:01.577Z</published>
+    <updated>2018-01-07T14:27:01.591Z</updated>
     
     <summary type="html">
     
@@ -129,6 +126,35 @@
     net.bridge.bridge-nf-call-arptables = 1
 
 sysctl -p&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Awk命令</title>
+    <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
+    <id>http://blog.dongcj.com/m/awk命令/</id>
+    <published>2018-01-07T14:26:56.986Z</published>
+    <updated>2018-01-07T14:26:56.987Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&quot;header&quot;&gt;
+&lt;th&gt;tegories:&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&quot;odd&quot;&gt;
+&lt;td&gt;dated:&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;ev
+      
     
     </summary>
     
@@ -309,6 +335,35 @@ yum group
   </entry>
   
   <entry>
+    <title>CentOS 部署 Lazy-Balancer 负载均衡　</title>
+    <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+    <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
+    <published>2016-08-28T09:44:33.000Z</published>
+    <updated>2018-01-07T14:26:58.467Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
+$ cd /u
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
+    
+      <category term="tengine" scheme="http://blog.dongcj.com/tags/tengine/"/>
+    
+      <category term="lazy-balancer" scheme="http://blog.dongcj.com/tags/lazy-balancer/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux 升级 Kernel 及 tcp_BBR</title>
     <link href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/"/>
     <id>http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/</id>
@@ -342,38 +397,9 @@ yum group
   </entry>
   
   <entry>
-    <title>CentOS 部署 Lazy-Balancer 负载均衡　</title>
-    <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
-    <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
-    <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-05T07:34:53.933Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;clone-soft&quot;&gt;clone soft&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /u
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
-    
-      <category term="tengine" scheme="http://blog.dongcj.com/tags/tengine/"/>
-    
-      <category term="lazy-balancer" scheme="http://blog.dongcj.com/tags/lazy-balancer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
-    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
+    <title>Puppet 安装</title>
+    <link href="http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/linux/Puppet安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -381,9 +407,10 @@ $ cd /u
     
       
       
-        &lt;h1 id=&quot;curl&quot;&gt;curl&lt;/h1&gt;
-&lt;h2 id=&quot;下载文件&quot;&gt;下载文件&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
+        &lt;h3 id=&quot;etchosts-可以-ping-通对方域名&quot;&gt;/etc/hosts 可以 ping 通对方域名&lt;/h3&gt;
+&lt;h3 id=&quot;安装-ntp-做时间同步&quot;&gt;安装 ntp 做时间同步&lt;/h3&gt;
+&lt;h3 id=&quot;安装-puppet&quot;&gt;安装 puppet&lt;/h3&gt;
+&lt;
       
     
     </summary>
@@ -391,15 +418,35 @@ $ cd /u
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
+      <category term="puppet" scheme="http://blog.dongcj.com/tags/puppet/"/>
     
-      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
+      <category term="devops" scheme="http://blog.dongcj.com/tags/devops/"/>
     
-      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
+  </entry>
+  
+  <entry>
+    <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
+    <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
     
-      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
+    <summary type="html">
     
-      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
+      
+      
+        &lt;h1 id=&quot;download-nginx-module&quot;&gt;download nginx &amp;amp; module&lt;/h1&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div clas
+      
+    
+    </summary>
+    
+      <category term="web" scheme="http://blog.dongcj.com/categories/web/"/>
+    
+    
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
+    
+      <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
     
   </entry>
   
@@ -433,9 +480,9 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
-    <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
+    <title>编码与文件格式转换</title>
+    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -443,44 +490,23 @@ $ cd /u
     
       
       
-        &lt;h1 id=&quot;download-nginx-module&quot;&gt;download nginx &amp;amp; module&lt;/h1&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div clas
-      
-    
-    </summary>
-    
-      <category term="web" scheme="http://blog.dongcj.com/categories/web/"/>
-    
-    
-      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
-    
-      <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
+        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;python gearman library hom
+&lt;h1 id=&quot;编码转换-t
       
     
     </summary>
     
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
+      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+    
+      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
     
   </entry>
   
@@ -553,9 +579,9 @@ $ dd if
   </entry>
   
   <entry>
-    <title>Postgresql 主从配置</title>
-    <link href="http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"/>
-    <id>http://blog.dongcj.com/database/Postgresql主从配置/</id>
+    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
+    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -563,36 +589,9 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
-      
-    
-    </summary>
-    
-      <category term="database" scheme="http://blog.dongcj.com/categories/database/"/>
-    
-    
-      <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
-    
-      <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
+        &lt;h1 id=&quot;curl&quot;&gt;curl&lt;/h1&gt;
+&lt;h2 id=&quot;下载文件&quot;&gt;下载文件&lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
       
     
     </summary>
@@ -600,11 +599,15 @@ $ dd if
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
+      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
     
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
+      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
     
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
+      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
+    
+      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
+    
+      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
     
   </entry>
   
