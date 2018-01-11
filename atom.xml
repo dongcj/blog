@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-07T14:27:26.326Z</updated>
+  <updated>2018-01-11T07:40:35.444Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker 安装及命令</title>
+    <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
+    <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
+    <published>2018-01-11T07:40:35.442Z</published>
+    <updated>2018-01-11T07:40:35.444Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;为了支持 bbr、aufs，必须安装 extra, 详见：&lt;a href=&quot;http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/&quot;&gt;Linux 升级 kernel 及 tcp_BBR&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;安装-Docker&quot;&gt;&lt;a href=&quot;#安装-Docker&quot; class=&quot;headerlink&quot; title=&quot;安装 Docker&quot;&gt;&lt;/a&gt;安装 Docker&lt;/h1&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# clone 后直接脚本安装&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/rancher/install-docker.git&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h1 id=&quot;检查&quot;&gt;&lt;a href=&quot;#检查&quot; class=&quot;headerlink&quot; title=&quot;检查&quot;&gt;&lt;/a&gt;检查&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;docker info | grep WARN
+&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;p&gt;WARNING: No swap limit support&lt;br&gt;解决方法见第 1 步，配置 &lt;code&gt;grub&lt;/code&gt; 参数&lt;/p&gt;
+&lt;p&gt;WARNING: bridge-nf-call-ip6tables is disabled&lt;br&gt;解决方法：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;vim /etc/sysctl.conf
+    net.bridge.bridge-nf-call-ip6tables = 1
+    net.bridge.bridge-nf-call-iptables = 1
+    net.bridge.bridge-nf-call-arptables = 1
+
+sysctl -p
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Awk 命令</title>
+    <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
+    <id>http://blog.dongcj.com/m/awk命令/</id>
+    <published>2018-01-11T07:40:30.547Z</published>
+    <updated>2018-01-11T07:40:30.548Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;categories: &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;author: dongcj &lt;a href=&quot;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6c;&amp;#x74;&amp;#x6f;&amp;#58;&amp;#110;&amp;#x74;&amp;#119;&amp;#x6b;&amp;#x40;&amp;#49;&amp;#x36;&amp;#51;&amp;
+      
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>修改 Npm 安装源为国内源</title>
@@ -92,69 +144,6 @@
 &lt;p&gt;docker-compose &lt;a href=&quot;http://download.svicloud.com/harbor-docker-compose-v1.2.2.yml&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;下载地址&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mv harbor-docker-compose-v1.2.2.yml docker-compose.yml &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;docker-compose up -d&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Docker 安装及命令</title>
-    <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
-    <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-07T14:27:01.577Z</published>
-    <updated>2018-01-07T14:27:01.591Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;为了支持 bbr、aufs，必须安装 extra, 详见：&lt;a href=&quot;http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/&quot;&gt;Linux 升级 kernel 及 tcp_BBR&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&quot;安装-docker&quot;&gt;安装 Docker&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# clone 后直接脚本安装&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/rancher/install-docker.git&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;检查&quot;&gt;检查&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;docker info | grep WARN&lt;/code&gt;&lt;/pre&gt;
-&lt;blockquote&gt;
-&lt;p&gt;WARNING: No swap limit support 解决方法见第 1 步，配置 &lt;code&gt;grub&lt;/code&gt; 参数&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;WARNING: bridge-nf-call-ip6tables is disabled 解决方法：&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;vim /etc/sysctl.conf
-    net.bridge.bridge-nf-call-ip6tables = 1
-    net.bridge.bridge-nf-call-iptables = 1
-    net.bridge.bridge-nf-call-arptables = 1
-
-sysctl -p&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Awk命令</title>
-    <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
-    <id>http://blog.dongcj.com/m/awk命令/</id>
-    <published>2018-01-07T14:26:56.986Z</published>
-    <updated>2018-01-07T14:26:56.987Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&quot;header&quot;&gt;
-&lt;th&gt;tegories:&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&quot;odd&quot;&gt;
-&lt;td&gt;dated:&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&quot;ev
-      
     
     </summary>
     
@@ -480,9 +469,9 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -490,23 +479,18 @@ $ cd /u
     
       
       
-        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
+        &lt;blockquote&gt;
+&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换-t
+&lt;pre&gt;&lt;code&gt;python gearman library hom
       
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
     
     
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
-    
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
@@ -579,9 +563,9 @@ $ dd if
   </entry>
   
   <entry>
-    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
-    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
+    <title>斐讯 K2 路由器刷机</title>
+    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
+    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -589,9 +573,9 @@ $ dd if
     
       
       
-        &lt;h1 id=&quot;curl&quot;&gt;curl&lt;/h1&gt;
-&lt;h2 id=&quot;下载文件&quot;&gt;下载文件&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div
+        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
+&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
+&lt;h1 id
       
     
     </summary>
@@ -599,15 +583,11 @@ $ dd if
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
+      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
     
-      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
+      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
     
-      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
-    
-      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
-    
-      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
+      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
   </entry>
   
