@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
+                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/monitor/" itemprop="url" rel="index">
-                    <span itemprop="name">monitor</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite 安装">
+             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -437,64 +437,151 @@
         
           
             <blockquote>
-<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+<p>建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
 </blockquote>
+<h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
+<pre><code># 分区格式为 Linux software raid：
+
+$ fdisk /dev/sda
+
+  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
+           switch off the mode (command &#39;c&#39;) and change display units to
+           sectors (command &#39;u&#39;).
+
+  Command (m for help): n
+  Command action
+     e   extended
+     p   primary partition (1-4)
+  p
+  Partition number (1-4): 1
+  First cylinder (1-91201, default 1):
+  Using default value 1
+  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
+  Using default value 91201
+
+  Command (m for help): p
+
+  Disk /dev/sda: 750.2 GB, 750156374016 bytes
+  255 heads, 63 sectors/track, 91201 cylinders
+  Units = cylinders of 16065 * 512 = 8225280 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disk identifier: 0x0005c259
+
+     Device Boot      Start         End      Blocks   Id  System
+  /dev/sda1               1       91201   732572001   83  Linux
+
+  Command (m for help): t
+  Selected partition 1
+  Hex code (type L to list codes): fd
+  Changed system type of partition 1 to fd (Linux raid autodetect)
+
+  Command (m for help): w
+  The partition table has been altered!
+
+  Calling ioctl() to re-read partition table.
+  Syncing disks.</code></pre>
+<h1 id="更改分区格式">更改分区格式</h1>
+<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+$ fdisk /dev/sdc
+...
+$ fdisk /dev/sdd
+...
+$ fdisk /dev/sde
+...
+$ fdisk /dev/sdf
+...
+$ fdisk /dev/sdg
+...</code></pre>
+<h1 id="创建-raid">创建 RAID</h1>
+<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
+mdadm: layout defaults to n2
+mdadm: layout defaults to n2
+mdadm: chunk size defaults to 512K
+mdadm: size set to 732440576K
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
+# watch cat /proc/mdstat
+Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+
+Personalities : [raid10]
+md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
+      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
+      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
+0948K/sec
+
+unused devices:</code></pre>
+<h1 id="给-md0-设备创建分区和文件系统">给 md0 设备创建分区和文件系统</h1>
+<pre><code>$ fdisk /dev/md0
+$ mkfs.ext4 /dev/md0p1
+
+$ mkdir /raid10
+$ mount /dev/md0p1 /raid10</code></pre>
+<h1 id="修改-etcfstab-启动时自动挂载">修改 /etc/fstab 启动时自动挂载</h1>
+<pre><code>$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0</code></pre>
 <blockquote>
-<p>更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+<p>在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法， 因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID： $ blkid … /dev/md0p1: UUID=“093e0605-1fa2-4279-99b2-746c70b78f1b” TYPE=“ext4”</p>
 </blockquote>
-<h1 id="使用-yum-安装环境">使用 yum 安装环境</h1>
-<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+<pre><code># 然后修改相应的 fstab，使用 UUID 挂载：
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**</code></pre>
+<h1 id="查看-raid-的状态">查看 RAID 的状态</h1>
+<pre><code>$ mdadm --query --detail /dev/md0
+/dev/md0:
+        Version : 1.2
+  Creation Time : Tue Feb 11 12:50:38 2014
+     Raid Level : raid10
+     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
+  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
+   Raid Devices : 6
+  Total Devices : 6
+    Persistence : Superblock is persistent
 
-# 其它的使得 pip 安装就可以
-$ pip install whisper
-$ pip install carbon
-$ pip install graphite-web</code></pre>
-<h1 id="安装并升级为最新的-zope.interface-及-twisted">安装并升级为最新的 zope.interface 及 twisted</h1>
-<pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
-$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
-$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+    Update Time : Tue Feb 11 18:48:10 2014
+          State : clean
+ Active Devices : 6
+Working Devices : 6
+ Failed Devices : 0
+  Spare Devices : 0
 
-# test twisted
-[root@bigdata twisted]# python
-Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-&gt;&gt;&gt; from twisted.python.compat import _PY3
-&gt;&gt;&gt;</code></pre>
-<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
-<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
-<h1 id="设置权限">设置权限</h1>
-<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
-<h1 id="配置文件">配置文件</h1>
-<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
-$ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
-$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf</code></pre>
-<h1 id="同步数据库">同步数据库</h1>
-<pre><code># 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
-$ python /opt/graphite/webapp/graphite/manage.py syncdb
+         Layout : near=2
+     Chunk Size : 512K
 
-$ cd /opt/graphite/conf/
-$ cp graphite.wsgi.example graphite.wsgi
-$ cp storage-schemas.conf.example storage-schemas.conf
-$ cp carbon.conf.example carbon.conf
+           Name : local:0  (local to host local)
+           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
+         Events : 70
 
-$ cd /opt/graphite/webapp/graphite
-$ cp local_settings.py.example local_settings.py</code></pre>
-<h1 id="在-httpd-中启用-virtualhost">在 httpd 中启用 virtualHost</h1>
-<pre><code>$ cd ../../
-$ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
-
-# 并修改
-$ vi /etc/httpd/conf.d/vhost-graphite.conf
-WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
-<h1 id="修改已知的-bug">修改已知的 bug</h1>
-<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
-
-def fetch(self, startTime, endTime, now=None):
-    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now</code></pre>
-<h1 id="替换-graphite-的界面">替换 graphite 的界面</h1>
-<pre><code>graph-index-master
-graphite-web-master</code></pre>
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       33        1      active sync   /dev/sdc1
+       2       8       49        2      active sync   /dev/sdd1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       81        4      active sync   /dev/sdf1
+       5       8       97        5      active sync   /dev/sdg1</code></pre>
+<h1 id="配置-raid-的配置文件">配置 raid 的配置文件</h1>
+<pre><code>$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
+<h1 id="raid-维护命令">RAID 维护命令</h1>
+<h2 id="删除故障盘">删除故障盘</h2>
+<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
+<h2 id="增加新盘">增加新盘</h2>
+<pre><code>$ mdadm /dev/md0 -a /dev/sde1</code></pre>
+<h2 id="停止并移除阵列">停止并移除阵列</h2>
+<pre><code>$ mdadm --stop /dev/md99    // 停止
+$ mdadm -As /dev/md0        // 启动
+$ mdadm --remove /dev/md99</code></pre>
+<h2 id="销毁系统中的阵列">销毁系统中的阵列</h2>
+<pre><code>mdadm --manage /dev/md99 --fail /dev/sd[cde]1
+mdadm --manage /dev/md99 --remove /dev/sd[cde]1
+mdadm --manage /dev/md99 --stop
+mdadm --zero-superblock /dev/sd[cde]1</code></pre>
 
           
         
@@ -1179,7 +1266,7 @@ exclude = *.i?86</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1198,7 +1285,7 @@ exclude = *.i?86</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/dns/Dnsmasq使用本地host为DNS/" itemprop="url">Dnsmasq 使用本地 Hosts 配置提供 DNS 服务</a></h2>
+                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
         
 
         <div class="post-meta">
@@ -1240,17 +1327,6 @@ exclude = *.i?86</code></pre>
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/dns/" itemprop="url" rel="index">
-                    <span itemprop="name">dns</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -1262,9 +1338,9 @@ exclude = *.i?86</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/dns/Dnsmasq使用本地host为DNS/#comments" itemprop="discussionUrl">
+                <a href="/linux/Linux安装easy_install及pip/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/dns/Dnsmasq使用本地host为DNS/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Linux安装easy_install及pip/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1272,7 +1348,7 @@ exclude = *.i?86</code></pre>
 
           
           
-             <span id="/linux/dns/Dnsmasq使用本地host为DNS/" class="leancloud_visitors" data-flag-title="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
+             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux 安装 Easy_install 及 Pip">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1302,35 +1378,63 @@ exclude = *.i?86</code></pre>
       
         
           
-            <h1 id="使用-dnsmasq-提供外网-dns-服务">使用 dnsmasq 提供外网 dns 服务</h1>
-<pre><code>$ apt-get install dnsmasq</code></pre>
-<h2 id="修改-dnsmasq-主配置文件">修改 dnsmasq 主配置文件</h2>
-<pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
-listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
-addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
-resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个 )
-conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析</code></pre>
-<h2 id="生成域名映射">生成域名映射</h2>
-<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
-vi /etc/dnsmasq.d/dns.conf
+            <blockquote>
+<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
+</blockquote>
+<h1 id="安装-easy_install">安装 easy_install</h1>
+<pre><code># 获取软件包
+$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
+# 解压 :
+$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
+# 使用 Python 2.7.x 安装 setuptools
+/usr/local/bin/python2.7 setup.py install
 
-# 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
-address=&quot;/google.com/172.17.0.4&quot;</code></pre>
-<h2 id="启动服务">启动服务</h2>
-<pre><code>/etc/init.d/dnsmasq start</code></pre>
-<h2 id="测试">测试</h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
-<h1 id="本地-hosts-配合-networkmanager-方式">本地 hosts 配合 NetworkManager 方式</h1>
-<pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
-addn-hosts=/etc/hosts
+更多 easy_install 用法见： easy_install 用法</code></pre>
+<h1 id="安装-pip">安装 PIP</h1>
+<pre><code># 下载方法 1
+$ curl https://bootstrap.pypa.io/get-pip.py | python -
+# 下载方法 2
+$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
 
-$ sudo service networking restart
-$ sudo /etc/init.d/dns-clean restart
+# 安装方法 1
+$ yum install python-pip
 
-# 修改后要求下面的几个命令输出相同的 IP 地址：
-$ host u1
-$ nslookup u1
-$ getent ahosts u1</code></pre>
+# 安装方法 2
+$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
+
+# 升级 pip
+$ /usr/local/bin/easy_install --upgrade pip
+
+# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
+$ pip install -U distribute
+
+# 升级 ez_setup
+$ curl https://bootstrap.pypa.io/ez_setup.py | python -
+
+&gt; PIP 使用指定源，且不缓存到目录
+$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+&gt; 安装墙内 PIP
+http://realfavicongenerator.net/</code></pre>
+<h1 id="easy_install-用法">easy_install 用法</h1>
+<pre><code># 1 直接安装：
+  easy_install SQLObject
+# 2 使用下载页面地址安装
+  easy_install -f http://pythonpaste.org/package_index.html SQLObject
+# 3 直接给出下载 url 安装
+  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
+# 4 .egg 文件的安装
+  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
+# 5 跟新安装过的包
+  easy_install --upgrade PyProtocols
+# 6 安装已经下载和提取在当前目录下的包
+  easy_install .
+# 7 安装特定特定版本的库
+  easy_install &quot;SomePackage==2.0&quot;
+# 8 大于某个版本
+  easy_install &quot;SomePackage&gt;2.0
+# 9 卸载库
+easy_install -m PackageName</code></pre>
 
           
         
