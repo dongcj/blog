@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-18T03:53:11.945Z</updated>
+  <updated>2018-01-18T04:10:41.272Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>修改 Npm 安装源为国内源</title>
     <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
     <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
-    <published>2018-01-18T03:53:11.944Z</published>
-    <updated>2018-01-18T03:53:11.945Z</updated>
+    <published>2018-01-18T04:10:41.271Z</published>
+    <updated>2018-01-18T04:10:41.272Z</updated>
     
     <summary type="html">
     
@@ -45,8 +45,8 @@
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-18T03:53:03.894Z</published>
-    <updated>2018-01-18T03:53:03.895Z</updated>
+    <published>2018-01-18T04:10:33.437Z</published>
+    <updated>2018-01-18T04:10:33.438Z</updated>
     
     <summary type="html">
     
@@ -65,8 +65,8 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-18T03:52:51.630Z</published>
-    <updated>2018-01-18T03:52:51.632Z</updated>
+    <published>2018-01-18T04:10:21.146Z</published>
+    <updated>2018-01-18T04:10:21.148Z</updated>
     
     <summary type="html">
     
@@ -92,8 +92,8 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-18T03:52:46.998Z</published>
-    <updated>2018-01-18T03:52:47.000Z</updated>
+    <published>2018-01-18T04:10:17.548Z</published>
+    <updated>2018-01-18T04:10:17.549Z</updated>
     
     <summary type="html">
     
@@ -125,8 +125,8 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     <title>Awk 命令</title>
     <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/awk命令/</id>
-    <published>2018-01-18T03:52:42.032Z</published>
-    <updated>2018-01-18T03:52:42.034Z</updated>
+    <published>2018-01-18T04:10:13.227Z</published>
+    <updated>2018-01-18T04:10:13.228Z</updated>
     
     <summary type="html">
     
@@ -327,7 +327,7 @@ yum group
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-18T03:52:43.583Z</updated>
+    <updated>2018-01-18T04:10:14.748Z</updated>
     
     <summary type="html">
     
@@ -439,32 +439,6 @@ $ fdisk /dev/sda
   </entry>
   
   <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;python gearman library hom
-      
-    
-    </summary>
-    
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
-    
-    
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
     <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
     <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
@@ -487,6 +461,32 @@ $ fdisk /dev/sda
       <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
     
       <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;python gearman library hom
+      
+    
+    </summary>
+    
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
+    
+    
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
