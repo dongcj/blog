@@ -463,13 +463,11 @@ $ vi /etc/sysconfig/gearmand
 
 $ service gearmand start
 
-# 或者自己启动
 $ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 
 # 如果需要使用数据库
 gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-# 命令行 API 用法：
 $ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
 # 将 /etc/passwd 文件给函数 wc 进行处理
@@ -479,7 +477,6 @@ $ gearadmin --show-jobs
       --status
       --workers
       -- ...</code></pre>
-<h1 id="php-api-用法">PHP API 用法：</h1>
 <h2 id="worker">1. Worker:</h2>
 <pre><code>&lt;?php
 
@@ -512,8 +509,6 @@ $client = new GearmanClient();
 $client-&gt;addServer();
 
 echo &quot;sending job\n&quot;;
-
-$result = $client-&gt;doNormal(&quot;reverse&quot;, &quot;Hello World!&quot;);     --&gt; 这里可以换成 doBackground 就可以后台
 
 if($result) {
     echo &quot;Success: $result\n&quot;;
@@ -574,8 +569,8 @@ if($result) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Mdadm_raid10_raid5/" rel="next" title="Mdadm_raid10_raid5">
-                <i class="fa fa-chevron-left"></i> Mdadm_raid10_raid5
+              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="next" title="Nginx 及 Upstreamcheck,fair 模块安装">
+                <i class="fa fa-chevron-left"></i> Nginx 及 Upstreamcheck,fair 模块安装
               </a>
             
           </div>
@@ -584,8 +579,8 @@ if($result) {
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" rel="prev" title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
-                VirtualBox 报错 E_FAIL0x80004005 解决方案 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Mdadm_raid10_raid5/" rel="prev" title="Mdadm_raid10_raid5">
+                Mdadm_raid10_raid5 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -781,7 +776,7 @@ if($result) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一安装-grarmand-及-libgearman-devel"><span class="nav-number">1.</span> <span class="nav-text">一、安装 grarmand 及 libgearman-devel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二安装-php-的-api"><span class="nav-number">2.</span> <span class="nav-text">二、安装 PHP 的 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三启动-gearmand"><span class="nav-number">3.</span> <span class="nav-text">三、启动 gearmand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#php-api-用法"><span class="nav-number">4.</span> <span class="nav-text">PHP API 用法：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#worker"><span class="nav-number">4.1.</span> <span class="nav-text">1. Worker:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">4.2.</span> <span class="nav-text">2. client:</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一安装-grarmand-及-libgearman-devel"><span class="nav-number">1.</span> <span class="nav-text">一、安装 grarmand 及 libgearman-devel</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二安装-php-的-api"><span class="nav-number">2.</span> <span class="nav-text">二、安装 PHP 的 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三启动-gearmand"><span class="nav-number">3.</span> <span class="nav-text">三、启动 gearmand</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#worker"><span class="nav-number">3.1.</span> <span class="nav-text">1. Worker:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#client"><span class="nav-number">3.2.</span> <span class="nav-text">2. client:</span></a></li></ol></li></ol></div>
             
 
           </div>

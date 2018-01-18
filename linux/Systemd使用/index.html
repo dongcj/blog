@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="Systemd 和 Systemctl 基础命令 几个常用的服务控制 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查 chkconfig:    systemctl list-unit-file">
+<meta name="description" content="Systemd 和 Systemctl 基础命令 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查 chkconfig:    systemctl list-unit-files | grep &amp;l">
 <meta name="keywords" content="systemd,systemctl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Systemd,systemctl 命令">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Systemd使用/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="Systemd 和 Systemctl 基础命令 几个常用的服务控制 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查 chkconfig:    systemctl list-unit-file">
+<meta property="og:description" content="Systemd 和 Systemctl 基础命令 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查 chkconfig:    systemctl list-unit-files | grep &amp;l">
 <meta property="og:updated_time" content="2016-08-04T09:26:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Systemd,systemctl 命令">
-<meta name="twitter:description" content="Systemd 和 Systemctl 基础命令 几个常用的服务控制 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查 chkconfig:    systemctl list-unit-file">
+<meta name="twitter:description" content="Systemd 和 Systemctl 基础命令 查看目前状态：      systemctl status &amp;lt;SERVICE_NAME&amp;gt;  [ 启动 | 停止 ]:    systemctl [ start | stop ] &amp;lt;SERVICE_NAME&amp;gt;  类似查 chkconfig:    systemctl list-unit-files | grep &amp;l">
 
 
 
@@ -433,7 +433,6 @@
 
       
         <h1 id="systemd-和-systemctl-基础命令">Systemd 和 Systemctl 基础命令</h1>
-<h2 id="几个常用的服务控制">几个常用的服务控制</h2>
 <pre><code>查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
 
 [ 启动 | 停止 ]:    systemctl [ start | stop ] &lt;SERVICE_NAME&gt;
@@ -457,9 +456,9 @@ systemctl daemon-reload
 <pre><code>[root@manage ~]# systemctl --version
 systemd 215
 +PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
-上例中很清楚地表明，我们安装了 215 版本的 systemd。</code></pre>
-<h3 id="检查-systemd-和-systemctl-的二进制文件和库文件的安装位置">2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置</h3>
-<pre><code>[root@manage ~]# whereis systemd
+上例中很清楚地表明，我们安装了 215 版本的 systemd。
+
+[root@manage ~]# whereis systemd
 systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
 [root@manage ~]# whereis systemctl
 systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
@@ -470,9 +469,7 @@ root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journal
 root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
 root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
 dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
-注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
-
-也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。</code></pre>
+注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。</code></pre>
 <h3 id="分析-systemd-启动进程">4. 分析 systemd 启动进程</h3>
 <pre><code>[root@manage ~]# systemd-analyze
 Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
@@ -536,21 +533,21 @@ sys-devices-pc...0-1:0:0:0-block-sr0.device loaded active plugged   VBOX_CD-ROM
 sys-devices-pc...:00:03.0-net-enp0s3.device loaded active plugged   PRO/1000 MT Desktop Adapter
 sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC&#39;97 Audio Controller
 sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
-sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8</code></pre>
-<h3 id="列出所有失败单元">9. 列出所有失败单元</h3>
-<pre><code>[root@manage ~]# systemctl --failed
+sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8
+
+[root@manage ~]# systemctl --failed
 UNIT          LOAD   ACTIVE SUB    DESCRIPTION
 kdump.service loaded failed failed Crash recovery kernel arming
 LOAD   = Reflects whether the unit definition was properly loaded.
 ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
 SUB    = The low-level unit activation state, values depend on unit type.
 1 loaded units listed. Pass --all to see loaded but inactive units, too.
-To show all installed unit files use &#39;systemctl list-unit-files&#39;.</code></pre>
-<h3 id="检查某个单元如-cron.service是否启用">10. 检查某个单元（如 cron.service）是否启用</h3>
-<pre><code>[root@manage ~]# systemctl is-enabled crond.service
-enabled</code></pre>
-<h3 id="如何激活服务并在启动时启用或禁用服务即系统启动时自动启动服务">11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</h3>
-<pre><code>[root@manage ~]# systemctl is-active httpd.service
+To show all installed unit files use &#39;systemctl list-unit-files&#39;.
+
+[root@manage ~]# systemctl is-enabled crond.service
+enabled
+
+[root@manage ~]# systemctl is-active httpd.service
 [root@manage ~]# systemctl enable    httpd.service
 [root@manage ~]# systemctl disable   httpd.service</code></pre>
 <h3 id="检查某个单元或服务是否运行">12. 检查某个单元或服务是否运行</h3>
@@ -563,9 +560,9 @@ firewalld.service - firewalld - dynamic firewall daemon
            └─ 549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
 Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
 Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
-使用 Systemctl 控制并管理服务</code></pre>
-<h3 id="linux-中如何启动重启停止重载服务以及检查服务如-httpd.service状态">14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</h3>
-<pre><code>[root@manage ~]# systemctl start httpd.service
+使用 Systemctl 控制并管理服务
+
+[root@manage ~]# systemctl start httpd.service
 [root@manage ~]# systemctl restart httpd.service
 [root@manage ~]# systemctl stop httpd.service
 [root@manage ~]# systemctl reload httpd.service
@@ -589,17 +586,16 @@ Apr 28 17:21:30 tecmint systemd[1]: Starting The Apache HTTP Server...
 Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server&#39;s fully q...ssage
 Apr 28 17:21:30 tecmint systemd[1]: Started The Apache HTTP Server.
 Hint: Some lines were ellipsized, use -l to show in full.
-注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。</code></pre>
-<h3 id="如何屏蔽让它不能启动或显示服务如-httpd.service">15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</h3>
-<pre><code># 注意：这是一个演示如何增加一个服务
+注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。
+
 [root@manage ~]# systemctl mask httpd.service
 ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/httpd.service&#39;
 
 # 删除服务
 [root@manage ~]# systemctl unmask httpd.service
-rm &#39;/etc/systemd/system/httpd.service&#39;</code></pre>
-<h3 id="使用-systemctl-命令杀死服务">16. 使用 systemctl 命令杀死服务</h3>
-<pre><code>[root@manage ~]# systemctl kill httpd
+rm &#39;/etc/systemd/system/httpd.service&#39;
+
+[root@manage ~]# systemctl kill httpd
 [root@manage ~]# systemctl status httpd
 httpd.service - The Apache HTTP Server
    Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
@@ -627,9 +623,9 @@ proc-sys-fs-binfmt_misc.mount static
 sys-fs-fuse-connections.mount static
 sys-kernel-config.mount       static
 sys-kernel-debug.mount        static
-tmp.mount                     disabled</code></pre>
-<h3 id="挂载卸载重新挂载重载系统挂载点并检查系统中挂载点状态">18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</h3>
-<pre><code>[root@manage ~]# systemctl start tmp.mount
+tmp.mount                     disabled
+
+[root@manage ~]# systemctl start tmp.mount
 [root@manage ~]# systemctl stop tmp.mount
 [root@manage ~]# systemctl restart tmp.mount
 [root@manage ~]# systemctl reload tmp.mount
@@ -648,9 +644,9 @@ Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.</code></pre>
 <h3 id="在启动时激活启用或禁用挂载点系统启动时自动挂载">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</h3>
 <pre><code>[root@manage ~]# systemctl is-active tmp.mount
 [root@manage ~]# systemctl enable tmp.mount
-[root@manage ~]# systemctl disable  tmp.mount</code></pre>
-<h3 id="在-linux-中屏蔽让它不能启用或可见挂载点">20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点</h3>
-<pre><code>[root@manage ~]# systemctl mask tmp.mount
+[root@manage ~]# systemctl disable  tmp.mount
+
+[root@manage ~]# systemctl mask tmp.mount
 ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/tmp.mount&#39;
 [root@manage ~]# systemctl unmask tmp.mount
 rm &#39;/etc/systemd/system/tmp.mount&#39;
@@ -669,9 +665,9 @@ systemd-journald.socket      static
 systemd-shutdownd.socket     static
 systemd-udevd-control.socket static
 systemd-udevd-kernel.socket  static
-11 unit files listed.</code></pre>
-<h3 id="在-linux-中启动重启停止重载套接口并检查其状态">22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态</h3>
-<pre><code>[root@manage ~]# systemctl start cups.socket
+11 unit files listed.
+
+[root@manage ~]# systemctl start cups.socket
 [root@manage ~]# systemctl restart cups.socket
 [root@manage ~]# systemctl stop cups.socket
 [root@manage ~]# systemctl reload cups.socket
@@ -687,7 +683,6 @@ Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.<
 [root@manage ~]# systemctl enable cups.socket
 [root@manage ~]# systemctl disable cups.socket</code></pre>
 <h1 id="服务的-cpu-利用率分配额">服务的 CPU 利用率（分配额）</h1>
-<h3 id="获取当前某个服务的-cpu-分配额如-httpd">25. 获取当前某个服务的 CPU 分配额（如 httpd）</h3>
 <pre><code>[root@manage ~]# systemctl show -p CPUShares httpd.service
 CPUShares=1024
 [root@manage ~]# 注意：各个服务的默认 CPU 分配份额 =1024，你可以增加 / 减少某个进程的 CPU 分配份额。</code></pre>
@@ -699,9 +694,9 @@ CPUShares=2000
 
 [root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
 [Service]
-CPUShares=2000</code></pre>
-<h3 id="检查某个服务的所有配置细节">27. 检查某个服务的所有配置细节</h3>
-<pre><code>[root@manage ~]# systemctl show httpd
+CPUShares=2000
+
+[root@manage ~]# systemctl show httpd
 Id=httpd.service
 Names=httpd.service
 Requires=basic.target
@@ -715,9 +710,9 @@ LoadState=loaded
 ActiveState=active
 SubState=running
 FragmentPath=/usr/lib/systemd/system/httpd.service
-....</code></pre>
-<h3 id="分析某个服务httpd的关键链">28. 分析某个服务（httpd）的关键链</h3>
-<pre><code>[root@manage ~]# systemd-analyze critical-chain httpd.service
+....
+
+[root@manage ~]# systemd-analyze critical-chain httpd.service
 The time after the unit is active or started is printed after the &quot;@&quot; character.
 The time the unit takes to start is printed after the &quot;+&quot; character.
 httpd.service +142ms
@@ -736,9 +731,9 @@ httpd.service +142ms
                         └─ local-fs.target @4.324s
                           └─ boot.mount @4.286s +31ms
                             └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
-                              └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s</code></pre>
-<h3 id="获取某个服务httpd的依赖性列表">29. 获取某个服务（httpd）的依赖性列表</h3>
-<pre><code>[root@manage ~]# systemctl list-dependencies httpd.service
+                              └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
+
+[root@manage ~]# systemctl list-dependencies httpd.service
 httpd.service
 ├─ system.slice
 └─ basic.target
@@ -776,9 +771,9 @@ httpd.service
   │ └─ 4446 /usr/sbin/httpd -DFOREGROUND
   ├─ polkit.service
   │ └─ 721 /usr/lib/polkit-1/polkitd --no-debug
-....</code></pre>
-<h3 id="按-cpu内存输入和输出列出控制组">31. 按 CPU、内存、输入和输出列出控制组</h3>
-<pre><code>[root@manage ~]# systemd-cgtop
+....
+
+[root@manage ~]# systemd-cgtop
 Path                                                              Tasks   %CPU   Memory  Input/s Output/s
 /                                                                    83    1.0   437.8M        -        -
 /system.slice                                                         -    0.1        -        -        -
@@ -806,14 +801,14 @@ Path                                                              Tasks   %CPU  
 <h3 id="启动系统救援模式">32. 启动系统救援模式</h3>
 <pre><code>[root@manage ~]# systemctl rescue
 Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
-The system is going down to rescue mode NOW!</code></pre>
-<h3 id="进入紧急模式">33. 进入紧急模式</h3>
-<pre><code>[root@manage ~]# systemctl emergency
+The system is going down to rescue mode NOW!
+
+[root@manage ~]# systemctl emergency
 Welcome to emergency mode! After logging in, type &quot;journalctl -xb&quot; to view
 system logs, &quot;systemctl reboot&quot; to reboot, &quot;systemctl default&quot; to try again
-to boot into default mode.</code></pre>
-<h3 id="列出当前使用的运行等级">34. 列出当前使用的运行等级</h3>
-<pre><code>[root@manage ~]# systemctl get-default
+to boot into default mode.
+
+[root@manage ~]# systemctl get-default
 multi-user.target</code></pre>
 <h3 id="启动运行等级-5即图形模式">35. 启动运行等级 5，即图形模式</h3>
 <pre><code>[root@manage ~]# systemctl isolate runlevel5.target
@@ -822,12 +817,12 @@ multi-user.target</code></pre>
 <h3 id="启动运行等级-3即多用户模式命令行">36. 启动运行等级 3，即多用户模式（命令行）</h3>
 <pre><code>[root@manage ~]# systemctl isolate runlevel3.target
 或
-[root@manage ~]# systemctl isolate multiuser.target</code></pre>
-<h3 id="设置多用户模式或图形模式为默认运行等级">37. 设置多用户模式或图形模式为默认运行等级</h3>
-<pre><code>[root@manage ~]# systemctl set-default runlevel3.target
-[root@manage ~]# systemctl set-default runlevel5.target</code></pre>
-<h3 id="重启停止挂起休眠系统或使系统进入混合睡眠">38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</h3>
-<pre><code>[root@manage ~]# systemctl reboot
+[root@manage ~]# systemctl isolate multiuser.target
+
+[root@manage ~]# systemctl set-default runlevel3.target
+[root@manage ~]# systemctl set-default runlevel5.target
+
+[root@manage ~]# systemctl reboot
 [root@manage ~]# systemctl halt
 [root@manage ~]# systemctl suspend
 [root@manage ~]# systemctl hibernate
@@ -886,8 +881,8 @@ multi-user.target</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/markdown/中文文案排版指北/" rel="next" title="中文文案排版指北">
-                <i class="fa fa-chevron-left"></i> 中文文案排版指北
+              <a href="/linux/Supervisor安装与配置/" rel="next" title="Supervisor 安装与配置">
+                <i class="fa fa-chevron-left"></i> Supervisor 安装与配置
               </a>
             
           </div>
@@ -896,8 +891,8 @@ multi-user.target</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Supervisor安装与配置/" rel="prev" title="Supervisor 安装与配置">
-                Supervisor 安装与配置 <i class="fa fa-chevron-right"></i>
+              <a href="/database/Postgresql安装/" rel="prev" title="Postgresql 安装">
+                Postgresql 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -1093,7 +1088,7 @@ multi-user.target</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#systemd-和-systemctl-基础命令"><span class="nav-number">1.</span> <span class="nav-text">Systemd 和 Systemctl 基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#几个常用的服务控制"><span class="nav-number">1.1.</span> <span class="nav-text">几个常用的服务控制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先检查你的系统中是否安装有-systemd-并确定当前安装的版本"><span class="nav-number">1.1.1.</span> <span class="nav-text">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查-systemd-和-systemctl-的二进制文件和库文件的安装位置"><span class="nav-number">1.1.2.</span> <span class="nav-text">2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查-systemd-是否运行"><span class="nav-number">1.1.3.</span> <span class="nav-text">3. 检查 systemd 是否运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-systemd-启动进程"><span class="nav-number">1.1.4.</span> <span class="nav-text">4. 分析 systemd 启动进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析启动时各个进程花费的时间"><span class="nav-number">1.1.5.</span> <span class="nav-text">5. 分析启动时各个进程花费的时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析启动时的关键链"><span class="nav-number">1.1.6.</span> <span class="nav-text">6. 分析启动时的关键链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有可用单元-state-static-enabled-disabled-invalid"><span class="nav-number">1.1.7.</span> <span class="nav-text">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有运行中单元"><span class="nav-number">1.1.8.</span> <span class="nav-text">8. 列出所有运行中单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有失败单元"><span class="nav-number">1.1.9.</span> <span class="nav-text">9. 列出所有失败单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个单元如-cron.service是否启用"><span class="nav-number">1.1.10.</span> <span class="nav-text">10. 检查某个单元（如 cron.service）是否启用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何激活服务并在启动时启用或禁用服务即系统启动时自动启动服务"><span class="nav-number">1.1.11.</span> <span class="nav-text">11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个单元或服务是否运行"><span class="nav-number">1.1.12.</span> <span class="nav-text">12. 检查某个单元或服务是否运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux-中如何启动重启停止重载服务以及检查服务如-httpd.service状态"><span class="nav-number">1.1.13.</span> <span class="nav-text">14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何屏蔽让它不能启动或显示服务如-httpd.service"><span class="nav-number">1.1.14.</span> <span class="nav-text">15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-systemctl-命令杀死服务"><span class="nav-number">1.1.15.</span> <span class="nav-text">16. 使用 systemctl 命令杀死服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有系统挂载点"><span class="nav-number">1.1.16.</span> <span class="nav-text">17. 列出所有系统挂载点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#挂载卸载重新挂载重载系统挂载点并检查系统中挂载点状态"><span class="nav-number">1.1.17.</span> <span class="nav-text">18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时激活启用或禁用挂载点系统启动时自动挂载"><span class="nav-number">1.1.18.</span> <span class="nav-text">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-linux-中屏蔽让它不能启用或可见挂载点"><span class="nav-number">1.1.19.</span> <span class="nav-text">20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有可用系统套接口"><span class="nav-number">1.1.20.</span> <span class="nav-text">21. 列出所有可用系统套接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-linux-中启动重启停止重载套接口并检查其状态"><span class="nav-number">1.1.21.</span> <span class="nav-text">22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时激活套接口并启用或禁用它系统启动时自启动"><span class="nav-number">1.1.22.</span> <span class="nav-text">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务的-cpu-利用率分配额"><span class="nav-number">2.</span> <span class="nav-text">服务的 CPU 利用率（分配额）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取当前某个服务的-cpu-分配额如-httpd"><span class="nav-number">2.0.1.</span> <span class="nav-text">25. 获取当前某个服务的 CPU 分配额（如 httpd）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将某个服务httpd.service的-cpu-分配份额限制为-2000-cpushares"><span class="nav-number">2.0.2.</span> <span class="nav-text">26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个服务的所有配置细节"><span class="nav-number">2.0.3.</span> <span class="nav-text">27. 检查某个服务的所有配置细节</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析某个服务httpd的关键链"><span class="nav-number">2.0.4.</span> <span class="nav-text">28. 分析某个服务（httpd）的关键链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取某个服务httpd的依赖性列表"><span class="nav-number">2.0.5.</span> <span class="nav-text">29. 获取某个服务（httpd）的依赖性列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按等级列出控制组"><span class="nav-number">2.0.6.</span> <span class="nav-text">30. 按等级列出控制组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按-cpu内存输入和输出列出控制组"><span class="nav-number">2.0.7.</span> <span class="nav-text">31. 按 CPU、内存、输入和输出列出控制组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动系统救援模式"><span class="nav-number">2.0.8.</span> <span class="nav-text">32. 启动系统救援模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进入紧急模式"><span class="nav-number">2.0.9.</span> <span class="nav-text">33. 进入紧急模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出当前使用的运行等级"><span class="nav-number">2.0.10.</span> <span class="nav-text">34. 列出当前使用的运行等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动运行等级-5即图形模式"><span class="nav-number">2.0.11.</span> <span class="nav-text">35. 启动运行等级 5，即图形模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动运行等级-3即多用户模式命令行"><span class="nav-number">2.0.12.</span> <span class="nav-text">36. 启动运行等级 3，即多用户模式（命令行）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置多用户模式或图形模式为默认运行等级"><span class="nav-number">2.0.13.</span> <span class="nav-text">37. 设置多用户模式或图形模式为默认运行等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启停止挂起休眠系统或使系统进入混合睡眠"><span class="nav-number">2.0.14.</span> <span class="nav-text">38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#systemd-和-systemctl-基础命令"><span class="nav-number">1.</span> <span class="nav-text">Systemd 和 Systemctl 基础命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#首先检查你的系统中是否安装有-systemd-并确定当前安装的版本"><span class="nav-number">1.0.1.</span> <span class="nav-text">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查-systemd-是否运行"><span class="nav-number">1.0.2.</span> <span class="nav-text">3. 检查 systemd 是否运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析-systemd-启动进程"><span class="nav-number">1.0.3.</span> <span class="nav-text">4. 分析 systemd 启动进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析启动时各个进程花费的时间"><span class="nav-number">1.0.4.</span> <span class="nav-text">5. 分析启动时各个进程花费的时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分析启动时的关键链"><span class="nav-number">1.0.5.</span> <span class="nav-text">6. 分析启动时的关键链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有可用单元-state-static-enabled-disabled-invalid"><span class="nav-number">1.0.6.</span> <span class="nav-text">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有运行中单元"><span class="nav-number">1.0.7.</span> <span class="nav-text">8. 列出所有运行中单元</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查某个单元或服务是否运行"><span class="nav-number">1.0.8.</span> <span class="nav-text">12. 检查某个单元或服务是否运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有系统挂载点"><span class="nav-number">1.0.9.</span> <span class="nav-text">17. 列出所有系统挂载点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时激活启用或禁用挂载点系统启动时自动挂载"><span class="nav-number">1.0.10.</span> <span class="nav-text">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#列出所有可用系统套接口"><span class="nav-number">1.0.11.</span> <span class="nav-text">21. 列出所有可用系统套接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在启动时激活套接口并启用或禁用它系统启动时自启动"><span class="nav-number">1.0.12.</span> <span class="nav-text">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务的-cpu-利用率分配额"><span class="nav-number">2.</span> <span class="nav-text">服务的 CPU 利用率（分配额）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#将某个服务httpd.service的-cpu-分配份额限制为-2000-cpushares"><span class="nav-number">2.0.1.</span> <span class="nav-text">26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按等级列出控制组"><span class="nav-number">2.0.2.</span> <span class="nav-text">30. 按等级列出控制组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动系统救援模式"><span class="nav-number">2.0.3.</span> <span class="nav-text">32. 启动系统救援模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动运行等级-5即图形模式"><span class="nav-number">2.0.4.</span> <span class="nav-text">35. 启动运行等级 5，即图形模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动运行等级-3即多用户模式命令行"><span class="nav-number">2.0.5.</span> <span class="nav-text">36. 启动运行等级 3，即多用户模式（命令行）</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -324,307 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
-</blockquote>
-<h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
-<pre><code># 分区格式为 Linux software raid：
-
-$ fdisk /dev/sda
-
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
-
-  Command (m for help): n
-  Command action
-     e   extended
-     p   primary partition (1-4)
-  p
-  Partition number (1-4): 1
-  First cylinder (1-91201, default 1):
-  Using default value 1
-  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
-  Using default value 91201
-
-  Command (m for help): p
-
-  Disk /dev/sda: 750.2 GB, 750156374016 bytes
-  255 heads, 63 sectors/track, 91201 cylinders
-  Units = cylinders of 16065 * 512 = 8225280 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disk identifier: 0x0005c259
-
-     Device Boot      Start         End      Blocks   Id  System
-  /dev/sda1               1       91201   732572001   83  Linux
-
-  Command (m for help): t
-  Selected partition 1
-  Hex code (type L to list codes): fd
-  Changed system type of partition 1 to fd (Linux raid autodetect)
-
-  Command (m for help): w
-  The partition table has been altered!
-
-  Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式">更改分区格式</h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
-$ fdisk /dev/sdc
-...
-$ fdisk /dev/sdd
-...
-$ fdisk /dev/sde
-...
-$ fdisk /dev/sdf
-...
-$ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建-raid">创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
-$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
-mdadm: layout defaults to n2
-mdadm: layout defaults to n2
-mdadm: chunk size defaults to 512K
-mdadm: size set to 732440576K
-mdadm: Defaulting to version 1.2 metadata
-mdadm: array /dev/md0 started.
-
-# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
-# watch cat /proc/mdstat
-Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
-
-Personalities : [raid10]
-md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
-      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
-      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
-0948K/sec
-
-unused devices:</code></pre>
-<h1 id="给-md0-设备创建分区和文件系统">给 md0 设备创建分区和文件系统</h1>
-<pre><code>$ fdisk /dev/md0
-$ mkfs.ext4 /dev/md0p1
-
-$ mkdir /raid10
-$ mount /dev/md0p1 /raid10</code></pre>
-<h1 id="修改-etcfstab-启动时自动挂载">修改 /etc/fstab 启动时自动挂载</h1>
-<pre><code>$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0</code></pre>
-<blockquote>
-<p>在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法， 因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID： $ blkid … /dev/md0p1: UUID=“093e0605-1fa2-4279-99b2-746c70b78f1b” TYPE=“ext4”</p>
-</blockquote>
-<pre><code># 然后修改相应的 fstab，使用 UUID 挂载：
-$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**</code></pre>
-<h1 id="查看-raid-的状态">查看 RAID 的状态</h1>
-<pre><code>$ mdadm --query --detail /dev/md0
-/dev/md0:
-        Version : 1.2
-  Creation Time : Tue Feb 11 12:50:38 2014
-     Raid Level : raid10
-     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
-  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
-   Raid Devices : 6
-  Total Devices : 6
-    Persistence : Superblock is persistent
-
-    Update Time : Tue Feb 11 18:48:10 2014
-          State : clean
- Active Devices : 6
-Working Devices : 6
- Failed Devices : 0
-  Spare Devices : 0
-
-         Layout : near=2
-     Chunk Size : 512K
-
-           Name : local:0  (local to host local)
-           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
-         Events : 70
-
-    Number   Major   Minor   RaidDevice State
-       0       8        1        0      active sync   /dev/sda1
-       1       8       33        1      active sync   /dev/sdc1
-       2       8       49        2      active sync   /dev/sdd1
-       3       8       65        3      active sync   /dev/sde1
-       4       8       81        4      active sync   /dev/sdf1
-       5       8       97        5      active sync   /dev/sdg1</code></pre>
-<h1 id="配置-raid-的配置文件">配置 raid 的配置文件</h1>
-<pre><code>$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid-维护命令">RAID 维护命令</h1>
-<h2 id="删除故障盘">删除故障盘</h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘">增加新盘</h2>
-<pre><code>$ mdadm /dev/md0 -a /dev/sde1</code></pre>
-<h2 id="停止并移除阵列">停止并移除阵列</h2>
-<pre><code>$ mdadm --stop /dev/md99    // 停止
-$ mdadm -As /dev/md0        // 启动
-$ mdadm --remove /dev/md99</code></pre>
-<h2 id="销毁系统中的阵列">销毁系统中的阵列</h2>
-<pre><code>mdadm --manage /dev/md99 --fail /dev/sd[cde]1
-mdadm --manage /dev/md99 --remove /dev/sd[cde]1
-mdadm --manage /dev/md99 --stop
-mdadm --zero-superblock /dev/sd[cde]1</code></pre>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -740,7 +439,6 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
             <h1 id="买个-ss-帐号">买个 SS 帐号</h1>
 <p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
 <h1 id="路由刷机">路由刷机</h1>
-<h2 id="连接路由器">连接路由器</h2>
 <ul>
 <li>路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code>注意：不是 WAN 口</code></li>
 <li>查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址</li>
@@ -750,12 +448,174 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
 </figure>
 <ul>
 <li>自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 )</li>
-<li>用户名和密码默认 “admin/admin”</li>
+<li><p>用户名和密码默认 “admin/admin”</p></li>
+<li><p>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</p></li>
 </ul>
-<h2 id="路由器系统降级">路由器系统降级</h2>
-<ul>
-<li>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</li>
-</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/编码与文件格式转换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/编码与文件格式转换/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/编码与文件格式转换/" class="leancloud_visitors" data-flag-title="编码与文件格式转换">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="作用">作用</h1>
+<blockquote>
+<p>在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
+</blockquote>
+<h1 id="编码转换-trans_to_utf-8.py">编码转换 “Trans_To_UTF-8.py”</h1>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下</span></div><div class="line"><span class="keyword">import</span> os,sys</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">( filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"convert "</span> + filename,</div><div class="line">        content = open(filename).read()</div><div class="line">        new_content = content.decode(in_enc).encode(out_enc)</div><div class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</div><div class="line">        <span class="keyword">print</span> <span class="string">" done"</span></div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">" error"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></div><div class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</div><div class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</div><div class="line">            path = os.path.join(root, file)</div><div class="line">            convert(path)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</div><div class="line">        <span class="keyword">if</span> os.path.isfile(path):</div><div class="line">            convert(path)</div><div class="line">        <span class="keyword">elif</span> os.path.isdir(path):</div><div class="line">            explore(path)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
+<h1 id="准备脚本-prepare.sh">准备脚本 “prepare.sh”</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></div><div class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</div><div class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></div><div class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></div><div class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></div><div class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></div><div class="line">        <span class="built_in">continue</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to unix</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></div><div class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to UTF-8</span></div><div class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></div><div class="line"></div><div class="line">        <span class="comment"># rename suffix to ".md"</span></div><div class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># if does not have title</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></div><div class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># zero title content</span></div><div class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</div><div class="line">    <span class="keyword">if</span> [ -z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></div><div class="line">        <span class="comment"># update title when it is NULL</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></div><div class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># add author info</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></div><div class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="built_in">echo</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<h1 id="windows-下-更新博客-.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">REM</span></div><div class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</div><div class="line"><span class="function">D:</span></div><div class="line"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></div><div class="line"><span class="title">echo</span> "<span class="title">success</span>"</div></pre></td></tr></table></figure>
 
           
         
@@ -911,21 +771,15 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
       
         
           
-            <ul>
-<li>proxy</li>
-</ul>
-<h1 id="yum-配置代理">yum 配置代理</h1>
+            <h1 id="yum-配置代理">yum 配置代理</h1>
 <pre><code>$ vi /etc/yum.conf
   proxy=http://mycache.mydomain.com:808
   用于 yum 连接的帐户细节
   proxy_username=yum-user
   proxy_password=qwerty
 
-# yum 出现以下错误：
 &gt; UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xd1 in position 72: ordinal not in range(128)
 
-# 解决方法：
-使用光盘中的 GPGKEY：
 $ rpm --import RPM-GPG-KEY-redhat-release</code></pre>
 <h1 id="wget-配置代理">wget 配置代理</h1>
 <pre><code># 配置 .wgetrc
@@ -939,8 +793,7 @@ $ wget -Y on &quot;http_proxy=http://192.168.88.57:808&quot; &quot;www.baidu.com
 # 进行断点下载示例
 $ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip</code></pre>
 <h1 id="apt-get-配置代理">apt-get 配置代理</h1>
-<pre><code># 方法 1：将以下代码写入 /etc/apt/apt_proxy.conf （位置自定，临时使用）
-  Acquire {
+<pre><code>  Acquire {
    Retries &quot;0 ″ ;
    HTTP {
    Proxy &quot;http://192.168.0.246:808&quot;;
@@ -956,12 +809,10 @@ $ apt-get install postfix -c /etc/apt/apt.proxy.conf
 <h1 id="curl-配置代理">curl 配置代理</h1>
 <pre><code>$ curl -x 192.168.88.57:808 &quot;www.baidu.com&quot;
 
-# 或者
 $ vi /root/.bashrc
   export http_proxy = http://PROXYSERVER:18023</code></pre>
 <h1 id="git-配置代理">git 配置代理</h1>
-<pre><code># 如果是 git clone http:// 或 git clone https:// 的话直接把代理服务器加到环境变量就可以了：
-$ export http_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
+<pre><code>$ export http_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 $ export https_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 
 -
@@ -972,8 +823,6 @@ $ export https_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 2、$ sudo chmod a+r /usr/share/ca-certificates/goagent.crt
 3、$ sudo dpkg-reconfigure ca-certificates
 
-# 最后一个命令会有一个图形界面，在里面勾选 goagent 的 CA 就可以了。
-
 -
 
 # 如果是 git clone git:// 的话麻烦一些（可能有的 git 源不提供 http/https 的方式 )
@@ -983,9 +832,7 @@ $ cp connect /bin/
 $ echo &quot;connect -H http://192.168.88.57:808 $@&quot; &gt;/root/git_proxy
 $ chmod a+x /root/git_proxy
 
-$ git config --global core.gitproxy /root/git_proxy
-
-# 然后就可以使用 git 了</code></pre>
+$ git config --global core.gitproxy /root/git_proxy</code></pre>
 <ul>
 <li></li>
 </ul>
@@ -995,9 +842,7 @@ $ git config --global core.gitproxy /root/git_proxy
   PROXY_ENABLED=&quot;on&quot;
   HTTP_PROXY=&quot;http://192.168.11.35:808&quot;</code></pre>
 <h1 id="goagent-代理">GoAgent 代理</h1>
-<pre><code># 重建证书目录：
-（如果不建，则会报：certutil: could not authenticate to token NSS Certificate DB.: An I/O error occurred during security authorization.）
-$ modutil -changepw &quot;NSS Certificate DB&quot; -dbdir $HOME/.pki/nssdb
+<pre><code>$ modutil -changepw &quot;NSS Certificate DB&quot; -dbdir $HOME/.pki/nssdb
 
 # 查看证书
 $ certutil -d sql:$HOME/.pki/nssdb -L
@@ -1009,17 +854,20 @@ $ pk12util -d sql:$HOME/.pki/nssdb -i XXXX.pfx
 $ certutil -d sql:$HOME/.pki/nssdb -A -t TC -n &quot;GoAgent&quot; -i /tmp/CA.crt
 
 # 删除证书
-$ certutil -d sql:$HOME/.pki/nssdb -D -t &quot;C,,&quot; -n GoAgent</code></pre>
-<h1 id="npm-代理">npm 代理：</h1>
-<pre><code># 设置 :
+$ certutil -d sql:$HOME/.pki/nssdb -D -t &quot;C,,&quot; -n GoAgent
+
+# 设置 :
 $ npm config set proxy=http://proxy.mysite.com:8080
   或在 /root/.npmrc 中设置：
 $ proxy=http://192.168.109.1:808
 
 # 取消 :
-$ npm config delete proxy</code></pre>
-<h1 id="gem-代理">gem 代理：</h1>
-<pre><code># 安装时加上 --http-proxy 参数
+$ npm config delete proxy
+
+# 设置 :
+$ https_proxy=http://192.168.109.1:1080 go get &lt;PACKAGE&gt;
+
+# 安装时加上 --http-proxy 参数
 $ gem install --http-proxy http://proxy.mysite.com:8080 sass
 
 # 取消 :
@@ -1182,25 +1030,22 @@ $ gem install sass</code></pre>
           
             <h1 id="yum-更新">yum 更新</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum search fastestmirror</div><div class="line">yum install yum-fastestmirror* -y</div><div class="line">yum update yum*</div><div class="line">yum update kernel*</div><div class="line">yum update</div></pre></td></tr></table></figure>
-<h1 id="常用源">常用源</h1>
-<h2 id="rpmforge-源">rpmforge 源</h2>
 <pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
 rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
 rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
 <h2 id="epel-源-elrepo.org">epel 源 (elrepo.org)</h2>
 <pre><code>yum install epel-release</code></pre>
 <h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
-<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</code></pre>
-<h2 id="remi-源">remi 源</h2>
-<pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm</code></pre>
-<h2 id="rpmfusion-源">rpmfusion 源</h2>
-<pre><code># redhat/centos 6
+<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
+
+# ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+# redhat/centos 6
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
 rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
 <p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
-<h1 id="国内镜像站">国内镜像站</h1>
 <h2 id="centos-中国科学技术大学-ustc-mirror-每小时更新一次">CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )</h2>
 <blockquote>
 <p>地址：http://centos.ustc.edu.cn/</p>
@@ -1216,11 +1061,9 @@ mv CentOS-Base.repo  CentOS-Base.repo.save-`date +%F`</code></pre>
 <p>地址：http://mirrors.163.com/.help/centos.html</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">cd</span> /etc/yum.repos.d</div><div class="line"><span class="comment"># centos6</span></div><div class="line">wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS6-Base-163.repo</div><div class="line"></div><div class="line"><span class="comment"># centos7</span></div><div class="line">wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS7-Base-163.repo</div><div class="line"></div><div class="line"><span class="comment"># 生成缓存</span></div><div class="line">yum makecache</div></pre></td></tr></table></figure>
-<h1 id="yum-排除-32-位安装">yum 排除 32 位安装</h1>
 <pre><code># 删除 32 位组件：
 yum remove \*.i\?86
 
-# 防止 32 位元组件在未来更新时被安装
 # 编辑 /etc/yum.conf 并加入以下一行：
 exclude = *.i?86</code></pre>
 
@@ -1266,7 +1109,7 @@ exclude = *.i?86</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1285,7 +1128,7 @@ exclude = *.i?86</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
+                <a class="post-title-link" href="/linux/dns/Dnsmasq使用本地host为DNS/" itemprop="url">Dnsmasq 使用本地 Hosts 配置提供 DNS 服务</a></h2>
         
 
         <div class="post-meta">
@@ -1327,6 +1170,17 @@ exclude = *.i?86</code></pre>
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/dns/" itemprop="url" rel="index">
+                    <span itemprop="name">dns</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -1338,9 +1192,9 @@ exclude = *.i?86</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Linux安装easy_install及pip/#comments" itemprop="discussionUrl">
+                <a href="/linux/dns/Dnsmasq使用本地host为DNS/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Linux安装easy_install及pip/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/dns/Dnsmasq使用本地host为DNS/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1348,7 +1202,7 @@ exclude = *.i?86</code></pre>
 
           
           
-             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux 安装 Easy_install 及 Pip">
+             <span id="/linux/dns/Dnsmasq使用本地host为DNS/" class="leancloud_visitors" data-flag-title="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1378,63 +1232,34 @@ exclude = *.i?86</code></pre>
       
         
           
-            <blockquote>
-<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
-</blockquote>
-<h1 id="安装-easy_install">安装 easy_install</h1>
-<pre><code># 获取软件包
-$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-# 解压 :
-$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
-# 使用 Python 2.7.x 安装 setuptools
-/usr/local/bin/python2.7 setup.py install
+            <h1 id="使用-dnsmasq-提供外网-dns-服务">使用 dnsmasq 提供外网 dns 服务</h1>
+<pre><code>$ apt-get install dnsmasq
 
-更多 easy_install 用法见： easy_install 用法</code></pre>
-<h1 id="安装-pip">安装 PIP</h1>
-<pre><code># 下载方法 1
-$ curl https://bootstrap.pypa.io/get-pip.py | python -
-# 下载方法 2
-$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
+# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
+listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
+addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
+resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个 )
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析</code></pre>
+<h2 id="生成域名映射">生成域名映射</h2>
+<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
+vi /etc/dnsmasq.d/dns.conf
 
-# 安装方法 1
-$ yum install python-pip
+# 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
+address=&quot;/google.com/172.17.0.4&quot;</code></pre>
+<h2 id="启动服务">启动服务</h2>
+<pre><code>/etc/init.d/dnsmasq start</code></pre>
+<h2 id="测试">测试</h2>
+<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+<h1 id="本地-hosts-配合-networkmanager-方式">本地 hosts 配合 NetworkManager 方式</h1>
+<pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
+addn-hosts=/etc/hosts
 
-# 安装方法 2
-$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
+$ sudo service networking restart
+$ sudo /etc/init.d/dns-clean restart
 
-# 升级 pip
-$ /usr/local/bin/easy_install --upgrade pip
-
-# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
-$ pip install -U distribute
-
-# 升级 ez_setup
-$ curl https://bootstrap.pypa.io/ez_setup.py | python -
-
-&gt; PIP 使用指定源，且不缓存到目录
-$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-
-&gt; 安装墙内 PIP
-http://realfavicongenerator.net/</code></pre>
-<h1 id="easy_install-用法">easy_install 用法</h1>
-<pre><code># 1 直接安装：
-  easy_install SQLObject
-# 2 使用下载页面地址安装
-  easy_install -f http://pythonpaste.org/package_index.html SQLObject
-# 3 直接给出下载 url 安装
-  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
-# 4 .egg 文件的安装
-  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
-# 5 跟新安装过的包
-  easy_install --upgrade PyProtocols
-# 6 安装已经下载和提取在当前目录下的包
-  easy_install .
-# 7 安装特定特定版本的库
-  easy_install &quot;SomePackage==2.0&quot;
-# 8 大于某个版本
-  easy_install &quot;SomePackage&gt;2.0
-# 9 卸载库
-easy_install -m PackageName</code></pre>
+$ host u1
+$ nslookup u1
+$ getent ahosts u1</code></pre>
 
           
         

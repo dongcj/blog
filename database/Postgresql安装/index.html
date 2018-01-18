@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="安装相关依赖库 $ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel">
+<meta name="description" content="$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel $ yum -y">
 <meta name="keywords" content="postgres">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Postgresql 安装">
 <meta property="og:url" content="http://blog.dongcj.com/database/Postgresql安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="安装相关依赖库 $ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel">
+<meta property="og:description" content="$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel $ yum -y">
 <meta property="og:updated_time" content="2016-08-04T09:26:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Postgresql 安装">
-<meta name="twitter:description" content="安装相关依赖库 $ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel">
+<meta name="twitter:description" content="$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel $ yum -y">
 
 
 
@@ -432,8 +432,7 @@
       
 
       
-        <h1 id="安装相关依赖库">安装相关依赖库</h1>
-<pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
+        <pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
 $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
@@ -441,7 +440,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 <h1 id="安装">安装</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量</span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
 <h1 id="初始化数据库">初始化数据库</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 数据库参数修改</span></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
 <h1 id="启动数据库-快速">启动数据库 [快速]</h1>
 <pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
 <h1 id="创建并导入库">创建并导入库</h1>
@@ -498,8 +497,8 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Supervisor安装与配置/" rel="next" title="Supervisor 安装与配置">
-                <i class="fa fa-chevron-left"></i> Supervisor 安装与配置
+              <a href="/linux/Systemd使用/" rel="next" title="Systemd,systemctl 命令">
+                <i class="fa fa-chevron-left"></i> Systemd,systemctl 命令
               </a>
             
           </div>
@@ -705,7 +704,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装相关依赖库"><span class="nav-number">1.</span> <span class="nav-text">安装相关依赖库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化数据库"><span class="nav-number">3.</span> <span class="nav-text">初始化数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动数据库-快速"><span class="nav-number">4.</span> <span class="nav-text">启动数据库 [快速]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建并导入库"><span class="nav-number">5.</span> <span class="nav-text">创建并导入库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化数据库"><span class="nav-number">2.</span> <span class="nav-text">初始化数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动数据库-快速"><span class="nav-number">3.</span> <span class="nav-text">启动数据库 [快速]</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建并导入库"><span class="nav-number">4.</span> <span class="nav-text">创建并导入库</span></a></li></ol></div>
             
 
           </div>

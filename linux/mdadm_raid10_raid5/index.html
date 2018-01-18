@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！  每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommende">
+<meta name="description" content="每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to            switch off the mode (command &amp;#39;c&amp;#39;) and c">
 <meta name="keywords" content="soft raid,mdadm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mdadm_raid10_raid5">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！  每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommende">
+<meta property="og:description" content="每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to            switch off the mode (command &amp;#39;c&amp;#39;) and c">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mdadm_raid10_raid5">
-<meta name="twitter:description" content="建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！  每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommende">
+<meta name="twitter:description" content="每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to            switch off the mode (command &amp;#39;c&amp;#39;) and c">
 
 
 
@@ -432,10 +432,7 @@
       
 
       
-        <blockquote>
-<p>建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
-</blockquote>
-<h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
+        <h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
 <pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
@@ -509,27 +506,28 @@ md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
       [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
 0948K/sec
 
-unused devices:</code></pre>
-<h1 id="给-md0-设备创建分区和文件系统">给 md0 设备创建分区和文件系统</h1>
-<pre><code>$ fdisk /dev/md0
+unused devices:
+
+$ fdisk /dev/md0
 $ mkfs.ext4 /dev/md0p1
 
 $ mkdir /raid10
-$ mount /dev/md0p1 /raid10</code></pre>
-<h1 id="修改-etcfstab-启动时自动挂载">修改 /etc/fstab 启动时自动挂载</h1>
-<pre><code>$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0</code></pre>
-<blockquote>
-<p>在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法， 因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID： $ blkid … /dev/md0p1: UUID=“093e0605-1fa2-4279-99b2-746c70b78f1b” TYPE=“ext4”</p>
-</blockquote>
-<pre><code># 然后修改相应的 fstab，使用 UUID 挂载：
+$ mount /dev/md0p1 /raid10
+
 $ vi /etc/fstab
   ...
   /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**</code></pre>
-<h1 id="查看-raid-的状态">查看 RAID 的状态</h1>
-<pre><code>$ mdadm --query --detail /dev/md0
+
+$ blkid
+  ...
+  /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot;
+
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
+
+$ mdadm --query --detail /dev/md0
 /dev/md0:
         Version : 1.2
   Creation Time : Tue Feb 11 12:50:38 2014
@@ -560,21 +558,21 @@ Working Devices : 6
        2       8       49        2      active sync   /dev/sdd1
        3       8       65        3      active sync   /dev/sde1
        4       8       81        4      active sync   /dev/sdf1
-       5       8       97        5      active sync   /dev/sdg1</code></pre>
-<h1 id="配置-raid-的配置文件">配置 raid 的配置文件</h1>
-<pre><code>$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
+       5       8       97        5      active sync   /dev/sdg1
+
+$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
 $ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
 <h1 id="raid-维护命令">RAID 维护命令</h1>
 <h2 id="删除故障盘">删除故障盘</h2>
 <pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
 <h2 id="增加新盘">增加新盘</h2>
-<pre><code>$ mdadm /dev/md0 -a /dev/sde1</code></pre>
-<h2 id="停止并移除阵列">停止并移除阵列</h2>
-<pre><code>$ mdadm --stop /dev/md99    // 停止
+<pre><code>$ mdadm /dev/md0 -a /dev/sde1
+
+$ mdadm --stop /dev/md99    // 停止
 $ mdadm -As /dev/md0        // 启动
-$ mdadm --remove /dev/md99</code></pre>
-<h2 id="销毁系统中的阵列">销毁系统中的阵列</h2>
-<pre><code>mdadm --manage /dev/md99 --fail /dev/sd[cde]1
+$ mdadm --remove /dev/md99
+
+mdadm --manage /dev/md99 --fail /dev/sd[cde]1
 mdadm --manage /dev/md99 --remove /dev/sd[cde]1
 mdadm --manage /dev/md99 --stop
 mdadm --zero-superblock /dev/sd[cde]1</code></pre>
@@ -632,8 +630,8 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/斐讯K2路由器刷机/" rel="next" title="斐讯 K2 路由器刷机">
-                <i class="fa fa-chevron-left"></i> 斐讯 K2 路由器刷机
+              <a href="/cluster/Gearman安装/" rel="next" title="Gearman 安装">
+                <i class="fa fa-chevron-left"></i> Gearman 安装
               </a>
             
           </div>
@@ -642,8 +640,8 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/cluster/Gearman安装/" rel="prev" title="Gearman 安装">
-                Gearman 安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Puppet安装/" rel="prev" title="Puppet 安装">
+                Puppet 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -839,7 +837,7 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#每块硬盘分一个区"><span class="nav-number">1.</span> <span class="nav-text">每块硬盘分一个区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改分区格式"><span class="nav-number"></span> <span class="nav-text">更改分区格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-raid"><span class="nav-number"></span> <span class="nav-text">创建 RAID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给-md0-设备创建分区和文件系统"><span class="nav-number"></span> <span class="nav-text">给 md0 设备创建分区和文件系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改-etcfstab-启动时自动挂载"><span class="nav-number"></span> <span class="nav-text">修改 /etc/fstab 启动时自动挂载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看-raid-的状态"><span class="nav-number"></span> <span class="nav-text">查看 RAID 的状态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-raid-的配置文件"><span class="nav-number"></span> <span class="nav-text">配置 raid 的配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#raid-维护命令"><span class="nav-number"></span> <span class="nav-text">RAID 维护命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除故障盘"><span class="nav-number"></span> <span class="nav-text">删除故障盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加新盘"><span class="nav-number"></span> <span class="nav-text">增加新盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#停止并移除阵列"><span class="nav-number"></span> <span class="nav-text">停止并移除阵列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#销毁系统中的阵列"><span class="nav-number"></span> <span class="nav-text">销毁系统中的阵列</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#每块硬盘分一个区"><span class="nav-number">1.</span> <span class="nav-text">每块硬盘分一个区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改分区格式"><span class="nav-number"></span> <span class="nav-text">更改分区格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-raid"><span class="nav-number"></span> <span class="nav-text">创建 RAID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#raid-维护命令"><span class="nav-number"></span> <span class="nav-text">RAID 维护命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除故障盘"><span class="nav-number"></span> <span class="nav-text">删除故障盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加新盘"><span class="nav-number"></span> <span class="nav-text">增加新盘</span></a></div>
             
 
           </div>

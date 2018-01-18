@@ -436,8 +436,7 @@
       
         
           
-            <h1 id="安装相关依赖库">安装相关依赖库</h1>
-<pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
+            <pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
 $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
@@ -445,11 +444,561 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 <h1 id="安装">安装</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量</span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
 <h1 id="初始化数据库">初始化数据库</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 数据库参数修改</span></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
 <h1 id="启动数据库-快速">启动数据库 [快速]</h1>
 <pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
 <h1 id="创建并导入库">创建并导入库</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">su postgres</div><div class="line">psql</div><div class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></div><div class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></div><div class="line">\i &lt;DB_FILE&gt;.sql</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Systemd使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Systemd使用/" itemprop="url">Systemd,systemctl 命令</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
+                2016-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Systemd使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Systemd使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Systemd使用/" class="leancloud_visitors" data-flag-title="Systemd,systemctl 命令">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="systemd-和-systemctl-基础命令">Systemd 和 Systemctl 基础命令</h1>
+<pre><code>查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
+
+[ 启动 | 停止 ]:    systemctl [ start | stop ] &lt;SERVICE_NAME&gt;
+
+类似查 chkconfig:    systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;
+                    systemctl is-enabled &lt;SERVICE_NAME&gt;
+
+[不]自动启动：      systemctl [ disable | enable ] &lt;SERVICE_NAME&gt;
+
+# 系统级的 systemd 在 /etc/systemd/system
+# 用户级的 systemd 在 /usr/lib/systemd/system/ （main）
+# 运行级的 systemd 在 /run/systemd/system
+
+# 如删除服务，需要：
+systemctl stop &lt;SERVICE_NAME&gt;
+systemctl disable &lt;SERVICE_NAME&gt;
+rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
+systemctl daemon-reload
+`systemctl reset-failed`   # 只有运行这样才可以看到服务消失</code></pre>
+<h3 id="首先检查你的系统中是否安装有-systemd-并确定当前安装的版本">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</h3>
+<pre><code>[root@manage ~]# systemctl --version
+systemd 215
++PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
+上例中很清楚地表明，我们安装了 215 版本的 systemd。
+
+[root@manage ~]# whereis systemd
+systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
+[root@manage ~]# whereis systemctl
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
+<h3 id="检查-systemd-是否运行">3. 检查 systemd 是否运行</h3>
+<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
+root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
+dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。</code></pre>
+<h3 id="分析-systemd-启动进程">4. 分析 systemd 启动进程</h3>
+<pre><code>[root@manage ~]# systemd-analyze
+Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
+<h3 id="分析启动时各个进程花费的时间">5. 分析启动时各个进程花费的时间</h3>
+<pre><code>[root@manage ~]# systemd-analyze blame
+8.565s mariadb.service
+7.991s webmin.service
+6.095s postfix.service
+4.311s httpd.service
+3.926s firewalld.service
+3.780s kdump.service
+3.238s tuned.service
+1.712s network.service
+1.394s lvm2-monitor.service
+1.126s systemd-logind.service
+....</code></pre>
+<h3 id="分析启动时的关键链">6. 分析启动时的关键链</h3>
+<pre><code>[root@manage ~]# systemd-analyze critical-chain
+The time after the unit is active or started is printed after the &quot;@&quot; character.
+The time the unit takes to start is printed after the &quot;+&quot; character.
+multi-user.target @20.222s
+└─ mariadb.service @11.657s +8.565s
+  └─ network.target @11.168s
+    └─ network.service @9.456s +1.712s
+      └─ NetworkManager.service @8.858s +596ms
+        └─ firewalld.service @4.931s +3.926s
+          └─ basic.target @4.916s
+            └─ sockets.target @4.916s
+              └─ dbus.socket @4.916s
+                └─ sysinit.target @4.905s
+                  └─ systemd-update-utmp.service @4.864s +39ms
+                    └─ auditd.service @4.563s +301ms
+                      └─ systemd-tmpfiles-setup.service @4.485s +69ms
+                        └─ rhel-import-state.service @4.342s +142ms
+                          └─ local-fs.target @4.324s
+                            └─ boot.mount @4.286s +31ms
+                              └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d19608096
+                                └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
+重要：Systemctl 接受服务（.service），挂载点（.mount），套接口（.socket）和设备（.device）作为单元。</code></pre>
+<h3 id="列出所有可用单元-state-static-enabled-disabled-invalid">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</h3>
+<pre><code>                type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
+
+[root@manage ~]# systemctl list-unit-files [ --type=TYPE ] [ --state=STATE ]</code></pre>
+<p><code>这个作用类似于 chkconfig</code></p>
+<pre><code>UNIT FILE                                   STATE
+proc-sys-fs-binfmt_misc.automount           static
+dev-hugepages.mount                         static
+dev-mqueue.mount                            static
+proc-sys-fs-binfmt_misc.mount               static
+sys-fs-fuse-connections.mount               static
+sys-kernel-config.mount                     static
+sys-kernel-debug.mount                      static
+tmp.mount                                   disabled
+brandbot.path                               disabled
+.....</code></pre>
+<h3 id="列出所有运行中单元">8. 列出所有运行中单元</h3>
+<pre><code>[root@manage ~]# systemctl list-units
+UNIT                                        LOAD   ACTIVE SUB       DESCRIPTION
+proc-sys-fs-binfmt_misc.automount           loaded active waiting   Arbitrary Executable File Formats File Syste
+sys-devices-pc...0-1:0:0:0-block-sr0.device loaded active plugged   VBOX_CD-ROM
+sys-devices-pc...:00:03.0-net-enp0s3.device loaded active plugged   PRO/1000 MT Desktop Adapter
+sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC&#39;97 Audio Controller
+sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
+sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8
+
+[root@manage ~]# systemctl --failed
+UNIT          LOAD   ACTIVE SUB    DESCRIPTION
+kdump.service loaded failed failed Crash recovery kernel arming
+LOAD   = Reflects whether the unit definition was properly loaded.
+ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
+SUB    = The low-level unit activation state, values depend on unit type.
+1 loaded units listed. Pass --all to see loaded but inactive units, too.
+To show all installed unit files use &#39;systemctl list-unit-files&#39;.
+
+[root@manage ~]# systemctl is-enabled crond.service
+enabled
+
+[root@manage ~]# systemctl is-active httpd.service
+[root@manage ~]# systemctl enable    httpd.service
+[root@manage ~]# systemctl disable   httpd.service</code></pre>
+<h3 id="检查某个单元或服务是否运行">12. 检查某个单元或服务是否运行</h3>
+<pre><code>[root@manage ~]# systemctl status firewalld.service
+firewalld.service - firewalld - dynamic firewall daemon
+   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled)
+   Active: active (running) since Tue 2015-04-28 16:27:55 IST; 34min ago
+ Main PID: 549 (firewalld)
+   CGroup: /system.slice/firewalld.service
+           └─ 549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
+Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
+Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
+使用 Systemctl 控制并管理服务
+
+[root@manage ~]# systemctl start httpd.service
+[root@manage ~]# systemctl restart httpd.service
+[root@manage ~]# systemctl stop httpd.service
+[root@manage ~]# systemctl reload httpd.service
+[root@manage ~]# systemctl status httpd.service
+[root@manage ~]# systemctl show -p LoadState vdsm.service
+
+httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
+   Active: active (running) since Tue 2015-04-28 17:21:30 IST; 6s ago
+  Process: 2876 ExecStop=/bin/kill -WINCH ${MAINPID} (code=exited, status=0/SUCCESS)
+ Main PID: 2881 (httpd)
+   Status: &quot;Processing requests...&quot;
+   CGroup: /system.slice/httpd.service
+           ├─ 2881 /usr/sbin/httpd -DFOREGROUND
+           ├─ 2884 /usr/sbin/httpd -DFOREGROUND
+           ├─ 2885 /usr/sbin/httpd -DFOREGROUND
+           ├─ 2886 /usr/sbin/httpd -DFOREGROUND
+           ├─ 2887 /usr/sbin/httpd -DFOREGROUND
+           └─ 2888 /usr/sbin/httpd -DFOREGROUND
+Apr 28 17:21:30 tecmint systemd[1]: Starting The Apache HTTP Server...
+Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server&#39;s fully q...ssage
+Apr 28 17:21:30 tecmint systemd[1]: Started The Apache HTTP Server.
+Hint: Some lines were ellipsized, use -l to show in full.
+注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。
+
+[root@manage ~]# systemctl mask httpd.service
+ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/httpd.service&#39;
+
+# 删除服务
+[root@manage ~]# systemctl unmask httpd.service
+rm &#39;/etc/systemd/system/httpd.service&#39;
+
+[root@manage ~]# systemctl kill httpd
+[root@manage ~]# systemctl status httpd
+httpd.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
+   Active: failed (Result: exit-code) since Tue 2015-04-28 18:01:42 IST; 28min ago
+ Main PID: 2881 (code=exited, status=0/SUCCESS)
+   Status: &quot;Total requests: 0; Current requests/sec: 0; Current traffic:   0 B/sec&quot;
+Apr 28 17:37:29 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:29 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:39 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:39 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:49 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:49 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
+Apr 28 18:01:42 tecmint systemd[1]: httpd.service: control process exited, code=exited status=226
+Apr 28 18:01:42 tecmint systemd[1]: Unit httpd.service entered failed state.
+Hint: Some lines were ellipsized, use -l to show in full.
+使用 Systemctl 控制并管理挂载点</code></pre>
+<h3 id="列出所有系统挂载点">17. 列出所有系统挂载点</h3>
+<pre><code>[root@manage ~]# systemctl list-unit-files --type=mount
+UNIT FILE                     STATE
+dev-hugepages.mount           static
+dev-mqueue.mount              static
+proc-sys-fs-binfmt_misc.mount static
+sys-fs-fuse-connections.mount static
+sys-kernel-config.mount       static
+sys-kernel-debug.mount        static
+tmp.mount                     disabled
+
+[root@manage ~]# systemctl start tmp.mount
+[root@manage ~]# systemctl stop tmp.mount
+[root@manage ~]# systemctl restart tmp.mount
+[root@manage ~]# systemctl reload tmp.mount
+[root@manage ~]# systemctl status tmp.mount
+tmp.mount - Temporary Directory
+   Loaded: loaded (/usr/lib/systemd/system/tmp.mount; disabled)
+   Active: active (mounted) since Tue 2015-04-28 17:46:06 IST; 2min 48s ago
+    Where: /tmp
+     What: tmpfs
+     Docs: man:hier(7)
+http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems
+  Process: 3908 ExecMount=/bin/mount tmpfs /tmp -t tmpfs -o mode=1777,strictatime (code=exited, status=0/SUCCESS)
+Apr 28 17:46:06 tecmint systemd[1]: Mounting Temporary Directory...
+Apr 28 17:46:06 tecmint systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
+Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.</code></pre>
+<h3 id="在启动时激活启用或禁用挂载点系统启动时自动挂载">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</h3>
+<pre><code>[root@manage ~]# systemctl is-active tmp.mount
+[root@manage ~]# systemctl enable tmp.mount
+[root@manage ~]# systemctl disable  tmp.mount
+
+[root@manage ~]# systemctl mask tmp.mount
+ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/tmp.mount&#39;
+[root@manage ~]# systemctl unmask tmp.mount
+rm &#39;/etc/systemd/system/tmp.mount&#39;
+使用 Systemctl 控制并管理套接口</code></pre>
+<h3 id="列出所有可用系统套接口">21. 列出所有可用系统套接口</h3>
+<pre><code>[root@manage ~]# systemctl list-unit-files --type=socket
+UNIT FILE                    STATE
+dbus.socket                  static
+dm-event.socket              enabled
+lvm2-lvmetad.socket          enabled
+rsyncd.socket                disabled
+sshd.socket                  disabled
+syslog.socket                static
+systemd-initctl.socket       static
+systemd-journald.socket      static
+systemd-shutdownd.socket     static
+systemd-udevd-control.socket static
+systemd-udevd-kernel.socket  static
+11 unit files listed.
+
+[root@manage ~]# systemctl start cups.socket
+[root@manage ~]# systemctl restart cups.socket
+[root@manage ~]# systemctl stop cups.socket
+[root@manage ~]# systemctl reload cups.socket
+[root@manage ~]# systemctl status cups.socket
+cups.socket - CUPS Printing Service Sockets
+   Loaded: loaded (/usr/lib/systemd/system/cups.socket; enabled)
+   Active: active (listening) since Tue 2015-04-28 18:10:59 IST; 8s ago
+   Listen: /var/run/cups/cups.sock (Stream)
+Apr 28 18:10:59 tecmint systemd[1]: Starting CUPS Printing Service Sockets.
+Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.</code></pre>
+<h3 id="在启动时激活套接口并启用或禁用它系统启动时自启动">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</h3>
+<pre><code>[root@manage ~]# systemctl is-active cups.socket
+[root@manage ~]# systemctl enable cups.socket
+[root@manage ~]# systemctl disable cups.socket</code></pre>
+<h1 id="服务的-cpu-利用率分配额">服务的 CPU 利用率（分配额）</h1>
+<pre><code>[root@manage ~]# systemctl show -p CPUShares httpd.service
+CPUShares=1024
+[root@manage ~]# 注意：各个服务的默认 CPU 分配份额 =1024，你可以增加 / 减少某个进程的 CPU 分配份额。</code></pre>
+<h3 id="将某个服务httpd.service的-cpu-分配份额限制为-2000-cpushares">26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/</h3>
+<pre><code>[root@manage ~]# systemctl set-property httpd.service CPUShares=2000
+[root@manage ~]# systemctl show -p CPUShares httpd.service
+CPUShares=2000
+[root@manage ~]# 注意：当你为某个服务设置 CPUShares，会自动创建一个以服务名命名的目录（如 httpd.service），里面包含了一个名为 90-CPUShares.conf 的文件，该文件含有 CPUShare 限制信息，你可以通过以下方式查看该文件：
+
+[root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
+[Service]
+CPUShares=2000
+
+[root@manage ~]# systemctl show httpd
+Id=httpd.service
+Names=httpd.service
+Requires=basic.target
+Wants=system.slice
+WantedBy=multi-user.target
+Conflicts=shutdown.target
+Before=shutdown.target multi-user.target
+After=network.target remote-fs.target nss-lookup.target systemd-journald.socket basic.target system.slice
+Description=The Apache HTTP Server
+LoadState=loaded
+ActiveState=active
+SubState=running
+FragmentPath=/usr/lib/systemd/system/httpd.service
+....
+
+[root@manage ~]# systemd-analyze critical-chain httpd.service
+The time after the unit is active or started is printed after the &quot;@&quot; character.
+The time the unit takes to start is printed after the &quot;+&quot; character.
+httpd.service +142ms
+└─ network.target @11.168s
+  └─ network.service @9.456s +1.712s
+    └─ NetworkManager.service @8.858s +596ms
+      └─ firewalld.service @4.931s +3.926s
+        └─ basic.target @4.916s
+          └─ sockets.target @4.916s
+            └─ dbus.socket @4.916s
+              └─ sysinit.target @4.905s
+                └─ systemd-update-utmp.service @4.864s +39ms
+                  └─ auditd.service @4.563s +301ms
+                    └─ systemd-tmpfiles-setup.service @4.485s +69ms
+                      └─ rhel-import-state.service @4.342s +142ms
+                        └─ local-fs.target @4.324s
+                          └─ boot.mount @4.286s +31ms
+                            └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
+                              └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s
+
+[root@manage ~]# systemctl list-dependencies httpd.service
+httpd.service
+├─ system.slice
+└─ basic.target
+  ├─ firewalld.service
+  ├─ microcode.service
+  ├─ rhel-autorelabel-mark.service
+  ├─ rhel-autorelabel.service
+  ├─ rhel-configure.service
+  ├─ rhel-dmesg.service
+  ├─ rhel-loadmodules.service
+  ├─ paths.target
+  ├─ slices.target
+  │ ├─ -.slice
+  │ └─ system.slice
+  ├─ sockets.target
+  │ ├─ dbus.socket
+....</code></pre>
+<h3 id="按等级列出控制组">30. 按等级列出控制组</h3>
+<pre><code>[root@manage ~]# systemd-cgls
+├─ 1 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+├─ user.slice
+│ └─ user-0.slice
+│   └─ session-1.scope
+│     ├─ 2498 sshd: root@pts/0
+│     ├─ 2500 -bash
+│     ├─ 4521 systemd-cgls
+│     └─ 4522 systemd-cgls
+└─ system.slice
+  ├─ httpd.service
+  │ ├─ 4440 /usr/sbin/httpd -DFOREGROUND
+  │ ├─ 4442 /usr/sbin/httpd -DFOREGROUND
+  │ ├─ 4443 /usr/sbin/httpd -DFOREGROUND
+  │ ├─ 4444 /usr/sbin/httpd -DFOREGROUND
+  │ ├─ 4445 /usr/sbin/httpd -DFOREGROUND
+  │ └─ 4446 /usr/sbin/httpd -DFOREGROUND
+  ├─ polkit.service
+  │ └─ 721 /usr/lib/polkit-1/polkitd --no-debug
+....
+
+[root@manage ~]# systemd-cgtop
+Path                                                              Tasks   %CPU   Memory  Input/s Output/s
+/                                                                    83    1.0   437.8M        -        -
+/system.slice                                                         -    0.1        -        -        -
+/system.slice/mariadb.service                                         2    0.1        -        -        -
+/system.slice/tuned.service                                           1    0.0        -        -        -
+/system.slice/httpd.service                                           6    0.0        -        -        -
+/system.slice/NetworkManager.service                                  1      -        -        -        -
+/system.slice/atop.service                                            1      -        -        -        -
+/system.slice/atopacct.service                                        1      -        -        -        -
+/system.slice/auditd.service                                          1      -        -        -        -
+/system.slice/crond.service                                           1      -        -        -        -
+/system.slice/dbus.service                                            1      -        -        -        -
+/system.slice/firewalld.service                                       1      -        -        -        -
+/system.slice/lvm2-lvmetad.service                                    1      -        -        -        -
+/system.slice/polkit.service                                          1      -        -        -        -
+/system.slice/postfix.service                                         3      -        -        -        -
+/system.slice/rsyslog.service                                         1      -        -        -        -
+/system.slice/system-getty.slice/getty@tty1.service                   1      -        -        -        -
+/system.slice/systemd-journald.service                                1      -        -        -        -
+/system.slice/systemd-logind.service                                  1      -        -        -        -
+/system.slice/systemd-udevd.service                                   1      -        -        -        -
+/system.slice/webmin.service                                          1      -        -        -        -
+/user.slice/user-0.slice/session-1.scope                              3      -        -        -        -
+控制系统运行等级</code></pre>
+<h3 id="启动系统救援模式">32. 启动系统救援模式</h3>
+<pre><code>[root@manage ~]# systemctl rescue
+Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
+The system is going down to rescue mode NOW!
+
+[root@manage ~]# systemctl emergency
+Welcome to emergency mode! After logging in, type &quot;journalctl -xb&quot; to view
+system logs, &quot;systemctl reboot&quot; to reboot, &quot;systemctl default&quot; to try again
+to boot into default mode.
+
+[root@manage ~]# systemctl get-default
+multi-user.target</code></pre>
+<h3 id="启动运行等级-5即图形模式">35. 启动运行等级 5，即图形模式</h3>
+<pre><code>[root@manage ~]# systemctl isolate runlevel5.target
+或
+[root@manage ~]# systemctl isolate graphical.target</code></pre>
+<h3 id="启动运行等级-3即多用户模式命令行">36. 启动运行等级 3，即多用户模式（命令行）</h3>
+<pre><code>[root@manage ~]# systemctl isolate runlevel3.target
+或
+[root@manage ~]# systemctl isolate multiuser.target
+
+[root@manage ~]# systemctl set-default runlevel3.target
+[root@manage ~]# systemctl set-default runlevel5.target
+
+[root@manage ~]# systemctl reboot
+[root@manage ~]# systemctl halt
+[root@manage ~]# systemctl suspend
+[root@manage ~]# systemctl hibernate
+[root@manage ~]# systemctl hybrid-sleep</code></pre>
 
           
         
@@ -615,566 +1164,10 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 <h1 id="启动">启动</h1>
 <pre><code>$ service supervisord start
 
-&gt; 如果使用 pip 安装，需要自已写启动脚本</code></pre>
-<h1 id="检查安装">检查安装</h1>
-<pre><code># 如下即表示正常
+&gt; 如果使用 pip 安装，需要自已写启动脚本
+
 supervisorctl status
 remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Systemd使用/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Systemd使用/" itemprop="url">Systemd,systemctl 命令</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
-                2016-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Systemd使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Systemd使用/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Systemd使用/" class="leancloud_visitors" data-flag-title="Systemd,systemctl 命令">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="systemd-和-systemctl-基础命令">Systemd 和 Systemctl 基础命令</h1>
-<h2 id="几个常用的服务控制">几个常用的服务控制</h2>
-<pre><code>查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
-
-[ 启动 | 停止 ]:    systemctl [ start | stop ] &lt;SERVICE_NAME&gt;
-
-类似查 chkconfig:    systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;
-                    systemctl is-enabled &lt;SERVICE_NAME&gt;
-
-[不]自动启动：      systemctl [ disable | enable ] &lt;SERVICE_NAME&gt;
-
-# 系统级的 systemd 在 /etc/systemd/system
-# 用户级的 systemd 在 /usr/lib/systemd/system/ （main）
-# 运行级的 systemd 在 /run/systemd/system
-
-# 如删除服务，需要：
-systemctl stop &lt;SERVICE_NAME&gt;
-systemctl disable &lt;SERVICE_NAME&gt;
-rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
-systemctl daemon-reload
-`systemctl reset-failed`   # 只有运行这样才可以看到服务消失</code></pre>
-<h3 id="首先检查你的系统中是否安装有-systemd-并确定当前安装的版本">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</h3>
-<pre><code>[root@manage ~]# systemctl --version
-systemd 215
-+PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
-上例中很清楚地表明，我们安装了 215 版本的 systemd。</code></pre>
-<h3 id="检查-systemd-和-systemctl-的二进制文件和库文件的安装位置">2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置</h3>
-<pre><code>[root@manage ~]# whereis systemd
-systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
-[root@manage ~]# whereis systemctl
-systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
-<h3 id="检查-systemd-是否运行">3. 检查 systemd 是否运行</h3>
-<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
-root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
-root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
-root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
-root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
-dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
-注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
-
-也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。</code></pre>
-<h3 id="分析-systemd-启动进程">4. 分析 systemd 启动进程</h3>
-<pre><code>[root@manage ~]# systemd-analyze
-Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
-<h3 id="分析启动时各个进程花费的时间">5. 分析启动时各个进程花费的时间</h3>
-<pre><code>[root@manage ~]# systemd-analyze blame
-8.565s mariadb.service
-7.991s webmin.service
-6.095s postfix.service
-4.311s httpd.service
-3.926s firewalld.service
-3.780s kdump.service
-3.238s tuned.service
-1.712s network.service
-1.394s lvm2-monitor.service
-1.126s systemd-logind.service
-....</code></pre>
-<h3 id="分析启动时的关键链">6. 分析启动时的关键链</h3>
-<pre><code>[root@manage ~]# systemd-analyze critical-chain
-The time after the unit is active or started is printed after the &quot;@&quot; character.
-The time the unit takes to start is printed after the &quot;+&quot; character.
-multi-user.target @20.222s
-└─ mariadb.service @11.657s +8.565s
-  └─ network.target @11.168s
-    └─ network.service @9.456s +1.712s
-      └─ NetworkManager.service @8.858s +596ms
-        └─ firewalld.service @4.931s +3.926s
-          └─ basic.target @4.916s
-            └─ sockets.target @4.916s
-              └─ dbus.socket @4.916s
-                └─ sysinit.target @4.905s
-                  └─ systemd-update-utmp.service @4.864s +39ms
-                    └─ auditd.service @4.563s +301ms
-                      └─ systemd-tmpfiles-setup.service @4.485s +69ms
-                        └─ rhel-import-state.service @4.342s +142ms
-                          └─ local-fs.target @4.324s
-                            └─ boot.mount @4.286s +31ms
-                              └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d19608096
-                                └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4
-重要：Systemctl 接受服务（.service），挂载点（.mount），套接口（.socket）和设备（.device）作为单元。</code></pre>
-<h3 id="列出所有可用单元-state-static-enabled-disabled-invalid">7. 列出所有可用单元 state =[ static | enabled | disabled | invalid ]</h3>
-<pre><code>                type  =[ service  | target  |  mount  | socket | slice | scope | timer | path ]
-
-[root@manage ~]# systemctl list-unit-files [ --type=TYPE ] [ --state=STATE ]</code></pre>
-<p><code>这个作用类似于 chkconfig</code></p>
-<pre><code>UNIT FILE                                   STATE
-proc-sys-fs-binfmt_misc.automount           static
-dev-hugepages.mount                         static
-dev-mqueue.mount                            static
-proc-sys-fs-binfmt_misc.mount               static
-sys-fs-fuse-connections.mount               static
-sys-kernel-config.mount                     static
-sys-kernel-debug.mount                      static
-tmp.mount                                   disabled
-brandbot.path                               disabled
-.....</code></pre>
-<h3 id="列出所有运行中单元">8. 列出所有运行中单元</h3>
-<pre><code>[root@manage ~]# systemctl list-units
-UNIT                                        LOAD   ACTIVE SUB       DESCRIPTION
-proc-sys-fs-binfmt_misc.automount           loaded active waiting   Arbitrary Executable File Formats File Syste
-sys-devices-pc...0-1:0:0:0-block-sr0.device loaded active plugged   VBOX_CD-ROM
-sys-devices-pc...:00:03.0-net-enp0s3.device loaded active plugged   PRO/1000 MT Desktop Adapter
-sys-devices-pc...00:05.0-sound-card0.device loaded active plugged   82801AA AC&#39;97 Audio Controller
-sys-devices-pc...:0:0-block-sda-sda1.device loaded active plugged   VBOX_HARDDISK
-sys-devices-pc...:0:0-block-sda-sda2.device loaded active plugged   LVM PV Qzyo3l-qYaL-uRUa-Cjuk-pljo-qKtX-VgBQ8</code></pre>
-<h3 id="列出所有失败单元">9. 列出所有失败单元</h3>
-<pre><code>[root@manage ~]# systemctl --failed
-UNIT          LOAD   ACTIVE SUB    DESCRIPTION
-kdump.service loaded failed failed Crash recovery kernel arming
-LOAD   = Reflects whether the unit definition was properly loaded.
-ACTIVE = The high-level unit activation state, i.e. generalization of SUB.
-SUB    = The low-level unit activation state, values depend on unit type.
-1 loaded units listed. Pass --all to see loaded but inactive units, too.
-To show all installed unit files use &#39;systemctl list-unit-files&#39;.</code></pre>
-<h3 id="检查某个单元如-cron.service是否启用">10. 检查某个单元（如 cron.service）是否启用</h3>
-<pre><code>[root@manage ~]# systemctl is-enabled crond.service
-enabled</code></pre>
-<h3 id="如何激活服务并在启动时启用或禁用服务即系统启动时自动启动服务">11. 如何激活服务并在启动时启用或禁用服务（即系统启动时自动启动服务）</h3>
-<pre><code>[root@manage ~]# systemctl is-active httpd.service
-[root@manage ~]# systemctl enable    httpd.service
-[root@manage ~]# systemctl disable   httpd.service</code></pre>
-<h3 id="检查某个单元或服务是否运行">12. 检查某个单元或服务是否运行</h3>
-<pre><code>[root@manage ~]# systemctl status firewalld.service
-firewalld.service - firewalld - dynamic firewall daemon
-   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; enabled)
-   Active: active (running) since Tue 2015-04-28 16:27:55 IST; 34min ago
- Main PID: 549 (firewalld)
-   CGroup: /system.slice/firewalld.service
-           └─ 549 /usr/bin/python -Es /usr/sbin/firewalld --nofork --nopid
-Apr 28 16:27:51 tecmint systemd[1]: Starting firewalld - dynamic firewall daemon...
-Apr 28 16:27:55 tecmint systemd[1]: Started firewalld - dynamic firewall daemon.
-使用 Systemctl 控制并管理服务</code></pre>
-<h3 id="linux-中如何启动重启停止重载服务以及检查服务如-httpd.service状态">14. Linux 中如何启动、重启、停止、重载服务以及检查服务（如 httpd.service）状态</h3>
-<pre><code>[root@manage ~]# systemctl start httpd.service
-[root@manage ~]# systemctl restart httpd.service
-[root@manage ~]# systemctl stop httpd.service
-[root@manage ~]# systemctl reload httpd.service
-[root@manage ~]# systemctl status httpd.service
-[root@manage ~]# systemctl show -p LoadState vdsm.service
-
-httpd.service - The Apache HTTP Server
-   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
-   Active: active (running) since Tue 2015-04-28 17:21:30 IST; 6s ago
-  Process: 2876 ExecStop=/bin/kill -WINCH ${MAINPID} (code=exited, status=0/SUCCESS)
- Main PID: 2881 (httpd)
-   Status: &quot;Processing requests...&quot;
-   CGroup: /system.slice/httpd.service
-           ├─ 2881 /usr/sbin/httpd -DFOREGROUND
-           ├─ 2884 /usr/sbin/httpd -DFOREGROUND
-           ├─ 2885 /usr/sbin/httpd -DFOREGROUND
-           ├─ 2886 /usr/sbin/httpd -DFOREGROUND
-           ├─ 2887 /usr/sbin/httpd -DFOREGROUND
-           └─ 2888 /usr/sbin/httpd -DFOREGROUND
-Apr 28 17:21:30 tecmint systemd[1]: Starting The Apache HTTP Server...
-Apr 28 17:21:30 tecmint httpd[2881]: AH00558: httpd: Could not reliably determine the server&#39;s fully q...ssage
-Apr 28 17:21:30 tecmint systemd[1]: Started The Apache HTTP Server.
-Hint: Some lines were ellipsized, use -l to show in full.
-注意：当我们使用 systemctl 的 start，restart，stop 和 reload 命令时，我们不会从终端获取到任何输出内容，只有 status 命令可以打印输出。</code></pre>
-<h3 id="如何屏蔽让它不能启动或显示服务如-httpd.service">15. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</h3>
-<pre><code># 注意：这是一个演示如何增加一个服务
-[root@manage ~]# systemctl mask httpd.service
-ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/httpd.service&#39;
-
-# 删除服务
-[root@manage ~]# systemctl unmask httpd.service
-rm &#39;/etc/systemd/system/httpd.service&#39;</code></pre>
-<h3 id="使用-systemctl-命令杀死服务">16. 使用 systemctl 命令杀死服务</h3>
-<pre><code>[root@manage ~]# systemctl kill httpd
-[root@manage ~]# systemctl status httpd
-httpd.service - The Apache HTTP Server
-   Loaded: loaded (/usr/lib/systemd/system/httpd.service; enabled)
-   Active: failed (Result: exit-code) since Tue 2015-04-28 18:01:42 IST; 28min ago
- Main PID: 2881 (code=exited, status=0/SUCCESS)
-   Status: &quot;Total requests: 0; Current requests/sec: 0; Current traffic:   0 B/sec&quot;
-Apr 28 17:37:29 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:29 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:39 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:39 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:49 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:49 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 17:37:59 tecmint systemd[1]: httpd.service: Got notification message from PID 2881, but recepti...bled.
-Apr 28 18:01:42 tecmint systemd[1]: httpd.service: control process exited, code=exited status=226
-Apr 28 18:01:42 tecmint systemd[1]: Unit httpd.service entered failed state.
-Hint: Some lines were ellipsized, use -l to show in full.
-使用 Systemctl 控制并管理挂载点</code></pre>
-<h3 id="列出所有系统挂载点">17. 列出所有系统挂载点</h3>
-<pre><code>[root@manage ~]# systemctl list-unit-files --type=mount
-UNIT FILE                     STATE
-dev-hugepages.mount           static
-dev-mqueue.mount              static
-proc-sys-fs-binfmt_misc.mount static
-sys-fs-fuse-connections.mount static
-sys-kernel-config.mount       static
-sys-kernel-debug.mount        static
-tmp.mount                     disabled</code></pre>
-<h3 id="挂载卸载重新挂载重载系统挂载点并检查系统中挂载点状态">18. 挂载、卸载、重新挂载、重载系统挂载点并检查系统中挂载点状态</h3>
-<pre><code>[root@manage ~]# systemctl start tmp.mount
-[root@manage ~]# systemctl stop tmp.mount
-[root@manage ~]# systemctl restart tmp.mount
-[root@manage ~]# systemctl reload tmp.mount
-[root@manage ~]# systemctl status tmp.mount
-tmp.mount - Temporary Directory
-   Loaded: loaded (/usr/lib/systemd/system/tmp.mount; disabled)
-   Active: active (mounted) since Tue 2015-04-28 17:46:06 IST; 2min 48s ago
-    Where: /tmp
-     What: tmpfs
-     Docs: man:hier(7)
-http://www.freedesktop.org/wiki/Software/systemd/APIFileSystems
-  Process: 3908 ExecMount=/bin/mount tmpfs /tmp -t tmpfs -o mode=1777,strictatime (code=exited, status=0/SUCCESS)
-Apr 28 17:46:06 tecmint systemd[1]: Mounting Temporary Directory...
-Apr 28 17:46:06 tecmint systemd[1]: tmp.mount: Directory /tmp to mount over is not empty, mounting anyway.
-Apr 28 17:46:06 tecmint systemd[1]: Mounted Temporary Directory.</code></pre>
-<h3 id="在启动时激活启用或禁用挂载点系统启动时自动挂载">19. 在启动时激活、启用或禁用挂载点（系统启动时自动挂载）</h3>
-<pre><code>[root@manage ~]# systemctl is-active tmp.mount
-[root@manage ~]# systemctl enable tmp.mount
-[root@manage ~]# systemctl disable  tmp.mount</code></pre>
-<h3 id="在-linux-中屏蔽让它不能启用或可见挂载点">20. 在 Linux 中屏蔽（让它不能启用）或可见挂载点</h3>
-<pre><code>[root@manage ~]# systemctl mask tmp.mount
-ln -s &#39;/dev/null&#39; &#39;/etc/systemd/system/tmp.mount&#39;
-[root@manage ~]# systemctl unmask tmp.mount
-rm &#39;/etc/systemd/system/tmp.mount&#39;
-使用 Systemctl 控制并管理套接口</code></pre>
-<h3 id="列出所有可用系统套接口">21. 列出所有可用系统套接口</h3>
-<pre><code>[root@manage ~]# systemctl list-unit-files --type=socket
-UNIT FILE                    STATE
-dbus.socket                  static
-dm-event.socket              enabled
-lvm2-lvmetad.socket          enabled
-rsyncd.socket                disabled
-sshd.socket                  disabled
-syslog.socket                static
-systemd-initctl.socket       static
-systemd-journald.socket      static
-systemd-shutdownd.socket     static
-systemd-udevd-control.socket static
-systemd-udevd-kernel.socket  static
-11 unit files listed.</code></pre>
-<h3 id="在-linux-中启动重启停止重载套接口并检查其状态">22. 在 Linux 中启动、重启、停止、重载套接口并检查其状态</h3>
-<pre><code>[root@manage ~]# systemctl start cups.socket
-[root@manage ~]# systemctl restart cups.socket
-[root@manage ~]# systemctl stop cups.socket
-[root@manage ~]# systemctl reload cups.socket
-[root@manage ~]# systemctl status cups.socket
-cups.socket - CUPS Printing Service Sockets
-   Loaded: loaded (/usr/lib/systemd/system/cups.socket; enabled)
-   Active: active (listening) since Tue 2015-04-28 18:10:59 IST; 8s ago
-   Listen: /var/run/cups/cups.sock (Stream)
-Apr 28 18:10:59 tecmint systemd[1]: Starting CUPS Printing Service Sockets.
-Apr 28 18:10:59 tecmint systemd[1]: Listening on CUPS Printing Service Sockets.</code></pre>
-<h3 id="在启动时激活套接口并启用或禁用它系统启动时自启动">23. 在启动时激活套接口，并启用或禁用它（系统启动时自启动）</h3>
-<pre><code>[root@manage ~]# systemctl is-active cups.socket
-[root@manage ~]# systemctl enable cups.socket
-[root@manage ~]# systemctl disable cups.socket</code></pre>
-<h1 id="服务的-cpu-利用率分配额">服务的 CPU 利用率（分配额）</h1>
-<h3 id="获取当前某个服务的-cpu-分配额如-httpd">25. 获取当前某个服务的 CPU 分配额（如 httpd）</h3>
-<pre><code>[root@manage ~]# systemctl show -p CPUShares httpd.service
-CPUShares=1024
-[root@manage ~]# 注意：各个服务的默认 CPU 分配份额 =1024，你可以增加 / 减少某个进程的 CPU 分配份额。</code></pre>
-<h3 id="将某个服务httpd.service的-cpu-分配份额限制为-2000-cpushares">26. 将某个服务（httpd.service）的 CPU 分配份额限制为 2000 CPUShares/</h3>
-<pre><code>[root@manage ~]# systemctl set-property httpd.service CPUShares=2000
-[root@manage ~]# systemctl show -p CPUShares httpd.service
-CPUShares=2000
-[root@manage ~]# 注意：当你为某个服务设置 CPUShares，会自动创建一个以服务名命名的目录（如 httpd.service），里面包含了一个名为 90-CPUShares.conf 的文件，该文件含有 CPUShare 限制信息，你可以通过以下方式查看该文件：
-
-[root@manage ~]# vi /etc/systemd/system/httpd.service.d/90-CPUShares.conf
-[Service]
-CPUShares=2000</code></pre>
-<h3 id="检查某个服务的所有配置细节">27. 检查某个服务的所有配置细节</h3>
-<pre><code>[root@manage ~]# systemctl show httpd
-Id=httpd.service
-Names=httpd.service
-Requires=basic.target
-Wants=system.slice
-WantedBy=multi-user.target
-Conflicts=shutdown.target
-Before=shutdown.target multi-user.target
-After=network.target remote-fs.target nss-lookup.target systemd-journald.socket basic.target system.slice
-Description=The Apache HTTP Server
-LoadState=loaded
-ActiveState=active
-SubState=running
-FragmentPath=/usr/lib/systemd/system/httpd.service
-....</code></pre>
-<h3 id="分析某个服务httpd的关键链">28. 分析某个服务（httpd）的关键链</h3>
-<pre><code>[root@manage ~]# systemd-analyze critical-chain httpd.service
-The time after the unit is active or started is printed after the &quot;@&quot; character.
-The time the unit takes to start is printed after the &quot;+&quot; character.
-httpd.service +142ms
-└─ network.target @11.168s
-  └─ network.service @9.456s +1.712s
-    └─ NetworkManager.service @8.858s +596ms
-      └─ firewalld.service @4.931s +3.926s
-        └─ basic.target @4.916s
-          └─ sockets.target @4.916s
-            └─ dbus.socket @4.916s
-              └─ sysinit.target @4.905s
-                └─ systemd-update-utmp.service @4.864s +39ms
-                  └─ auditd.service @4.563s +301ms
-                    └─ systemd-tmpfiles-setup.service @4.485s +69ms
-                      └─ rhel-import-state.service @4.342s +142ms
-                        └─ local-fs.target @4.324s
-                          └─ boot.mount @4.286s +31ms
-                            └─ systemd-fsck@dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.service @4.092s +149ms
-                              └─ dev-disk-by\x2duuid-79f594ad\x2da332\x2d4730\x2dbb5f\x2d85d196080964.device @4.092s</code></pre>
-<h3 id="获取某个服务httpd的依赖性列表">29. 获取某个服务（httpd）的依赖性列表</h3>
-<pre><code>[root@manage ~]# systemctl list-dependencies httpd.service
-httpd.service
-├─ system.slice
-└─ basic.target
-  ├─ firewalld.service
-  ├─ microcode.service
-  ├─ rhel-autorelabel-mark.service
-  ├─ rhel-autorelabel.service
-  ├─ rhel-configure.service
-  ├─ rhel-dmesg.service
-  ├─ rhel-loadmodules.service
-  ├─ paths.target
-  ├─ slices.target
-  │ ├─ -.slice
-  │ └─ system.slice
-  ├─ sockets.target
-  │ ├─ dbus.socket
-....</code></pre>
-<h3 id="按等级列出控制组">30. 按等级列出控制组</h3>
-<pre><code>[root@manage ~]# systemd-cgls
-├─ 1 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
-├─ user.slice
-│ └─ user-0.slice
-│   └─ session-1.scope
-│     ├─ 2498 sshd: root@pts/0
-│     ├─ 2500 -bash
-│     ├─ 4521 systemd-cgls
-│     └─ 4522 systemd-cgls
-└─ system.slice
-  ├─ httpd.service
-  │ ├─ 4440 /usr/sbin/httpd -DFOREGROUND
-  │ ├─ 4442 /usr/sbin/httpd -DFOREGROUND
-  │ ├─ 4443 /usr/sbin/httpd -DFOREGROUND
-  │ ├─ 4444 /usr/sbin/httpd -DFOREGROUND
-  │ ├─ 4445 /usr/sbin/httpd -DFOREGROUND
-  │ └─ 4446 /usr/sbin/httpd -DFOREGROUND
-  ├─ polkit.service
-  │ └─ 721 /usr/lib/polkit-1/polkitd --no-debug
-....</code></pre>
-<h3 id="按-cpu内存输入和输出列出控制组">31. 按 CPU、内存、输入和输出列出控制组</h3>
-<pre><code>[root@manage ~]# systemd-cgtop
-Path                                                              Tasks   %CPU   Memory  Input/s Output/s
-/                                                                    83    1.0   437.8M        -        -
-/system.slice                                                         -    0.1        -        -        -
-/system.slice/mariadb.service                                         2    0.1        -        -        -
-/system.slice/tuned.service                                           1    0.0        -        -        -
-/system.slice/httpd.service                                           6    0.0        -        -        -
-/system.slice/NetworkManager.service                                  1      -        -        -        -
-/system.slice/atop.service                                            1      -        -        -        -
-/system.slice/atopacct.service                                        1      -        -        -        -
-/system.slice/auditd.service                                          1      -        -        -        -
-/system.slice/crond.service                                           1      -        -        -        -
-/system.slice/dbus.service                                            1      -        -        -        -
-/system.slice/firewalld.service                                       1      -        -        -        -
-/system.slice/lvm2-lvmetad.service                                    1      -        -        -        -
-/system.slice/polkit.service                                          1      -        -        -        -
-/system.slice/postfix.service                                         3      -        -        -        -
-/system.slice/rsyslog.service                                         1      -        -        -        -
-/system.slice/system-getty.slice/getty@tty1.service                   1      -        -        -        -
-/system.slice/systemd-journald.service                                1      -        -        -        -
-/system.slice/systemd-logind.service                                  1      -        -        -        -
-/system.slice/systemd-udevd.service                                   1      -        -        -        -
-/system.slice/webmin.service                                          1      -        -        -        -
-/user.slice/user-0.slice/session-1.scope                              3      -        -        -        -
-控制系统运行等级</code></pre>
-<h3 id="启动系统救援模式">32. 启动系统救援模式</h3>
-<pre><code>[root@manage ~]# systemctl rescue
-Broadcast message from root@tecmint on pts/0 (Wed 2015-04-29 11:31:18 IST):
-The system is going down to rescue mode NOW!</code></pre>
-<h3 id="进入紧急模式">33. 进入紧急模式</h3>
-<pre><code>[root@manage ~]# systemctl emergency
-Welcome to emergency mode! After logging in, type &quot;journalctl -xb&quot; to view
-system logs, &quot;systemctl reboot&quot; to reboot, &quot;systemctl default&quot; to try again
-to boot into default mode.</code></pre>
-<h3 id="列出当前使用的运行等级">34. 列出当前使用的运行等级</h3>
-<pre><code>[root@manage ~]# systemctl get-default
-multi-user.target</code></pre>
-<h3 id="启动运行等级-5即图形模式">35. 启动运行等级 5，即图形模式</h3>
-<pre><code>[root@manage ~]# systemctl isolate runlevel5.target
-或
-[root@manage ~]# systemctl isolate graphical.target</code></pre>
-<h3 id="启动运行等级-3即多用户模式命令行">36. 启动运行等级 3，即多用户模式（命令行）</h3>
-<pre><code>[root@manage ~]# systemctl isolate runlevel3.target
-或
-[root@manage ~]# systemctl isolate multiuser.target</code></pre>
-<h3 id="设置多用户模式或图形模式为默认运行等级">37. 设置多用户模式或图形模式为默认运行等级</h3>
-<pre><code>[root@manage ~]# systemctl set-default runlevel3.target
-[root@manage ~]# systemctl set-default runlevel5.target</code></pre>
-<h3 id="重启停止挂起休眠系统或使系统进入混合睡眠">38. 重启、停止、挂起、休眠系统或使系统进入混合睡眠</h3>
-<pre><code>[root@manage ~]# systemctl reboot
-[root@manage ~]# systemctl halt
-[root@manage ~]# systemctl suspend
-[root@manage ~]# systemctl hibernate
-[root@manage ~]# systemctl hybrid-sleep</code></pre>
 
           
         
@@ -1331,7 +1324,6 @@ multi-user.target</code></pre>
         
           
             <p><a href="https://david-dm.org/mzlogin/chinese-copywriting-guidelines#info=devDependencies" target="_blank" rel="external"><img src="https://david-dm.org/mzlogin/chinese-copywriting-guidelines/dev-status.svg" alt="devDependency Status"></a></p>
-<p>统一中文文案、排版的相关用法，降低团队成员之间的沟通成本，增强网站气质。</p>
 <p>Other languages:</p>
 <ul>
 <li><a href="README.en.md">English</a></li>
@@ -1376,105 +1368,24 @@ multi-user.target</code></pre>
 </ul>
 <!-- vim-markdown-toc -->
 <h2 id="空格">空格</h2>
-<p>「有研究显示，打字的时候不喜欢在中文和英文之间加空格的人，感情路都走得很辛苦，有七成的比例会在 34 岁的时候跟自己不爱的人结婚，而其余三成的人最后只能把遗产留给自己的猫。毕竟爱情跟书写都需要适时地留白。</p>
 <p>与大家共勉之。」——<a href="https://github.com/vinta/pangu.js" target="_blank" rel="external">vinta/paranoid-auto-spacing</a></p>
-<h3 id="中英文之间需要增加空格">中英文之间需要增加空格</h3>
-<p>正确：</p>
-<blockquote>
-<p>在 LeanCloud 上，数据存储是围绕 <code>AVObject</code> 进行的。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>在 LeanCloud 上，数据存储是围绕 <code>AVObject</code> 进行的。</p>
-</blockquote>
-<blockquote>
-<p>在 LeanCloud 上，数据存储是围绕 <code>AVObject</code> 进行的。</p>
-</blockquote>
 <p>完整的正确用法：</p>
-<blockquote>
-<p>在 LeanCloud 上，数据存储是围绕 <code>AVObject</code> 进行的。每个 <code>AVObject</code> 都包含了与 JSON 兼容的 key-value 对应的数据。数据是 schema-free 的，你不需要在每个 <code>AVObject</code> 上提前指定存在哪些键，只要直接设定对应的 key-value 即可。</p>
-</blockquote>
-<p>例外：「豆瓣 FM」等产品名词，按照官方所定义的格式书写。</p>
-<h3 id="中文与数字之间需要增加空格">中文与数字之间需要增加空格</h3>
-<p>正确：</p>
-<blockquote>
-<p>今天出去买菜花了 5000 元。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>今天出去买菜花了 5000 元。</p>
-</blockquote>
-<blockquote>
-<p>今天出去买菜花了 5000 元。</p>
-</blockquote>
-<h3 id="数字与单位之间需要增加空格">数字与单位之间需要增加空格</h3>
-<p>正确：</p>
-<blockquote>
-<p>我家的光纤入户宽带有 10 Gbps，SSD 一共有 20 TB。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>我家的光纤入户宽带有 10Gbps，SSD 一共有 10TB。</p>
-</blockquote>
 <p>例外：度／百分比与数字之间不需要增加空格：</p>
-<p>正确：</p>
-<blockquote>
-<p>今天是 233° 的高温。</p>
-</blockquote>
-<blockquote>
-<p>新 MacBook Pro 有 15% 的 CPU 性能提升。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>今天是 233 ° 的高温。</p>
-</blockquote>
-<blockquote>
-<p>新 MacBook Pro 有 15 % 的 CPU 性能提升。</p>
-</blockquote>
-<h3 id="全角标点与其他字符之间不加空格">全角标点与其他字符之间不加空格</h3>
-<p>正确：</p>
 <blockquote>
 <p>刚刚买了一部 iPhone，好开心！</p>
 </blockquote>
-<p>错误：</p>
 <blockquote>
 <p>刚刚买了一部 iPhone ，好开心！</p>
 </blockquote>
 <h3 id="ms-text-autospace-to-the-rescue"><code>-ms-text-autospace</code> to the rescue?</h3>
-<p>Microsoft 有个 <a href="http://msdn.microsoft.com/en-us/library/ie/ms531164(v=vs.85).aspx" target="_blank" rel="external"><code>-ms-text-autospace</code></a> 的 CSS 属性可以实现自动为中英文之间增加空白。不过目前并未普及，另外在其他应用场景，例如 OS X、iOS 的用户界面目前并不存在这个特性，所以请继续保持随手加空格的习惯。</p>
 <h2 id="标点符号">标点符号</h2>
-<h3 id="不重复使用标点符号">不重复使用标点符号</h3>
-<p>正确：</p>
 <blockquote>
 <p>德国队竟然战胜了巴西队！</p>
 </blockquote>
-<blockquote>
-<p>她竟然对你说「喵」？！</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>德国队竟然战胜了巴西队！！</p>
-</blockquote>
-<blockquote>
-<p>德国队竟然战胜了巴西队！！！！！！！！</p>
-</blockquote>
-<blockquote>
-<p>她竟然对你说「喵」？？！！</p>
-</blockquote>
-<blockquote>
-<p>她竟然对你说「喵」？！？！？？！！</p>
-</blockquote>
-<h2 id="全角和半角">全角和半角</h2>
-<p>不明白什么是全角（全形）与半角（半形）符号？请查看维基百科词条『<a href="http://zh.wikipedia.org/wiki/%E5%85%A8%E5%BD%A2%E5%92%8C%E5%8D%8A%E5%BD%A2" target="_blank" rel="external">全角和半角</a>』。</p>
 <h3 id="使用全角中文标点">使用全角中文标点</h3>
-<p>正确：</p>
 <blockquote>
 <p>嗨！你知道嘛？今天前台的小妹跟我说「喵」了哎！</p>
 </blockquote>
-<blockquote>
-<p>核磁共振成像（NMRI）是什么原理都不知道？ JFGI ！</p>
-</blockquote>
-<p>错误：</p>
 <blockquote>
 <p>嗨 ! 你知道嘛 ? 今天前台的小妹跟我说 &quot; 喵 &quot; 了哎 !</p>
 </blockquote>
@@ -1488,41 +1399,11 @@ multi-user.target</code></pre>
 <p>核磁共振成像 (NMRI) 是什么原理都不知道 ?JFGI!</p>
 </blockquote>
 <h3 id="数字使用半角字符">数字使用半角字符</h3>
-<p>正确：</p>
-<blockquote>
-<p>这件蛋糕只卖 1000 元。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>这件蛋糕只卖 １０００ 元。</p>
-</blockquote>
-<p>例外：在设计稿、宣传海报中如出现极少量数字的情形时，为方便文字对齐，是可以使用全角数字的。</p>
-<h3 id="遇到完整的英文整句特殊名词其內容使用半角标点">遇到完整的英文整句、特殊名词，其內容使用半角标点</h3>
-<p>正确：</p>
-<blockquote>
-<p>乔布斯那句话是怎么说的？「Stay hungry, stay foolish.」</p>
-</blockquote>
-<blockquote>
-<p>推荐你阅读《Hackers &amp; Painters: Big Ideas from the Computer Age》，非常的有趣。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>乔布斯那句话是怎么说的？「Stay hungry，stay foolish。」</p>
-</blockquote>
-<blockquote>
-<p>推荐你阅读《Hackers ＆ Painters：Big Ideas from the Computer Age》，非常的有趣。</p>
-</blockquote>
 <h2 id="名词">名词</h2>
 <h3 id="专有名词使用正确的大小写">专有名词使用正确的大小写</h3>
-<p>大小写相关用法原属于英文书写范畴，不属于本 wiki 讨论內容，在这里只对部分易错用法进行简述。</p>
-<p>正确：</p>
 <blockquote>
 <p>使用 GitHub 登录</p>
 </blockquote>
-<blockquote>
-<p>我们的客户有 GitHub、Foursquare、Microsoft Corporation、Google、Facebook, Inc.。</p>
-</blockquote>
-<p>错误：</p>
 <blockquote>
 <p>使用 github 登录</p>
 </blockquote>
@@ -1538,57 +1419,9 @@ multi-user.target</code></pre>
 <blockquote>
 <p>使用 g ｲんĤЦ 8 登录</p>
 </blockquote>
-<blockquote>
-<p>我们的客户有 github、foursquare、microsoft corporation、google、facebook, inc.。</p>
-</blockquote>
-<blockquote>
-<p>我们的客户有 GITHUB、FOURSQUARE、MICROSOFT CORPORATION、GOOGLE、FACEBOOK, INC.。</p>
-</blockquote>
-<blockquote>
-<p>我们的客户有 Github、FourSquare、MicroSoft Corporation、Google、FaceBook, Inc.。</p>
-</blockquote>
-<blockquote>
-<p>我们的客户有 gitHub、fourSquare、microSoft Corporation、google、faceBook, Inc.。</p>
-</blockquote>
-<blockquote>
-<p>我们的客户有 g ｲんĤЦ 8、ｷ ou ЯƧ qu ﾑгє、๓เςг๏ร๏Ŧ t ς๏гק๏гค t เ๏ภ n、900913、ƒ 4 ᄃ ë в๏๏к , I Пᄃ .。</p>
-</blockquote>
-<p>注意：当网页中需要配合整体视觉风格而出现全部大写／小写的情形，HTML 中请使用标准的大小写规范进行书写；并通过 <code>text-transform: uppercase;</code> ／ <code>text-transform: lowercase;</code> 对表现形式进行定义。</p>
 <h3 id="不要使用不地道的缩写">不要使用不地道的缩写</h3>
-<p>正确：</p>
-<blockquote>
-<p>我们需要一位熟悉 JavaScript、HTML5，至少理解一种框架（如 Backbone.js、AngularJS、React 等）的前端开发者。</p>
-</blockquote>
-<p>错误：</p>
-<blockquote>
-<p>我们需要一位熟悉 Js、h5，至少理解一种框架（如 backbone、angular、RJS 等）的 FED。</p>
-</blockquote>
 <h2 id="争议">争议</h2>
-<p>以下用法略带有个人色彩，即：无论是否遵循下述规则，从语法的角度来讲都是<strong>正确</strong>的。</p>
 <h3 id="链接之间增加空格">链接之间增加空格</h3>
-<p>用法：</p>
-<blockquote>
-<p>请 <a href="#">提交一个 issue</a> 并分配给相关同事。</p>
-</blockquote>
-<blockquote>
-<p>访问我们网站的最新动态，请 <a href="#">点击这里</a> 进行订阅！</p>
-</blockquote>
-<p>对比用法：</p>
-<blockquote>
-<p>请<a href="#">提交一个 issue</a> 并分配给相关同事。</p>
-</blockquote>
-<blockquote>
-<p>访问我们网站的最新动态，请<a href="#">点击这里</a> 进行订阅！</p>
-</blockquote>
-<h3 id="简体中文使用直角引号">简体中文使用直角引号</h3>
-<p>用法：</p>
-<blockquote>
-<p>「老师，『有条不紊』的『紊』是什么意思？」</p>
-</blockquote>
-<p>对比用法：</p>
-<blockquote>
-<p>“老师，‘有条不紊’的‘紊’是什么意思？”</p>
-</blockquote>
 <h2 id="工具">工具</h2>
 <table>
 <thead>
@@ -1723,7 +1556,6 @@ multi-user.target</code></pre>
 </tr>
 </tbody>
 </table>
-<h2 id="参考文献">参考文献</h2>
 <ul>
 <li><a href="http://grammar.about.com/od/punctuationandmechanics/a/Guidelines-For-Using-Capital-Letters.htm" target="_blank" rel="external">Guidelines for Using Capital Letters</a></li>
 <li><a href="http://en.wikipedia.org/wiki/Letter_case" target="_blank" rel="external">Letter case - Wikipedia</a></li>
@@ -1891,7 +1723,7 @@ multi-user.target</code></pre>
         
           
             <h1 id="sysdig">Sysdig</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line"><span class="comment"># 进程和 CPU 使用率</span></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line"><span class="comment"># 性能和错误</span></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
 <h1 id="bcc">BCC</h1>
 <blockquote>
 <p><a href="https://github.com/iovisor/bcc" class="uri" target="_blank" rel="external">https://github.com/iovisor/bcc</a></p>
@@ -1929,7 +1761,6 @@ netstat                 # 查看网络状况 ( 常用 -tupnl)
        netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件
 slurm                   # yet another network load monitor
 
-# 用于复杂的网络调试
 tcpdump         # 抓取网络数据包，详细分析
 wireshark       # 抓取网络数据包，详细分析
 Tcptrace        # 数据包分析工具 (windows 下有 )
@@ -1970,28 +1801,14 @@ strace -r php worker.php    # 查看 worker.php 的 trace
 strace -p &lt;PID&gt;             # 查看正在运行的进程的 trace
 ltrace /bin/ls              # 运行 /bin/ls 命令，查看这个命令具体调用哪些库
 
-ldd /bin/ls                 # 打印共享库依赖
 blktrace -d /dev/sda        # 生成块设备的跟踪中信息，需要先 mount -t debugfs none /sys/kernel/debug, 再 blkparse
 
 stap（SystemTap）、perf、sysdig     # 更深层次的系统分析以及性能分析</code></pre>
 <h1 id="共享内存">共享内存</h1>
 <pre><code>ipcs -m
 ipcrm -m &lt;SHMID&gt;</code></pre>
-<blockquote>
-<p>当 cache 作为文件缓存被释放的时候会引发 IO 变高，这是 cache 加快文件访问速度所要付出的成本。 tmpfs 中存储的文件会占用 cache 空间，除非文件删除否则这个 cache 不会被自动释放。 使用 shmget 方式申请的共享内存会占用 cache 空间，除非共享内存被 ipcrm 或者使用 shmctl 去 IPC_RMID，否则相关的 cache 空间都不会被自动释放。 使用 mmap 方法申请的 MAP_SHARED 标志的内存会占用 cache 空间，除非进程将这段内存 munmap，否则相关的 cache 空间都不会被自动释放。 实际上 shmget、mmap 的共享内存，在内核层都是通过 tmpfs 实现的，tmpfs 实现的存储用的都是 cache。</p>
-</blockquote>
-<pre><code>lm_sensor       机器温度、转速等传感器信息 , 先运行 yes | sensors-detect（检测通常在 BIOS 中可以看到的信息，虚机中不行）</code></pre>
 <h2 id="free-字段说明">free 字段说明</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@bigdata /]<span class="comment"># free</span></div><div class="line">total       used    free    shared  buffers     cached</div><div class="line">Mem:    255268      238332  16936   0       85540       126384</div><div class="line">-/+ buffers/cache:  26408   228860</div></pre></td></tr></table></figure>
-<blockquote>
-<p>used1：表示总计分配给缓存（包含 buffers 与 cache ）使用的数量，但其中可能部分缓存并未实际使用。</p>
-</blockquote>
-<blockquote>
-<p>free1：未被分配的内存。 shared1：共享内存，一般系统不会用到，这里也不讨论。 buffers1：系统分配但未被使用的 buffers 数量。 cached1：系统分配但未被使用的 cache 数量。</p>
-</blockquote>
-<blockquote>
-<p>used2：实际使用的 buffers 与 cache 总量，也是实际使用的内存总量。</p>
-</blockquote>
 <blockquote>
 <p>free2：未被使用的 buffers 与 cache 和未被分配的内存之和，这就是系统当前实际可用内存。</p>
 <p>total1 = used1 + free1 total1 = used2 + free2 used1 = buffers1 + cached1 + used2 free2 = buffers1 + cached1 + free1</p>

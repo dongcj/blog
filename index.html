@@ -355,8 +355,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T22:00:44+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T11:53:11+08:00">
+                2018-01-18
               </time>
             
 
@@ -421,8 +421,7 @@
 <blockquote>
 <p>npm ls -g 如果报错，可以进行以下处理 :</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># （原因是 node-modules 中不允许用软链接，但 inherits 却用了）：</span></div><div class="line">npm ERR! missing: inherits@*, required by undefined@undefined</div><div class="line">npm ERR! missing: inherits@*, required by block-stream@0.0.7</div><div class="line">npm ERR! missing: inherits@*, required by fstream@0.1.24</div><div class="line"></div><div class="line"><span class="comment"># 进行如下操作即可：</span></div><div class="line"><span class="built_in">cd</span> /usr/lib/node_modules/</div><div class="line">unlink inherit</div><div class="line">mv inherits@2/ inherits/</div></pre></td></tr></table></figure>
-<h1 id="升级-npm-并更新为淘宝源">升级 npm 并更新为淘宝源</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># （原因是 node-modules 中不允许用软链接，但 inherits 却用了）：</span></div><div class="line">npm ERR! missing: inherits@*, required by undefined@undefined</div><div class="line">npm ERR! missing: inherits@*, required by block-stream@0.0.7</div><div class="line">npm ERR! missing: inherits@*, required by fstream@0.1.24</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /usr/lib/node_modules/</div><div class="line">unlink inherit</div><div class="line">mv inherits@2/ inherits/</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">npm update npm -g <span class="built_in">set</span> registry=https://registry.npm.taobao.org</div><div class="line">npm config <span class="built_in">set</span> ca <span class="string">""</span></div><div class="line"></div><div class="line">npm install npm -g <span class="built_in">set</span> registry=https://registry.npm.taobao.org</div><div class="line">npm config delete ca</div></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
@@ -503,8 +502,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T22:00:35+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T11:53:03+08:00">
+                2018-01-18
               </time>
             
 
@@ -640,8 +639,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T22:00:22+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T11:52:51+08:00">
+                2018-01-18
               </time>
             
 
@@ -698,19 +697,10 @@
 
       
         
-          <h1 id="docker-compose-或自建商店安装">docker-compose 或自建商店安装</h1>
-<blockquote>
-<p>如果之前有安装失败记录，需要进行清理，见『清理及故障处理』章节</p>
-</blockquote>
-<ol type="1">
-<li><p>从阿里云或第三方证书提供商下载免费证书。</p></li>
-<li><p>新建仓库目录</p></li>
+          <ol start="2" type="1">
+<li>新建仓库目录</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/svicloud/tools/harbor/data/cert/</div></pre></td></tr></table></figure>
-<ol start="3" type="1">
-<li><p>将证书的 <code>server.crt</code> 和 <code>server.key</code> 放置于上述目录</p></li>
-<li><p>生成一个 <code>secretkey</code> 文件，也放置于以上目录</p></li>
-</ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> -n <span class="string">"svicloud85509336"</span> &gt;/opt/svicloud/tools/harbor/data/cert/secretkey</div></pre></td></tr></table></figure>
 <ol start="5" type="1">
 <li>使用 docker-compose 安装 harbor</li>
@@ -798,8 +788,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T22:00:18+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T11:52:46+08:00">
+                2018-01-18
               </time>
             
 
@@ -861,7 +851,6 @@
 </blockquote>
 <h1 id="安装-docker">安装 Docker</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># clone 后直接脚本安装</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</div></pre></td></tr></table></figure>
-<h1 id="检查">检查</h1>
 <pre><code>docker info | grep WARN</code></pre>
 <blockquote>
 <p>WARNING: No swap limit support 解决方法见第 1 步，配置 <code>grub</code> 参数</p>
@@ -954,8 +943,8 @@ sysctl -p</code></pre>
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-11T22:00:13+08:00">
-                2018-01-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-18T11:52:42+08:00">
+                2018-01-18
               </time>
             
 
@@ -1028,7 +1017,7 @@ sysctl -p</code></pre>
 </tr>
 </tbody>
 </table>
-<p>author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - updated: date: author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a></p>
+<p>author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - updated: date: author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">msg=$(awk '      </div><div class="line">    BEGIN &#123; IGNORECASE = 1; ORS = "%20" &#125;</div><div class="line">    /FAILED|ERROR/ &#123;</div><div class="line">        gsub(/[[:blank:]]+(FAILED|ERROR)/, "")</div><div class="line">        gsub(/[[:blank:]]+/, "_")</div><div class="line">gsub(/[^[:alnum:]_]/, "")</div><div class="line">        print</div><div class="line">    &#125;' \</div><div class="line">    /var/clone/check/check_baseos.log \</div><div class="line">    /var/clone/check/check_gemstone_init.log \</div><div class="line">    /var/clone/check/check_pe_profile.log \</div><div class="line">    /var/clone/check/check_agent.log 2&gt;/dev/null | cut -c1-70)</div><div class="line">``` </div><div class="line">    </div><div class="line">    </div><div class="line"># 计算第三列的总和</div><div class="line">```awk</div><div class="line">awk '&#123; x += $3 &#125; END &#123; print x &#125;' myfile</div></pre></td></tr></table></figure>
 <h1 id="awk-内建变量示例详解之-nrfnrnffilename">awk 内建变量示例详解之 NR、FNR、NF、FILENAME</h1>
 <blockquote>

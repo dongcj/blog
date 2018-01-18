@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/   更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/">
+<meta name="description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/   http://dongweiming.github.io/blog/archives/shi-yong-grafanahe">
 <meta name="keywords" content="graphite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graphite 安装">
 <meta property="og:url" content="http://blog.dongcj.com/monitor/Graphite安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/   更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/">
+<meta property="og:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/   http://dongweiming.github.io/blog/archives/shi-yong-grafanahe">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphite 安装">
-<meta name="twitter:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/   更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/">
+<meta name="twitter:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/   http://dongweiming.github.io/blog/archives/shi-yong-grafanahe">
 
 
 
@@ -436,12 +436,11 @@
 <p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
 </blockquote>
 <blockquote>
-<p>更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+<p>http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
 </blockquote>
 <h1 id="使用-yum-安装环境">使用 yum 安装环境</h1>
 <pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
-# 其它的使得 pip 安装就可以
 $ pip install whisper
 $ pip install carbon
 $ pip install graphite-web</code></pre>
@@ -464,9 +463,9 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 <h1 id="配置文件">配置文件</h1>
 <pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 $ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
-$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf</code></pre>
-<h1 id="同步数据库">同步数据库</h1>
-<pre><code># 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
+$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
+
+# 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
 $ python /opt/graphite/webapp/graphite/manage.py syncdb
 
 $ cd /opt/graphite/conf/
@@ -480,16 +479,15 @@ $ cp local_settings.py.example local_settings.py</code></pre>
 <pre><code>$ cd ../../
 $ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
-# 并修改
 $ vi /etc/httpd/conf.d/vhost-graphite.conf
 WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
 <h1 id="修改已知的-bug">修改已知的 bug</h1>
 <pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
 
 def fetch(self, startTime, endTime, now=None):
-    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now</code></pre>
-<h1 id="替换-graphite-的界面">替换 graphite 的界面</h1>
-<pre><code>graph-index-master
+    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
+
+graph-index-master
 graphite-web-master</code></pre>
 
       
@@ -543,8 +541,8 @@ graphite-web-master</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/编码与文件格式转换/" rel="next" title="编码与文件格式转换">
-                <i class="fa fa-chevron-left"></i> 编码与文件格式转换
+              <a href="/linux/DHCP高级配置/" rel="next" title="DHCP 高级配置">
+                <i class="fa fa-chevron-left"></i> DHCP 高级配置
               </a>
             
           </div>
@@ -553,8 +551,8 @@ graphite-web-master</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Puppet安装/" rel="prev" title="Puppet 安装">
-                Puppet 安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" rel="prev" title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
+                VirtualBox 报错 E_FAIL0x80004005 解决方案 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -750,7 +748,7 @@ graphite-web-master</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-yum-安装环境"><span class="nav-number">1.</span> <span class="nav-text">使用 yum 安装环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装并升级为最新的-zope.interface-及-twisted"><span class="nav-number">2.</span> <span class="nav-text">安装并升级为最新的 zope.interface 及 twisted</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#check-for-missing-dependencies"><span class="nav-number">3.</span> <span class="nav-text">Check for missing dependencies</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置权限"><span class="nav-number">4.</span> <span class="nav-text">设置权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件"><span class="nav-number">5.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步数据库"><span class="nav-number">6.</span> <span class="nav-text">同步数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-httpd-中启用-virtualhost"><span class="nav-number">7.</span> <span class="nav-text">在 httpd 中启用 virtualHost</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改已知的-bug"><span class="nav-number">8.</span> <span class="nav-text">修改已知的 bug</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#替换-graphite-的界面"><span class="nav-number">9.</span> <span class="nav-text">替换 graphite 的界面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用-yum-安装环境"><span class="nav-number">1.</span> <span class="nav-text">使用 yum 安装环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装并升级为最新的-zope.interface-及-twisted"><span class="nav-number">2.</span> <span class="nav-text">安装并升级为最新的 zope.interface 及 twisted</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#check-for-missing-dependencies"><span class="nav-number">3.</span> <span class="nav-text">Check for missing dependencies</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置权限"><span class="nav-number">4.</span> <span class="nav-text">设置权限</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件"><span class="nav-number">5.</span> <span class="nav-text">配置文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-httpd-中启用-virtualhost"><span class="nav-number">6.</span> <span class="nav-text">在 httpd 中启用 virtualHost</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改已知的-bug"><span class="nav-number">7.</span> <span class="nav-text">修改已知的 bug</span></a></li></ol></div>
             
 
           </div>
