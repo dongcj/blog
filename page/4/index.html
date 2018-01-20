@@ -488,7 +488,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -507,7 +507,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
         
 
         <div class="post-meta">
@@ -542,8 +542,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cluster/" itemprop="url" rel="index">
-                    <span itemprop="name">cluster</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -560,9 +560,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -570,7 +570,7 @@
 
           
           
-             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
+             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -600,91 +600,21 @@
       
         
           
-            <blockquote>
-<p>参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
-</blockquote>
-<pre><code>python gearman library home page
-http://samuelks.com/python-gearman/docs/
-
-Tim Yang：利用 Gearman 来实现远程监控与管理
-http://timyang.net/linux/gearman-monitor/</code></pre>
-<h1 id="一安装-grarmand-及-libgearman-devel">一、安装 grarmand 及 libgearman-devel</h1>
-<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 )</code></pre>
-<h1 id="二安装-php-的-api">二、安装 PHP 的 API</h1>
-<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
-
-$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
-$ cd gearman-1.1.2
-$ phpize
-$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
-
-# 增加 php 扩展
-$ vi /etc/php.d/gearman.ini
-; Enable gearman extension module
-extension=gearman.so</code></pre>
-<h1 id="三启动-gearmand">三、启动 gearmand</h1>
-<pre><code># ( 如果使用默认参数，需要开启 IPV6)
-
-# 可以设置成服务启动：
-$ vi /etc/sysconfig/gearmand
-    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
-
-$ service gearmand start
-
-$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
-
-# 如果需要使用数据库
-gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
-
-$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
-
-# 将 /etc/passwd 文件给函数 wc 进行处理
-$ gearman -f wc &lt; /etc/passwd
-
-$ gearadmin --show-jobs
-      --status
-      --workers
-      -- ...</code></pre>
-<h2 id="worker">1. Worker:</h2>
-<pre><code>&lt;?php
-
-$worker = new GearmanWorker();
-$worker-&gt;addServer();
-$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
-
-while (1) {
-    print &quot;Waiting for job...\n&quot;;
-    $ret = $worker-&gt;work();
-    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {
-       break;
-    }
-}
-
-function reverse_fn(GearmanJob $job) {
-    $workload = $job-&gt;workload();
-    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
-    echo &quot;Workload: $workload\n&quot;;
-    $result = strrev($workload);
-    echo &quot;Result: $result\n&quot;;
-    return $result;
-}
-
-?&gt;</code></pre>
-<h2 id="client">2. client:</h2>
-<pre><code>&lt;?php
-
-$client = new GearmanClient();
-$client-&gt;addServer();
-
-echo &quot;sending job\n&quot;;
-
-if($result) {
-    echo &quot;Success: $result\n&quot;;
-} else {
-    echo &quot;Failed!&quot;;
-}
-
-?&gt;</code></pre>
+            <h1 id="买个-ss-帐号">买个 SS 帐号</h1>
+<p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机">路由刷机</h1>
+<ul>
+<li>路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code>注意：不是 WAN 口</code></li>
+<li>查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址</li>
+</ul>
+<figure>
+<img src="http://i.imgur.com/qlfwJ9j.jpg">
+</figure>
+<ul>
+<li>自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 )</li>
+<li><p>用户名和密码默认 “admin/admin”</p></li>
+<li><p>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</p></li>
+</ul>
 
           
         

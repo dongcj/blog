@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/使用printf进行格式化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/SMATE、XFCE、VNC配置/" itemprop="url">SMATE、XFCE、VNC 配置</a></h2>
+                <a class="post-title-link" href="/linux/使用printf进行格式化/" itemprop="url">使用 Printf 进行格式化</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/SMATE、XFCE、VNC配置/#comments" itemprop="discussionUrl">
+                <a href="/linux/使用printf进行格式化/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/SMATE、XFCE、VNC配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/使用printf进行格式化/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/SMATE、XFCE、VNC配置/" class="leancloud_visitors" data-flag-title="SMATE、XFCE、VNC 配置">
+             <span id="/linux/使用printf进行格式化/" class="leancloud_visitors" data-flag-title="使用 Printf 进行格式化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,42 +436,10 @@
       
         
           
-            <h1 id="yum-安装图像界面及-vnc">YUM 安装图像界面及 VNC</h1>
-<p>( 参考：http://www.ha97.com/4634.html )</p>
-<pre><code>yum install epel-release
-
-yum grouplist
-yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
-yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
-
-yum groupinstall [ xfce | &quot;MATE Desktop&quot; ]（CentOS 安装 xfce 桌面环境，可选）
-
-# runlevel 5
-systemctl isolate graphical.target
-
-# Start the GUI on boot
-systemctl set-default graphical.target
-
-# 切换 display manager
-# 查看
-ls -l /etc/systemd/system/display-manager.service
-
-# 切换
-systemctl disable gdm &amp;&amp; systemctl enable lightdm
-
-# 刷新
-systemctl isolate graphical.target</code></pre>
-<h1 id="安装-vnc-server">安装 vnc server</h1>
-<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
-yum install vnc-server vnc* （CentOS 5.x 里）
-yum install tigervnc-server tigervnc （CentOS 6.x 里）
-/etc/init.d/vncserver restart
-
-# 关闭具体的 vncserver 命令 :
-vncserver -kill :1</code></pre>
-<blockquote>
-<p>http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</p>
-</blockquote>
+            <h2 id="表格输出">表格输出</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">" %-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line">\n3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%b\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line"></div><div class="line">3</div><div class="line">$</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%d\n"</span> 255 0xff 0377 3.5</div><div class="line">255</div><div class="line">255</div><div class="line">255</div><div class="line">bash: <span class="built_in">printf</span>: 3.5: invalid number</div><div class="line">3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.000000</div><div class="line">255.000000</div><div class="line">377.000000</div><div class="line">3.500000</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%.1f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.0</div><div class="line">255.0</div><div class="line">377.0</div><div class="line">3.5</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $( seq 1 10 ); <span class="keyword">do</span> <span class="built_in">printf</span> <span class="string">"%03d\t"</span> <span class="string">"<span class="variable">$i</span>"</span>; <span class="keyword">done</span></div><div class="line">001     002     003     004     005     006     007     008     009     010</div></pre></td></tr></table></figure>
 
           
         
@@ -875,7 +843,7 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -894,7 +862,7 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet 安装</a></h2>
+                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
         
 
         <div class="post-meta">
@@ -929,8 +897,8 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/cluster/" itemprop="url" rel="index">
+                    <span itemprop="name">cluster</span>
                   </a>
                 </span>
 
@@ -947,9 +915,9 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Puppet安装/#comments" itemprop="discussionUrl">
+                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Puppet安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -957,7 +925,7 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
 
           
           
-             <span id="/linux/Puppet安装/" class="leancloud_visitors" data-flag-title="Puppet 安装">
+             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -987,86 +955,91 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
       
         
           
-            <h3 id="etchosts-可以-ping-通对方域名">/etc/hosts 可以 ping 通对方域名</h3>
-<h3 id="安装-puppet">安装 puppet</h3>
-<pre><code>$ yum install ruby ruby-libs ruby-rdoc
-$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
-$ yum update
+            <blockquote>
+<p>参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
+</blockquote>
+<pre><code>python gearman library home page
+http://samuelks.com/python-gearman/docs/
 
-# 服务端安装 puppet-server
-$ yum install puppet-server
+Tim Yang：利用 Gearman 来实现远程监控与管理
+http://timyang.net/linux/gearman-monitor/</code></pre>
+<h1 id="一安装-grarmand-及-libgearman-devel">一、安装 grarmand 及 libgearman-devel</h1>
+<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 )</code></pre>
+<h1 id="二安装-php-的-api">二、安装 PHP 的 API</h1>
+<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
 
-# 服务端安装 puppet 图形界面（可选）
-$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
 
-# 客户端安装 puppet
-$ yum install puppet</code></pre>
-<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
-<pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so</code></pre>
+<h1 id="三启动-gearmand">三、启动 gearmand</h1>
+<pre><code># ( 如果使用默认参数，需要开启 IPV6)
 
-$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
 
-$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
-*.xxx.com
-EOF
+$ service gearmand start
 
-$ service puppetmaster restart
-$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 
-在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-$ puppetd --server bigdata.xxxx.com --test
-或者
-$ puppet agent --no-daemonize --onetime --verbose --debug</code></pre>
-<h3 id="安装-dashboard">安装 dashboard</h3>
-<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
-production:
-database: puppet
-username: root
-password: passw0rd
-encoding: utf8
-adapter: mysql
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
-$ vi /usr/share/puppet-dashboard/config/environment.rb
-config.time_zone = &#39;Beijing&#39;</code></pre>
-<h3 id="初始化数据库">初始化数据库</h3>
-<pre><code>$ cd /usr/share/puppet-dashboard/
-rake RAILS_ENV=production db:migrate</code></pre>
-<h3 id="整合-passenger-和-apache">整合 Passenger 和 apache</h3>
-<pre><code>$ vi /etc/httpd/conf.d/passenger.conf
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
 
-LoadModule passenger_module modules/mod_passenger.so
-PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21
-PassengerRuby /usr/bin/ruby
-PassengerHighPerformance on
-PassengerMaxPoolSize 12
-PassengerPoolIdleTime 1500
-PassengerStatThrottleRate 120
-RailsAutoDetect On
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...</code></pre>
+<h2 id="worker">1. Worker:</h2>
+<pre><code>&lt;?php
 
-&lt;VirtualHost *&gt;
-  ServerName bigdata.xxxx.com
-  DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot;
-  ErrorLog /var/log/httpd/puppet-dashboard_error.log
-  LogLevel warn
-  CustomLog /var/log/httpd/puppet-dashboard_access.log combined
-&lt;/VirtualHost&gt;</code></pre>
-<h3 id="让-dashboard-使用-reports">让 Dashboard 使用 Reports</h3>
-<pre><code>$ vi /etc/puppet/puppet.conf
-[master]
-reports = store, http
-reporturl = http://bigdata.xxxx.com:80/reports/upload</code></pre>
-<h3 id="重启-puppetmaster-服务">重启 puppetmaster 服务</h3>
-<pre><code>$ /etc/init.d/puppetmaster restart</code></pre>
-<h3 id="导入报告">导入报告</h3>
-<pre><code>$ cd /usr/share/puppet-dashboard
-$ rake RAILS_ENV=production reports:import</code></pre>
-<h3 id="执行导入的-reports">执行导入的 reports</h3>
-<pre><code>$ rake jobs:work RAILS_ENV=&quot;production&quot;</code></pre>
-<h3 id="下载及文档地址">下载及文档地址</h3>
-<pre><code>http://code.google.com/p/puppet-manifest-share/downloads/list
-http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
-http://dongxicheng.org/cluster-managemant/puppet/</code></pre>
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
+
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {
+       break;
+    }
+}
+
+function reverse_fn(GearmanJob $job) {
+    $workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
+
+?&gt;</code></pre>
+<h2 id="client">2. client:</h2>
+<pre><code>&lt;?php
+
+$client = new GearmanClient();
+$client-&gt;addServer();
+
+echo &quot;sending job\n&quot;;
+
+if($result) {
+    echo &quot;Success: $result\n&quot;;
+} else {
+    echo &quot;Failed!&quot;;
+}
+
+?&gt;</code></pre>
 
           
         

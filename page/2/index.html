@@ -1191,7 +1191,7 @@ $ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/使用printf进行格式化/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1210,7 +1210,7 @@ $ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/使用printf进行格式化/" itemprop="url">使用 Printf 进行格式化</a></h2>
+                <a class="post-title-link" href="/linux/SMATE、XFCE、VNC配置/" itemprop="url">SMATE、XFCE、VNC 配置</a></h2>
         
 
         <div class="post-meta">
@@ -1263,9 +1263,9 @@ $ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/使用printf进行格式化/#comments" itemprop="discussionUrl">
+                <a href="/linux/SMATE、XFCE、VNC配置/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/使用printf进行格式化/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/SMATE、XFCE、VNC配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1273,7 +1273,7 @@ $ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
 
           
           
-             <span id="/linux/使用printf进行格式化/" class="leancloud_visitors" data-flag-title="使用 Printf 进行格式化">
+             <span id="/linux/SMATE、XFCE、VNC配置/" class="leancloud_visitors" data-flag-title="SMATE、XFCE、VNC 配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1303,10 +1303,42 @@ $ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
       
         
           
-            <h2 id="表格输出">表格输出</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">" %-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line">\n3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%b\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line"></div><div class="line">3</div><div class="line">$</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%d\n"</span> 255 0xff 0377 3.5</div><div class="line">255</div><div class="line">255</div><div class="line">255</div><div class="line">bash: <span class="built_in">printf</span>: 3.5: invalid number</div><div class="line">3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.000000</div><div class="line">255.000000</div><div class="line">377.000000</div><div class="line">3.500000</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%.1f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.0</div><div class="line">255.0</div><div class="line">377.0</div><div class="line">3.5</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $( seq 1 10 ); <span class="keyword">do</span> <span class="built_in">printf</span> <span class="string">"%03d\t"</span> <span class="string">"<span class="variable">$i</span>"</span>; <span class="keyword">done</span></div><div class="line">001     002     003     004     005     006     007     008     009     010</div></pre></td></tr></table></figure>
+            <h1 id="yum-安装图像界面及-vnc">YUM 安装图像界面及 VNC</h1>
+<p>( 参考：http://www.ha97.com/4634.html )</p>
+<pre><code>yum install epel-release
+
+yum grouplist
+yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
+yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
+
+yum groupinstall [ xfce | &quot;MATE Desktop&quot; ]（CentOS 安装 xfce 桌面环境，可选）
+
+# runlevel 5
+systemctl isolate graphical.target
+
+# Start the GUI on boot
+systemctl set-default graphical.target
+
+# 切换 display manager
+# 查看
+ls -l /etc/systemd/system/display-manager.service
+
+# 切换
+systemctl disable gdm &amp;&amp; systemctl enable lightdm
+
+# 刷新
+systemctl isolate graphical.target</code></pre>
+<h1 id="安装-vnc-server">安装 vnc server</h1>
+<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
+yum install vnc-server vnc* （CentOS 5.x 里）
+yum install tigervnc-server tigervnc （CentOS 6.x 里）
+/etc/init.d/vncserver restart
+
+# 关闭具体的 vncserver 命令 :
+vncserver -kill :1</code></pre>
+<blockquote>
+<p>http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</p>
+</blockquote>
 
           
         
