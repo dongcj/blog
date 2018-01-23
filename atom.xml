@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-20T04:11:08.178Z</updated>
+  <updated>2018-01-23T04:11:03.893Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>修改 Npm 安装源为国内源</title>
     <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
     <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
-    <published>2018-01-20T04:11:08.165Z</published>
-    <updated>2018-01-20T04:11:08.178Z</updated>
+    <published>2018-01-23T04:11:03.880Z</published>
+    <updated>2018-01-23T04:11:03.893Z</updated>
     
     <summary type="html">
     
@@ -45,8 +45,8 @@
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-20T04:10:53.181Z</published>
-    <updated>2018-01-20T04:10:53.182Z</updated>
+    <published>2018-01-23T04:10:50.356Z</published>
+    <updated>2018-01-23T04:10:50.369Z</updated>
     
     <summary type="html">
     
@@ -65,8 +65,8 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-20T04:10:28.845Z</published>
-    <updated>2018-01-20T04:10:28.851Z</updated>
+    <published>2018-01-23T04:10:29.825Z</published>
+    <updated>2018-01-23T04:10:29.839Z</updated>
     
     <summary type="html">
     
@@ -92,8 +92,8 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-20T04:10:22.960Z</published>
-    <updated>2018-01-20T04:10:22.973Z</updated>
+    <published>2018-01-23T04:10:23.973Z</published>
+    <updated>2018-01-23T04:10:23.986Z</updated>
     
     <summary type="html">
     
@@ -125,8 +125,8 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     <title>Awk 命令</title>
     <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/awk命令/</id>
-    <published>2018-01-20T04:10:15.660Z</published>
-    <updated>2018-01-20T04:10:15.673Z</updated>
+    <published>2018-01-23T04:10:17.212Z</published>
+    <updated>2018-01-23T04:10:17.226Z</updated>
     
     <summary type="html">
     
@@ -264,6 +264,32 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
   </entry>
   
   <entry>
+    <title>使用 Printf 进行格式化</title>
+    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
+    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
+    <published>2016-08-30T09:27:43.000Z</published>
+    <updated>2016-08-30T09:48:08.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
+    
+      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SMATE、XFCE、VNC 配置</title>
     <link href="http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/"/>
     <id>http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/</id>
@@ -297,37 +323,11 @@ yum group
   </entry>
   
   <entry>
-    <title>使用 Printf 进行格式化</title>
-    <link href="http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/"/>
-    <id>http://blog.dongcj.com/linux/使用printf进行格式化/</id>
-    <published>2016-08-30T09:27:43.000Z</published>
-    <updated>2016-08-30T09:48:08.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;表格输出&quot;&gt;表格输出&lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="shell" scheme="http://blog.dongcj.com/tags/shell/"/>
-    
-      <category term="printf" scheme="http://blog.dongcj.com/tags/printf/"/>
-    
-  </entry>
-  
-  <entry>
     <title>CentOS 部署 Lazy-Balancer 负载均衡　</title>
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-20T04:10:17.510Z</updated>
+    <updated>2018-01-23T04:10:19.414Z</updated>
     
     <summary type="html">
     
@@ -408,36 +408,6 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Mdadm_raid10_raid5</title>
-    <link href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/"/>
-    <id>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;每块硬盘分一个区&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;# 分区格式为 Linux software raid：
-
-$ fdisk /dev/sda
-
-  WARNING: DOS-compatible mode is deprecated
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="soft raid" scheme="http://blog.dongcj.com/tags/soft-raid/"/>
-    
-      <category term="mdadm" scheme="http://blog.dongcj.com/tags/mdadm/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
     <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
     <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
@@ -460,35 +430,6 @@ $ fdisk /dev/sda
       <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
     
       <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
-    
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
-    
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
   </entry>
   
@@ -520,6 +461,33 @@ xinetd-2.3.14-10.el5.x86_6
       <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
     
       <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Puppet 安装</title>
+    <link href="http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/linux/Puppet安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;etchosts-可以-ping-通对方域名&quot;&gt;/etc/hosts 可以 ping 通对方域名&lt;/h3&gt;
+&lt;h3 id=&quot;安装-puppet&quot;&gt;安装 puppet&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ yum install ruby ruby-libs ru
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="puppet" scheme="http://blog.dongcj.com/tags/puppet/"/>
+    
+      <category term="devops" scheme="http://blog.dongcj.com/tags/devops/"/>
     
   </entry>
   
@@ -584,6 +552,35 @@ $ dd if
       <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
     
       <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>斐讯 K2 路由器刷机</title>
+    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
+    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
+&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
+&lt;h1 id
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
+    
+      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
+    
+      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
     
   </entry>
   

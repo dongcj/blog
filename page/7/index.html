@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
+                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/RedHat、CentOS国内备用安装源/#comments" itemprop="discussionUrl">
+                <a href="/linux/Linux安装easy_install及pip/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/RedHat、CentOS国内备用安装源/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Linux安装easy_install及pip/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/RedHat、CentOS国内备用安装源/" class="leancloud_visitors" data-flag-title="安装源_RedHat,CentOS 备用源">
+             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux 安装 Easy_install 及 Pip">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,44 +436,62 @@
       
         
           
-            <h1 id="yum-更新">yum 更新</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum search fastestmirror</div><div class="line">yum install yum-fastestmirror* -y</div><div class="line">yum update yum*</div><div class="line">yum update kernel*</div><div class="line">yum update</div></pre></td></tr></table></figure>
-<pre><code># ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
-<h2 id="epel-源-elrepo.org">epel 源 (elrepo.org)</h2>
-<pre><code>yum install epel-release</code></pre>
-<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
-<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
-
-# ( 将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-# redhat/centos 6
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
-<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
-<h2 id="centos-中国科学技术大学-ustc-mirror-每小时更新一次">CentOS 中国科学技术大学 USTC mirror( 每小时更新一次 )</h2>
-<blockquote>
-<p>地址：http://centos.ustc.edu.cn/</p>
+            <blockquote>
+<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
 </blockquote>
-<pre><code>cd /etc/yum.repos.d
-mv CentOS-Base.repo  CentOS-Base.repo.save-`date +%F`</code></pre>
-<h3 id="centos-7">centos 7</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">vi USTC.repo</div><div class="line">[base]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Base</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#released updates</span></div><div class="line">[updates]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Updates</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#additional packages that may be useful</span></div><div class="line">[extras]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Extras</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div><div class="line"></div><div class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></div><div class="line">[centosplus]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Plus</div><div class="line"><span class="comment"># mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span></div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7</div></pre></td></tr></table></figure>
-<h3 id="centos-6">centos 6</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">[base]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Base - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/os/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=os</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#released updates</span></div><div class="line">[updates]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Updates - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/updates/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=updates</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#additional packages that may be useful</span></div><div class="line">[extras]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Extras - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/extras/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=extras</span></div><div class="line">gpgcheck=1</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#additional packages that extend functionality of existing packages</span></div><div class="line">[centosplus]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Plus - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/centosplus/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=centosplus</span></div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div><div class="line"></div><div class="line"><span class="comment">#contrib - packages by Centos Users</span></div><div class="line">[contrib]</div><div class="line">name=CentOS-<span class="variable">$releasever</span> - Contrib - mirrors.ustc.edu.cn</div><div class="line">baseurl=https://mirrors.ustc.edu.cn/centos/<span class="variable">$releasever</span>/contrib/<span class="variable">$basearch</span>/</div><div class="line"><span class="comment">#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&amp;arch=$basearch&amp;repo=contrib</span></div><div class="line">gpgcheck=1</div><div class="line">enabled=0</div><div class="line">gpgkey=https://mirrors.ustc.edu.cn/centos/RPM-GPG-KEY-CentOS-6</div></pre></td></tr></table></figure>
-<h2 id="网易开源镜像站">网易开源镜像站</h2>
-<blockquote>
-<p>地址：http://mirrors.163.com/.help/centos.html</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">cd</span> /etc/yum.repos.d</div><div class="line"><span class="comment"># centos6</span></div><div class="line">wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS6-Base-163.repo</div><div class="line"></div><div class="line"><span class="comment"># centos7</span></div><div class="line">wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS7-Base-163.repo</div><div class="line"></div><div class="line"><span class="comment"># 生成缓存</span></div><div class="line">yum makecache</div></pre></td></tr></table></figure>
-<pre><code># 删除 32 位组件：
-yum remove \*.i\?86
+<h1 id="安装-easy_install">安装 easy_install</h1>
+<pre><code># 获取软件包
+$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
+# 解压 :
+$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
+# 使用 Python 2.7.x 安装 setuptools
+/usr/local/bin/python2.7 setup.py install
 
-# 编辑 /etc/yum.conf 并加入以下一行：
-exclude = *.i?86</code></pre>
+更多 easy_install 用法见： easy_install 用法</code></pre>
+<h1 id="安装-pip">安装 PIP</h1>
+<pre><code># 下载方法 1
+$ curl https://bootstrap.pypa.io/get-pip.py | python -
+# 下载方法 2
+$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
+
+# 安装方法 1
+$ yum install python-pip
+
+# 安装方法 2
+$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
+
+# 升级 pip
+$ /usr/local/bin/easy_install --upgrade pip
+
+# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
+$ pip install -U distribute
+
+# 升级 ez_setup
+$ curl https://bootstrap.pypa.io/ez_setup.py | python -
+
+$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+&gt; 安装墙内 PIP
+http://realfavicongenerator.net/</code></pre>
+<h1 id="easy_install-用法">easy_install 用法</h1>
+<pre><code># 1 直接安装：
+  easy_install SQLObject
+# 2 使用下载页面地址安装
+  easy_install -f http://pythonpaste.org/package_index.html SQLObject
+# 3 直接给出下载 url 安装
+  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
+# 4 .egg 文件的安装
+  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
+# 5 跟新安装过的包
+  easy_install --upgrade PyProtocols
+# 6 安装已经下载和提取在当前目录下的包
+  easy_install .
+# 7 安装特定特定版本的库
+  easy_install &quot;SomePackage==2.0&quot;
+# 8 大于某个版本
+  easy_install &quot;SomePackage&gt;2.0
+# 9 卸载库
+easy_install -m PackageName</code></pre>
 
           
         
