@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/dns/Dnsmasq使用本地host为DNS/" itemprop="url">Dnsmasq 使用本地 Hosts 配置提供 DNS 服务</a></h2>
+                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
         
 
         <div class="post-meta">
@@ -385,17 +385,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/dns/" itemprop="url" rel="index">
-                    <span itemprop="name">dns</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -407,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/dns/Dnsmasq使用本地host为DNS/#comments" itemprop="discussionUrl">
+                <a href="/linux/Linux安装easy_install及pip/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/dns/Dnsmasq使用本地host为DNS/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Linux安装easy_install及pip/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -417,7 +406,7 @@
 
           
           
-             <span id="/linux/dns/Dnsmasq使用本地host为DNS/" class="leancloud_visitors" data-flag-title="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
+             <span id="/linux/Linux安装easy_install及pip/" class="leancloud_visitors" data-flag-title="Linux 安装 Easy_install 及 Pip">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -447,34 +436,62 @@
       
         
           
-            <h1 id="使用-dnsmasq-提供外网-dns-服务">使用 dnsmasq 提供外网 dns 服务</h1>
-<pre><code>$ apt-get install dnsmasq
+            <blockquote>
+<p>需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
+</blockquote>
+<h1 id="安装-easy_install">安装 easy_install</h1>
+<pre><code># 获取软件包
+$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
+# 解压 :
+$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
+# 使用 Python 2.7.x 安装 setuptools
+/usr/local/bin/python2.7 setup.py install
 
-# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
-listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
-addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
-resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个 )
-conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析</code></pre>
-<h2 id="生成域名映射">生成域名映射</h2>
-<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
-vi /etc/dnsmasq.d/dns.conf
+更多 easy_install 用法见： easy_install 用法</code></pre>
+<h1 id="安装-pip">安装 PIP</h1>
+<pre><code># 下载方法 1
+$ curl https://bootstrap.pypa.io/get-pip.py | python -
+# 下载方法 2
+$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
 
-# 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
-address=&quot;/google.com/172.17.0.4&quot;</code></pre>
-<h2 id="启动服务">启动服务</h2>
-<pre><code>/etc/init.d/dnsmasq start</code></pre>
-<h2 id="测试">测试</h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
-<h1 id="本地-hosts-配合-networkmanager-方式">本地 hosts 配合 NetworkManager 方式</h1>
-<pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
-addn-hosts=/etc/hosts
+# 安装方法 1
+$ yum install python-pip
 
-$ sudo service networking restart
-$ sudo /etc/init.d/dns-clean restart
+# 安装方法 2
+$ /usr/local/bin/easy_install pip  ( 建议 , 如果升级使用此方法！ )
 
-$ host u1
-$ nslookup u1
-$ getent ahosts u1</code></pre>
+# 升级 pip
+$ /usr/local/bin/easy_install --upgrade pip
+
+# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 )
+$ pip install -U distribute
+
+# 升级 ez_setup
+$ curl https://bootstrap.pypa.io/ez_setup.py | python -
+
+$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+&gt; 安装墙内 PIP
+http://realfavicongenerator.net/</code></pre>
+<h1 id="easy_install-用法">easy_install 用法</h1>
+<pre><code># 1 直接安装：
+  easy_install SQLObject
+# 2 使用下载页面地址安装
+  easy_install -f http://pythonpaste.org/package_index.html SQLObject
+# 3 直接给出下载 url 安装
+  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
+# 4 .egg 文件的安装
+  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
+# 5 跟新安装过的包
+  easy_install --upgrade PyProtocols
+# 6 安装已经下载和提取在当前目录下的包
+  easy_install .
+# 7 安装特定特定版本的库
+  easy_install &quot;SomePackage==2.0&quot;
+# 8 大于某个版本
+  easy_install &quot;SomePackage&gt;2.0
+# 9 卸载库
+easy_install -m PackageName</code></pre>
 
           
         

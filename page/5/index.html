@@ -324,444 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件">安装软件</h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
-<blockquote>
-<p>如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
-</blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙">挂载分区及配置防火墙</h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
-
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
-
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
-
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动-glusterd-服务">启动 glusterd 服务</h1>
-<pre><code>$ service glusterd start
-
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd
-
-# from server1
-$ gluster peer probe SERVER2
-
-# from server2
-$ gluster peer probe SERVER1
-
-# check peer
-$ gluster peer status
-
-$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
-
-$ gluster volume info
-$ gluster volume status
-
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
-
-# delete Volume
-$ gluster volume delete gv0
-
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
-<h1 id="test-gluster-volume">Test Gluster volume</h1>
-<pre><code># mount to /mnt
-$ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
-
-$ vi /etc/fstab
-gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
-
-# 如果使用 nfs 协议使用
-# GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
-$ vi /etc/nfsmount.conf
-Defaultvers=3
-
-$ systemctl restart glusterd.service
-
-# start force
-$ gluster volume set gv0 nfs.disable off
-$ gluster volume start gv0 force
-
-$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs</code></pre>
-<h1 id="配置-quorum">配置 Quorum()</h1>
-<pre><code>......</code></pre>
-<blockquote>
-<p>参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/DHCP高级配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/DHCP高级配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/DHCP高级配置/" class="leancloud_visitors" data-flag-title="DHCP 高级配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="一dhcp-中继代理配置"># 一、DHCP 中继代理配置</h2>
-<pre><code># ( 在其它服务上安装 dhcpd 软件 )：
-
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
-
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1</code></pre>
-<h2 id="二dhcp-超网配置"># 二、DHCP 超网配置</h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式*/
-ignore client-updates;          /*忽略客户端 DNS 动态更新*/
-shared-network mynet {          /*超网作用域选项，共同部分*/
-    option subnet-mask 255.255.255.0;            /*子网掩码*/
-    option domain-name &quot;koumm.net&quot;;              /*域名*/
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /*广播地址*/
-    default-lease-time 86400;                    /*租期 1 天，秒数*/
-    max-lease-time 172800;                       /*最长租期 2 天*/
-
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段*/
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围*/
-        option routers 192.168.1.1;               /*网关地址*/
-        /*绑定 pc1 主机 ip 地址配置*/
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /*绑定 pc2 主机 ip 地址配置*/
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
-
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段*/
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围*/
-        option routers 192.168.2.1;                /*网关地址*/
-    }
-
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段*/
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围*/
-        option routers 192.168.3.1;                /*网关地址*/
-    }
-
-}</code></pre>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1037,7 +599,7 @@ $ http DELETE example.org/todos/7</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1056,171 +618,7 @@ $ http DELETE example.org/todos/7</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/web/Nginx及upstreamcheck,fair模块安装/" itemprop="url">Nginx 及 Upstreamcheck,fair 模块安装</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/web/Nginx及upstreamcheck,fair模块安装/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="web/Nginx及upstreamcheck,fair模块安装/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/web/Nginx及upstreamcheck,fair模块安装/" class="leancloud_visitors" data-flag-title="Nginx 及 Upstreamcheck,fair 模块安装">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="download-nginx-module">download nginx &amp; module</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
-<h1 id="make-install">make &amp; install</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<h1 id="nginx.conf-proxy.conf">nginx.conf &amp; proxy.conf</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表</span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效</span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> /usr/local/nginx/conf/proxy.conf</div><div class="line"></div><div class="line">proxy_redirect <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div></pre></td></tr></table></figure>
-<h2 id="start-auto-start">start &amp; auto-start</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
+                <a class="post-title-link" href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="url">VirtualBox 报错 E_FAIL0x80004005 解决方案</a></h2>
         
 
         <div class="post-meta">
@@ -1273,9 +671,9 @@ $ http DELETE example.org/todos/7</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
+                <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1283,7 +681,7 @@ $ http DELETE example.org/todos/7</code></pre>
 
           
           
-             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
+             <span id="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" class="leancloud_visitors" data-flag-title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1313,150 +711,706 @@ $ http DELETE example.org/todos/7</code></pre>
       
         
           
-            <h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
-<pre><code># 分区格式为 Linux software raid：
+            <blockquote>
+<p>VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题</p>
+</blockquote>
+<blockquote>
+<p>返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
+</blockquote>
+<h1 id="寻找原因">寻找原因</h1>
+<p>直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
+<h1 id="解决方案">解决方案</h1>
+<p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ExcludeModule]</div><div class="line">VBoxSVC.exe</div><div class="line">VirtualBox.exe</div></pre></td></tr></table></figure>
+<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written <figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
+<p>还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好</p>
+<p>通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~</p>
+<blockquote>
+<p>参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</p>
+</blockquote>
 
-$ fdisk /dev/sda
+          
+        
+      
+    </div>
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+    <div>
+      
+    </div>
 
-  Command (m for help): n
-  Command action
-     e   extended
-     p   primary partition (1-4)
-  p
-  Partition number (1-4): 1
-  First cylinder (1-91201, default 1):
-  Using default value 1
-  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
-  Using default value 91201
+    <div>
+      
+    </div>
 
-  Command (m for help): p
+    <div>
+      
+    </div>
 
-  Disk /dev/sda: 750.2 GB, 750156374016 bytes
-  255 heads, 63 sectors/track, 91201 cylinders
-  Units = cylinders of 16065 * 512 = 8225280 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disk identifier: 0x0005c259
+    <footer class="post-footer">
+      
 
-     Device Boot      Start         End      Blocks   Id  System
-  /dev/sda1               1       91201   732572001   83  Linux
+      
 
-  Command (m for help): t
-  Selected partition 1
-  Hex code (type L to list codes): fd
-  Changed system type of partition 1 to fd (Linux raid autodetect)
+      
 
-  Command (m for help): w
-  The partition table has been altered!
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
 
-  Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式">更改分区格式</h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
-$ fdisk /dev/sdc
-...
-$ fdisk /dev/sdd
-...
-$ fdisk /dev/sde
-...
-$ fdisk /dev/sdf
-...
-$ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建-raid">创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
-$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
-mdadm: layout defaults to n2
-mdadm: layout defaults to n2
-mdadm: chunk size defaults to 512K
-mdadm: size set to 732440576K
-mdadm: Defaulting to version 1.2 metadata
-mdadm: array /dev/md0 started.
 
-# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
-# watch cat /proc/mdstat
-Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+    
+      
 
-Personalities : [raid10]
-md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
-      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
-      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
-0948K/sec
+  
 
-unused devices:
+  
+  
+  
 
-$ fdisk /dev/md0
-$ mkfs.ext4 /dev/md0p1
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
 
-$ mkdir /raid10
-$ mount /dev/md0p1 /raid10
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Puppet安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Puppet安装/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Puppet安装/" class="leancloud_visitors" data-flag-title="Puppet 安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="etchosts-可以-ping-通对方域名">/etc/hosts 可以 ping 通对方域名</h3>
+<h3 id="安装-puppet">安装 puppet</h3>
+<pre><code>$ yum install ruby ruby-libs ruby-rdoc
+$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
+$ yum update
+
+# 服务端安装 puppet-server
+$ yum install puppet-server
+
+# 服务端安装 puppet 图形界面（可选）
+$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
+
+# 客户端安装 puppet
+$ yum install puppet</code></pre>
+<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
+<pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
+
+$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
+
+$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
+*.xxx.com
+EOF
+
+$ service puppetmaster restart
+$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
+
+在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
+
+$ puppetd --server bigdata.xxxx.com --test
+或者
+$ puppet agent --no-daemonize --onetime --verbose --debug</code></pre>
+<h3 id="安装-dashboard">安装 dashboard</h3>
+<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
+production:
+database: puppet
+username: root
+password: passw0rd
+encoding: utf8
+adapter: mysql
+
+$ vi /usr/share/puppet-dashboard/config/environment.rb
+config.time_zone = &#39;Beijing&#39;</code></pre>
+<h3 id="初始化数据库">初始化数据库</h3>
+<pre><code>$ cd /usr/share/puppet-dashboard/
+rake RAILS_ENV=production db:migrate</code></pre>
+<h3 id="整合-passenger-和-apache">整合 Passenger 和 apache</h3>
+<pre><code>$ vi /etc/httpd/conf.d/passenger.conf
+
+LoadModule passenger_module modules/mod_passenger.so
+PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21
+PassengerRuby /usr/bin/ruby
+PassengerHighPerformance on
+PassengerMaxPoolSize 12
+PassengerPoolIdleTime 1500
+PassengerStatThrottleRate 120
+RailsAutoDetect On
+
+&lt;VirtualHost *&gt;
+  ServerName bigdata.xxxx.com
+  DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot;
+  ErrorLog /var/log/httpd/puppet-dashboard_error.log
+  LogLevel warn
+  CustomLog /var/log/httpd/puppet-dashboard_access.log combined
+&lt;/VirtualHost&gt;</code></pre>
+<h3 id="让-dashboard-使用-reports">让 Dashboard 使用 Reports</h3>
+<pre><code>$ vi /etc/puppet/puppet.conf
+[master]
+reports = store, http
+reporturl = http://bigdata.xxxx.com:80/reports/upload</code></pre>
+<h3 id="重启-puppetmaster-服务">重启 puppetmaster 服务</h3>
+<pre><code>$ /etc/init.d/puppetmaster restart</code></pre>
+<h3 id="导入报告">导入报告</h3>
+<pre><code>$ cd /usr/share/puppet-dashboard
+$ rake RAILS_ENV=production reports:import</code></pre>
+<h3 id="执行导入的-reports">执行导入的 reports</h3>
+<pre><code>$ rake jobs:work RAILS_ENV=&quot;production&quot;</code></pre>
+<h3 id="下载及文档地址">下载及文档地址</h3>
+<pre><code>http://code.google.com/p/puppet-manifest-share/downloads/list
+http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
+http://dongxicheng.org/cluster-managemant/puppet/</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite 安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+</blockquote>
+<blockquote>
+<p>http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+</blockquote>
+<h1 id="使用-yum-安装环境">使用 yum 安装环境</h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的-zope.interface-及-twisted">安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限">设置权限</h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+<h1 id="配置文件">配置文件</h1>
+<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
+$ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
+$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
+
+# 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
+$ python /opt/graphite/webapp/graphite/manage.py syncdb
+
+$ cd /opt/graphite/conf/
+$ cp graphite.wsgi.example graphite.wsgi
+$ cp storage-schemas.conf.example storage-schemas.conf
+$ cp carbon.conf.example carbon.conf
+
+$ cd /opt/graphite/webapp/graphite
+$ cp local_settings.py.example local_settings.py</code></pre>
+<h1 id="在-httpd-中启用-virtualhost">在 httpd 中启用 virtualHost</h1>
+<pre><code>$ cd ../../
+$ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
+
+$ vi /etc/httpd/conf.d/vhost-graphite.conf
+WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
+<h1 id="修改已知的-bug">修改已知的 bug</h1>
+<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
+
+def fetch(self, startTime, endTime, now=None):
+    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
+
+graph-index-master
+graphite-web-master</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/storage/" itemprop="url" rel="index">
+                    <span itemprop="name">storage</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
+</blockquote>
+<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
+<h1 id="安装软件">安装软件</h1>
+<pre><code>yum install glusterfs{,-fuse,-server}
+yum install glusterfs-geo-replication.x86_64</code></pre>
+<blockquote>
+<p>如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+</blockquote>
+<pre><code># 删除 lvm2
+$ rpm -e lvm2</code></pre>
+<h1 id="挂载分区及配置防火墙">挂载分区及配置防火墙</h1>
+<pre><code># mkdir
+$ mkdir /export/brick1
+
+# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
+$ chmod 777 /export/brick1
+
+# firewall
+$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+
+$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
+$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
+--add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
+$ firewall-cmd --reload</code></pre>
+<h1 id="启动-glusterd-服务">启动 glusterd 服务</h1>
+<pre><code>$ service glusterd start
+
+# if centos7:
+$ systemctl enable glusterd
+$ systemctl start glusterd
+$ systemctl status glusterd
+
+# from server1
+$ gluster peer probe SERVER2
+
+# from server2
+$ gluster peer probe SERVER1
+
+# check peer
+$ gluster peer status
+
+$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
+$ gluster volume start gv0
+
+$ gluster volume info
+$ gluster volume status
+
+# How to remove a volume or peer
+# stop Volume
+$ gluster volume stop gv0
+
+# delete Volume
+$ gluster volume delete gv0
+
+$ gluster peer detach NAME_OF_PEERNODE</code></pre>
+<h1 id="test-gluster-volume">Test Gluster volume</h1>
+<pre><code># mount to /mnt
+$ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
 
 $ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
 
-$ blkid
-  ...
-  /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot;
+# 如果使用 nfs 协议使用
+# GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
+$ vi /etc/nfsmount.conf
+Defaultvers=3
 
-$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
+$ systemctl restart glusterd.service
 
-$ mdadm --query --detail /dev/md0
-/dev/md0:
-        Version : 1.2
-  Creation Time : Tue Feb 11 12:50:38 2014
-     Raid Level : raid10
-     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
-  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
-   Raid Devices : 6
-  Total Devices : 6
-    Persistence : Superblock is persistent
+# start force
+$ gluster volume set gv0 nfs.disable off
+$ gluster volume start gv0 force
 
-    Update Time : Tue Feb 11 18:48:10 2014
-          State : clean
- Active Devices : 6
-Working Devices : 6
- Failed Devices : 0
-  Spare Devices : 0
-
-         Layout : near=2
-     Chunk Size : 512K
-
-           Name : local:0  (local to host local)
-           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
-         Events : 70
-
-    Number   Major   Minor   RaidDevice State
-       0       8        1        0      active sync   /dev/sda1
-       1       8       33        1      active sync   /dev/sdc1
-       2       8       49        2      active sync   /dev/sdd1
-       3       8       65        3      active sync   /dev/sde1
-       4       8       81        4      active sync   /dev/sdf1
-       5       8       97        5      active sync   /dev/sdg1
-
-$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid-维护命令">RAID 维护命令</h1>
-<h2 id="删除故障盘">删除故障盘</h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘">增加新盘</h2>
-<pre><code>$ mdadm /dev/md0 -a /dev/sde1
-
-$ mdadm --stop /dev/md99    // 停止
-$ mdadm -As /dev/md0        // 启动
-$ mdadm --remove /dev/md99
-
-mdadm --manage /dev/md99 --fail /dev/sd[cde]1
-mdadm --manage /dev/md99 --remove /dev/sd[cde]1
-mdadm --manage /dev/md99 --stop
-mdadm --zero-superblock /dev/sd[cde]1</code></pre>
+$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs</code></pre>
+<h1 id="配置-quorum">配置 Quorum()</h1>
+<pre><code>......</code></pre>
+<blockquote>
+<p>参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
+</blockquote>
 
           
         

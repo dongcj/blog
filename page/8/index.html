@@ -492,6 +492,175 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
+                2016-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Supervisor安装与配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Supervisor安装与配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Supervisor安装与配置/" class="leancloud_visitors" data-flag-title="Supervisor 安装与配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="安装">安装</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
+<h1 id="配置">配置</h1>
+<blockquote>
+<p>生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选</span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选</span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令</span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动</span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选</span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选</span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
+<h1 id="启动">启动</h1>
+<pre><code>$ service supervisord start
+
+&gt; 如果使用 pip 安装，需要自已写启动脚本
+
+supervisorctl status
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Systemd使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -999,175 +1168,6 @@ multi-user.target</code></pre>
 [root@manage ~]# systemctl suspend
 [root@manage ~]# systemctl hibernate
 [root@manage ~]# systemctl hybrid-sleep</code></pre>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
-                2016-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Supervisor安装与配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Supervisor安装与配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Supervisor安装与配置/" class="leancloud_visitors" data-flag-title="Supervisor 安装与配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="安装">安装</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
-<h1 id="配置">配置</h1>
-<blockquote>
-<p>生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选</span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选</span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令</span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动</span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选</span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选</span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<h1 id="启动">启动</h1>
-<pre><code>$ service supervisord start
-
-&gt; 如果使用 pip 安装，需要自已写启动脚本
-
-supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
 
           
         

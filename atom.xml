@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-24T04:11:01.528Z</updated>
+  <updated>2018-01-24T14:00:58.885Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>修改 Npm 安装源为国内源</title>
     <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
     <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
-    <published>2018-01-24T04:11:01.516Z</published>
-    <updated>2018-01-24T04:11:01.528Z</updated>
+    <published>2018-01-24T14:00:58.873Z</published>
+    <updated>2018-01-24T14:00:58.885Z</updated>
     
     <summary type="html">
     
@@ -45,8 +45,8 @@
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-24T04:10:47.653Z</published>
-    <updated>2018-01-24T04:10:47.665Z</updated>
+    <published>2018-01-24T14:00:46.343Z</published>
+    <updated>2018-01-24T14:00:46.355Z</updated>
     
     <summary type="html">
     
@@ -65,8 +65,8 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-24T04:10:28.106Z</published>
-    <updated>2018-01-24T04:10:28.119Z</updated>
+    <published>2018-01-24T14:00:27.702Z</published>
+    <updated>2018-01-24T14:00:27.715Z</updated>
     
     <summary type="html">
     
@@ -92,8 +92,8 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-24T04:10:22.430Z</published>
-    <updated>2018-01-24T04:10:22.443Z</updated>
+    <published>2018-01-24T14:00:22.063Z</published>
+    <updated>2018-01-24T14:00:22.076Z</updated>
     
     <summary type="html">
     
@@ -125,8 +125,8 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     <title>Awk 命令</title>
     <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/awk命令/</id>
-    <published>2018-01-24T04:10:15.718Z</published>
-    <updated>2018-01-24T04:10:15.731Z</updated>
+    <published>2018-01-24T14:00:15.278Z</published>
+    <updated>2018-01-24T14:00:15.290Z</updated>
     
     <summary type="html">
     
@@ -327,7 +327,7 @@ yum group
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-24T04:10:18.024Z</updated>
+    <updated>2018-01-24T14:00:17.683Z</updated>
     
     <summary type="html">
     
@@ -382,9 +382,9 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -392,30 +392,25 @@ $ cd /u
     
       
       
-        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
+        &lt;blockquote&gt;
+&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换-t
+&lt;pre&gt;&lt;code&gt;python gearman library hom
       
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
     
     
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
-    
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
   <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
+    <title>Mdadm_raid10_raid5</title>
+    <link href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/"/>
+    <id>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -423,9 +418,12 @@ $ cd /u
     
       
       
-        &lt;h1 id=&quot;买个-ss-帐号&quot;&gt;买个 SS 帐号&lt;/h1&gt;
-&lt;p&gt;不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id
+        &lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;每块硬盘分一个区&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;# 分区格式为 Linux software raid：
+
+$ fdisk /dev/sda
+
+  WARNING: DOS-compatible mode is deprecated
       
     
     </summary>
@@ -433,18 +431,16 @@ $ cd /u
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
+      <category term="soft raid" scheme="http://blog.dongcj.com/tags/soft-raid/"/>
     
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
-    
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
+      <category term="mdadm" scheme="http://blog.dongcj.com/tags/mdadm/"/>
     
   </entry>
   
   <entry>
-    <title>Puppet 安装</title>
-    <link href="http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/linux/Puppet安装/</id>
+    <title>Nginx 及 Upstreamcheck,fair 模块安装</title>
+    <link href="http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -452,46 +448,18 @@ $ cd /u
     
       
       
-        &lt;h3 id=&quot;etchosts-可以-ping-通对方域名&quot;&gt;/etc/hosts 可以 ping 通对方域名&lt;/h3&gt;
-&lt;h3 id=&quot;安装-puppet&quot;&gt;安装 puppet&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;$ yum install ruby ruby-libs ru
+        &lt;h1 id=&quot;download-nginx-module&quot;&gt;download nginx &amp;amp; module&lt;/h1&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div clas
       
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="web" scheme="http://blog.dongcj.com/categories/web/"/>
     
     
-      <category term="puppet" scheme="http://blog.dongcj.com/tags/puppet/"/>
+      <category term="nginx" scheme="http://blog.dongcj.com/tags/nginx/"/>
     
-      <category term="devops" scheme="http://blog.dongcj.com/tags/devops/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Postgresql 主从配置</title>
-    <link href="http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"/>
-    <id>http://blog.dongcj.com/database/Postgresql主从配置/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
-      
-    
-    </summary>
-    
-      <category term="database" scheme="http://blog.dongcj.com/categories/database/"/>
-    
-    
-      <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
-    
-      <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
+      <category term="upstreamcheck" scheme="http://blog.dongcj.com/tags/upstreamcheck/"/>
     
   </entry>
   
@@ -527,9 +495,9 @@ xinetd-2.3.14-10.el5.x86_6
   </entry>
   
   <entry>
-    <title>Graphite 安装</title>
-    <link href="http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/monitor/Graphite安装/</id>
+    <title>编码与文件格式转换</title>
+    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -537,23 +505,30 @@ xinetd-2.3.14-10.el5.x86_6
     
       
       
-        &lt;blockquote&gt;
-&lt;p&gt;参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration
+        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;编码转换-t
       
     
     </summary>
     
-      <category term="monitor" scheme="http://blog.dongcj.com/categories/monitor/"/>
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="graphite" scheme="http://blog.dongcj.com/tags/graphite/"/>
+      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+    
+      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
     
   </entry>
   
   <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
+    <title>Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</title>
+    <link href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/"/>
+    <id>http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -561,18 +536,56 @@ xinetd-2.3.14-10.el5.x86_6
     
       
       
-        &lt;blockquote&gt;
-&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;python gearman library hom
+        &lt;h1 id=&quot;虚拟机增加系统盘根分区大小方法&quot;&gt;虚拟机增加系统盘根分区大小方法&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
+
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if
       
     
     </summary>
     
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
+      <category term="parted" scheme="http://blog.dongcj.com/tags/parted/"/>
+    
+      <category term="kpartx" scheme="http://blog.dongcj.com/tags/kpartx/"/>
+    
+      <category term="losetup" scheme="http://blog.dongcj.com/tags/losetup/"/>
+    
+      <category term="sfdisk" scheme="http://blog.dongcj.com/tags/sfdisk/"/>
+    
+      <category term="e2fsck" scheme="http://blog.dongcj.com/tags/e2fsck/"/>
+    
+      <category term="resize2fs" scheme="http://blog.dongcj.com/tags/resize2fs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Postgresql 主从配置</title>
+    <link href="http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/"/>
+    <id>http://blog.dongcj.com/database/Postgresql主从配置/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安装好二台-postgresql&quot;&gt;安装好二台 postgresql&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure c
+      
+    
+    </summary>
+    
+      <category term="database" scheme="http://blog.dongcj.com/categories/database/"/>
+    
+    
+      <category term="postgresql" scheme="http://blog.dongcj.com/tags/postgresql/"/>
+    
+      <category term="pg recovery" scheme="http://blog.dongcj.com/tags/pg-recovery/"/>
     
   </entry>
   
