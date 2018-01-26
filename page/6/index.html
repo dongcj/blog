@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
+                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
+                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
+             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -436,21 +436,63 @@
       
         
           
-            <h1 id="买个-ss-帐号">买个 SS 帐号</h1>
-<p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
-<h1 id="路由刷机">路由刷机</h1>
-<ul>
-<li>路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code>注意：不是 WAN 口</code></li>
-<li>查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址</li>
-</ul>
-<figure>
-<img src="http://i.imgur.com/qlfwJ9j.jpg">
-</figure>
-<ul>
-<li>自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 )</li>
-<li><p>用户名和密码默认 “admin/admin”</p></li>
-<li><p>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</p></li>
-</ul>
+            <blockquote>
+<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+</blockquote>
+<blockquote>
+<p>http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+</blockquote>
+<h1 id="使用-yum-安装环境">使用 yum 安装环境</h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的-zope.interface-及-twisted">安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限">设置权限</h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+<h1 id="配置文件">配置文件</h1>
+<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
+$ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
+$ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
+
+# 如果需要用其它数据库，请修改 /opt/graphite/webapp/graphite/local_settings.py
+$ python /opt/graphite/webapp/graphite/manage.py syncdb
+
+$ cd /opt/graphite/conf/
+$ cp graphite.wsgi.example graphite.wsgi
+$ cp storage-schemas.conf.example storage-schemas.conf
+$ cp carbon.conf.example carbon.conf
+
+$ cd /opt/graphite/webapp/graphite
+$ cp local_settings.py.example local_settings.py</code></pre>
+<h1 id="在-httpd-中启用-virtualhost">在 httpd 中启用 virtualHost</h1>
+<pre><code>$ cd ../../
+$ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
+
+$ vi /etc/httpd/conf.d/vhost-graphite.conf
+WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
+<h1 id="修改已知的-bug">修改已知的 bug</h1>
+<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
+
+def fetch(self, startTime, endTime, now=None):
+    return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
+
+graph-index-master
+graphite-web-master</code></pre>
 
           
         
@@ -494,7 +536,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -513,7 +555,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
         
 
         <div class="post-meta">
@@ -566,9 +608,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/DHCP高级配置/#comments" itemprop="discussionUrl">
+                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/DHCP高级配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -576,7 +618,7 @@
 
           
           
-             <span id="/linux/DHCP高级配置/" class="leancloud_visitors" data-flag-title="DHCP 高级配置">
+             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -606,53 +648,150 @@
       
         
           
-            <h2 id="一dhcp-中继代理配置"># 一、DHCP 中继代理配置</h2>
-<pre><code># ( 在其它服务上安装 dhcpd 软件 )：
+            <h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
+<pre><code># 分区格式为 Linux software raid：
 
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
+$ fdisk /dev/sda
 
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1</code></pre>
-<h2 id="二dhcp-超网配置"># 二、DHCP 超网配置</h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式*/
-ignore client-updates;          /*忽略客户端 DNS 动态更新*/
-shared-network mynet {          /*超网作用域选项，共同部分*/
-    option subnet-mask 255.255.255.0;            /*子网掩码*/
-    option domain-name &quot;koumm.net&quot;;              /*域名*/
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /*广播地址*/
-    default-lease-time 86400;                    /*租期 1 天，秒数*/
-    max-lease-time 172800;                       /*最长租期 2 天*/
+  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
+           switch off the mode (command &#39;c&#39;) and change display units to
+           sectors (command &#39;u&#39;).
 
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段*/
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围*/
-        option routers 192.168.1.1;               /*网关地址*/
-        /*绑定 pc1 主机 ip 地址配置*/
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /*绑定 pc2 主机 ip 地址配置*/
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
+  Command (m for help): n
+  Command action
+     e   extended
+     p   primary partition (1-4)
+  p
+  Partition number (1-4): 1
+  First cylinder (1-91201, default 1):
+  Using default value 1
+  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
+  Using default value 91201
 
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段*/
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围*/
-        option routers 192.168.2.1;                /*网关地址*/
-    }
+  Command (m for help): p
 
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段*/
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围*/
-        option routers 192.168.3.1;                /*网关地址*/
-    }
+  Disk /dev/sda: 750.2 GB, 750156374016 bytes
+  255 heads, 63 sectors/track, 91201 cylinders
+  Units = cylinders of 16065 * 512 = 8225280 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disk identifier: 0x0005c259
 
-}</code></pre>
+     Device Boot      Start         End      Blocks   Id  System
+  /dev/sda1               1       91201   732572001   83  Linux
+
+  Command (m for help): t
+  Selected partition 1
+  Hex code (type L to list codes): fd
+  Changed system type of partition 1 to fd (Linux raid autodetect)
+
+  Command (m for help): w
+  The partition table has been altered!
+
+  Calling ioctl() to re-read partition table.
+  Syncing disks.</code></pre>
+<h1 id="更改分区格式">更改分区格式</h1>
+<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+$ fdisk /dev/sdc
+...
+$ fdisk /dev/sdd
+...
+$ fdisk /dev/sde
+...
+$ fdisk /dev/sdf
+...
+$ fdisk /dev/sdg
+...</code></pre>
+<h1 id="创建-raid">创建 RAID</h1>
+<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
+mdadm: layout defaults to n2
+mdadm: layout defaults to n2
+mdadm: chunk size defaults to 512K
+mdadm: size set to 732440576K
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
+# watch cat /proc/mdstat
+Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+
+Personalities : [raid10]
+md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
+      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
+      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
+0948K/sec
+
+unused devices:
+
+$ fdisk /dev/md0
+$ mkfs.ext4 /dev/md0p1
+
+$ mkdir /raid10
+$ mount /dev/md0p1 /raid10
+
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+
+$ blkid
+  ...
+  /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot;
+
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
+
+$ mdadm --query --detail /dev/md0
+/dev/md0:
+        Version : 1.2
+  Creation Time : Tue Feb 11 12:50:38 2014
+     Raid Level : raid10
+     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
+  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
+   Raid Devices : 6
+  Total Devices : 6
+    Persistence : Superblock is persistent
+
+    Update Time : Tue Feb 11 18:48:10 2014
+          State : clean
+ Active Devices : 6
+Working Devices : 6
+ Failed Devices : 0
+  Spare Devices : 0
+
+         Layout : near=2
+     Chunk Size : 512K
+
+           Name : local:0  (local to host local)
+           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
+         Events : 70
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       33        1      active sync   /dev/sdc1
+       2       8       49        2      active sync   /dev/sdd1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       81        4      active sync   /dev/sdf1
+       5       8       97        5      active sync   /dev/sdg1
+
+$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
+<h1 id="raid-维护命令">RAID 维护命令</h1>
+<h2 id="删除故障盘">删除故障盘</h2>
+<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
+<h2 id="增加新盘">增加新盘</h2>
+<pre><code>$ mdadm /dev/md0 -a /dev/sde1
+
+$ mdadm --stop /dev/md99    // 停止
+$ mdadm -As /dev/md0        // 启动
+$ mdadm --remove /dev/md99
+
+mdadm --manage /dev/md99 --fail /dev/sd[cde]1
+mdadm --manage /dev/md99 --remove /dev/sd[cde]1
+mdadm --manage /dev/md99 --stop
+mdadm --zero-superblock /dev/sd[cde]1</code></pre>
 
           
         

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.dongcj.com/"/>
-  <updated>2018-01-24T14:00:58.885Z</updated>
+  <updated>2018-01-26T04:15:52.812Z</updated>
   <id>http://blog.dongcj.com/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>修改 Npm 安装源为国内源</title>
     <link href="http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/"/>
     <id>http://blog.dongcj.com/m/修改npm安装源为国内源/</id>
-    <published>2018-01-24T14:00:58.873Z</published>
-    <updated>2018-01-24T14:00:58.885Z</updated>
+    <published>2018-01-26T04:15:52.799Z</published>
+    <updated>2018-01-26T04:15:52.812Z</updated>
     
     <summary type="html">
     
@@ -45,8 +45,8 @@
     <title>SSH_config_proxycommand</title>
     <link href="http://blog.dongcj.com/m/SSH_config_proxycommand/"/>
     <id>http://blog.dongcj.com/m/SSH_config_proxycommand/</id>
-    <published>2018-01-24T14:00:46.343Z</published>
-    <updated>2018-01-24T14:00:46.355Z</updated>
+    <published>2018-01-26T04:15:36.146Z</published>
+    <updated>2018-01-26T04:15:36.147Z</updated>
     
     <summary type="html">
     
@@ -65,8 +65,8 @@
     <title>Harbor 支持 Https</title>
     <link href="http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/"/>
     <id>http://blog.dongcj.com/m/Harbor支持https/</id>
-    <published>2018-01-24T14:00:27.702Z</published>
-    <updated>2018-01-24T14:00:27.715Z</updated>
+    <published>2018-01-26T04:15:14.628Z</published>
+    <updated>2018-01-26T04:15:14.641Z</updated>
     
     <summary type="html">
     
@@ -92,8 +92,8 @@
     <title>Docker 安装及命令</title>
     <link href="http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/Docker安装及命令/</id>
-    <published>2018-01-24T14:00:22.063Z</published>
-    <updated>2018-01-24T14:00:22.076Z</updated>
+    <published>2018-01-26T04:15:08.927Z</published>
+    <updated>2018-01-26T04:15:08.941Z</updated>
     
     <summary type="html">
     
@@ -125,8 +125,8 @@ sysctl -p&lt;/code&gt;&lt;/pre&gt;
     <title>Awk 命令</title>
     <link href="http://blog.dongcj.com/m/awk%E5%91%BD%E4%BB%A4/"/>
     <id>http://blog.dongcj.com/m/awk命令/</id>
-    <published>2018-01-24T14:00:15.278Z</published>
-    <updated>2018-01-24T14:00:15.290Z</updated>
+    <published>2018-01-26T04:15:02.059Z</published>
+    <updated>2018-01-26T04:15:02.071Z</updated>
     
     <summary type="html">
     
@@ -327,7 +327,7 @@ yum group
     <link href="http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
     <id>http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/</id>
     <published>2016-08-28T09:44:33.000Z</published>
-    <updated>2018-01-24T14:00:17.683Z</updated>
+    <updated>2018-01-26T04:15:04.435Z</updated>
     
     <summary type="html">
     
@@ -382,9 +382,9 @@ $ cd /u
   </entry>
   
   <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
+    <title>Puppet 安装</title>
+    <link href="http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/linux/Puppet安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
@@ -392,38 +392,9 @@ $ cd /u
     
       
       
-        &lt;blockquote&gt;
-&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;python gearman library hom
-      
-    
-    </summary>
-    
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
-    
-    
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mdadm_raid10_raid5</title>
-    <link href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/"/>
-    <id>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;每块硬盘分一个区&lt;/h3&gt;
-&lt;pre&gt;&lt;code&gt;# 分区格式为 Linux software raid：
-
-$ fdisk /dev/sda
-
-  WARNING: DOS-compatible mode is deprecated
+        &lt;h3 id=&quot;etchosts-可以-ping-通对方域名&quot;&gt;/etc/hosts 可以 ping 通对方域名&lt;/h3&gt;
+&lt;h3 id=&quot;安装-puppet&quot;&gt;安装 puppet&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ yum install ruby ruby-libs ru
       
     
     </summary>
@@ -431,9 +402,40 @@ $ fdisk /dev/sda
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="soft raid" scheme="http://blog.dongcj.com/tags/soft-raid/"/>
+      <category term="puppet" scheme="http://blog.dongcj.com/tags/puppet/"/>
     
-      <category term="mdadm" scheme="http://blog.dongcj.com/tags/mdadm/"/>
+      <category term="devops" scheme="http://blog.dongcj.com/tags/devops/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编码与文件格式转换</title>
+    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;编码转换-t
+      
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+    
+      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
     
   </entry>
   
@@ -495,37 +497,6 @@ xinetd-2.3.14-10.el5.x86_6
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;作用&quot;&gt;作用&lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换-t
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
-    
-    
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
-    
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
-    
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</title>
     <link href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/"/>
     <id>http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/</id>
@@ -559,6 +530,32 @@ $ dd if
       <category term="e2fsck" scheme="http://blog.dongcj.com/tags/e2fsck/"/>
     
       <category term="resize2fs" scheme="http://blog.dongcj.com/tags/resize2fs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;python gearman library hom
+      
+    
+    </summary>
+    
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
+    
+    
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   

@@ -355,8 +355,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T22:00:58+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T12:15:52+08:00">
+                2018-01-26
               </time>
             
 
@@ -502,8 +502,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T22:00:46+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T12:15:36+08:00">
+                2018-01-26
               </time>
             
 
@@ -639,8 +639,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T22:00:27+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T12:15:14+08:00">
+                2018-01-26
               </time>
             
 
@@ -788,8 +788,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T22:00:22+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T12:15:08+08:00">
+                2018-01-26
               </time>
             
 
@@ -943,8 +943,8 @@ sysctl -p</code></pre>
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-24T22:00:15+08:00">
-                2018-01-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T12:15:02+08:00">
+                2018-01-26
               </time>
             
 
@@ -1017,7 +1017,7 @@ sysctl -p</code></pre>
 </tr>
 </tbody>
 </table>
-<p>author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - updated: date: author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a></p>
+<p>author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a> categories: - updated: date: author: dongcj <a href="mailto:ntwk@163.com" target="_blank" rel="external">ntwk@163.com</a></p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">msg=$(awk '      </div><div class="line">    BEGIN &#123; IGNORECASE = 1; ORS = "%20" &#125;</div><div class="line">    /FAILED|ERROR/ &#123;</div><div class="line">        gsub(/[[:blank:]]+(FAILED|ERROR)/, "")</div><div class="line">        gsub(/[[:blank:]]+/, "_")</div><div class="line">gsub(/[^[:alnum:]_]/, "")</div><div class="line">        print</div><div class="line">    &#125;' \</div><div class="line">    /var/clone/check/check_baseos.log \</div><div class="line">    /var/clone/check/check_gemstone_init.log \</div><div class="line">    /var/clone/check/check_pe_profile.log \</div><div class="line">    /var/clone/check/check_agent.log 2&gt;/dev/null | cut -c1-70)</div><div class="line">``` </div><div class="line">    </div><div class="line">    </div><div class="line"># 计算第三列的总和</div><div class="line">```awk</div><div class="line">awk '&#123; x += $3 &#125; END &#123; print x &#125;' myfile</div></pre></td></tr></table></figure>
 <h1 id="awk-内建变量示例详解之-nrfnrnffilename">awk 内建变量示例详解之 NR、FNR、NF、FILENAME</h1>
 <blockquote>
