@@ -324,335 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx配置location总结及rewrite规则写法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/web/Nginx配置location总结及rewrite规则写法/" itemprop="url">Nginx 配置 Location 总结及 Rewrite 规则写法</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-17T17:49:55+08:00">
-                2016-04-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/web/Nginx配置location总结及rewrite规则写法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="web/Nginx配置location总结及rewrite规则写法/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/web/Nginx配置location总结及rewrite规则写法/" class="leancloud_visitors" data-flag-title="Nginx 配置 Location 总结及 Rewrite 规则写法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="location-正则写法">location 正则写法</h1>
-<pre><code># 一个示例：
-location  = / {
-  # 精确匹配 / ，主机名后面不能带任何字符串
-  [ configuration A ]
-}
-location  / {
-  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求
-  # 但是正则和最长字符串会优先匹配
-  [ configuration B ]
-}
-location /documents/ {
-  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
-  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
-  [ configuration C ]
-}
-location ~ /documents/Abc {
-  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
-  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
-  [ configuration CC ]
-}
-location ^~ /images/ {
-  # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。
-  [ configuration D ]
-}
-location ~* \.(gif|jpg|jpeg)$ {
-  # 匹配所有以 gif,jpg 或 jpeg 结尾的请求
-  # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则
-  [ configuration E ]
-}
-location /images/ {
-  # 字符匹配到 /images/，继续往下，会发现 ^~ 存在
-  [ configuration F ]
-}
-location /images/abc {
-  # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在
-  # F 与 G 的放置顺序是没有关系的
-  [ configuration G ]
-}
-location ~ /images/abc/ {
-  # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
-    [ configuration H ]
-}
-location ~* /js/.*/\.js</code></pre>
-<dl>
-<dt>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配</dt>
-<dd>开头表示区分大小写的正则匹配 ; ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到
-</dd>
-</dl>
-<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg -&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
-<pre><code>    location = / {
-        proxy_pass http://tomcat:8080/index
-    }
-
-# 第二个必选规则是处理静态文件请求，这是 nginx 作为 http 服务器的强项
-# 有两种配置模式，目录匹配或后缀匹配 , 任选其一或搭配使用 location ^~ /static/ {
-root /webroot/static/; } location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
-root /webroot/res/; }
-
-# 非静态文件请求就默认是动态请求，自己根据实际把握
-# 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
-location / {
-    proxy_pass http://tomcat:8080/
-}</code></pre>
-<p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
-<h1 id="rewrite-规则">Rewrite 规则</h1>
-<p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
-<ul>
-<li>执行 server 块的 rewrite 指令</li>
-<li>执行 location 匹配</li>
-<li>执行选定的 location 中的 rewrite 指令</li>
-</ul>
-<p>last : 相当于 Apache 的[L]标记，表示完成 rewrite break : 停止执行当前虚拟主机的后续 rewrite 指令集 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
-<p>last 不终止重写后的 url 匹配，即新的 url 会再从 server 走一遍匹配流程，而 break 终止重写后的匹配 break 和 last 都能组织继续执行后面的 rewrite 指令</p>
-<h2 id="if-指令与全局变量">if 指令与全局变量</h2>
-<p>if 判断指令 语法为 if(condition){…}，对给定的条件 condition 进行判断。如果为真，大括号内的 rewrite 指令将被执行，if 条件 (conditon) 可以是如下任何内容： 当表达式只是一个变量时，如果值为空或任何以 0 开头的字符串都会当做 false 直接比较变量和内容时，使用 = 或 != ~ 正则表达式匹配，~*不区分大小写的匹配，!~ 区分大小写的不匹配 -f 和 !-f 用来判断是否存在文件 -d 和 !-d 用来判断是否存在目录 -e 和 !-e 用来判断是否存在文件或目录 -x 和 !-x 用来判断文件是否可执行 例如：</p>
-<pre><code>if ($http_user_agent ~ MSIE) {
-    rewrite ^(.*)$ /msie/$1 break;
-} // 如果 UA 包含 &quot;MSIE&quot;，rewrite 请求到 /msid/ 目录下
-if ($http_cookie ~* &quot;id=([^;]+)(?:;|$)&quot;) {
-    set $id $1;
- } // 如果 cookie 匹配正则，设置变量 $id 等于正则引用部分
-if ($request_method = POST) {
-    return 405;
-} // 如果提交方法为 POST，则返回状态 405（Method not allowed）。return 不能返回 301,302
-if ($slow) {
-    limit_rate 10k;
-} // 限速，$slow 可以通过 set 指令设置
-if (!-f $request_filename){
-    break;
-    proxy_pass  http://127.0.0.1;
-} // 如果请求的文件名不存在，则反向代理到 localhost 。这里的 break 也是停止 rewrite 检查
-if ($args ~ post=140){
-    rewrite ^ http://example.com/ permanent;
-} // 如果 query string 中包含 &quot;post=140&quot;，永久重定向到 example.com
-location ~* \.(gif|jpg|png|swf|flv)$ {
-    valid_referers none blocked www.jefflei.com www.leizhenfang.com;
-    if ($invalid_referer) {
-        return 404;
-    } // 防盗链
-}</code></pre>
-<p>全局变量 下面是可以用作 if 判断的全局变量</p>
-<pre><code>$args ： # 这个变量等于请求行中的参数，同 $query_string
-$content_length ： 请求头中的 Content-length 字段。
-$content_type ： 请求头中的 Content-Type 字段。
-$document_root ： 当前请求在 root 指令中指定的值。
-$host ： 请求主机头字段，否则为服务器名称。
-$http_user_agent ： 客户端 agent 信息
-$http_cookie ： 客户端 cookie 信息
-$limit_rate ： 这个变量可以限制连接速率。
-$request_method ： 客户端请求的动作，通常为 GET 或 POST。
-$remote_addr ： 客户端的 IP 地址。
-$remote_port ： 客户端的端口。
-$remote_user ： 已经经过 Auth Basic Module 验证的用户名。
-$request_filename ： 当前请求的文件路径，由 root 或 alias 指令与 URI 请求生成。
-$scheme ： HTTP 方法（如 http，https）。
-$server_protocol ： 请求使用的协议，通常是 HTTP/1.0 或 HTTP/1.1。
-$server_addr ： 服务器地址，在完成一次系统调用后可以确定这个值。
-$server_name ： 服务器名称。
-$server_port ： 请求到达服务器的端口号。
-$request_uri ： 包含请求参数的原始 URI，不包含主机名，如：” /foo/bar.php?arg=baz ”。
-
-例：http://localhost:88/test1/test2/test.php
-$host：localhost
-$server_port：88
-$request_uri：http://localhost:88/test1/test2/test.php
-$document_uri：/test1/test2/test.php
-$document_root：/var/www/html
-$request_filename：/var/www/html/test1/test2/test.php</code></pre>
-<h2 id="常用正则">常用正则</h2>
-<pre><code>. ： 匹配除换行符以外的任意字符
-? ： 重复 0 次或 1 次
-+ ： 重复 1 次或更多次
-* ： 重复 0 次或更多次
-\d ：匹配数字
-^ ： 匹配字符串的开始
-$ ： 匹配字符串的介绍
-{n} ： 重复 n 次
-{n,} ： 重复 n 次或更多次
-[c] ： 匹配单个字符 c
-[a-z] ： 匹配 a-z 小写字母的任意一个
-小括号 () 之间匹配的内容，可以在后面通过 $1 来引用，$2 表示的是前面第二个 () 里的内容。正则里面容易让人困惑的是 \ 转义特殊字符。</code></pre>
-<h2 id="rewrite-实例">rewrite 实例</h2>
-<p>例 1： http { # 定义 image 日志格式 log_format imagelog ‘[$time_local]’ $image_file ‘’ $image_type ‘’ $body_bytes_sent ‘’ $status; # 开启重写日志 rewrite_log on;</p>
-<pre><code>server {
-    root /home/www;
-
-    location / {
-            # 重写规则信息
-            error_log logs/rewrite.log notice;
-            # 注意这里要用‘’单引号引起来，避免 {}
-            rewrite &#39;^/images/([a-z]{2})/([a-z0-9]{5})/(.*)\.(png|jpg|gif)$&#39; /data?file=$3.$4;
-            # 注意不能在上面这条规则后面加上“ last ”参数，否则下面的 set 指令不会执行
-            set $image_file $3;
-            set $image_type $4;
-    }
-
-    location /data {
-            # 指定针对图片的日志格式，来分析图片类型和大小
-            access_log logs/images.log mian;
-            root /data/images;
-            # 应用前面定义的变量。判断首先文件在不在，不在再判断目录在不在，如果还不在就跳转到最后一个 url 里
-            try_files /$arg_file /image404.html;
-    }
-    location = /image404.html {
-            # 图片不存在返回特定的信息
-            return 404 &quot;image not found\n&quot;;
-    }</code></pre>
-<p>}</p>
-<pre><code>rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&amp;height=$3? last;</code></pre>
-<hr>
-<blockquote>
-<p>http://www.nginx.cn/216.html http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/ 老僧系列 nginx 之 rewrite 规则快速上手 http://fantefei.blog.51cto.com/2229719/919431 来源： <a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" class="uri" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Git常用命令与使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -766,21 +437,15 @@ $ ： 匹配字符串的介绍
         
           
             <blockquote>
-<p>参考：<a href="http://www.jianshu.com/p/f7b5431418d2" class="uri" target="_blank" rel="external">http://www.jianshu.com/p/f7b5431418d2</a></p>
+<p>参考：<a href="http://www.jianshu.com/p/f7b5431418d2" target="_blank" rel="external">http://www.jianshu.com/p/f7b5431418d2</a></p>
+<p>猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" target="_blank" rel="external">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
 </blockquote>
-<blockquote>
-<p>猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" class="uri" target="_blank" rel="external">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
-</blockquote>
-<h1 id="常见问题">常见问题</h1>
-<h2 id="使用-key-方式认证">使用 key 方式认证</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># start the ssh-agent in the background</span></div><div class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></div><div class="line">    Agent pid 59566</div><div class="line"></div><div class="line">ssh-add ~/.ssh/id_rsa</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line">ssh git@github.com</div></pre></td></tr></table></figure>
-<h2 id="windows-下-tortisegit-不弹出密码输入">Windows 下 tortiseGit 不弹出密码输入</h2>
-<pre><code># 删除以下文件夹中的文件：
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="使用-key-方式认证"><a href="#使用-key-方式认证" class="headerlink" title="使用 key 方式认证"></a>使用 key 方式认证</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># start the ssh-agent in the background</span></div><div class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></div><div class="line">    Agent pid 59566</div><div class="line"></div><div class="line">ssh-add ~/.ssh/id_rsa</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line">ssh git@github.com</div></pre></td></tr></table></figure>
+<h2 id="Windows-下-tortiseGit-不弹出密码输入"><a href="#Windows-下-tortiseGit-不弹出密码输入" class="headerlink" title="Windows 下 tortiseGit 不弹出密码输入"></a>Windows 下 tortiseGit 不弹出密码输入</h2><pre><code># 删除以下文件夹中的文件：
 %appdata%\..\Local\Microsoft\Credentials
 
-# 但是还是好麻烦，请看下面</code></pre>
-<h2 id="同一网站多个不同的帐号使用-git-key-切换">同一网站，多个不同的帐号使用 git key 切换</h2>
-<ul>
+# 但是还是好麻烦，请看下面
+</code></pre><h2 id="同一网站，多个不同的帐号使用-git-key-切换"><a href="#同一网站，多个不同的帐号使用-git-key-切换" class="headerlink" title="同一网站，多个不同的帐号使用 git key 切换"></a>同一网站，多个不同的帐号使用 git key 切换</h2><ul>
 <li>安装 Git</li>
 <li>安装 <a href="https://tortoisegit.org/" target="_blank" rel="external">TortoiseGit</a> (Windows 下初学者推荐 )</li>
 <li>在安装时指定 ssh，而不是 plink</li>
@@ -790,63 +455,44 @@ $ ： 匹配字符串的介绍
 <ul>
 <li>使用不同的 ssh 别名连接 Git (host 后面接的即为别名 )</li>
 </ul>
-<h3 id="取消-global-的-email">取消 global 的 email</h3>
-<pre><code>git config --global --unset user.name
-git config --global --unset user.email</code></pre>
-<h3 id="设置项目级自己的-email">设置项目级自己的 email</h3>
-<pre><code>git config  user.email &quot;xxxx@xx.com&quot;
-git config  user.name &quot;suzie&quot;</code></pre>
-<h2 id="清除-git-路径中的所有-.git-文件">清除 git 路径中的所有 .git 文件</h2>
-<pre><code>find . -name &quot;.git&quot; | xargs rm -Rf</code></pre>
-<h2 id="打包下载-git-文件中目录">打包下载 git 文件中目录</h2>
-<pre><code>git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp</code></pre>
-<h3 id="使用-ssh-config">使用 ssh config</h3>
-<blockquote>
-<p>http://memoryboxes.github.io/blog/2014/12/07/duo-ge-gitzhang-hao-zhi-jian-de-qie-huan/</p>
+<h3 id="取消-global-的-email"><a href="#取消-global-的-email" class="headerlink" title="取消 global 的 email"></a>取消 global 的 email</h3><pre><code>git config --global --unset user.name
+git config --global --unset user.email
+</code></pre><h3 id="设置项目级自己的-email"><a href="#设置项目级自己的-email" class="headerlink" title="设置项目级自己的 email"></a>设置项目级自己的 email</h3><pre><code>git config  user.email &quot;xxxx@xx.com&quot;
+git config  user.name &quot;suzie&quot;
+</code></pre><h2 id="清除-git-路径中的所有-git-文件"><a href="#清除-git-路径中的所有-git-文件" class="headerlink" title="清除 git 路径中的所有 .git 文件"></a>清除 git 路径中的所有 .git 文件</h2><pre><code>find . -name &quot;.git&quot; | xargs rm -Rf
+</code></pre><h2 id="打包下载-git-文件中目录"><a href="#打包下载-git-文件中目录" class="headerlink" title="打包下载 git 文件中目录"></a>打包下载 git 文件中目录</h2><pre><code>git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp
+</code></pre><h3 id="使用-ssh-config"><a href="#使用-ssh-config" class="headerlink" title="使用 ssh config"></a>使用 ssh config</h3><blockquote>
+<p><a href="http://memoryboxes.github.io/blog/2014/12/07/duo-ge-gitzhang-hao-zhi-jian-de-qie-huan/" target="_blank" rel="external">http://memoryboxes.github.io/blog/2014/12/07/duo-ge-gitzhang-hao-zhi-jian-de-qie-huan/</a></p>
 </blockquote>
-<pre><code>vi ~/.ssh/config</code></pre>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户</span></div><div class="line">host svicloud.lb.gogs.pro.svi.pub</div><div class="line">    hostname lb.gogs.pro.svi.pub</div><div class="line">    Port 22</div><div class="line">    User svicloud</div><div class="line">    IdentityFile ~/.ssh/id_rsa_first</div><div class="line"></div><div class="line"><span class="comment"># 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户</span></div><div class="line">host svicloud.lb.gogs.pro.svi.pub</div><div class="line">    hostname lb.gogs.pro.svi.pub</div><div class="line">    Port 22</div><div class="line">    User svicloud</div><div class="line">    IdentityFile ~/.ssh/id_rsa_first</div></pre></td></tr></table></figure>
-<h2 id="git-shell">Git Shell</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">CURR_COMMIT=$(git rev-parse HEAD);</div><div class="line">CURR_VERSION=$(node -e <span class="string">"console.log(require('./package.json').version);"</span>);</div><div class="line">VER_HASH=$(git rev-list -n 1 v<span class="variable">$CURR_VERSION</span>);</div><div class="line"></div><div class="line"><span class="comment"># Don't want to redo version bump</span></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$CURR_COMMIT</span> == <span class="variable">$VER_HASH</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">'Already up to date'</span></div><div class="line">    <span class="built_in">exit</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">npm version patch;</div><div class="line"></div><div class="line">NEW_VERSION=$(node -e <span class="string">"console.log(require('./package.json').version);"</span>);</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="variable">$NEW_VERSION</span>;</div><div class="line"></div><div class="line">git push origin head;</div></pre></td></tr></table></figure>
-<h2 id="清除-git-路径中的所有-.git-文件-1">清除 git 路径中的所有 .git 文件</h2>
-<pre><code>$ find . -name &quot;.git&quot; | xargs rm -Rf
+<pre><code>vi ~/.ssh/config
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户</span></div><div class="line">host svicloud.lb.gogs.pro.svi.pub</div><div class="line">    hostname lb.gogs.pro.svi.pub</div><div class="line">    Port 22</div><div class="line">    User svicloud</div><div class="line">    IdentityFile ~/.ssh/id_rsa_first</div><div class="line"></div><div class="line"><span class="comment"># 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户</span></div><div class="line">host svicloud.lb.gogs.pro.svi.pub</div><div class="line">    hostname lb.gogs.pro.svi.pub</div><div class="line">    Port 22</div><div class="line">    User svicloud</div><div class="line">    IdentityFile ~/.ssh/id_rsa_first</div></pre></td></tr></table></figure>
+<h2 id="Git-Shell"><a href="#Git-Shell" class="headerlink" title="Git Shell"></a>Git Shell</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">CURR_COMMIT=$(git rev-parse HEAD);</div><div class="line">CURR_VERSION=$(node -e <span class="string">"console.log(require('./package.json').version);"</span>);</div><div class="line">VER_HASH=$(git rev-list -n 1 v<span class="variable">$CURR_VERSION</span>);</div><div class="line"></div><div class="line"><span class="comment"># Don't want to redo version bump</span></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$CURR_COMMIT</span> == <span class="variable">$VER_HASH</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">'Already up to date'</span></div><div class="line">    <span class="built_in">exit</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">npm version patch;</div><div class="line"></div><div class="line">NEW_VERSION=$(node -e <span class="string">"console.log(require('./package.json').version);"</span>);</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="variable">$NEW_VERSION</span>;</div><div class="line"></div><div class="line">git push origin head;</div></pre></td></tr></table></figure>
+<h2 id="清除-git-路径中的所有-git-文件-1"><a href="#清除-git-路径中的所有-git-文件-1" class="headerlink" title="清除 git 路径中的所有 .git 文件"></a>清除 git 路径中的所有 .git 文件</h2><pre><code>$ find . -name &quot;.git&quot; | xargs rm -Rf
 
-$ git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp</code></pre>
-<h1 id="常用配置">常用配置</h1>
-<h2 id="配置认证支持中文">配置认证、支持中文</h2>
-<pre><code># 配置用户名和 email
+$ git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp
+</code></pre><h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="配置认证、支持中文"><a href="#配置认证、支持中文" class="headerlink" title="配置认证、支持中文"></a>配置认证、支持中文</h2><pre><code># 配置用户名和 email
 $ git config --global user.name &quot;dongcj&quot;
 $ git config --global user.email &quot;ntwk@163.com&quot;
 $ git config --global core.autocrlf true
 
-$ git config --list</code></pre>
-<h2 id="重新设置-git-url-或-新增远程仓库">重新设置 git url 或 新增远程仓库</h2>
-<pre><code># 重新设置远程仓库地址
+$ git config --list
+</code></pre><h2 id="重新设置-git-url-或-新增远程仓库"><a href="#重新设置-git-url-或-新增远程仓库" class="headerlink" title="重新设置 git url 或 新增远程仓库"></a>重新设置 git url 或 新增远程仓库</h2><pre><code># 重新设置远程仓库地址
 $ git remote set-url origin git@github.com:dongcj/blog.git
 
 # 提交到多个远程仓库
-$ git remote add origin git@github.com:dongcj/blog.git</code></pre>
-<h1 id="git-日常用法">git 日常用法</h1>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">git status                                                <span class="comment"># 查看当前版本状态（是否修改）</span></div><div class="line">git ls-files                                              <span class="comment"># 列出 git index 包含的文件</span></div><div class="line"></div><div class="line">git add xyz                                               <span class="comment"># 添加 xyz 文件至 index</span></div><div class="line">git add .                                                 <span class="comment"># 增加当前子目录下所有更改过的文件至 index</span></div><div class="line"></div><div class="line">git commit -m <span class="string">'xxx'</span>                                       <span class="comment"># 提交</span></div><div class="line">git commit --amend -m <span class="string">'xxx'</span>                               <span class="comment"># ` 合并 ` 上一次提交（用于反复修改）</span></div><div class="line">git commit -am <span class="string">'xxx'</span>                                      <span class="comment"># 将 add 和 commit 合为一步</span></div><div class="line"></div><div class="line">git rm xxx                                                <span class="comment"># 删除 index 中的文件</span></div><div class="line">git rm -r *                                               <span class="comment"># 递归删除</span></div></pre></td></tr></table></figure>
-<h2 id="git-log">git log</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span>                                                   <span class="comment"># 显示提交日志</span></div><div class="line">git <span class="built_in">log</span> -1                                                <span class="comment"># 显示 1 行日志 -n 为 n 行</span></div><div class="line">git <span class="built_in">log</span> -p test.html                                      <span class="comment"># 显示 test.html 的变更日志</span></div><div class="line">git <span class="built_in">log</span> --<span class="built_in">stat</span>                                            <span class="comment"># 显示提交日志及相关变动文件</span></div><div class="line">git <span class="built_in">log</span> -p -m                                             <span class="comment"># 显示每个文件修改记录</span></div><div class="line">git <span class="built_in">log</span> v2.0                                              <span class="comment"># 显示 v2.0 的日志</span></div><div class="line">git <span class="built_in">log</span> --pretty=format:<span class="string">'%h %s'</span> --graph                   <span class="comment"># 图示提交日志</span></div><div class="line">git reflog                                                <span class="comment"># 显示所有提交，包括孤立节点</span></div><div class="line"><span class="comment"># 显示最近 20 条提交记录</span></div><div class="line">git --no-pager <span class="built_in">log</span> --graph --pretty=format:<span class="string">'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr [%an])%Creset'</span> --abbrev-commit --date=relative  -20</div></pre></td></tr></table></figure>
+$ git remote add origin git@github.com:dongcj/blog.git
+</code></pre><h1 id="git-日常用法"><a href="#git-日常用法" class="headerlink" title="git 日常用法"></a>git 日常用法</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">git status                                                <span class="comment"># 查看当前版本状态（是否修改）</span></div><div class="line">git ls-files                                              <span class="comment"># 列出 git index 包含的文件</span></div><div class="line"></div><div class="line">git add xyz                                               <span class="comment"># 添加 xyz 文件至 index</span></div><div class="line">git add .                                                 <span class="comment"># 增加当前子目录下所有更改过的文件至 index</span></div><div class="line"></div><div class="line">git commit -m <span class="string">'xxx'</span>                                       <span class="comment"># 提交</span></div><div class="line">git commit --amend -m <span class="string">'xxx'</span>                               <span class="comment"># ` 合并 ` 上一次提交（用于反复修改）</span></div><div class="line">git commit -am <span class="string">'xxx'</span>                                      <span class="comment"># 将 add 和 commit 合为一步</span></div><div class="line"></div><div class="line">git rm xxx                                                <span class="comment"># 删除 index 中的文件</span></div><div class="line">git rm -r *                                               <span class="comment"># 递归删除</span></div></pre></td></tr></table></figure>
+<h2 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span>                                                   <span class="comment"># 显示提交日志</span></div><div class="line">git <span class="built_in">log</span> -1                                                <span class="comment"># 显示 1 行日志 -n 为 n 行</span></div><div class="line">git <span class="built_in">log</span> -p test.html                                      <span class="comment"># 显示 test.html 的变更日志</span></div><div class="line">git <span class="built_in">log</span> --<span class="built_in">stat</span>                                            <span class="comment"># 显示提交日志及相关变动文件</span></div><div class="line">git <span class="built_in">log</span> -p -m                                             <span class="comment"># 显示每个文件修改记录</span></div><div class="line">git <span class="built_in">log</span> v2.0                                              <span class="comment"># 显示 v2.0 的日志</span></div><div class="line">git <span class="built_in">log</span> --pretty=format:<span class="string">'%h %s'</span> --graph                   <span class="comment"># 图示提交日志</span></div><div class="line">git reflog                                                <span class="comment"># 显示所有提交，包括孤立节点</span></div><div class="line"><span class="comment"># 显示最近 20 条提交记录</span></div><div class="line">git --no-pager <span class="built_in">log</span> --graph --pretty=format:<span class="string">'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr [%an])%Creset'</span> --abbrev-commit --date=relative  -20</div></pre></td></tr></table></figure>
 <blockquote>
-<p>更多格式化输出 : https://ruby-china.org/topics/939</p>
+<p>更多格式化输出 : <a href="https://ruby-china.org/topics/939" target="_blank" rel="external">https://ruby-china.org/topics/939</a></p>
 </blockquote>
-<h2 id="git-show">git show</h2>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git show dfb02e6e4f2f7b573337763e5c0013802e392818         <span class="comment"># 显示某个提交修改的详细内容</span></div><div class="line">git show dfb02                                            <span class="comment"># 可只用 commitid 的前几位</span></div><div class="line">git show HEAD                                             <span class="comment"># 显示 HEAD 提交日志</span></div><div class="line">git show v2<span class="number">.0</span>                                             <span class="comment"># 显示 v2.0 的日志及详细内容</span></div><div class="line">git show HEAD^                                            <span class="comment"># 显示 HEAD 的父（上一个版本）的提交日志 ^^ 为上两个版本 ^5 为上 5 个版本</span></div><div class="line">git show-branch                                           <span class="comment"># 图示当前分支历史</span></div><div class="line">git show-branch --all                                     <span class="comment"># 图示所有分支历史</span></div><div class="line">git show HEAD~<span class="number">3</span></div><div class="line">git show -s --pretty=raw <span class="number">2</span>be7fcb476</div><div class="line">git show HEAD@&#123;<span class="number">5</span>&#125;</div><div class="line">git show master@&#123;yesterday&#125;                               <span class="comment"># 显示 master 分支昨天的状态</span></div></pre></td></tr></table></figure>
-<h1 id="git-diff">git diff</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git diff                                                  <span class="comment"># 显示所有未添加至 index 的变更</span></div><div class="line">git diff --cached                                         <span class="comment"># 显示所有已添加 index 但还未 commit 的变更</span></div><div class="line">git diff HEAD^                                            <span class="comment"># 比较与上一个版本的差异</span></div><div class="line">git diff HEAD -- ./lib                                    <span class="comment"># 比较与 HEAD 版本 lib 目录的差异</span></div><div class="line">git diff origin/master..master                            <span class="comment"># 比较远程分支 master 上有本地分支 master 上没有的</span></div><div class="line">git diff origin/master..master --<span class="built_in">stat</span>                     <span class="comment"># 只显示差异的文件，不显示具体内容</span></div></pre></td></tr></table></figure>
-<h2 id="git-branch">git branch</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">git branch                                                <span class="comment"># 显示本地分支</span></div><div class="line">git branch --contains 50089                               <span class="comment"># 显示包含提交 50089 的分支</span></div><div class="line">git branch -a                                             <span class="comment"># 显示所有分支</span></div><div class="line">git branch -r                                             <span class="comment"># 显示所有原创分支</span></div><div class="line">git branch --merged                                       <span class="comment"># 显示所有已合并到当前分支的分支</span></div><div class="line">git branch --no-merged                                    <span class="comment"># 显示所有未合并到当前分支的分支</span></div><div class="line">git branch -m master master_copy                          <span class="comment"># 本地分支改名</span></div><div class="line">git branch -d hotfixes/BJVEP933                           <span class="comment"># 删除分支 hotfixes/BJVEP933（本分支修改已合并到其他分支）</span></div><div class="line">git branch -D hotfixes/BJVEP933                           <span class="comment"># 强制删除分支 hotfixes/BJVEP933</span></div></pre></td></tr></table></figure>
-<h2 id="git-checkout">git checkout</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">git checkout abcde file/to/restore                        <span class="comment"># 单一文件回退到某个版本</span></div><div class="line">git checkout -b master_copy                               <span class="comment"># 从当前分支创建新分支 master_copy 并检出</span></div><div class="line">git checkout -b master master_copy                        <span class="comment"># 上面的完整版</span></div><div class="line">git checkout features/performance                         <span class="comment"># 检出已存在的 features/performance 分支</span></div><div class="line">git checkout --track hotfixes/BJVEP933                    <span class="comment"># 检出远程分支 hotfixes/BJVEP933 并创建本地跟踪分支</span></div><div class="line">git checkout v2.0                                         <span class="comment"># 检出版本 v2.0</span></div><div class="line">git checkout -b devel origin/develop                      <span class="comment"># 从远程分支 develop 创建新本地分支 devel 并检出</span></div><div class="line">git checkout -- README                                    <span class="comment"># 检出 head 版本的 README 文件（可用于修改错误回退）</span></div></pre></td></tr></table></figure>
-<h2 id="git-fetch">git fetch</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git fetch                                                 <span class="comment"># 获取所有远程分支（不更新本地分支，另需 merge）</span></div><div class="line">git fetch --prune                                         <span class="comment"># 获取所有原创分支并清除服务器上已删掉的分支</span></div><div class="line">git fetch --all                                           <span class="comment"># 1. 获取所有远程分支</span></div><div class="line">git reset --hard origin/master                            <span class="comment"># 2. 先运行 1，再使用远程文件 &lt;b&gt; 强制覆盖 &lt;/b&gt; 本地文件</span></div><div class="line">git reset --hard HEAD                                     <span class="comment"># 将当前版本重置为 HEAD（通常用于 merge 失败回退）</span></div></pre></td></tr></table></figure>
-<h2 id="git-tag">git tag</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">git tag                               <span class="comment"># git 列表</span></div><div class="line">git tag v0.1.1  <span class="comment"># 打标签</span></div><div class="line">git tag v0.1.1 6224937                <span class="comment"># 补打标签</span></div><div class="line">git tag v0.1.2-light                  <span class="comment"># 创建轻量标签 - 轻量标签是指向提交对象的引用 ( 暂时没用到 )</span></div><div class="line">git tag -a v0.1.2 -m <span class="string">"0.1.2 版本备注 "</span>  <span class="comment"># 附注标签则是仓库中的一个独立对象。建议使用附注标签</span></div><div class="line">git tag -a v0.1.1 9fbc3d0             <span class="comment"># 给指定的 commit 打标签（即补打标签）</span></div><div class="line">git checkou [tagname]                 <span class="comment"># 切换标签</span></div><div class="line">git tag -d v0.1.2                     <span class="comment"># 删除标签</span></div><div class="line">git push origin :refs/tags/v0.9       <span class="comment"># 删除远程标签 ( 需要先删除本地标签 )</span></div><div class="line">git push origin v0.1.2                <span class="comment"># 提交单一标签</span></div><div class="line">git push origin --tags                <span class="comment"># 提交所有标签</span></div><div class="line">git show v1.2.5                       <span class="comment"># 查看标签内容</span></div><div class="line"></div><div class="line">git tag -l | xargs git tag -d         <span class="comment"># Delete local tags.</span></div><div class="line">git fetch                             <span class="comment"># Fetch remote tags.</span></div><div class="line">git tag -l | xargs -n 1 git push --delete origin    <span class="comment"># Delete remote tags.</span></div><div class="line">git tag -l | xargs git tag -d                       <span class="comment"># Delete local tasg.</span></div></pre></td></tr></table></figure>
-<h2 id="其它命令">其它命令</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git merge origin/master                                   <span class="comment"># 合并远程 master 分支至当前分支</span></div><div class="line"></div><div class="line">git cherry-pick ff44785404a8e                             <span class="comment"># 合并提交 ff44785404a8e 的修改</span></div><div class="line">git push origin master                                    <span class="comment"># 将当前分支 push 到远程 master 分支</span></div><div class="line">git push origin :hotfixes/BJVEP933                        <span class="comment"># 删除远程仓库的 hotfixes/BJVEP933 分支</span></div><div class="line">git push --tags                                           <span class="comment"># 把所有 tag 推送到远程仓库</span></div><div class="line"></div><div class="line">git pull origin master                                    <span class="comment"># 获取远程分支 master 并 merge 到当前分支</span></div><div class="line">git mv README README2                                     <span class="comment"># 重命名文件 README 为 README2</span></div><div class="line"></div><div class="line">git rebase</div></pre></td></tr></table></figure>
+<h2 id="git-show"><a href="#git-show" class="headerlink" title="git show"></a>git show</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git show dfb02e6e4f2f7b573337763e5c0013802e392818         <span class="comment"># 显示某个提交修改的详细内容</span></div><div class="line">git show dfb02                                            <span class="comment"># 可只用 commitid 的前几位</span></div><div class="line">git show HEAD                                             <span class="comment"># 显示 HEAD 提交日志</span></div><div class="line">git show v2<span class="number">.0</span>                                             <span class="comment"># 显示 v2.0 的日志及详细内容</span></div><div class="line">git show HEAD^                                            <span class="comment"># 显示 HEAD 的父（上一个版本）的提交日志 ^^ 为上两个版本 ^5 为上 5 个版本</span></div><div class="line">git show-branch                                           <span class="comment"># 图示当前分支历史</span></div><div class="line">git show-branch --all                                     <span class="comment"># 图示所有分支历史</span></div><div class="line">git show HEAD~<span class="number">3</span></div><div class="line">git show -s --pretty=raw <span class="number">2</span>be7fcb476</div><div class="line">git show HEAD@&#123;<span class="number">5</span>&#125;</div><div class="line">git show master@&#123;yesterday&#125;                               <span class="comment"># 显示 master 分支昨天的状态</span></div></pre></td></tr></table></figure>
+<h1 id="git-diff"><a href="#git-diff" class="headerlink" title="git diff"></a>git diff</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git diff                                                  <span class="comment"># 显示所有未添加至 index 的变更</span></div><div class="line">git diff --cached                                         <span class="comment"># 显示所有已添加 index 但还未 commit 的变更</span></div><div class="line">git diff HEAD^                                            <span class="comment"># 比较与上一个版本的差异</span></div><div class="line">git diff HEAD -- ./lib                                    <span class="comment"># 比较与 HEAD 版本 lib 目录的差异</span></div><div class="line">git diff origin/master..master                            <span class="comment"># 比较远程分支 master 上有本地分支 master 上没有的</span></div><div class="line">git diff origin/master..master --<span class="built_in">stat</span>                     <span class="comment"># 只显示差异的文件，不显示具体内容</span></div></pre></td></tr></table></figure>
+<h2 id="git-branch"><a href="#git-branch" class="headerlink" title="git branch"></a>git branch</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">git branch                                                <span class="comment"># 显示本地分支</span></div><div class="line">git branch --contains 50089                               <span class="comment"># 显示包含提交 50089 的分支</span></div><div class="line">git branch -a                                             <span class="comment"># 显示所有分支</span></div><div class="line">git branch -r                                             <span class="comment"># 显示所有原创分支</span></div><div class="line">git branch --merged                                       <span class="comment"># 显示所有已合并到当前分支的分支</span></div><div class="line">git branch --no-merged                                    <span class="comment"># 显示所有未合并到当前分支的分支</span></div><div class="line">git branch -m master master_copy                          <span class="comment"># 本地分支改名</span></div><div class="line">git branch -d hotfixes/BJVEP933                           <span class="comment"># 删除分支 hotfixes/BJVEP933（本分支修改已合并到其他分支）</span></div><div class="line">git branch -D hotfixes/BJVEP933                           <span class="comment"># 强制删除分支 hotfixes/BJVEP933</span></div></pre></td></tr></table></figure>
+<h2 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout"></a>git checkout</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">git checkout abcde file/to/restore                        <span class="comment"># 单一文件回退到某个版本</span></div><div class="line">git checkout -b master_copy                               <span class="comment"># 从当前分支创建新分支 master_copy 并检出</span></div><div class="line">git checkout -b master master_copy                        <span class="comment"># 上面的完整版</span></div><div class="line">git checkout features/performance                         <span class="comment"># 检出已存在的 features/performance 分支</span></div><div class="line">git checkout --track hotfixes/BJVEP933                    <span class="comment"># 检出远程分支 hotfixes/BJVEP933 并创建本地跟踪分支</span></div><div class="line">git checkout v2.0                                         <span class="comment"># 检出版本 v2.0</span></div><div class="line">git checkout -b devel origin/develop                      <span class="comment"># 从远程分支 develop 创建新本地分支 devel 并检出</span></div><div class="line">git checkout -- README                                    <span class="comment"># 检出 head 版本的 README 文件（可用于修改错误回退）</span></div></pre></td></tr></table></figure>
+<h2 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git fetch                                                 <span class="comment"># 获取所有远程分支（不更新本地分支，另需 merge）</span></div><div class="line">git fetch --prune                                         <span class="comment"># 获取所有原创分支并清除服务器上已删掉的分支</span></div><div class="line">git fetch --all                                           <span class="comment"># 1. 获取所有远程分支</span></div><div class="line">git reset --hard origin/master                            <span class="comment"># 2. 先运行 1，再使用远程文件 &lt;b&gt; 强制覆盖 &lt;/b&gt; 本地文件</span></div><div class="line">git reset --hard HEAD                                     <span class="comment"># 将当前版本重置为 HEAD（通常用于 merge 失败回退）</span></div></pre></td></tr></table></figure>
+<h2 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">git tag                               <span class="comment"># git 列表</span></div><div class="line">git tag v0.1.1  <span class="comment"># 打标签</span></div><div class="line">git tag v0.1.1 6224937                <span class="comment"># 补打标签</span></div><div class="line">git tag v0.1.2-light                  <span class="comment"># 创建轻量标签 - 轻量标签是指向提交对象的引用 ( 暂时没用到 )</span></div><div class="line">git tag -a v0.1.2 -m <span class="string">"0.1.2 版本备注 "</span>  <span class="comment"># 附注标签则是仓库中的一个独立对象。建议使用附注标签</span></div><div class="line">git tag -a v0.1.1 9fbc3d0             <span class="comment"># 给指定的 commit 打标签（即补打标签）</span></div><div class="line">git checkou [tagname]                 <span class="comment"># 切换标签</span></div><div class="line">git tag -d v0.1.2                     <span class="comment"># 删除标签</span></div><div class="line">git push origin :refs/tags/v0.9       <span class="comment"># 删除远程标签 ( 需要先删除本地标签 )</span></div><div class="line">git push origin v0.1.2                <span class="comment"># 提交单一标签</span></div><div class="line">git push origin --tags                <span class="comment"># 提交所有标签</span></div><div class="line">git show v1.2.5                       <span class="comment"># 查看标签内容</span></div><div class="line"></div><div class="line">git tag -l | xargs git tag -d         <span class="comment"># Delete local tags.</span></div><div class="line">git fetch                             <span class="comment"># Fetch remote tags.</span></div><div class="line">git tag -l | xargs -n 1 git push --delete origin    <span class="comment"># Delete remote tags.</span></div><div class="line">git tag -l | xargs git tag -d                       <span class="comment"># Delete local tasg.</span></div></pre></td></tr></table></figure>
+<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git merge origin/master                                   <span class="comment"># 合并远程 master 分支至当前分支</span></div><div class="line"></div><div class="line">git cherry-pick ff44785404a8e                             <span class="comment"># 合并提交 ff44785404a8e 的修改</span></div><div class="line">git push origin master                                    <span class="comment"># 将当前分支 push 到远程 master 分支</span></div><div class="line">git push origin :hotfixes/BJVEP933                        <span class="comment"># 删除远程仓库的 hotfixes/BJVEP933 分支</span></div><div class="line">git push --tags                                           <span class="comment"># 把所有 tag 推送到远程仓库</span></div><div class="line"></div><div class="line">git pull origin master                                    <span class="comment"># 获取远程分支 master 并 merge 到当前分支</span></div><div class="line">git mv README README2                                     <span class="comment"># 重命名文件 README 为 README2</span></div><div class="line"></div><div class="line">git rebase</div></pre></td></tr></table></figure>
 
           
         
@@ -930,7 +576,7 @@ $ git remote add origin git@github.com:dongcj/blog.git</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

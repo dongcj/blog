@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题   返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  寻找原因 直到最近重装系统，我才找到了问题的原因—— MacType。 是的，Mac">
+<meta name="description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题 返回 代码 : E_FAIL (0x80004005)组件 : MachineWrap界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  寻找原因直到最近重装系统，我才找到了问题的原因—— MacType。是的，MacType 与 Virtua">
 <meta name="keywords" content="virtualbox,vm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="VirtualBox 报错 E_FAIL0x80004005 解决方案">
 <meta property="og:url" content="http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题   返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  寻找原因 直到最近重装系统，我才找到了问题的原因—— MacType。 是的，Mac">
+<meta property="og:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题 返回 代码 : E_FAIL (0x80004005)组件 : MachineWrap界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  寻找原因直到最近重装系统，我才找到了问题的原因—— MacType。是的，MacType 与 Virtua">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VirtualBox 报错 E_FAIL0x80004005 解决方案">
-<meta name="twitter:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题   返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  寻找原因 直到最近重装系统，我才找到了问题的原因—— MacType。 是的，Mac">
+<meta name="twitter:description" content="VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题 返回 代码 : E_FAIL (0x80004005)组件 : MachineWrap界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}  寻找原因直到最近重装系统，我才找到了问题的原因—— MacType。是的，MacType 与 Virtua">
 
 
 
@@ -434,20 +434,16 @@
       
         <blockquote>
 <p>VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题</p>
+<p>返回 代码 : E_FAIL (0x80004005)<br>组件 : MachineWrap<br>界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
 </blockquote>
-<blockquote>
-<p>返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
-</blockquote>
-<h1 id="寻找原因">寻找原因</h1>
-<p>直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
-<h1 id="解决方案">解决方案</h1>
-<p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
+<h1 id="寻找原因"><a href="#寻找原因" class="headerlink" title="寻找原因"></a>寻找原因</h1><p>直到最近重装系统，我才找到了问题的原因—— MacType。<br>是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。<br>尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ExcludeModule]</div><div class="line">VBoxSVC.exe</div><div class="line">VirtualBox.exe</div></pre></td></tr></table></figure>
-<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written <figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
+<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written<br><figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
 <p>还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好</p>
 <p>通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~</p>
 <blockquote>
-<p>参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</p>
+<p>参考：<a href="https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html" target="_blank" rel="external">https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</a></p>
 </blockquote>
 
       
@@ -503,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/编码与文件格式转换/" rel="next" title="编码与文件格式转换">
-                <i class="fa fa-chevron-left"></i> 编码与文件格式转换
+              <a href="/linux/DHCP高级配置/" rel="next" title="DHCP 高级配置">
+                <i class="fa fa-chevron-left"></i> DHCP 高级配置
               </a>
             
           </div>
@@ -617,7 +613,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

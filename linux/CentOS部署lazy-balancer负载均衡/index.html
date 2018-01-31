@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine $ git submodule update --init --recursive  $ cd resou">
+<meta name="description" content="clone soft$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine$ git submodule update --init --recursive  $ cd resource/ngin">
 <meta name="keywords" content="nginx,tengine,lazy-balancer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 部署 Lazy-Balancer 负载均衡　">
 <meta property="og:url" content="http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine $ git submodule update --init --recursive  $ cd resou">
-<meta property="og:updated_time" content="2018-01-30T04:10:18.399Z">
+<meta property="og:description" content="clone soft$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine$ git submodule update --init --recursive  $ cd resource/ngin">
+<meta property="og:updated_time" content="2018-01-31T14:00:20.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 部署 Lazy-Balancer 负载均衡　">
-<meta name="twitter:description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine $ git submodule update --init --recursive  $ cd resou">
+<meta name="twitter:description" content="clone soft$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine$ git submodule update --init --recursive  $ cd resource/ngin">
 
 
 
@@ -432,11 +432,9 @@
       
 
       
-        <h1 id="clone-soft">clone soft</h1>
-<pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /usr/local/lazy_balancer</code></pre>
-<h1 id="install-tengine">install tengine</h1>
-<pre><code>$ git submodule update --init --recursive
+        <h1 id="clone-soft"><a href="#clone-soft" class="headerlink" title="clone soft"></a>clone soft</h1><pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
+$ cd /usr/local/lazy_balancer
+</code></pre><h1 id="install-tengine"><a href="#install-tengine" class="headerlink" title="install tengine"></a>install tengine</h1><pre><code>$ git submodule update --init --recursive
 
 $ cd resource/nginx/tengine
 $ yum -y install pcre-devel
@@ -445,19 +443,17 @@ $ ./configure --user=nginx --group=nginx --prefix=/etc/nginx --sbin-path=/usr/sb
 $ make &amp;&amp; make install
 
 # add nginx user
-$ adduser --system --no-create-home --shell /bin/false   nginx</code></pre>
-<h1 id="install-supervisor">install supervisor</h1>
-<pre><code>$ yum -y install supervisor
+$ adduser --system --no-create-home --shell /bin/false   nginx
+</code></pre><h1 id="install-supervisor"><a href="#install-supervisor" class="headerlink" title="install supervisor"></a>install supervisor</h1><pre><code>$ yum -y install supervisor
 
 # add to supervisor config file
 $ echo &quot;[include]&quot; &gt;&gt;/etc/supervisord.conf
 $ echo &quot;files = /etc/supervisor/conf.d/*.conf&quot; &gt;&gt;/etc/supervisord.conf
 
 $ cp -rf /usr/local/lazy_balancer/service/* /etc/supervisor/
-$ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
-<h1 id="start-service">start service</h1>
-<pre><code>$ service supervisor restart</code></pre>
-
+$ vi /etc/supervisor/conf.d/supervisor_balancer.conf
+</code></pre><h1 id="start-service"><a href="#start-service" class="headerlink" title="start service"></a>start service</h1><pre><code>$ service supervisor restart
+</code></pre>
       
     </div>
 
@@ -513,8 +509,8 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="next" title="Linux 升级 Kernel 及 tcp_BBR">
-                <i class="fa fa-chevron-left"></i> Linux 升级 Kernel 及 tcp_BBR
+              <a href="/linux/Mdadm_raid10_raid5/" rel="next" title="Mdadm_raid10_raid5">
+                <i class="fa fa-chevron-left"></i> Mdadm_raid10_raid5
               </a>
             
           </div>
@@ -523,8 +519,8 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/SMATE、XFCE、VNC配置/" rel="prev" title="SMATE、XFCE、VNC 配置">
-                SMATE、XFCE、VNC 配置 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="prev" title="Linux 升级 Kernel 及 tcp_BBR">
+                Linux 升级 Kernel 及 tcp_BBR <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -627,7 +623,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
