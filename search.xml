@@ -122,27 +122,16 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[DHCP 高级配置]]></title>
-    <url>%2Flinux%2FDHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[# 一、DHCP 中继代理配置 # ( 在其它服务上安装 dhcpd 软件 )： $ vi /etc/sysconfig/dhcrelay # Command line options here INTERFACES=&quot;eth1 eth2&quot; DHCPSERVERS=&quot;192.168.1.1&quot; # 也可以通过以下命令方式来实现： $ dhcrelay -i eth1 -i eth2 192.168.1.1 # 二、DHCP 超网配置 ddns-update-style interim; /*dhcp 支持的 dns 动态更新方式*/ ignore client-updates; /*忽略客户端 DNS 动态更新*/ shared-network mynet { /*超网作用域选项，共同部分*/ option subnet-mask 255.255.255.0; /*子网掩码*/ option domain-name &quot;koumm.net&quot;; /*域名*/ option domain-name-servers 192.168.1.2; /*dns IP*/ option broadcast-address 192.168.1.255; /*广播地址*/ default-lease-time 86400; /*租期 1 天，秒数*/ max-lease-time 172800; /*最长租期 2 天*/ subnet 192.168.1.0 netmask 255.255.255.0 { /*1.0 子网段*/ range 192.168.1.11 192.168.1.100; /*ip 地址段范围*/ option routers 192.168.1.1; /*网关地址*/ /*绑定 pc1 主机 ip 地址配置*/ host pc1 { hardware ethernet 00:a0:cc:cf:9C:14; fixed-address 192.168.1.20; } /*绑定 pc2 主机 ip 地址配置*/ host pc2 { hardware ethernet 04:20:c1:f8:37:11; fixed-address 192.168.1.30; } } subnet 192.168.2.0 netmask 255.255.255.0 { /*2.0 子网段*/ range 192.168.2.10 192.168.2.100; /*ip 地址段范围*/ option routers 192.168.2.1; /*网关地址*/ } subnet 192.168.3.0 netmask 255.255.255.0 { /*3.0 子网段*/ range 192.168.3.10 192.168.3.100; /*ip 地址段范围*/ option routers 192.168.3.1; /*网关地址*/ } }]]></content>
+    <title><![CDATA[斐讯 K2 路由器刷机]]></title>
+    <url>%2Flinux%2F%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA%2F</url>
+    <content type="text"><![CDATA[买个 SS 帐号 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。 路由刷机 路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，注意：不是 WAN 口 查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址 自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 ) 用户名和密码默认 “admin/admin” 登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件]]></content>
       <categories>
         <category>linux</category>
       </categories>
       <tags>
-        <tag>dhcp</tag>
-        <tag>pxe</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Mdadm_raid10_raid5]]></title>
-    <url>%2Flinux%2FMdadm_raid10_raid5%2F</url>
-    <content type="text"><![CDATA[每块硬盘分一个区 # 分区格式为 Linux software raid： $ fdisk /dev/sda WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to switch off the mode (command &#39;c&#39;) and change display units to sectors (command &#39;u&#39;). Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 1 First cylinder (1-91201, default 1): Using default value 1 Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201): Using default value 91201 Command (m for help): p Disk /dev/sda: 750.2 GB, 750156374016 bytes 255 heads, 63 sectors/track, 91201 cylinders Units = cylinders of 16065 * 512 = 8225280 bytes Sector size (logical/physical): 512 bytes / 512 bytes I/O size (minimum/optimal): 512 bytes / 512 bytes Disk identifier: 0x0005c259 Device Boot Start End Blocks Id System /dev/sda1 1 91201 732572001 83 Linux Command (m for help): t Selected partition 1 Hex code (type L to list codes): fd Changed system type of partition 1 to fd (Linux raid autodetect) Command (m for help): w The partition table has been altered! Calling ioctl() to re-read partition table. Syncing disks. 更改分区格式 # 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区 $ fdisk /dev/sdc ... $ fdisk /dev/sdd ... $ fdisk /dev/sde ... $ fdisk /dev/sdf ... $ fdisk /dev/sdg ... 创建 RAID # 在上面的 6 个相同大小的分区上创建 raid10 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1 mdadm: layout defaults to n2 mdadm: layout defaults to n2 mdadm: chunk size defaults to 512K mdadm: size set to 732440576K mdadm: Defaulting to version 1.2 metadata mdadm: array /dev/md0 started. # 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时： # watch cat /proc/mdstat Every 2.0s: cat /proc/mdstat Tue Feb 11 12:51:25 2014 Personalities : [raid10] md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0] 2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU] [&gt;....................] resync = 0.2% (5826816/2197321728) finish=278.9min speed=13 0948K/sec unused devices: $ fdisk /dev/md0 $ mkfs.ext4 /dev/md0p1 $ mkdir /raid10 $ mount /dev/md0p1 /raid10 $ vi /etc/fstab ... /dev/md0p1 /raid10 ext4 noatime,rw 0 0 $ blkid ... /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot; $ vi /etc/fstab ... /dev/md0p1 /raid10 ext4 noatime,rw 0 0 **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0** $ mdadm --query --detail /dev/md0 /dev/md0: Version : 1.2 Creation Time : Tue Feb 11 12:50:38 2014 Raid Level : raid10 Array Size : 2197321728 (2095.53 GiB 2250.06 GB) Used Dev Size : 732440576 (698.51 GiB 750.02 GB) Raid Devices : 6 Total Devices : 6 Persistence : Superblock is persistent Update Time : Tue Feb 11 18:48:10 2014 State : clean Active Devices : 6 Working Devices : 6 Failed Devices : 0 Spare Devices : 0 Layout : near=2 Chunk Size : 512K Name : local:0 (local to host local) UUID : e3044b6c:5ab972ea:8e742b70:3f766a11 Events : 70 Number Major Minor RaidDevice State 0 8 1 0 active sync /dev/sda1 1 8 33 1 active sync /dev/sdc1 2 8 49 2 active sync /dev/sdd1 3 8 65 3 active sync /dev/sde1 4 8 81 4 active sync /dev/sdf1 5 8 97 5 active sync /dev/sdg1 $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf $ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf RAID 维护命令 删除故障盘 $ mdadm /dev/md0 -r /dev/sdb1 增加新盘 $ mdadm /dev/md0 -a /dev/sde1 $ mdadm --stop /dev/md99 // 停止 $ mdadm -As /dev/md0 // 启动 $ mdadm --remove /dev/md99 mdadm --manage /dev/md99 --fail /dev/sd[cde]1 mdadm --manage /dev/md99 --remove /dev/sd[cde]1 mdadm --manage /dev/md99 --stop mdadm --zero-superblock /dev/sd[cde]1]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>soft raid</tag>
-        <tag>mdadm</tag>
+        <tag>刷机</tag>
+        <tag>斐讯 K2</tag>
+        <tag>翻墙</tag>
       </tags>
   </entry>
   <entry>
@@ -158,31 +147,30 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Puppet 安装]]></title>
-    <url>%2Flinux%2FPuppet%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[/etc/hosts 可以 ping 通对方域名 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm ( 这个版本可以修改为最新的） $ yum update # 服务端安装 puppet-server $ yum install puppet-server # 服务端安装 puppet 图形界面（可选） $ yum install ruby-mysql mysql mod_passenger puppet-dashboard # 客户端安装 puppet $ yum install puppet service puppetmaster start $ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot; $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem $ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF *.xxx.com EOF $ service puppetmaster restart $ puppet cert list --all --&gt; 查看下证书，此时是没有客户机的，只有自己 在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com $ puppetd --server bigdata.xxxx.com --test 或者 $ puppet agent --no-daemonize --onetime --verbose --debug 安装 dashboard $ vi /usr/share/puppet-dashboard/config/database.yml production: database: puppet username: root password: passw0rd encoding: utf8 adapter: mysql $ vi /usr/share/puppet-dashboard/config/environment.rb config.time_zone = &#39;Beijing&#39; 初始化数据库 $ cd /usr/share/puppet-dashboard/ rake RAILS_ENV=production db:migrate 整合 Passenger 和 apache $ vi /etc/httpd/conf.d/passenger.conf LoadModule passenger_module modules/mod_passenger.so PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21 PassengerRuby /usr/bin/ruby PassengerHighPerformance on PassengerMaxPoolSize 12 PassengerPoolIdleTime 1500 PassengerStatThrottleRate 120 RailsAutoDetect On &lt;VirtualHost *&gt; ServerName bigdata.xxxx.com DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot; ErrorLog /var/log/httpd/puppet-dashboard_error.log LogLevel warn CustomLog /var/log/httpd/puppet-dashboard_access.log combined &lt;/VirtualHost&gt; 让 Dashboard 使用 Reports $ vi /etc/puppet/puppet.conf [master] reports = store, http reporturl = http://bigdata.xxxx.com:80/reports/upload 重启 puppetmaster 服务 $ /etc/init.d/puppetmaster restart 导入报告 $ cd /usr/share/puppet-dashboard $ rake RAILS_ENV=production reports:import 执行导入的 reports $ rake jobs:work RAILS_ENV=&quot;production&quot; 下载及文档地址 http://code.google.com/p/puppet-manifest-share/downloads/list http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/ http://dongxicheng.org/cluster-managemant/puppet/]]></content>
+    <title><![CDATA[Mdadm_raid10_raid5]]></title>
+    <url>%2Flinux%2FMdadm_raid10_raid5%2F</url>
+    <content type="text"><![CDATA[每块硬盘分一个区 # 分区格式为 Linux software raid： $ fdisk /dev/sda WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to switch off the mode (command &#39;c&#39;) and change display units to sectors (command &#39;u&#39;). Command (m for help): n Command action e extended p primary partition (1-4) p Partition number (1-4): 1 First cylinder (1-91201, default 1): Using default value 1 Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201): Using default value 91201 Command (m for help): p Disk /dev/sda: 750.2 GB, 750156374016 bytes 255 heads, 63 sectors/track, 91201 cylinders Units = cylinders of 16065 * 512 = 8225280 bytes Sector size (logical/physical): 512 bytes / 512 bytes I/O size (minimum/optimal): 512 bytes / 512 bytes Disk identifier: 0x0005c259 Device Boot Start End Blocks Id System /dev/sda1 1 91201 732572001 83 Linux Command (m for help): t Selected partition 1 Hex code (type L to list codes): fd Changed system type of partition 1 to fd (Linux raid autodetect) Command (m for help): w The partition table has been altered! Calling ioctl() to re-read partition table. Syncing disks. 更改分区格式 # 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区 $ fdisk /dev/sdc ... $ fdisk /dev/sdd ... $ fdisk /dev/sde ... $ fdisk /dev/sdf ... $ fdisk /dev/sdg ... 创建 RAID # 在上面的 6 个相同大小的分区上创建 raid10 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1 mdadm: layout defaults to n2 mdadm: layout defaults to n2 mdadm: chunk size defaults to 512K mdadm: size set to 732440576K mdadm: Defaulting to version 1.2 metadata mdadm: array /dev/md0 started. # 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时： # watch cat /proc/mdstat Every 2.0s: cat /proc/mdstat Tue Feb 11 12:51:25 2014 Personalities : [raid10] md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0] 2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU] [&gt;....................] resync = 0.2% (5826816/2197321728) finish=278.9min speed=13 0948K/sec unused devices: $ fdisk /dev/md0 $ mkfs.ext4 /dev/md0p1 $ mkdir /raid10 $ mount /dev/md0p1 /raid10 $ vi /etc/fstab ... /dev/md0p1 /raid10 ext4 noatime,rw 0 0 $ blkid ... /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot; $ vi /etc/fstab ... /dev/md0p1 /raid10 ext4 noatime,rw 0 0 **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0** $ mdadm --query --detail /dev/md0 /dev/md0: Version : 1.2 Creation Time : Tue Feb 11 12:50:38 2014 Raid Level : raid10 Array Size : 2197321728 (2095.53 GiB 2250.06 GB) Used Dev Size : 732440576 (698.51 GiB 750.02 GB) Raid Devices : 6 Total Devices : 6 Persistence : Superblock is persistent Update Time : Tue Feb 11 18:48:10 2014 State : clean Active Devices : 6 Working Devices : 6 Failed Devices : 0 Spare Devices : 0 Layout : near=2 Chunk Size : 512K Name : local:0 (local to host local) UUID : e3044b6c:5ab972ea:8e742b70:3f766a11 Events : 70 Number Major Minor RaidDevice State 0 8 1 0 active sync /dev/sda1 1 8 33 1 active sync /dev/sdc1 2 8 49 2 active sync /dev/sdd1 3 8 65 3 active sync /dev/sde1 4 8 81 4 active sync /dev/sdf1 5 8 97 5 active sync /dev/sdg1 $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf $ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf RAID 维护命令 删除故障盘 $ mdadm /dev/md0 -r /dev/sdb1 增加新盘 $ mdadm /dev/md0 -a /dev/sde1 $ mdadm --stop /dev/md99 // 停止 $ mdadm -As /dev/md0 // 启动 $ mdadm --remove /dev/md99 mdadm --manage /dev/md99 --fail /dev/sd[cde]1 mdadm --manage /dev/md99 --remove /dev/sd[cde]1 mdadm --manage /dev/md99 --stop mdadm --zero-superblock /dev/sd[cde]1]]></content>
       <categories>
         <category>linux</category>
       </categories>
       <tags>
-        <tag>puppet</tag>
-        <tag>devops</tag>
+        <tag>soft raid</tag>
+        <tag>mdadm</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs]]></title>
-    <url>%2Flinux%2FParted%2Ckpartx%2Closetup%2Csfdisk%2Ce2fsck%2Cresize2fs%2F</url>
-    <content type="text"><![CDATA[虚拟机增加系统盘根分区大小方法 # 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap ) # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img # 挂载文件至系统，以便找出是否有 swap device $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img # If has swap device, del the swap device $ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;` # Del swap $ parted -s ${loop} rm ${swap_part_num} # If does&#39;t have, add the new swap device $ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot; # 或者先只划分空间，再用 mkswap 进行操作 # 可选的： $ mkswap -v1 /dev/mapper/loop1p3 # 重新刷新新增加的 swap 设备 $ kpartx -d -p p /var/lib/libvirt/images/my_vm.img $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img # 将新的 lo 设备分区进行打印 $ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump # 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start), new_root=401625,14227239 ( 样例，要修改 ) converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;` $ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1 # 重新刷新新变更的分区 $ kpartx -d -p p /var/lib/libvirt/images/my_vm.img $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img # fs resize $ e2fsck -pv /dev/mapper/loop0p1 $ resize2fs -f /dev/mapper/loop0p1 parted 使用 # create all 100% space to one part $ parted -s /dev/sdb mklabel gpt $ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot; # create other part parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot; parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot; # remove part parted -s /dev/sdb rm 2 parted -s /dev/sdb rm 3 分区对齐 $ cat /sys/block/sdb/queue/optimal_io_size 1048576 $ cat /sys/block/sdb/queue/minimum_io_size 262144 $ cat /sys/block/sdb/alignment_offset 0 $ cat /sys/block/sdb/queue/physical_block_size 512 $ mkpart primary 2048s 100% (parted) align-check optimal 1 1 aligned]]></content>
+    <title><![CDATA[Curl、resty、httpie、httpstat、wuzz 使用介绍]]></title>
+    <url>%2Flinux%2FCurl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D%2F</url>
+    <content type="text"><![CDATA[curl 下载文件 123456export DOCKERIZE_VERION=latest &amp;&amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/$&#123;DOCKERIZE_VERION&#125; | jq -r ".assets[] | select(.name | test(\"$&#123;DOCKERIZE_ARCH&#125;\")) | .browser_download_url")curl -sSOL http://$DOCKERIZE_DOWNLOADURL# or curl -sSL $&#123;DOCKERIZE_DOWNLOADURL&#125; | tar zxvf - -C $&#123;MODULE_HOME&#125; 详细信息 curl -v www.sina.com curl --trace output.txt www.sina.com curl --trace-ascii output.txt www.sina.com curl -s --head www.sina.com 上传文件 curl --form upload=@localfilename --form press=OK [URL] curl -T file.txt curl --cookie &quot;name=xxx&quot; www.example.com curl --user name@DOMAIN:password http://example.com curl -fsSL ... 下载网页保存为文件名 curl -o [文件名] www.sina.com curl -L www.sina.com curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html 对于 https 的方法，添加 –insecure curl --insecure -LJO https://packages.gitlab.com/gitlab curl example.com/form.cgi?data=xxx 增加头信息 (-H) curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com # 模拟服务地址（例如有些网站只能用域名访问的） curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080 POST：(-d) curl -i -X POST --data &quot;data=xxx&quot; example.com/form.cgi curl -i -X POST --data-urlencode &quot;date=April 1&quot; example.com/form.cgi Referer(-e) curl --referer http://www.example.com http://www.example.com User Agent 字段 (-A) curl --user-agent &quot;[User Agent]&quot; http://www.example.com 配置压缩 (-I means “Fetch the HTTP-header only”) curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom 超时设置 --connect-timeout 3 # 3 秒连接时间 -m | --max-time 5 # 连接 5 秒后自动断开 本地 socket curl --unix-socket /var/run/docker.sock http:/images/json or curl --unix-socket /var/run/docker.sock http://localhost/images/json curl examples # zabbix 使用 API 进行认证 # curl -i -X POST -H &#39;Content-Type:application/json&#39; -d &#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&#39; http://192.168.0.54/api_jsonrpc.php HTTP/1.1 200 OK Date: Mon, 12 Aug 2013 05:53:05 GMT Server: Apache/2.2.21 (Linux/SUSE) X-Powered-By: PHP/5.3.8 Content-Length: 68 Content-Type: application/json {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0} # zabbix 利用 tokern 和 id 进行注册主机 2. echo `cat /tmp/123.txt` --- 这样也可以 ... 3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39; 格式化后的内容 &#39; http://192.168.0.54/api_jsonrpc.php -i|--include : 在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 ) -s|--silent : 静默模式 -X|--request : 请求 HTTP 服务，默认为 GET resty 模拟请求 # install resty curl -L http://github.com/micha/resty/raw/master/resty &gt; resty # 导入变量 . resty $ resty http://127.0.0.1:8080/data http://127.0.0.1:8080/data* $ GET /blogs.json [ {&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ] $ PUT /blogs/2.json &#39;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&#39; {&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;} $ DELETE /blogs/2 $ POST /blogs.json &#39;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&#39; {&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;} 使用 httpie # install $ apt-get install httpie # usage $http httpie.org $ http PUT example.org X-API-Token:123 name=John $ http -f POST example.org hello=World $ http -v example.org $ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&#39;HTTPie is awesome! :heart:&#39; $ http example.org &lt; file.json $ http example.org/file &gt; file $ http --download example.org/file $ http --session=logged-in -a username:password httpbin.org/get API-Key:123 $ http --session=logged-in httpbin.org/headers $ http localhost:8000 Host:example.com $ http DELETE example.org/todos/7 httpstat httpstat wuzz wuzz]]></content>
       <categories>
         <category>linux</category>
       </categories>
       <tags>
-        <tag>parted</tag>
-        <tag>kpartx</tag>
-        <tag>losetup</tag>
-        <tag>sfdisk</tag>
-        <tag>e2fsck</tag>
-        <tag>resize2fs</tag>
+        <tag>curl</tag>
+        <tag>resty</tag>
+        <tag>httpie</tag>
+        <tag>httpstat</tag>
+        <tag>wizz</tag>
       </tags>
   </entry>
   <entry>
@@ -211,6 +199,46 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs]]></title>
+    <url>%2Flinux%2FParted%2Ckpartx%2Closetup%2Csfdisk%2Ce2fsck%2Cresize2fs%2F</url>
+    <content type="text"><![CDATA[虚拟机增加系统盘根分区大小方法 # 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap ) # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img # 挂载文件至系统，以便找出是否有 swap device $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img # If has swap device, del the swap device $ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;` # Del swap $ parted -s ${loop} rm ${swap_part_num} # If does&#39;t have, add the new swap device $ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot; # 或者先只划分空间，再用 mkswap 进行操作 # 可选的： $ mkswap -v1 /dev/mapper/loop1p3 # 重新刷新新增加的 swap 设备 $ kpartx -d -p p /var/lib/libvirt/images/my_vm.img $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img # 将新的 lo 设备分区进行打印 $ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump # 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start), new_root=401625,14227239 ( 样例，要修改 ) converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;` $ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1 # 重新刷新新变更的分区 $ kpartx -d -p p /var/lib/libvirt/images/my_vm.img $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img # fs resize $ e2fsck -pv /dev/mapper/loop0p1 $ resize2fs -f /dev/mapper/loop0p1 parted 使用 # create all 100% space to one part $ parted -s /dev/sdb mklabel gpt $ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot; # create other part parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot; parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot; # remove part parted -s /dev/sdb rm 2 parted -s /dev/sdb rm 3 分区对齐 $ cat /sys/block/sdb/queue/optimal_io_size 1048576 $ cat /sys/block/sdb/queue/minimum_io_size 262144 $ cat /sys/block/sdb/alignment_offset 0 $ cat /sys/block/sdb/queue/physical_block_size 512 $ mkpart primary 2048s 100% (parted) align-check optimal 1 1 aligned]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>parted</tag>
+        <tag>kpartx</tag>
+        <tag>losetup</tag>
+        <tag>sfdisk</tag>
+        <tag>e2fsck</tag>
+        <tag>resize2fs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[DHCP 高级配置]]></title>
+    <url>%2Flinux%2FDHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[# 一、DHCP 中继代理配置 # ( 在其它服务上安装 dhcpd 软件 )： $ vi /etc/sysconfig/dhcrelay # Command line options here INTERFACES=&quot;eth1 eth2&quot; DHCPSERVERS=&quot;192.168.1.1&quot; # 也可以通过以下命令方式来实现： $ dhcrelay -i eth1 -i eth2 192.168.1.1 # 二、DHCP 超网配置 ddns-update-style interim; /*dhcp 支持的 dns 动态更新方式*/ ignore client-updates; /*忽略客户端 DNS 动态更新*/ shared-network mynet { /*超网作用域选项，共同部分*/ option subnet-mask 255.255.255.0; /*子网掩码*/ option domain-name &quot;koumm.net&quot;; /*域名*/ option domain-name-servers 192.168.1.2; /*dns IP*/ option broadcast-address 192.168.1.255; /*广播地址*/ default-lease-time 86400; /*租期 1 天，秒数*/ max-lease-time 172800; /*最长租期 2 天*/ subnet 192.168.1.0 netmask 255.255.255.0 { /*1.0 子网段*/ range 192.168.1.11 192.168.1.100; /*ip 地址段范围*/ option routers 192.168.1.1; /*网关地址*/ /*绑定 pc1 主机 ip 地址配置*/ host pc1 { hardware ethernet 00:a0:cc:cf:9C:14; fixed-address 192.168.1.20; } /*绑定 pc2 主机 ip 地址配置*/ host pc2 { hardware ethernet 04:20:c1:f8:37:11; fixed-address 192.168.1.30; } } subnet 192.168.2.0 netmask 255.255.255.0 { /*2.0 子网段*/ range 192.168.2.10 192.168.2.100; /*ip 地址段范围*/ option routers 192.168.2.1; /*网关地址*/ } subnet 192.168.3.0 netmask 255.255.255.0 { /*3.0 子网段*/ range 192.168.3.10 192.168.3.100; /*ip 地址段范围*/ option routers 192.168.3.1; /*网关地址*/ } }]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>dhcp</tag>
+        <tag>pxe</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Puppet 安装]]></title>
+    <url>%2Flinux%2FPuppet%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[/etc/hosts 可以 ping 通对方域名 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm ( 这个版本可以修改为最新的） $ yum update # 服务端安装 puppet-server $ yum install puppet-server # 服务端安装 puppet 图形界面（可选） $ yum install ruby-mysql mysql mod_passenger puppet-dashboard # 客户端安装 puppet $ yum install puppet service puppetmaster start $ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot; $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem $ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF *.xxx.com EOF $ service puppetmaster restart $ puppet cert list --all --&gt; 查看下证书，此时是没有客户机的，只有自己 在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com $ puppetd --server bigdata.xxxx.com --test 或者 $ puppet agent --no-daemonize --onetime --verbose --debug 安装 dashboard $ vi /usr/share/puppet-dashboard/config/database.yml production: database: puppet username: root password: passw0rd encoding: utf8 adapter: mysql $ vi /usr/share/puppet-dashboard/config/environment.rb config.time_zone = &#39;Beijing&#39; 初始化数据库 $ cd /usr/share/puppet-dashboard/ rake RAILS_ENV=production db:migrate 整合 Passenger 和 apache $ vi /etc/httpd/conf.d/passenger.conf LoadModule passenger_module modules/mod_passenger.so PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21 PassengerRuby /usr/bin/ruby PassengerHighPerformance on PassengerMaxPoolSize 12 PassengerPoolIdleTime 1500 PassengerStatThrottleRate 120 RailsAutoDetect On &lt;VirtualHost *&gt; ServerName bigdata.xxxx.com DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot; ErrorLog /var/log/httpd/puppet-dashboard_error.log LogLevel warn CustomLog /var/log/httpd/puppet-dashboard_access.log combined &lt;/VirtualHost&gt; 让 Dashboard 使用 Reports $ vi /etc/puppet/puppet.conf [master] reports = store, http reporturl = http://bigdata.xxxx.com:80/reports/upload 重启 puppetmaster 服务 $ /etc/init.d/puppetmaster restart 导入报告 $ cd /usr/share/puppet-dashboard $ rake RAILS_ENV=production reports:import 执行导入的 reports $ rake jobs:work RAILS_ENV=&quot;production&quot; 下载及文档地址 http://code.google.com/p/puppet-manifest-share/downloads/list http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/ http://dongxicheng.org/cluster-managemant/puppet/]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>puppet</tag>
+        <tag>devops</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[GlusterFS 安装]]></title>
     <url>%2Fstorage%2FGlusterFS%E5%AE%89%E8%A3%85%2F</url>
     <content type="text"><![CDATA[参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS $ wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo 安装软件 yum install glusterfs{,-fuse,-server} yum install glusterfs-geo-replication.x86_64 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 # 删除 lvm2 $ rpm -e lvm2 挂载分区及配置防火墙 # mkdir $ mkdir /export/brick1 # 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！ $ chmod 777 /export/brick1 # firewall $ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent $ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent $ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \ --add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp --permanent $ firewall-cmd --reload 启动 glusterd 服务 $ service glusterd start # if centos7: $ systemctl enable glusterd $ systemctl start glusterd $ systemctl status glusterd # from server1 $ gluster peer probe SERVER2 # from server2 $ gluster peer probe SERVER1 # check peer $ gluster peer status $ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0 $ gluster volume start gv0 $ gluster volume info $ gluster volume status # How to remove a volume or peer # stop Volume $ gluster volume stop gv0 # delete Volume $ gluster volume delete gv0 $ gluster peer detach NAME_OF_PEERNODE Test Gluster volume # mount to /mnt $ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt $ vi /etc/fstab gluster1.example.com:/gv0 /mnt/glusterfs glusterfs defaults,_netdev 0 0 # 如果使用 nfs 协议使用 # GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。 $ vi /etc/nfsmount.conf Defaultvers=3 $ systemctl restart glusterd.service # start force $ gluster volume set gv0 nfs.disable off $ gluster volume start gv0 force $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs 配置 Quorum() ...... 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS]]></content>
@@ -220,29 +248,6 @@
       <tags>
         <tag>gluster</tag>
         <tag>dfs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[VirtualBox 报错 E_FAIL0x80004005 解决方案]]></title>
-    <url>%2Flinux%2FVirtualBox%E6%8A%A5%E9%94%99E_FAIL0x80004005%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
-    <content type="text"><![CDATA[VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题 返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd} 寻找原因 直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。 解决方案 在 MacType 的配置文件中排除 VirtualBox 的进程即可。 123[ExcludeModule]VBoxSVC.exeVirtualBox.exe 鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written 1sfc /scannow 还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好 通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~ 参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>virtualbox</tag>
-        <tag>vm</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Gearman 安装]]></title>
-    <url>%2Fcluster%2FGearman%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 ) 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so 三、启动 gearmand # ( 如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot; --&gt; 根据自己需求设置 --verbose $ service gearmand start $ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman $ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin --show-jobs --status --workers -- ... 1. Worker: &lt;?php $worker = new GearmanWorker(); $worker-&gt;addServer(); $worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;); while (1) { print &quot;Waiting for job...\n&quot;; $ret = $worker-&gt;work(); if($worker-&gt;returnCode() != GEARMAN_SUCCESS) { break; } } function reverse_fn(GearmanJob $job) { $workload = $job-&gt;workload(); echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;; echo &quot;Workload: $workload\n&quot;; $result = strrev($workload); echo &quot;Result: $result\n&quot;; return $result; } ?&gt; 2. client: &lt;?php $client = new GearmanClient(); $client-&gt;addServer(); echo &quot;sending job\n&quot;; if($result) { echo &quot;Success: $result\n&quot;; } else { echo &quot;Failed!&quot;; } ?&gt;]]></content>
-      <categories>
-        <category>cluster</category>
-      </categories>
-      <tags>
-        <tag>gearman</tag>
       </tags>
   </entry>
   <entry>
@@ -257,34 +262,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[斐讯 K2 路由器刷机]]></title>
-    <url>%2Flinux%2F%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA%2F</url>
-    <content type="text"><![CDATA[买个 SS 帐号 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。 路由刷机 路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，注意：不是 WAN 口 查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址 自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 ) 用户名和密码默认 “admin/admin” 登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>刷机</tag>
-        <tag>斐讯 K2</tag>
-        <tag>翻墙</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Curl、resty、httpie、httpstat、wuzz 使用介绍]]></title>
-    <url>%2Flinux%2FCurl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D%2F</url>
-    <content type="text"><![CDATA[curl 下载文件 123456export DOCKERIZE_VERION=latest &amp;&amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/$&#123;DOCKERIZE_VERION&#125; | jq -r ".assets[] | select(.name | test(\"$&#123;DOCKERIZE_ARCH&#125;\")) | .browser_download_url")curl -sSOL http://$DOCKERIZE_DOWNLOADURL# or curl -sSL $&#123;DOCKERIZE_DOWNLOADURL&#125; | tar zxvf - -C $&#123;MODULE_HOME&#125; 详细信息 curl -v www.sina.com curl --trace output.txt www.sina.com curl --trace-ascii output.txt www.sina.com curl -s --head www.sina.com 上传文件 curl --form upload=@localfilename --form press=OK [URL] curl -T file.txt curl --cookie &quot;name=xxx&quot; www.example.com curl --user name@DOMAIN:password http://example.com curl -fsSL ... 下载网页保存为文件名 curl -o [文件名] www.sina.com curl -L www.sina.com curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html 对于 https 的方法，添加 –insecure curl --insecure -LJO https://packages.gitlab.com/gitlab curl example.com/form.cgi?data=xxx 增加头信息 (-H) curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com # 模拟服务地址（例如有些网站只能用域名访问的） curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080 POST：(-d) curl -i -X POST --data &quot;data=xxx&quot; example.com/form.cgi curl -i -X POST --data-urlencode &quot;date=April 1&quot; example.com/form.cgi Referer(-e) curl --referer http://www.example.com http://www.example.com User Agent 字段 (-A) curl --user-agent &quot;[User Agent]&quot; http://www.example.com 配置压缩 (-I means “Fetch the HTTP-header only”) curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom 超时设置 --connect-timeout 3 # 3 秒连接时间 -m | --max-time 5 # 连接 5 秒后自动断开 本地 socket curl --unix-socket /var/run/docker.sock http:/images/json or curl --unix-socket /var/run/docker.sock http://localhost/images/json curl examples # zabbix 使用 API 进行认证 # curl -i -X POST -H &#39;Content-Type:application/json&#39; -d &#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&#39; http://192.168.0.54/api_jsonrpc.php HTTP/1.1 200 OK Date: Mon, 12 Aug 2013 05:53:05 GMT Server: Apache/2.2.21 (Linux/SUSE) X-Powered-By: PHP/5.3.8 Content-Length: 68 Content-Type: application/json {&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0} # zabbix 利用 tokern 和 id 进行注册主机 2. echo `cat /tmp/123.txt` --- 这样也可以 ... 3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39; 格式化后的内容 &#39; http://192.168.0.54/api_jsonrpc.php -i|--include : 在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 ) -s|--silent : 静默模式 -X|--request : 请求 HTTP 服务，默认为 GET resty 模拟请求 # install resty curl -L http://github.com/micha/resty/raw/master/resty &gt; resty # 导入变量 . resty $ resty http://127.0.0.1:8080/data http://127.0.0.1:8080/data* $ GET /blogs.json [ {&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ] $ PUT /blogs/2.json &#39;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&#39; {&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;} $ DELETE /blogs/2 $ POST /blogs.json &#39;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&#39; {&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;} 使用 httpie # install $ apt-get install httpie # usage $http httpie.org $ http PUT example.org X-API-Token:123 name=John $ http -f POST example.org hello=World $ http -v example.org $ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&#39;HTTPie is awesome! :heart:&#39; $ http example.org &lt; file.json $ http example.org/file &gt; file $ http --download example.org/file $ http --session=logged-in -a username:password httpbin.org/get API-Key:123 $ http --session=logged-in httpbin.org/headers $ http localhost:8000 Host:example.com $ http DELETE example.org/todos/7 httpstat httpstat wuzz wuzz]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>curl</tag>
-        <tag>resty</tag>
-        <tag>httpie</tag>
-        <tag>httpstat</tag>
-        <tag>wizz</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[编码与文件格式转换]]></title>
     <url>%2Flinux%2F%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2%2F</url>
     <content type="text"><![CDATA[作用 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github 编码转换 “Trans_To_UTF-8.py” 12345678910111213141516171819202122232425262728# 请把以下脚本放至 /usr/local/bin/ 目录下import os,sysdef convert( filename, in_enc = "GBK", out_enc="UTF8" ): try: print "convert " + filename, content = open(filename).read() new_content = content.decode(in_enc).encode(out_enc) open(filename, 'w').write(new_content) print " done" except: print " error"def explore(dir): for root, dirs, files in os.walk(dir): for file in files: path = os.path.join(root, file) convert(path)def main(): for path in sys.argv[1:]: if os.path.isfile(path): convert(path) elif os.path.isdir(path): explore(path)if __name__ == "__main__": main() 准备脚本 “prepare.sh” 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667POST_DIR="/cygdrive/e/blog/source/_posts"FBS_ESC=`echo -en "\033"`COLOR_RED="$&#123;FBS_ESC&#125;[1;31m" # ErrorCOLOR_GREEN="$&#123;FBS_ESC&#125;[1;32m"; # SuccessCOLOR_YELLOW="$&#123;FBS_ESC&#125;[1;33m" # WarningCOLOR_CLOSE="$&#123;FBS_ESC&#125;[0m" # Closecd $POST_DIRfor i in *; do if grep -q "author: dongcj &lt;ntwk@163.com&gt;" $i; then echo "$&#123;COLOR_GREEN&#125;SKIP$&#123;COLOR_CLOSE&#125;: filename: $i..." continue fi if file $i | grep -q "CRLF"; then # change to unix echo -n "$&#123;COLOR_YELLOW&#125;WARN$&#123;COLOR_CLOSE&#125;: filename: $i, coverting to unix.." dos2unix $i &amp;&amp; echo "done" || echo "$&#123;COLOR_RED&#125;failed$&#123;COLOR_CLOSE&#125;" fi if ! file $i | grep -q "UTF-8"; then # change to UTF-8 python /usr/local/bin/Trans_To_UTF-8.py $i &amp;&amp; echo "done" || echo "$&#123;COLOR_RED&#125;failed$&#123;COLOR_CLOSE&#125;" fi if ! ls $i | grep -q "\.md$"; then echo -n "$&#123;COLOR_YELLOW&#125;WARN$&#123;COLOR_CLOSE&#125;: filename: $i, renaming to $&#123;i%.*&#125;.md.." # rename suffix to ".md" mv $i $&#123;i%.*&#125;.md &amp;&amp; echo "done" || echo "$&#123;COLOR_RED&#125;failed$&#123;COLOR_CLOSE&#125;" else echo "filename: $i, skipped rename~" fi no_suffix_filename="$&#123;i%.*&#125;" # if does not have title if ! grep -q "title:" $i; then echo -n "$&#123;COLOR_YELLOW&#125;WARN$&#123;COLOR_CLOSE&#125;: filename: $i, adding title.." sed -i "1s/^/---\ntitle: $no_suffix_filename\n---\n/" $i echo "done" fi # zero title content title_content=`sed -n '/title: /p' $i | awk -F':' '&#123;print $NF&#125;' | xargs` if [ -z "$title_content" ]; then # update title when it is NULL echo -n "$&#123;COLOR_YELLOW&#125;WARN$&#123;COLOR_CLOSE&#125;: filename: $i, updating title.." sed -i "s/title: .*/title: $no_suffix_filename/" $i echo "done" else echo "filename: $i, skipped update~" fi # add author info if ! grep -q "author: dongcj &lt;ntwk@163.com&gt;" $i; then echo -n "$&#123;COLOR_YELLOW&#125;WARN$&#123;COLOR_CLOSE&#125;: filename: $i, updating author.." sed -i '/title: /a author: dongcj &lt;ntwk@163.com&gt;' $i echo "done" fi echodone Windows 下 &quot; 更新博客 .bat&quot; 12345REMcd "/cygdriver/d/blog"D:hexo g &amp;&amp; hexo decho "success"]]></content>
@@ -295,6 +272,29 @@
         <tag>utf-8</tag>
         <tag>编码</tag>
         <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Gearman 安装]]></title>
+    <url>%2Fcluster%2FGearman%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 ) 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so 三、启动 gearmand # ( 如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot; --&gt; 根据自己需求设置 --verbose $ service gearmand start $ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman $ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin --show-jobs --status --workers -- ... 1. Worker: &lt;?php $worker = new GearmanWorker(); $worker-&gt;addServer(); $worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;); while (1) { print &quot;Waiting for job...\n&quot;; $ret = $worker-&gt;work(); if($worker-&gt;returnCode() != GEARMAN_SUCCESS) { break; } } function reverse_fn(GearmanJob $job) { $workload = $job-&gt;workload(); echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;; echo &quot;Workload: $workload\n&quot;; $result = strrev($workload); echo &quot;Result: $result\n&quot;; return $result; } ?&gt; 2. client: &lt;?php $client = new GearmanClient(); $client-&gt;addServer(); echo &quot;sending job\n&quot;; if($result) { echo &quot;Success: $result\n&quot;; } else { echo &quot;Failed!&quot;; } ?&gt;]]></content>
+      <categories>
+        <category>cluster</category>
+      </categories>
+      <tags>
+        <tag>gearman</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[VirtualBox 报错 E_FAIL0x80004005 解决方案]]></title>
+    <url>%2Flinux%2FVirtualBox%E6%8A%A5%E9%94%99E_FAIL0x80004005%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%2F</url>
+    <content type="text"><![CDATA[VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题 返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd} 寻找原因 直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。 解决方案 在 MacType 的配置文件中排除 VirtualBox 的进程即可。 123[ExcludeModule]VBoxSVC.exeVirtualBox.exe 鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written 1sfc /scannow 还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好 通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~ 参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>virtualbox</tag>
+        <tag>vm</tag>
       </tags>
   </entry>
   <entry>
@@ -329,6 +329,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Linux 安装 Easy_install 及 Pip]]></title>
+    <url>%2Flinux%2FLinux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip%2F</url>
+    <content type="text"><![CDATA[需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7 安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6 # 使用 Python 2.7.x 安装 setuptools /usr/local/bin/python2.7 setup.py install 更多 easy_install 用法见： easy_install 用法 安装 PIP # 下载方法 1 $ curl https://bootstrap.pypa.io/get-pip.py | python - # 下载方法 2 $ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python # 安装方法 1 $ yum install python-pip # 安装方法 2 $ /usr/local/bin/easy_install pip ( 建议 , 如果升级使用此方法！ ) # 升级 pip $ /usr/local/bin/easy_install --upgrade pip # 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 ) $ pip install -U distribute # 升级 ez_setup $ curl https://bootstrap.pypa.io/ez_setup.py | python - $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com &gt; 安装墙内 PIP http://realfavicongenerator.net/ easy_install 用法 # 1 直接安装： easy_install SQLObject # 2 使用下载页面地址安装 easy_install -f http://pythonpaste.org/package_index.html SQLObject # 3 直接给出下载 url 安装 easy_install http://example.com/path/to/MyPackage-1.2.3.tgz # 4 .egg 文件的安装 easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg # 5 跟新安装过的包 easy_install --upgrade PyProtocols # 6 安装已经下载和提取在当前目录下的包 easy_install . # 7 安装特定特定版本的库 easy_install &quot;SomePackage==2.0&quot; # 8 大于某个版本 easy_install &quot;SomePackage&gt;2.0 # 9 卸载库 easy_install -m PackageName]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>easy_install</tag>
+        <tag>pip</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Dnsmasq 使用本地 Hosts 配置提供 DNS 服务]]></title>
     <url>%2Flinux%2Fdns%2FDnsmasq%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0host%E4%B8%BADNS%2F</url>
     <content type="text"><![CDATA[使用 dnsmasq 提供外网 dns 服务 $ apt-get install dnsmasq # 将以下文本添加到 /etc/dnsmasq.conf 文件的最后： listen-address=127.0.0.1,OUTER_IP # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts # 直接解析本地的 hosts resolv-file=/etc/resolv.dnsmasq.conf # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个 ) conf-dir=/etc/dnsmasq.d # 该目录下的所有文件都会解析 生成域名映射 # 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字 vi /etc/dnsmasq.d/dns.conf # 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件 address=&quot;/google.com/172.17.0.4&quot; 启动服务 /etc/init.d/dnsmasq start 测试 dig google.com @OUTER_IP --&gt; 172.17.0.4 本地 hosts 配合 NetworkManager 方式 $ cat /etc/NetworkManager/dnsmasq.d/hosts.conf addn-hosts=/etc/hosts $ sudo service networking restart $ sudo /etc/init.d/dns-clean restart $ host u1 $ nslookup u1 $ getent ahosts u1]]></content>
@@ -339,18 +351,6 @@
       <tags>
         <tag>dns dhcp</tag>
         <tag>dnsmasq</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Linux 安装 Easy_install 及 Pip]]></title>
-    <url>%2Flinux%2FLinux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip%2F</url>
-    <content type="text"><![CDATA[需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7 安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6 # 使用 Python 2.7.x 安装 setuptools /usr/local/bin/python2.7 setup.py install 更多 easy_install 用法见： easy_install 用法 安装 PIP # 下载方法 1 $ curl https://bootstrap.pypa.io/get-pip.py | python - # 下载方法 2 $ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python # 安装方法 1 $ yum install python-pip # 安装方法 2 $ /usr/local/bin/easy_install pip ( 建议 , 如果升级使用此方法！ ) # 升级 pip $ /usr/local/bin/easy_install --upgrade pip # 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案 ) $ pip install -U distribute # 升级 ez_setup $ curl https://bootstrap.pypa.io/ez_setup.py | python - $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com &gt; 安装墙内 PIP http://realfavicongenerator.net/ easy_install 用法 # 1 直接安装： easy_install SQLObject # 2 使用下载页面地址安装 easy_install -f http://pythonpaste.org/package_index.html SQLObject # 3 直接给出下载 url 安装 easy_install http://example.com/path/to/MyPackage-1.2.3.tgz # 4 .egg 文件的安装 easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg # 5 跟新安装过的包 easy_install --upgrade PyProtocols # 6 安装已经下载和提取在当前目录下的包 easy_install . # 7 安装特定特定版本的库 easy_install &quot;SomePackage==2.0&quot; # 8 大于某个版本 easy_install &quot;SomePackage&gt;2.0 # 9 卸载库 easy_install -m PackageName]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>easy_install</tag>
-        <tag>pip</tag>
       </tags>
   </entry>
   <entry>
