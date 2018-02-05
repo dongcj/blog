@@ -324,172 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
-                2016-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Supervisor安装与配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Supervisor安装与配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Supervisor安装与配置/" class="leancloud_visitors" data-flag-title="Supervisor 安装与配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><blockquote>
-<p>生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选</span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选</span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令</span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动</span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选</span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选</span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><pre><code>$ service supervisord start
-
-&gt; 如果使用 pip 安装，需要自已写启动脚本
-
-supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -606,11 +440,15 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
 $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
-  libxml2 libxml2-devel bison flex libreadline6-devel
-</code></pre><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量</span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<h1 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
-<h1 id="启动数据库-快速"><a href="#启动数据库-快速" class="headerlink" title="启动数据库 [快速]"></a>启动数据库 [快速]</h1><pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start
-</code></pre><h1 id="创建并导入库"><a href="#创建并导入库" class="headerlink" title="创建并导入库"></a>创建并导入库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">su postgres</div><div class="line">psql</div><div class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></div><div class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></div><div class="line">\i &lt;DB_FILE&gt;.sql</div></pre></td></tr></table></figure>
+  libxml2 libxml2-devel bison flex libreadline6-devel</code></pre>
+<h1 id="安装">安装</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量</span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h1 id="初始化数据库">初始化数据库</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
+<h1 id="启动数据库-快速">启动数据库 [快速]</h1>
+<pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
+<h1 id="创建并导入库">创建并导入库</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">su postgres</div><div class="line">psql</div><div class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></div><div class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></div><div class="line">\i &lt;DB_FILE&gt;.sql</div></pre></td></tr></table></figure>
 
           
         
@@ -774,192 +612,225 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 <li><a href="README.md">Chinese Simplified</a></li>
 </ul>
 <hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><!-- vim-markdown-toc GFM -->
+<h2 id="目录">目录</h2>
+<!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="# 空格">空格</a><ul>
-<li><a href="# 中英文之间需要增加空格">中英文之间需要增加空格</a></li>
-<li><a href="# 中文与数字之间需要增加空格">中文与数字之间需要增加空格</a></li>
-<li><a href="# 数字与单位之间需要增加空格">数字与单位之间需要增加空格</a></li>
-<li><a href="# 全角标点与其他字符之间不加空格">全角标点与其他字符之间不加空格</a></li>
+<li><a href="#%20空格">空格</a>
+<ul>
+<li><a href="#%20中英文之间需要增加空格">中英文之间需要增加空格</a></li>
+<li><a href="#%20中文与数字之间需要增加空格">中文与数字之间需要增加空格</a></li>
+<li><a href="#%20数字与单位之间需要增加空格">数字与单位之间需要增加空格</a></li>
+<li><a href="#%20全角标点与其他字符之间不加空格">全角标点与其他字符之间不加空格</a></li>
 <li><a href="#-ms-text-autospace-to-the-rescue"><code>-ms-text-autospace</code> to the rescue?</a></li>
-</ul>
-</li>
-<li><a href="# 标点符号">标点符号</a><ul>
-<li><a href="# 不重复使用标点符号">不重复使用标点符号</a></li>
-</ul>
-</li>
-<li><a href="# 全角和半角">全角和半角</a><ul>
-<li><a href="# 使用全角中文标点">使用全角中文标点</a></li>
-<li><a href="# 数字使用半角字符">数字使用半角字符</a></li>
-<li><a href="# 遇到完整的英文整句特殊名词其內容使用半角标点">遇到完整的英文整句、特殊名词，其內容使用半角标点</a></li>
-</ul>
-</li>
-<li><a href="# 名词">名词</a><ul>
-<li><a href="# 专有名词使用正确的大小写">专有名词使用正确的大小写</a></li>
-<li><a href="# 不要使用不地道的缩写">不要使用不地道的缩写</a></li>
-</ul>
-</li>
-<li><a href="# 争议">争议</a><ul>
-<li><a href="# 链接之间增加空格">链接之间增加空格</a></li>
-<li><a href="# 简体中文使用直角引号">简体中文使用直角引号</a></li>
-</ul>
-</li>
-<li><a href="# 工具">工具</a></li>
-<li><a href="# 谁在这样做">谁在这样做？</a></li>
-<li><a href="# 参考文献">参考文献</a></li>
+</ul></li>
+<li><a href="#%20标点符号">标点符号</a>
+<ul>
+<li><a href="#%20不重复使用标点符号">不重复使用标点符号</a></li>
+</ul></li>
+<li><a href="#%20全角和半角">全角和半角</a>
+<ul>
+<li><a href="#%20使用全角中文标点">使用全角中文标点</a></li>
+<li><a href="#%20数字使用半角字符">数字使用半角字符</a></li>
+<li><a href="#%20遇到完整的英文整句特殊名词其內容使用半角标点">遇到完整的英文整句、特殊名词，其內容使用半角标点</a></li>
+</ul></li>
+<li><a href="#%20名词">名词</a>
+<ul>
+<li><a href="#%20专有名词使用正确的大小写">专有名词使用正确的大小写</a></li>
+<li><a href="#%20不要使用不地道的缩写">不要使用不地道的缩写</a></li>
+</ul></li>
+<li><a href="#%20争议">争议</a>
+<ul>
+<li><a href="#%20链接之间增加空格">链接之间增加空格</a></li>
+<li><a href="#%20简体中文使用直角引号">简体中文使用直角引号</a></li>
+</ul></li>
+<li><a href="#%20工具">工具</a></li>
+<li><a href="#%20谁在这样做">谁在这样做？</a></li>
+<li><a href="#%20参考文献">参考文献</a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h2 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h2><p>与大家共勉之。」——<a href="https://github.com/vinta/pangu.js" target="_blank" rel="external">vinta/paranoid-auto-spacing</a></p>
+<h2 id="空格">空格</h2>
+<p>与大家共勉之。」——<a href="https://github.com/vinta/pangu.js" target="_blank" rel="external">vinta/paranoid-auto-spacing</a></p>
 <p>完整的正确用法：</p>
 <p>例外：度／百分比与数字之间不需要增加空格：</p>
 <blockquote>
 <p>刚刚买了一部 iPhone，好开心！</p>
+</blockquote>
+<blockquote>
 <p>刚刚买了一部 iPhone ，好开心！</p>
 </blockquote>
-<h3 id="ms-text-autospace-to-the-rescue"><a href="#ms-text-autospace-to-the-rescue" class="headerlink" title="-ms-text-autospace to the rescue?"></a><code>-ms-text-autospace</code> to the rescue?</h3><h2 id="标点符号"><a href="#标点符号" class="headerlink" title="标点符号"></a>标点符号</h2><blockquote>
+<h3 id="ms-text-autospace-to-the-rescue"><code>-ms-text-autospace</code> to the rescue?</h3>
+<h2 id="标点符号">标点符号</h2>
+<blockquote>
 <p>德国队竟然战胜了巴西队！</p>
 </blockquote>
-<h3 id="使用全角中文标点"><a href="#使用全角中文标点" class="headerlink" title="使用全角中文标点"></a>使用全角中文标点</h3><blockquote>
+<h3 id="使用全角中文标点">使用全角中文标点</h3>
+<blockquote>
 <p>嗨！你知道嘛？今天前台的小妹跟我说「喵」了哎！</p>
-<p>嗨 ! 你知道嘛 ? 今天前台的小妹跟我说 “ 喵 “ 了哎 !</p>
-<p>嗨 ! 你知道嘛 ? 今天前台的小妹跟我说 “ 喵 “ 了哎 !</p>
+</blockquote>
+<blockquote>
+<p>嗨 ! 你知道嘛 ? 今天前台的小妹跟我说 &quot; 喵 &quot; 了哎 !</p>
+</blockquote>
+<blockquote>
+<p>嗨 ! 你知道嘛 ? 今天前台的小妹跟我说 &quot; 喵 &quot; 了哎 !</p>
+</blockquote>
+<blockquote>
 <p>核磁共振成像 (NMRI) 是什么原理都不知道 ? JFGI!</p>
+</blockquote>
+<blockquote>
 <p>核磁共振成像 (NMRI) 是什么原理都不知道 ?JFGI!</p>
 </blockquote>
-<h3 id="数字使用半角字符"><a href="#数字使用半角字符" class="headerlink" title="数字使用半角字符"></a>数字使用半角字符</h3><h2 id="名词"><a href="#名词" class="headerlink" title="名词"></a>名词</h2><h3 id="专有名词使用正确的大小写"><a href="#专有名词使用正确的大小写" class="headerlink" title="专有名词使用正确的大小写"></a>专有名词使用正确的大小写</h3><blockquote>
+<h3 id="数字使用半角字符">数字使用半角字符</h3>
+<h2 id="名词">名词</h2>
+<h3 id="专有名词使用正确的大小写">专有名词使用正确的大小写</h3>
+<blockquote>
 <p>使用 GitHub 登录</p>
+</blockquote>
+<blockquote>
 <p>使用 github 登录</p>
+</blockquote>
+<blockquote>
 <p>使用 GITHUB 登录</p>
+</blockquote>
+<blockquote>
 <p>使用 Github 登录</p>
+</blockquote>
+<blockquote>
 <p>使用 gitHub 登录</p>
+</blockquote>
+<blockquote>
 <p>使用 g ｲんĤЦ 8 登录</p>
 </blockquote>
-<h3 id="不要使用不地道的缩写"><a href="#不要使用不地道的缩写" class="headerlink" title="不要使用不地道的缩写"></a>不要使用不地道的缩写</h3><h2 id="争议"><a href="#争议" class="headerlink" title="争议"></a>争议</h2><h3 id="链接之间增加空格"><a href="#链接之间增加空格" class="headerlink" title="链接之间增加空格"></a>链接之间增加空格</h3><h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><table>
+<h3 id="不要使用不地道的缩写">不要使用不地道的缩写</h3>
+<h2 id="争议">争议</h2>
+<h3 id="链接之间增加空格">链接之间增加空格</h3>
+<h2 id="工具">工具</h2>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>仓库</th>
 <th>语言</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><a href="https://github.com/vinta/paranoid-auto-spacing" target="_blank" rel="external">vinta/paranoid-auto-spacing</a></td>
 <td>JavaScript</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://github.com/huei90/pangu.node" target="_blank" rel="external">huei90/pangu.node</a></td>
 <td>Node.js</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://github.com/huacnlee/auto-correct" target="_blank" rel="external">huacnlee/auto-correct</a></td>
 <td>Ruby</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://github.com/sparanoid/space-lover" target="_blank" rel="external">sparanoid/space-lover</a></td>
 <td>PHP (WordPress)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://github.com/NauxLiu/auto-correct" target="_blank" rel="external">nauxliu/auto-correct</a></td>
 <td>PHP</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://github.com/ricoa/copywriting-correct" target="_blank" rel="external">ricoa/copywriting-correct</a></td>
 <td>PHP</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://github.com/hotoo/pangu.vim" target="_blank" rel="external">hotoo/pangu.vim</a></td>
 <td>Vim</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://github.com/sparanoid/grunt-auto-spacing" target="_blank" rel="external">sparanoid/grunt-auto-spacing</a></td>
 <td>Node.js (Grunt)</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://github.com/hjiang/scripts/blob/master/add-space-between-latin-and-cjk" target="_blank" rel="external">hjiang/scripts/add-space-between-latin-and-cjk</a></td>
 <td>Python</td>
 </tr>
 </tbody>
 </table>
-<h2 id="谁在这样做？"><a href="#谁在这样做？" class="headerlink" title="谁在这样做？"></a>谁在这样做？</h2><table>
+<h2 id="谁在这样做">谁在这样做？</h2>
+<table>
 <thead>
-<tr>
+<tr class="header">
 <th>网站</th>
 <th>文案</th>
 <th>UGC</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td><a href="http://www.apple.com/cn/" target="_blank" rel="external">Apple 中国</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="http://www.apple.com/hk/" target="_blank" rel="external">Apple 香港</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="http://www.apple.com/tw/" target="_blank" rel="external">Apple 台湾</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="http://www.microsoft.com/zh-cn/" target="_blank" rel="external">Microsoft 中国</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="http://www.microsoft.com/zh-hk/" target="_blank" rel="external">Microsoft 香港</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="http://www.microsoft.com/zh-tw/" target="_blank" rel="external">Microsoft 台湾</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://leancloud.cn/" target="_blank" rel="external">LeanCloud</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://www.zhihu.com/" target="_blank" rel="external">知乎</a></td>
 <td>Yes</td>
 <td>部分用户达成</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://www.v2ex.com/" target="_blank" rel="external">V2EX</a></td>
 <td>Yes</td>
 <td>Yes</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://segmentfault.com/" target="_blank" rel="external">SegmentFault</a></td>
 <td>Yes</td>
 <td>部分用户达成</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="http://apple4us.com/" target="_blank" rel="external">Apple4us</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://www.wandoujia.com/" target="_blank" rel="external">豌豆荚</a></td>
 <td>Yes</td>
 <td>N/A</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="https://ruby-china.org/" target="_blank" rel="external">Ruby China</a></td>
 <td>Yes</td>
 <td>标题达成</td>
 </tr>
-<tr>
+<tr class="even">
 <td><a href="https://phphub.org/" target="_blank" rel="external">PHPHub</a></td>
 <td>Yes</td>
 <td>标题达成</td>
 </tr>
-<tr>
+<tr class="odd">
 <td><a href="http://sspai.com/" target="_blank" rel="external">少数派</a></td>
 <td>Yes</td>
 <td>N/A</td>
@@ -1132,11 +1003,14 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
       
         
           
-            <h1 id="Sysdig"><a href="#Sysdig" class="headerlink" title="Sysdig"></a>Sysdig</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
-<h1 id="BCC"><a href="#BCC" class="headerlink" title="BCC"></a>BCC</h1><blockquote>
-<p><a href="https://github.com/iovisor/bcc" target="_blank" rel="external">https://github.com/iovisor/bcc</a></p>
+            <h1 id="sysdig">Sysdig</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
+<h1 id="bcc">BCC</h1>
+<blockquote>
+<p><a href="https://github.com/iovisor/bcc" class="uri" target="_blank" rel="external">https://github.com/iovisor/bcc</a></p>
 </blockquote>
-<h1 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h1><pre><code>uptime          CPU + Disks 的测量，1，5，15 分钟
+<h1 id="常用工具">常用工具</h1>
+<pre><code>uptime          CPU + Disks 的测量，1，5，15 分钟
 ps -eLf         打印线程
 ps -ef f    打印进程树
 pstree -alpha &lt;PID&gt; 查看某进程的详细情况
@@ -1153,14 +1027,16 @@ nmon     综合工具
 glances  综合工具
 
 # xxx 表示进程 id 或 pid
-/proc/cpuinfo，/proc/meminfo，/proc/cmdline，/proc/xxx/cwd，/proc/xxx/exe，/proc/xxx/fd/，/proc/xxx/smaps
-</code></pre><h1 id="sysstat-包含工具"><a href="#sysstat-包含工具" class="headerlink" title="sysstat 包含工具"></a>sysstat 包含工具</h1><pre><code>sar     综合工具 , 查看历史 iowait 值 (Collect, report, or save system activity information)
+/proc/cpuinfo，/proc/meminfo，/proc/cmdline，/proc/xxx/cwd，/proc/xxx/exe，/proc/xxx/fd/，/proc/xxx/smaps</code></pre>
+<h1 id="sysstat-包含工具">sysstat 包含工具</h1>
+<pre><code>sar     综合工具 , 查看历史 iowait 值 (Collect, report, or save system activity information)
 sadf        -x 可以使用 xml 格式打印信息
 pidstat     打印进程信息 (Report statistics for Linux tasks, 有占用信息 )
 cifsiostat  查看 windows 共享的 io 状况
 mpstat      查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）
-iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）
-</code></pre><h1 id="网络监测工具"><a href="#网络监测工具" class="headerlink" title="网络监测工具"></a>网络监测工具</h1><pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
+iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）</code></pre>
+<h1 id="网络监测工具">网络监测工具</h1>
+<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
 iftop/iptraf            # 实时网络状况监测 ( 常用 -pn)，查找正在使用带宽的套接字连接或进程
 netstat                 # 查看网络状况 ( 常用 -tupnl)
        netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件
@@ -1174,7 +1050,7 @@ tshark
 ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any 匹配所有接口，. 匹配所有内容 目标端口为 2003 的包
                 ngrep  -qd any -W byline &quot;^(GET|POST)&quot;  port not 22
                 # 相当于：
-                tcpdump &apos;port 5901 and (host 192.168.109.1)&apos;
+                tcpdump &#39;port 5901 and (host 192.168.109.1)&#39;
 
 iperf       # 测试 TCP 和 UDP 带宽质量
             # 服务端 : iperf [ -u] -s    客户端 : iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M
@@ -1193,32 +1069,39 @@ lsof -c abc                     # 显示 abc 进程现在打开的文件
 lsof -p 12                      # 看进程号为 12 的进程打开了哪些文件 , 等同于 pmap 12 和 netstat -p 12
 lsof -U                         # 列出所有的 socket, 等同于 ss -l
 lsof | grep FILEorDir           # 查看文件被哪个进程打个
-lsof | grep deleted | grep &quot;filename-of-my-big-file&quot;    # 文件删除了，但是还占用空间
-</code></pre><h1 id="其它监测工具"><a href="#其它监测工具" class="headerlink" title="其它监测工具"></a>其它监测工具</h1><pre><code>gnome-system-monitor/conky  # gnome 的 GUI 任务管理器工具
+lsof | grep deleted | grep &quot;filename-of-my-big-file&quot;    # 文件删除了，但是还占用空间</code></pre>
+<h1 id="其它监测工具">其它监测工具</h1>
+<pre><code>gnome-system-monitor/conky  # gnome 的 GUI 任务管理器工具
 jvmtop.sh/jconsole PID      # java 占用情况 / 图形界面的 java console 占用情况（很清晰，建议使用）
 
 vmtouch         # 查看放到内存中的文件
-pmap PID        # 查看进程打开的文件 , 等同于 lsof -p PID
-</code></pre><h1 id="Strace-查看内核空间，ltrace-查看用户空间"><a href="#Strace-查看内核空间，ltrace-查看用户空间" class="headerlink" title="Strace 查看内核空间，ltrace 查看用户空间"></a>Strace 查看内核空间，ltrace 查看用户空间</h1><pre><code>strace -e open ls           # 查看命令 ls 打开的库文件
+pmap PID        # 查看进程打开的文件 , 等同于 lsof -p PID</code></pre>
+<h1 id="strace-查看内核空间ltrace-查看用户空间">Strace 查看内核空间，ltrace 查看用户空间</h1>
+<pre><code>strace -e open ls           # 查看命令 ls 打开的库文件
 strace -r php worker.php    # 查看 worker.php 的 trace
 strace -p &lt;PID&gt;             # 查看正在运行的进程的 trace
 ltrace /bin/ls              # 运行 /bin/ls 命令，查看这个命令具体调用哪些库
 
 blktrace -d /dev/sda        # 生成块设备的跟踪中信息，需要先 mount -t debugfs none /sys/kernel/debug, 再 blkparse
 
-stap（SystemTap）、perf、sysdig     # 更深层次的系统分析以及性能分析
-</code></pre><h1 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h1><pre><code>ipcs -m
-ipcrm -m &lt;SHMID&gt;
-</code></pre><h2 id="free-字段说明"><a href="#free-字段说明" class="headerlink" title="free 字段说明"></a>free 字段说明</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@bigdata /]<span class="comment"># free</span></div><div class="line">total       used    free    shared  buffers     cached</div><div class="line">Mem:    255268      238332  16936   0       85540       126384</div><div class="line">-/+ buffers/cache:  26408   228860</div></pre></td></tr></table></figure>
+stap（SystemTap）、perf、sysdig     # 更深层次的系统分析以及性能分析</code></pre>
+<h1 id="共享内存">共享内存</h1>
+<pre><code>ipcs -m
+ipcrm -m &lt;SHMID&gt;</code></pre>
+<h2 id="free-字段说明">free 字段说明</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@bigdata /]<span class="comment"># free</span></div><div class="line">total       used    free    shared  buffers     cached</div><div class="line">Mem:    255268      238332  16936   0       85540       126384</div><div class="line">-/+ buffers/cache:  26408   228860</div></pre></td></tr></table></figure>
 <blockquote>
-<p>free2：未被使用的 buffers 与 cache<br>和未被分配的内存之和，这就是系统当前实际可用内存。</p>
-<p>total1 = used1 + free1 total1 = used2 + free2 used1 = buffers1 +<br>cached1 + used2 free2 = buffers1 + cached1 + free1</p>
-<h2 id="buffer"><a href="#buffer" class="headerlink" title="buffer:"></a>buffer:</h2><p>缓冲区，一个用于存储速度不同步的设备或优先级不同的设备之间传输数据的区域。通过缓冲区，可以使进程之间的相互等待变少，从而使从速度慢的设备读入数据时，速度快的设备的操作进程不发生间断。</p>
-<h2 id="cache"><a href="#cache" class="headerlink" title="cache:"></a>cache:</h2><p>高速缓存，是位于 CPU 与主内存间的一种容量较小但速度很高的存储器。由于 CPU 的速度远高于主内存，CPU 直接从内存中存取数据要等待一定时间周期，Cache 中保存着 CPU 刚用过或循环使用的一部分数据，当 CPU 再次使用该部分数据时可从 Cache 中直接调用 , 这样就减少了 CPU 的等待时间 , 提高了系统的效率。Cache 又分为一级 Cache(L1<br>Cache) 和二级 Cache(L2 Cache)，L1 Cache 集成在 CPU 内部，L2<br>Cache 早期一般是焊在主板上 , 现在也都集成在 CPU 内部，常见的容量有 256KB 或 512KB L2 Cache。</p>
+<p>free2：未被使用的 buffers 与 cache 和未被分配的内存之和，这就是系统当前实际可用内存。</p>
+<p>total1 = used1 + free1 total1 = used2 + free2 used1 = buffers1 + cached1 + used2 free2 = buffers1 + cached1 + free1</p>
+<h2 id="buffer">buffer:</h2>
+<p>缓冲区，一个用于存储速度不同步的设备或优先级不同的设备之间传输数据的区域。通过缓冲区，可以使进程之间的相互等待变少，从而使从速度慢的设备读入数据时，速度快的设备的操作进程不发生间断。</p>
+<h2 id="cache">cache:</h2>
+<p>高速缓存，是位于 CPU 与主内存间的一种容量较小但速度很高的存储器。由于 CPU 的速度远高于主内存，CPU 直接从内存中存取数据要等待一定时间周期，Cache 中保存着 CPU 刚用过或循环使用的一部分数据，当 CPU 再次使用该部分数据时可从 Cache 中直接调用 , 这样就减少了 CPU 的等待时间 , 提高了系统的效率。Cache 又分为一级 Cache(L1 Cache) 和二级 Cache(L2 Cache)，L1 Cache 集成在 CPU 内部，L2 Cache 早期一般是焊在主板上 , 现在也都集成在 CPU 内部，常见的容量有 256KB 或 512KB L2 Cache。</p>
 <p>总的来说： buffer : 作为 buffer cache 的内存，是块设备的读写缓冲区</p>
 <p>cache: 作为 page cache 的内存 , 文件系统的 cache</p>
 </blockquote>
-<h2 id="Linux-监控脚本"><a href="#Linux-监控脚本" class="headerlink" title="Linux 监控脚本"></a>Linux 监控脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">DAT=<span class="string">"`date +%Y%m%d`"</span></div><div class="line">HOUR=<span class="string">"`date +%H`"</span></div><div class="line">DIR=<span class="string">"/home/oslog/host_<span class="variable">$&#123;DAT&#125;</span>/<span class="variable">$&#123;HOUR&#125;</span>"</span></div><div class="line">DELAY=60</div><div class="line">COUNT=60</div><div class="line"><span class="comment"># whether the responsible directory exist</span></div><div class="line"><span class="keyword">if</span> ! <span class="built_in">test</span> -d <span class="variable">$&#123;DIR&#125;</span></div><div class="line"><span class="keyword">then</span></div><div class="line">    /bin/mkdir -p <span class="variable">$&#123;DIR&#125;</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment"># general check</span></div><div class="line"><span class="built_in">export</span> TERM=linux</div><div class="line">/usr/bin/top -b -d <span class="variable">$&#123;DELAY&#125;</span> -n <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/top_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># cpu check</span></div><div class="line">/usr/bin/sar -u <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/cpu_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment">#/usr/bin/mpstat -P 0 $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/cpu_0_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div><div class="line"><span class="comment">#/usr/bin/mpstat -P 1 $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/cpu_1_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div><div class="line"><span class="comment"># memory check</span></div><div class="line">/usr/bin/vmstat <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/vmstat_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># I/O check</span></div><div class="line">/usr/bin/iostat <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/iostat_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># network check</span></div><div class="line">/usr/bin/sar -n DEV <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/net_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment">#/usr/bin/sar -n EDEV $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/net_edev_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div></pre></td></tr></table></figure>
+<h2 id="linux-监控脚本">Linux 监控脚本</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">DAT=<span class="string">"`date +%Y%m%d`"</span></div><div class="line">HOUR=<span class="string">"`date +%H`"</span></div><div class="line">DIR=<span class="string">"/home/oslog/host_<span class="variable">$&#123;DAT&#125;</span>/<span class="variable">$&#123;HOUR&#125;</span>"</span></div><div class="line">DELAY=60</div><div class="line">COUNT=60</div><div class="line"><span class="comment"># whether the responsible directory exist</span></div><div class="line"><span class="keyword">if</span> ! <span class="built_in">test</span> -d <span class="variable">$&#123;DIR&#125;</span></div><div class="line"><span class="keyword">then</span></div><div class="line">    /bin/mkdir -p <span class="variable">$&#123;DIR&#125;</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line"><span class="comment"># general check</span></div><div class="line"><span class="built_in">export</span> TERM=linux</div><div class="line">/usr/bin/top -b -d <span class="variable">$&#123;DELAY&#125;</span> -n <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/top_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># cpu check</span></div><div class="line">/usr/bin/sar -u <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/cpu_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment">#/usr/bin/mpstat -P 0 $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/cpu_0_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div><div class="line"><span class="comment">#/usr/bin/mpstat -P 1 $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/cpu_1_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div><div class="line"><span class="comment"># memory check</span></div><div class="line">/usr/bin/vmstat <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/vmstat_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># I/O check</span></div><div class="line">/usr/bin/iostat <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/iostat_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment"># network check</span></div><div class="line">/usr/bin/sar -n DEV <span class="variable">$&#123;DELAY&#125;</span> <span class="variable">$&#123;COUNT&#125;</span> &gt; <span class="variable">$&#123;DIR&#125;</span>/net_<span class="variable">$&#123;DAT&#125;</span>.<span class="built_in">log</span> 2&gt;&amp;1 &amp;</div><div class="line"><span class="comment">#/usr/bin/sar -n EDEV $&#123;DELAY&#125; $&#123;COUNT&#125; &gt; $&#123;DIR&#125;/net_edev_$&#123;DAT&#125;.log 2&gt;&amp;1 &amp;</span></div></pre></td></tr></table></figure>
 
           
         
@@ -1374,7 +1257,8 @@ ipcrm -m &lt;SHMID&gt;
       
         
           
-            <h1 id="location-正则写法"><a href="#location-正则写法" class="headerlink" title="location 正则写法"></a>location 正则写法</h1><pre><code># 一个示例：
+            <h1 id="location-正则写法">location 正则写法</h1>
+<pre><code># 一个示例：
 location  = / {
   # 精确匹配 / ，主机名后面不能带任何字符串
   [ configuration A ]
@@ -1416,9 +1300,13 @@ location ~ /images/abc/ {
   # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
     [ configuration H ]
 }
-location ~* /js/.*/\.js
-</code></pre><p>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配<br>~ 开头表示区分大小写的正则匹配 ;<br>~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到</p>
-<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg<br>-&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+location ~* /js/.*/\.js</code></pre>
+<dl>
+<dt>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配</dt>
+<dd>开头表示区分大小写的正则匹配 ; ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到
+</dd>
+</dl>
+<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg -&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
 <pre><code>    location = / {
         proxy_pass http://tomcat:8080/index
     }
@@ -1432,20 +1320,19 @@ root /webroot/res/; }
 # 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
 location / {
     proxy_pass http://tomcat:8080/
-}
-</code></pre><p><strong>引用</strong></p>
-<blockquote>
-<p><a href="http://tengine.taobao.org/book/chapter_02.html" target="_blank" rel="external">http://tengine.taobao.org/book/chapter_02.html</a><br><a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html" target="_blank" rel="external">http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</a></p>
-</blockquote>
-<h1 id="Rewrite-规则"><a href="#Rewrite-规则" class="headerlink" title="Rewrite 规则"></a>Rewrite 规则</h1><p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 <a href="http://seanlook.com/a/we/index.php?id=1&amp;u=str" target="_blank" rel="external">http://seanlook.com/a/we/index.php?id=1&amp;u=str</a> 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
+}</code></pre>
+<p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
+<h1 id="rewrite-规则">Rewrite 规则</h1>
+<p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
 <ul>
 <li>执行 server 块的 rewrite 指令</li>
 <li>执行 location 匹配</li>
 <li>执行选定的 location 中的 rewrite 指令</li>
 </ul>
-<p>last : 相当于 Apache 的[L]标记，表示完成 rewrite<br>break : 停止执行当前虚拟主机的后续 rewrite 指令集<br>redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址<br>permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
-<p>last 不终止重写后的 url 匹配，即新的 url 会再从 server 走一遍匹配流程，而 break 终止重写后的匹配<br>break 和 last 都能组织继续执行后面的 rewrite 指令</p>
-<h2 id="if-指令与全局变量"><a href="#if-指令与全局变量" class="headerlink" title="if 指令与全局变量"></a>if 指令与全局变量</h2><p>if 判断指令<br>语法为 if(condition){…}，对给定的条件 condition 进行判断。如果为真，大括号内的 rewrite 指令将被执行，if 条件 (conditon) 可以是如下任何内容：<br>当表达式只是一个变量时，如果值为空或任何以 0 开头的字符串都会当做 false<br>直接比较变量和内容时，使用 = 或 !=<br>~ 正则表达式匹配，~*不区分大小写的匹配，!~ 区分大小写的不匹配<br>-f 和 !-f 用来判断是否存在文件<br>-d 和 !-d 用来判断是否存在目录<br>-e 和 !-e 用来判断是否存在文件或目录<br>-x 和 !-x 用来判断文件是否可执行<br>例如：</p>
+<p>last : 相当于 Apache 的[L]标记，表示完成 rewrite break : 停止执行当前虚拟主机的后续 rewrite 指令集 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
+<p>last 不终止重写后的 url 匹配，即新的 url 会再从 server 走一遍匹配流程，而 break 终止重写后的匹配 break 和 last 都能组织继续执行后面的 rewrite 指令</p>
+<h2 id="if-指令与全局变量">if 指令与全局变量</h2>
+<p>if 判断指令 语法为 if(condition){…}，对给定的条件 condition 进行判断。如果为真，大括号内的 rewrite 指令将被执行，if 条件 (conditon) 可以是如下任何内容： 当表达式只是一个变量时，如果值为空或任何以 0 开头的字符串都会当做 false 直接比较变量和内容时，使用 = 或 != ~ 正则表达式匹配，~*不区分大小写的匹配，!~ 区分大小写的不匹配 -f 和 !-f 用来判断是否存在文件 -d 和 !-d 用来判断是否存在目录 -e 和 !-e 用来判断是否存在文件或目录 -x 和 !-x 用来判断文件是否可执行 例如：</p>
 <pre><code>if ($http_user_agent ~ MSIE) {
     rewrite ^(.*)$ /msie/$1 break;
 } // 如果 UA 包含 &quot;MSIE&quot;，rewrite 请求到 /msid/ 目录下
@@ -1470,8 +1357,8 @@ location ~* \.(gif|jpg|png|swf|flv)$ {
     if ($invalid_referer) {
         return 404;
     } // 防盗链
-}
-</code></pre><p>全局变量<br>下面是可以用作 if 判断的全局变量</p>
+}</code></pre>
+<p>全局变量 下面是可以用作 if 判断的全局变量</p>
 <pre><code>$args ： # 这个变量等于请求行中的参数，同 $query_string
 $content_length ： 请求头中的 Content-length 字段。
 $content_type ： 请求头中的 Content-Type 字段。
@@ -1498,8 +1385,9 @@ $server_port：88
 $request_uri：http://localhost:88/test1/test2/test.php
 $document_uri：/test1/test2/test.php
 $document_root：/var/www/html
-$request_filename：/var/www/html/test1/test2/test.php
-</code></pre><h2 id="常用正则"><a href="#常用正则" class="headerlink" title="常用正则"></a>常用正则</h2><pre><code>. ： 匹配除换行符以外的任意字符
+$request_filename：/var/www/html/test1/test2/test.php</code></pre>
+<h2 id="常用正则">常用正则</h2>
+<pre><code>. ： 匹配除换行符以外的任意字符
 ? ： 重复 0 次或 1 次
 + ： 重复 1 次或更多次
 * ： 重复 0 次或更多次
@@ -1510,21 +1398,17 @@ $ ： 匹配字符串的介绍
 {n,} ： 重复 n 次或更多次
 [c] ： 匹配单个字符 c
 [a-z] ： 匹配 a-z 小写字母的任意一个
-小括号 () 之间匹配的内容，可以在后面通过 $1 来引用，$2 表示的是前面第二个 () 里的内容。正则里面容易让人困惑的是 \ 转义特殊字符。
-</code></pre><h2 id="rewrite-实例"><a href="#rewrite-实例" class="headerlink" title="rewrite 实例"></a>rewrite 实例</h2><p>例 1：<br>http {</p>
-<pre><code># 定义 image 日志格式
-log_format imagelog &apos;[$time_local] &apos; $image_file &apos; &apos; $image_type &apos; &apos; $body_bytes_sent &apos; &apos; $status;
-# 开启重写日志
-rewrite_log on;
-
-server {
+小括号 () 之间匹配的内容，可以在后面通过 $1 来引用，$2 表示的是前面第二个 () 里的内容。正则里面容易让人困惑的是 \ 转义特殊字符。</code></pre>
+<h2 id="rewrite-实例">rewrite 实例</h2>
+<p>例 1： http { # 定义 image 日志格式 log_format imagelog ‘[$time_local]’ $image_file ‘’ $image_type ‘’ $body_bytes_sent ‘’ $status; # 开启重写日志 rewrite_log on;</p>
+<pre><code>server {
     root /home/www;
 
     location / {
             # 重写规则信息
             error_log logs/rewrite.log notice;
             # 注意这里要用‘’单引号引起来，避免 {}
-            rewrite &apos;^/images/([a-z]{2})/([a-z0-9]{5})/(.*)\.(png|jpg|gif)$&apos; /data?file=$3.$4;
+            rewrite &#39;^/images/([a-z]{2})/([a-z0-9]{5})/(.*)\.(png|jpg|gif)$&#39; /data?file=$3.$4;
             # 注意不能在上面这条规则后面加上“ last ”参数，否则下面的 set 指令不会执行
             set $image_file $3;
             set $image_type $4;
@@ -1540,13 +1424,250 @@ server {
     location = /image404.html {
             # 图片不存在返回特定的信息
             return 404 &quot;image not found\n&quot;;
-    }
-</code></pre><p>}</p>
-<pre><code>rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&amp;height=$3? last;
-</code></pre><hr>
+    }</code></pre>
+<p>}</p>
+<pre><code>rewrite ^/images/(.*)_(\d+)x(\d+)\.(png|jpg|gif)$ /resizer/$1.$4?width=$2&amp;height=$3? last;</code></pre>
+<hr>
 <blockquote>
-<p><a href="http://www.nginx.cn/216.html" target="_blank" rel="external">http://www.nginx.cn/216.html</a><br><a href="http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/" target="_blank" rel="external">http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/</a><br>老僧系列 nginx 之 rewrite 规则快速上手 <a href="http://fantefei.blog.51cto.com/2229719/919431" target="_blank" rel="external">http://fantefei.blog.51cto.com/2229719/919431</a><br>来源： <a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
+<p>http://www.nginx.cn/216.html http://www.ttlsa.com/nginx/nginx-rewriting-rules-guide/ 老僧系列 nginx 之 rewrite 规则快速上手 http://fantefei.blog.51cto.com/2229719/919431 来源： <a href="http://seanlook.com/2015/05/17/nginx-location-rewrite/" class="uri" target="_blank" rel="external">http://seanlook.com/2015/05/17/nginx-location-rewrite/</a></p>
 </blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Git常用命令与使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Git常用命令与使用/" itemprop="url">Git 常用命令与使用</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-17T17:44:33+08:00">
+                2016-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Git常用命令与使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Git常用命令与使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Git常用命令与使用/" class="leancloud_visitors" data-flag-title="Git 常用命令与使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>参考：<a href="http://www.jianshu.com/p/f7b5431418d2" class="uri" target="_blank" rel="external">http://www.jianshu.com/p/f7b5431418d2</a></p>
+</blockquote>
+<blockquote>
+<p>猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" class="uri" target="_blank" rel="external">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
+</blockquote>
+<h1 id="常见问题">常见问题</h1>
+<h2 id="使用-key-方式认证">使用 key 方式认证</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># start the ssh-agent in the background</span></div><div class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></div><div class="line">    Agent pid 59566</div><div class="line"></div><div class="line">ssh-add ~/.ssh/id_rsa</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line">ssh git@github.com</div></pre></td></tr></table></figure>
+<h2 id="windows-下-tortisegit-不弹出密码输入">Windows 下 tortiseGit 不弹出密码输入</h2>
+<pre><code># 删除以下文件夹中的文件：
+%appdata%\..\Local\Microsoft\Credentials
+
+# 但是还是好麻烦，请看下面</code></pre>
+<h2 id="同一网站多个不同的帐号使用-git-key-切换">同一网站，多个不同的帐号使用 git key 切换</h2>
+<ul>
+<li>安装 Git</li>
+<li>安装 <a href="https://tortoisegit.org/" target="_blank" rel="external">TortoiseGit</a> (Windows 下初学者推荐 )</li>
+<li>在安装时指定 ssh，而不是 plink</li>
+<li>vi ~/.ssh/config</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment"># &lt;GIT_DOMAIN&gt;</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># git clone git@&lt;ID1&gt;.&lt;GIT_DOMAIN&gt;:&lt;GIT_USER1&gt;/&lt;GIT_REPO1&gt;.git</span></div><div class="line">host &lt;ID1&gt;.&lt;GIT_DOMAIN&gt;</div><div class="line">    hostname &lt;GIT_DOMAIN&gt;</div><div class="line">    Port 22</div><div class="line">    User &lt;GIT_USER&gt;</div><div class="line">    IdentityFile ~/.ssh/&lt;GIT_DOMAIN&gt;-&lt;GIT_USER&gt;-id_rsa</div><div class="line"></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment"># &lt;GIT_DOMAIN&gt;</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># git clone git@&lt;ID2&gt;.&lt;GIT_DOMAIN&gt;:&lt;GIT_USER2&gt;/&lt;GIT_REPO2&gt;.git</span></div><div class="line">host &lt;ID2&gt;.&lt;GIT_DOMAIN&gt;</div><div class="line">    hostname &lt;GIT_DOMAIN&gt;</div><div class="line">    Port 22</div><div class="line">    User &lt;GIT_USER&gt;</div><div class="line">    IdentityFile ~/.ssh/&lt;GIT_DOMAIN&gt;-&lt;GIT_USER&gt;-id_rsa</div></pre></td></tr></table></figure>
+<ul>
+<li>使用不同的 ssh 别名连接 Git (host 后面接的即为别名 )</li>
+</ul>
+<h3 id="取消-global-的-email">取消 global 的 email</h3>
+<pre><code>git config --global --unset user.name
+git config --global --unset user.email</code></pre>
+<h3 id="设置项目级自己的-email">设置项目级自己的 email</h3>
+<pre><code>git config  user.email &quot;xxxx@xx.com&quot;
+git config  user.name &quot;suzie&quot;</code></pre>
+<h2 id="清除-git-路径中的所有-.git-文件">清除 git 路径中的所有 .git 文件</h2>
+<pre><code>find . -name &quot;.git&quot; | xargs rm -Rf</code></pre>
+<h2 id="打包下载-git-文件中目录">打包下载 git 文件中目录</h2>
+<pre><code>git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp</code></pre>
+<h3 id="使用-ssh-config">使用 ssh config</h3>
+<blockquote>
+<p>http://memoryboxes.github.io/blog/2014/12/07/duo-ge-gitzhang-hao-zhi-jian-de-qie-huan/</p>
+</blockquote>
+<pre><code>vi ~/.ssh/config</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户</span></div><div class="line">host svicloud.lb.gogs.pro.svi.pub</div><div class="line">    hostname lb.gogs.pro.svi.pub</div><div class="line">    Port 22</div><div class="line">    User svicloud</div><div class="line">    IdentityFile ~/.ssh/id_rsa_first</div><div class="line"></div><div class="line"><span class="comment"># 在主机 lb.gogs.pro.svi.pub 上的 svicloud 用户</span></div><div class="line">host svicloud.lb.gogs.pro.svi.pub</div><div class="line">    hostname lb.gogs.pro.svi.pub</div><div class="line">    Port 22</div><div class="line">    User svicloud</div><div class="line">    IdentityFile ~/.ssh/id_rsa_first</div></pre></td></tr></table></figure>
+<h2 id="git-shell">Git Shell</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">CURR_COMMIT=$(git rev-parse HEAD);</div><div class="line">CURR_VERSION=$(node -e <span class="string">"console.log(require('./package.json').version);"</span>);</div><div class="line">VER_HASH=$(git rev-list -n 1 v<span class="variable">$CURR_VERSION</span>);</div><div class="line"></div><div class="line"><span class="comment"># Don't want to redo version bump</span></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$CURR_COMMIT</span> == <span class="variable">$VER_HASH</span> ]</div><div class="line"><span class="keyword">then</span></div><div class="line">    <span class="built_in">echo</span> <span class="string">'Already up to date'</span></div><div class="line">    <span class="built_in">exit</span></div><div class="line"><span class="keyword">fi</span></div><div class="line"></div><div class="line">npm version patch;</div><div class="line"></div><div class="line">NEW_VERSION=$(node -e <span class="string">"console.log(require('./package.json').version);"</span>);</div><div class="line"></div><div class="line"><span class="built_in">echo</span> <span class="variable">$NEW_VERSION</span>;</div><div class="line"></div><div class="line">git push origin head;</div></pre></td></tr></table></figure>
+<h2 id="清除-git-路径中的所有-.git-文件-1">清除 git 路径中的所有 .git 文件</h2>
+<pre><code>$ find . -name &quot;.git&quot; | xargs rm -Rf
+
+$ git archive --remote=${GIT_REPO} latest www | tar xvf - -C /tmp</code></pre>
+<h1 id="常用配置">常用配置</h1>
+<h2 id="配置认证支持中文">配置认证、支持中文</h2>
+<pre><code># 配置用户名和 email
+$ git config --global user.name &quot;dongcj&quot;
+$ git config --global user.email &quot;ntwk@163.com&quot;
+$ git config --global core.autocrlf true
+
+$ git config --list</code></pre>
+<h2 id="重新设置-git-url-或-新增远程仓库">重新设置 git url 或 新增远程仓库</h2>
+<pre><code># 重新设置远程仓库地址
+$ git remote set-url origin git@github.com:dongcj/blog.git
+
+# 提交到多个远程仓库
+$ git remote add origin git@github.com:dongcj/blog.git</code></pre>
+<h1 id="git-日常用法">git 日常用法</h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">git status                                                <span class="comment"># 查看当前版本状态（是否修改）</span></div><div class="line">git ls-files                                              <span class="comment"># 列出 git index 包含的文件</span></div><div class="line"></div><div class="line">git add xyz                                               <span class="comment"># 添加 xyz 文件至 index</span></div><div class="line">git add .                                                 <span class="comment"># 增加当前子目录下所有更改过的文件至 index</span></div><div class="line"></div><div class="line">git commit -m <span class="string">'xxx'</span>                                       <span class="comment"># 提交</span></div><div class="line">git commit --amend -m <span class="string">'xxx'</span>                               <span class="comment"># ` 合并 ` 上一次提交（用于反复修改）</span></div><div class="line">git commit -am <span class="string">'xxx'</span>                                      <span class="comment"># 将 add 和 commit 合为一步</span></div><div class="line"></div><div class="line">git rm xxx                                                <span class="comment"># 删除 index 中的文件</span></div><div class="line">git rm -r *                                               <span class="comment"># 递归删除</span></div></pre></td></tr></table></figure>
+<h2 id="git-log">git log</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">log</span>                                                   <span class="comment"># 显示提交日志</span></div><div class="line">git <span class="built_in">log</span> -1                                                <span class="comment"># 显示 1 行日志 -n 为 n 行</span></div><div class="line">git <span class="built_in">log</span> -p test.html                                      <span class="comment"># 显示 test.html 的变更日志</span></div><div class="line">git <span class="built_in">log</span> --<span class="built_in">stat</span>                                            <span class="comment"># 显示提交日志及相关变动文件</span></div><div class="line">git <span class="built_in">log</span> -p -m                                             <span class="comment"># 显示每个文件修改记录</span></div><div class="line">git <span class="built_in">log</span> v2.0                                              <span class="comment"># 显示 v2.0 的日志</span></div><div class="line">git <span class="built_in">log</span> --pretty=format:<span class="string">'%h %s'</span> --graph                   <span class="comment"># 图示提交日志</span></div><div class="line">git reflog                                                <span class="comment"># 显示所有提交，包括孤立节点</span></div><div class="line"><span class="comment"># 显示最近 20 条提交记录</span></div><div class="line">git --no-pager <span class="built_in">log</span> --graph --pretty=format:<span class="string">'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr [%an])%Creset'</span> --abbrev-commit --date=relative  -20</div></pre></td></tr></table></figure>
+<blockquote>
+<p>更多格式化输出 : https://ruby-china.org/topics/939</p>
+</blockquote>
+<h2 id="git-show">git show</h2>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git show dfb02e6e4f2f7b573337763e5c0013802e392818         <span class="comment"># 显示某个提交修改的详细内容</span></div><div class="line">git show dfb02                                            <span class="comment"># 可只用 commitid 的前几位</span></div><div class="line">git show HEAD                                             <span class="comment"># 显示 HEAD 提交日志</span></div><div class="line">git show v2<span class="number">.0</span>                                             <span class="comment"># 显示 v2.0 的日志及详细内容</span></div><div class="line">git show HEAD^                                            <span class="comment"># 显示 HEAD 的父（上一个版本）的提交日志 ^^ 为上两个版本 ^5 为上 5 个版本</span></div><div class="line">git show-branch                                           <span class="comment"># 图示当前分支历史</span></div><div class="line">git show-branch --all                                     <span class="comment"># 图示所有分支历史</span></div><div class="line">git show HEAD~<span class="number">3</span></div><div class="line">git show -s --pretty=raw <span class="number">2</span>be7fcb476</div><div class="line">git show HEAD@&#123;<span class="number">5</span>&#125;</div><div class="line">git show master@&#123;yesterday&#125;                               <span class="comment"># 显示 master 分支昨天的状态</span></div></pre></td></tr></table></figure>
+<h1 id="git-diff">git diff</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">git diff                                                  <span class="comment"># 显示所有未添加至 index 的变更</span></div><div class="line">git diff --cached                                         <span class="comment"># 显示所有已添加 index 但还未 commit 的变更</span></div><div class="line">git diff HEAD^                                            <span class="comment"># 比较与上一个版本的差异</span></div><div class="line">git diff HEAD -- ./lib                                    <span class="comment"># 比较与 HEAD 版本 lib 目录的差异</span></div><div class="line">git diff origin/master..master                            <span class="comment"># 比较远程分支 master 上有本地分支 master 上没有的</span></div><div class="line">git diff origin/master..master --<span class="built_in">stat</span>                     <span class="comment"># 只显示差异的文件，不显示具体内容</span></div></pre></td></tr></table></figure>
+<h2 id="git-branch">git branch</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">git branch                                                <span class="comment"># 显示本地分支</span></div><div class="line">git branch --contains 50089                               <span class="comment"># 显示包含提交 50089 的分支</span></div><div class="line">git branch -a                                             <span class="comment"># 显示所有分支</span></div><div class="line">git branch -r                                             <span class="comment"># 显示所有原创分支</span></div><div class="line">git branch --merged                                       <span class="comment"># 显示所有已合并到当前分支的分支</span></div><div class="line">git branch --no-merged                                    <span class="comment"># 显示所有未合并到当前分支的分支</span></div><div class="line">git branch -m master master_copy                          <span class="comment"># 本地分支改名</span></div><div class="line">git branch -d hotfixes/BJVEP933                           <span class="comment"># 删除分支 hotfixes/BJVEP933（本分支修改已合并到其他分支）</span></div><div class="line">git branch -D hotfixes/BJVEP933                           <span class="comment"># 强制删除分支 hotfixes/BJVEP933</span></div></pre></td></tr></table></figure>
+<h2 id="git-checkout">git checkout</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">git checkout abcde file/to/restore                        <span class="comment"># 单一文件回退到某个版本</span></div><div class="line">git checkout -b master_copy                               <span class="comment"># 从当前分支创建新分支 master_copy 并检出</span></div><div class="line">git checkout -b master master_copy                        <span class="comment"># 上面的完整版</span></div><div class="line">git checkout features/performance                         <span class="comment"># 检出已存在的 features/performance 分支</span></div><div class="line">git checkout --track hotfixes/BJVEP933                    <span class="comment"># 检出远程分支 hotfixes/BJVEP933 并创建本地跟踪分支</span></div><div class="line">git checkout v2.0                                         <span class="comment"># 检出版本 v2.0</span></div><div class="line">git checkout -b devel origin/develop                      <span class="comment"># 从远程分支 develop 创建新本地分支 devel 并检出</span></div><div class="line">git checkout -- README                                    <span class="comment"># 检出 head 版本的 README 文件（可用于修改错误回退）</span></div></pre></td></tr></table></figure>
+<h2 id="git-fetch">git fetch</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git fetch                                                 <span class="comment"># 获取所有远程分支（不更新本地分支，另需 merge）</span></div><div class="line">git fetch --prune                                         <span class="comment"># 获取所有原创分支并清除服务器上已删掉的分支</span></div><div class="line">git fetch --all                                           <span class="comment"># 1. 获取所有远程分支</span></div><div class="line">git reset --hard origin/master                            <span class="comment"># 2. 先运行 1，再使用远程文件 &lt;b&gt; 强制覆盖 &lt;/b&gt; 本地文件</span></div><div class="line">git reset --hard HEAD                                     <span class="comment"># 将当前版本重置为 HEAD（通常用于 merge 失败回退）</span></div></pre></td></tr></table></figure>
+<h2 id="git-tag">git tag</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">git tag                               <span class="comment"># git 列表</span></div><div class="line">git tag v0.1.1  <span class="comment"># 打标签</span></div><div class="line">git tag v0.1.1 6224937                <span class="comment"># 补打标签</span></div><div class="line">git tag v0.1.2-light                  <span class="comment"># 创建轻量标签 - 轻量标签是指向提交对象的引用 ( 暂时没用到 )</span></div><div class="line">git tag -a v0.1.2 -m <span class="string">"0.1.2 版本备注 "</span>  <span class="comment"># 附注标签则是仓库中的一个独立对象。建议使用附注标签</span></div><div class="line">git tag -a v0.1.1 9fbc3d0             <span class="comment"># 给指定的 commit 打标签（即补打标签）</span></div><div class="line">git checkou [tagname]                 <span class="comment"># 切换标签</span></div><div class="line">git tag -d v0.1.2                     <span class="comment"># 删除标签</span></div><div class="line">git push origin :refs/tags/v0.9       <span class="comment"># 删除远程标签 ( 需要先删除本地标签 )</span></div><div class="line">git push origin v0.1.2                <span class="comment"># 提交单一标签</span></div><div class="line">git push origin --tags                <span class="comment"># 提交所有标签</span></div><div class="line">git show v1.2.5                       <span class="comment"># 查看标签内容</span></div><div class="line"></div><div class="line">git tag -l | xargs git tag -d         <span class="comment"># Delete local tags.</span></div><div class="line">git fetch                             <span class="comment"># Fetch remote tags.</span></div><div class="line">git tag -l | xargs -n 1 git push --delete origin    <span class="comment"># Delete remote tags.</span></div><div class="line">git tag -l | xargs git tag -d                       <span class="comment"># Delete local tasg.</span></div></pre></td></tr></table></figure>
+<h2 id="其它命令">其它命令</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">git merge origin/master                                   <span class="comment"># 合并远程 master 分支至当前分支</span></div><div class="line"></div><div class="line">git cherry-pick ff44785404a8e                             <span class="comment"># 合并提交 ff44785404a8e 的修改</span></div><div class="line">git push origin master                                    <span class="comment"># 将当前分支 push 到远程 master 分支</span></div><div class="line">git push origin :hotfixes/BJVEP933                        <span class="comment"># 删除远程仓库的 hotfixes/BJVEP933 分支</span></div><div class="line">git push --tags                                           <span class="comment"># 把所有 tag 推送到远程仓库</span></div><div class="line"></div><div class="line">git pull origin master                                    <span class="comment"># 获取远程分支 master 并 merge 到当前分支</span></div><div class="line">git mv README README2                                     <span class="comment"># 重命名文件 README 为 README2</span></div><div class="line"></div><div class="line">git rebase</div></pre></td></tr></table></figure>
 
           
         
@@ -1585,7 +1706,7 @@ server {
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
   </nav>
 
 
@@ -1630,7 +1751,7 @@ server {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

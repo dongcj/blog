@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/VirtualBox报错E_FAIL0x80004005解决方案/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet 安装</a></h2>
+                <a class="post-title-link" href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="url">VirtualBox 报错 E_FAIL0x80004005 解决方案</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Puppet安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Puppet安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/VirtualBox报错E_FAIL0x80004005解决方案/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,231 +406,7 @@
 
           
           
-             <span id="/linux/Puppet安装/" class="leancloud_visitors" data-flag-title="Puppet 安装">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="etc-hosts-可以-ping-通对方域名"><a href="#etc-hosts-可以-ping-通对方域名" class="headerlink" title="/etc/hosts 可以 ping 通对方域名"></a>/etc/hosts 可以 ping 通对方域名</h3><h3 id="安装-puppet"><a href="#安装-puppet" class="headerlink" title="安装 puppet"></a>安装 puppet</h3><pre><code>$ yum install ruby ruby-libs ruby-rdoc
-$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
-$ yum update
-
-# 服务端安装 puppet-server
-$ yum install puppet-server
-
-# 服务端安装 puppet 图形界面（可选）
-$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
-
-# 客户端安装 puppet
-$ yum install puppet
-</code></pre><h3 id="service-puppetmaster-start"><a href="#service-puppetmaster-start" class="headerlink" title="service puppetmaster start"></a>service puppetmaster start</h3><pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
-
-$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
-
-$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
-*.xxx.com
-EOF
-
-$ service puppetmaster restart
-$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
-
-在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
-
-$ puppetd --server bigdata.xxxx.com --test
-或者
-$ puppet agent --no-daemonize --onetime --verbose --debug
-</code></pre><h3 id="安装-dashboard"><a href="#安装-dashboard" class="headerlink" title="安装 dashboard"></a>安装 dashboard</h3><pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
-production:
-database: puppet
-username: root
-password: passw0rd
-encoding: utf8
-adapter: mysql
-
-$ vi /usr/share/puppet-dashboard/config/environment.rb
-config.time_zone = &apos;Beijing&apos;
-</code></pre><h3 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><pre><code>$ cd /usr/share/puppet-dashboard/
-rake RAILS_ENV=production db:migrate
-</code></pre><h3 id="整合-Passenger-和-apache"><a href="#整合-Passenger-和-apache" class="headerlink" title="整合 Passenger 和 apache"></a>整合 Passenger 和 apache</h3><pre><code>$ vi /etc/httpd/conf.d/passenger.conf
-
-LoadModule passenger_module modules/mod_passenger.so
-PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21
-PassengerRuby /usr/bin/ruby
-PassengerHighPerformance on
-PassengerMaxPoolSize 12
-PassengerPoolIdleTime 1500
-PassengerStatThrottleRate 120
-RailsAutoDetect On
-
-&lt;VirtualHost *&gt;
-  ServerName bigdata.xxxx.com
-  DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot;
-  ErrorLog /var/log/httpd/puppet-dashboard_error.log
-  LogLevel warn
-  CustomLog /var/log/httpd/puppet-dashboard_access.log combined
-&lt;/VirtualHost&gt;
-</code></pre><h3 id="让-Dashboard-使用-Reports"><a href="#让-Dashboard-使用-Reports" class="headerlink" title="让 Dashboard 使用 Reports"></a>让 Dashboard 使用 Reports</h3><pre><code>$ vi /etc/puppet/puppet.conf
-[master]
-reports = store, http
-reporturl = http://bigdata.xxxx.com:80/reports/upload
-</code></pre><h3 id="重启-puppetmaster-服务"><a href="#重启-puppetmaster-服务" class="headerlink" title="重启 puppetmaster 服务"></a>重启 puppetmaster 服务</h3><pre><code>$ /etc/init.d/puppetmaster restart
-</code></pre><h3 id="导入报告"><a href="#导入报告" class="headerlink" title="导入报告"></a>导入报告</h3><pre><code>$ cd /usr/share/puppet-dashboard
-$ rake RAILS_ENV=production reports:import
-</code></pre><h3 id="执行导入的-reports"><a href="#执行导入的-reports" class="headerlink" title="执行导入的 reports"></a>执行导入的 reports</h3><pre><code>$ rake jobs:work RAILS_ENV=&quot;production&quot;
-</code></pre><h3 id="下载及文档地址"><a href="#下载及文档地址" class="headerlink" title="下载及文档地址"></a>下载及文档地址</h3><pre><code>http://code.google.com/p/puppet-manifest-share/downloads/list
-http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/
-http://dongxicheng.org/cluster-managemant/puppet/
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
+             <span id="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" class="leancloud_visitors" data-flag-title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -661,80 +437,21 @@ http://dongxicheng.org/cluster-managemant/puppet/
         
           
             <blockquote>
-<p>参考： <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="external">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
+<p>VirtualBox 4.3.12 后的版本才会有 E_FAIL (0x80004005) 问题</p>
 </blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
-</code></pre><h1 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64
-</code></pre><blockquote>
-<p>如遇到以下错误：<br>    Transaction check error:<br>    file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package  lvm2-7:2.02.105-14.el7.x86_64<br>    file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64<br>    file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+<blockquote>
+<p>返回 代码 : E_FAIL (0x80004005) 组件 : MachineWrap 界面 : IMachine {f30138d4-e5ea-4b3a-8858-a059de4c93fd}</p>
 </blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2
-</code></pre><h1 id="挂载分区及配置防火墙"><a href="#挂载分区及配置防火墙" class="headerlink" title="挂载分区及配置防火墙"></a>挂载分区及配置防火墙</h1><pre><code># mkdir
-$ mkdir /export/brick1
-
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
-
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
-
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload
-</code></pre><h1 id="启动-glusterd-服务"><a href="#启动-glusterd-服务" class="headerlink" title="启动 glusterd 服务"></a>启动 glusterd 服务</h1><pre><code>$ service glusterd start
-
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd
-
-# from server1
-$ gluster peer probe SERVER2
-
-# from server2
-$ gluster peer probe SERVER1
-
-# check peer
-$ gluster peer status
-
-$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
-
-$ gluster volume info
-$ gluster volume status
-
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
-
-# delete Volume
-$ gluster volume delete gv0
-
-$ gluster peer detach NAME_OF_PEERNODE
-</code></pre><h1 id="Test-Gluster-volume"><a href="#Test-Gluster-volume" class="headerlink" title="Test Gluster volume"></a>Test Gluster volume</h1><pre><code># mount to /mnt
-$ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
-
-$ vi /etc/fstab
-gluster1.example.com:/gv0       /mnt/glusterfs  glusterfs   defaults,_netdev  0  0
-
-# 如果使用 nfs 协议使用
-# GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。
-$ vi /etc/nfsmount.conf
-Defaultvers=3
-
-$ systemctl restart glusterd.service
-
-# start force
-$ gluster volume set gv0 nfs.disable off
-$ gluster volume start gv0 force
-
-$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
-</code></pre><h1 id="配置-Quorum"><a href="#配置-Quorum" class="headerlink" title="配置 Quorum()"></a>配置 Quorum()</h1><pre><code>......
-</code></pre><blockquote>
-<p>参考 : <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="external">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
+<h1 id="寻找原因">寻找原因</h1>
+<p>直到最近重装系统，我才找到了问题的原因—— MacType。 是的，MacType 与 VirtualBox（4.3.14 以上版本）冲突。 尽管这并不是真正底层的原因，因为同样类似的问题发生了在了很多外国人身上，我相信他们中很多是不用 MacType 的，但我还是因为 MacType 找到了我自己在这个问题上的解决方案。</p>
+<h1 id="解决方案">解决方案</h1>
+<p>在 MacType 的配置文件中排除 VirtualBox 的进程即可。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[ExcludeModule]</div><div class="line">VBoxSVC.exe</div><div class="line">VirtualBox.exe</div></pre></td></tr></table></figure>
+<p>鼠标点击 VM 窗口底部图标会导致的 0x00000000 内存不能为 written <figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sfc /scannow</div></pre></td></tr></table></figure></p>
+<p>还是不行的话，有可能是你的主题 (theme) 被替换过，使用工具 UniversalThemePatcher 恢复下就好</p>
+<p>通过 google 搜索居然解决这种多年顽疾有多么喜悦是很难让外人理解的，但我真的非常开心 ~</p>
+<blockquote>
+<p>参考：https://donneryst.com/blog/virtualbox-4-3-12%E4%BB%A5%E5%90%8E%E7%9A%84e_fail-0x80004005%E9%97%AE%E9%A2%98.html</p>
 </blockquote>
 
           
@@ -779,7 +496,7 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -798,7 +515,7 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
+                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
         
 
         <div class="post-meta">
@@ -833,8 +550,8 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/cluster/" itemprop="url" rel="index">
+                    <span itemprop="name">cluster</span>
                   </a>
                 </span>
 
@@ -851,9 +568,9 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
+                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
+                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -861,7 +578,7 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
 
           
           
-             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
+             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -891,273 +608,91 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
       
         
           
-            <h1 id="买个-SS-帐号"><a href="#买个-SS-帐号" class="headerlink" title="买个 SS 帐号"></a>买个 SS 帐号</h1><p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
-<h1 id="路由刷机"><a href="#路由刷机" class="headerlink" title="路由刷机"></a>路由刷机</h1><ul>
-<li>路由器通电，网线一端连接 “ 自己电脑的网口 “，一头连接路由器的 “LAN” 口，<code>注意：不是 WAN 口</code></li>
-<li>查看自己电脑的 “ 网络连接 “，选中 “ 本地连接 “，点击右键，选择 “ 状态 “ -&gt; “ 详细信息 “ 查看自己的 IP 地址</li>
-</ul>
-<p><img src="http://i.imgur.com/qlfwJ9j.jpg" alt=""></p>
-<ul>
-<li>自己电脑中打开浏览器：<a href="http://192.168.1.1" target="_blank" rel="external">http://192.168.1.1</a> ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 “ 本地连接 “ 中看到的 IP 一致，但最后一位修改为 1 )</li>
-<li><p>用户名和密码默认 “admin/admin”</p>
-</li>
-<li><p>登陆 WEB 后，点击菜单 “ 系统 “ -&gt; “ 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地 “breed_k2_163_v17_breed.bin” 文件</p>
-</li>
-</ul>
+            <blockquote>
+<p>参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
+</blockquote>
+<pre><code>python gearman library home page
+http://samuelks.com/python-gearman/docs/
 
-          
-        
-      
-    </div>
+Tim Yang：利用 Gearman 来实现远程监控与管理
+http://timyang.net/linux/gearman-monitor/</code></pre>
+<h1 id="一安装-grarmand-及-libgearman-devel">一、安装 grarmand 及 libgearman-devel</h1>
+<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  ( 直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了 )</code></pre>
+<h1 id="二安装-php-的-api">二、安装 PHP 的 API</h1>
+<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
 
-    <div>
-      
-    </div>
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
 
-    <div>
-      
-    </div>
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so</code></pre>
+<h1 id="三启动-gearmand">三、启动 gearmand</h1>
+<pre><code># ( 如果使用默认参数，需要开启 IPV6)
 
-    <div>
-      
-    </div>
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
 
-    <footer class="post-footer">
-      
+$ service gearmand start
 
-      
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 
-      
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
 
-    
-      
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...</code></pre>
+<h2 id="worker">1. Worker:</h2>
+<pre><code>&lt;?php
 
-  
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
 
-  
-  
-  
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {
+       break;
+    }
+}
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+function reverse_fn(GearmanJob $job) {
+    $workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
+?&gt;</code></pre>
+<h2 id="client">2. client:</h2>
+<pre><code>&lt;?php
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
+$client = new GearmanClient();
+$client-&gt;addServer();
 
-    
-      <header class="post-header">
+echo &quot;sending job\n&quot;;
 
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
-        
+if($result) {
+    echo &quot;Success: $result\n&quot;;
+} else {
+    echo &quot;Failed!&quot;;
+}
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h1><h2 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
-<h2 id="详细信息"><a href="#详细信息" class="headerlink" title="详细信息"></a>详细信息</h2><pre><code>curl -v www.sina.com
-curl --trace output.txt www.sina.com
-curl --trace-ascii output.txt www.sina.com
-curl  -s  --head  www.sina.com
-</code></pre><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><pre><code>curl --form upload=@localfilename --form press=OK [URL]
-curl -T file.txt
-
-curl --cookie &quot;name=xxx&quot; www.example.com
-curl --user name@DOMAIN:password http://example.com
-
-curl -fsSL ...
-</code></pre><h2 id="下载网页保存为文件名"><a href="#下载网页保存为文件名" class="headerlink" title="下载网页保存为文件名"></a>下载网页保存为文件名</h2><pre><code>curl -o [文件名] www.sina.com
-
-curl -L www.sina.com
-
-curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html
-</code></pre><h2 id="对于-https-的方法，添加-–insecure"><a href="#对于-https-的方法，添加-–insecure" class="headerlink" title="对于 https 的方法，添加 –insecure"></a>对于 https 的方法，添加 –insecure</h2><pre><code>curl --insecure -LJO https://packages.gitlab.com/gitlab
-
-curl example.com/form.cgi?data=xxx
-</code></pre><h2 id="增加头信息-H"><a href="#增加头信息-H" class="headerlink" title="增加头信息 (-H)"></a>增加头信息 (-H)</h2><pre><code>curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com
-# 模拟服务地址（例如有些网站只能用域名访问的）
-curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080
-
-POST：(-d)
-curl -i -X POST --data &quot;data=xxx&quot;           example.com/form.cgi
-curl -i -X POST --data-urlencode &quot;date=April 1&quot;     example.com/form.cgi
-</code></pre><h2 id="Referer-e"><a href="#Referer-e" class="headerlink" title="Referer(-e)"></a>Referer(-e)</h2><pre><code>curl --referer http://www.example.com http://www.example.com
-</code></pre><h2 id="User-Agent-字段-A"><a href="#User-Agent-字段-A" class="headerlink" title="User Agent 字段 (-A)"></a>User Agent 字段 (-A)</h2><pre><code>curl --user-agent &quot;[User Agent]&quot; http://www.example.com
-</code></pre><h2 id="配置压缩-I-means-“Fetch-the-HTTP-header-only”"><a href="#配置压缩-I-means-“Fetch-the-HTTP-header-only”" class="headerlink" title="配置压缩 (-I means “Fetch the HTTP-header only”)"></a>配置压缩 (-I means “Fetch the HTTP-header only”)</h2><pre><code>curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom
-</code></pre><h2 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h2><pre><code>--connect-timeout 3     # 3 秒连接时间
--m | --max-time   5     # 连接 5 秒后自动断开
-</code></pre><h2 id="本地-socket"><a href="#本地-socket" class="headerlink" title="本地 socket"></a>本地 socket</h2><pre><code>curl --unix-socket /var/run/docker.sock http:/images/json
-or
-curl --unix-socket /var/run/docker.sock http://localhost/images/json
-</code></pre><h2 id="curl-examples"><a href="#curl-examples" class="headerlink" title="curl examples"></a>curl examples</h2><pre><code># zabbix 使用 API 进行认证
-# curl -i -X POST -H &apos;Content-Type:application/json&apos; -d &apos;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&apos; http://192.168.0.54/api_jsonrpc.php
-
-HTTP/1.1 200 OK
-Date: Mon, 12 Aug 2013 05:53:05 GMT
-Server: Apache/2.2.21 (Linux/SUSE)
-X-Powered-By: PHP/5.3.8
-Content-Length: 68
-Content-Type: application/json
-
-{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0}
-
-# zabbix 利用 tokern 和 id 进行注册主机
-
-2. echo `cat /tmp/123.txt` --- 这样也可以 ...
-
-3. curl -i -X POST -H &apos;Content-Type: application/json&apos; -d &apos; 格式化后的内容 &apos; http://192.168.0.54/api_jsonrpc.php
-
--i|--include :  在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 )
--s|--silent  :  静默模式
--X|--request :  请求 HTTP 服务，默认为 GET
-</code></pre><hr>
-<h1 id="resty-模拟请求"><a href="#resty-模拟请求" class="headerlink" title="resty 模拟请求"></a>resty 模拟请求</h1><pre><code># install resty
-curl -L http://github.com/micha/resty/raw/master/resty &gt; resty
-# 导入变量
-. resty
-$ resty http://127.0.0.1:8080/data
-  http://127.0.0.1:8080/data*
-
-$ GET /blogs.json
-[ {&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ]
-
-$ PUT /blogs/2.json &apos;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&apos;
-{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}
-
-$ DELETE /blogs/2
-
-$ POST /blogs.json &apos;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&apos;
-{&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}
-</code></pre><hr>
-<h1 id="使用-httpie"><a href="#使用-httpie" class="headerlink" title="使用 httpie"></a>使用 httpie</h1><pre><code># install
-$ apt-get install httpie
-
-# usage
-$http httpie.org
-$ http PUT example.org X-API-Token:123 name=John
-
-$ http -f POST example.org hello=World
-$ http -v example.org
-$ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&apos;HTTPie is awesome! :heart:&apos;
-
-$ http example.org &lt; file.json
-$ http example.org/file &gt; file
-
-$ http --download example.org/file
-
-$ http --session=logged-in -a username:password httpbin.org/get API-Key:123
-$ http --session=logged-in httpbin.org/headers
-$ http localhost:8000 Host:example.com
-$ http DELETE example.org/todos/7
-</code></pre><hr>
-<h1 id="httpstat"><a href="#httpstat" class="headerlink" title="httpstat"></a>httpstat</h1><p><img src="http://i.imgur.com/xR2OHZ4.png" alt="httpstat"></p>
-<hr>
-<h1 id="wuzz"><a href="#wuzz" class="headerlink" title="wuzz"></a>wuzz</h1><p><img src="http://i.imgur.com/fdWQco8.gif" alt="wuzz"></p>
+?&gt;</code></pre>
 
           
         
@@ -1314,15 +849,16 @@ $ http DELETE example.org/todos/7
         
           
             <blockquote>
-<p>参考：<br><a href="http://www.jsxubar.info/category/system-administration/graphite/" target="_blank" rel="external">http://www.jsxubar.info/category/system-administration/graphite/</a><br><a href="http://www.jsxubar.info/category/system-administration/page/3/" target="_blank" rel="external">http://www.jsxubar.info/category/system-administration/page/3/</a></p>
-<p><a href="http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/" target="_blank" rel="external">http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</a></p>
+<p>参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
 </blockquote>
-<h1 id="使用-yum-安装环境"><a href="#使用-yum-安装环境" class="headerlink" title="使用 yum 安装环境"></a>使用 yum 安装环境</h1><pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+<h1 id="使用-yum-安装环境">1. 使用 yum 安装环境</h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
 $ pip install whisper
 $ pip install carbon
-$ pip install graphite-web
-</code></pre><h1 id="安装并升级为最新的-zope-interface-及-twisted"><a href="#安装并升级为最新的-zope-interface-及-twisted" class="headerlink" title="安装并升级为最新的 zope.interface 及 twisted"></a>安装并升级为最新的 zope.interface 及 twisted</h1><pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的-zope.interface-及-twisted">2. 安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># ( 确保这个版本要到 3.6.0 以上，如果不行，下载安装 ) 及 twisted
 $ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
 $ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
 
@@ -1332,10 +868,13 @@ Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
 [GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; from twisted.python.compat import _PY3
-&gt;&gt;&gt;
-</code></pre><h1 id="Check-for-missing-dependencies"><a href="#Check-for-missing-dependencies" class="headerlink" title="Check for missing dependencies"></a>Check for missing dependencies</h1><pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
-</code></pre><h1 id="设置权限"><a href="#设置权限" class="headerlink" title="设置权限"></a>设置权限</h1><pre><code>$ chown -R apache:apache /opt/graphite/storage/
-</code></pre><h1 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h1><pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">3. Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限">4. 设置权限</h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+<h1 id="配置文件">5. 配置文件</h1>
+<pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 $ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
 $ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
 
@@ -1348,20 +887,467 @@ $ cp storage-schemas.conf.example storage-schemas.conf
 $ cp carbon.conf.example carbon.conf
 
 $ cd /opt/graphite/webapp/graphite
-$ cp local_settings.py.example local_settings.py
-</code></pre><h1 id="在-httpd-中启用-virtualHost"><a href="#在-httpd-中启用-virtualHost" class="headerlink" title="在 httpd 中启用 virtualHost"></a>在 httpd 中启用 virtualHost</h1><pre><code>$ cd ../../
+$ cp local_settings.py.example local_settings.py</code></pre>
+<h1 id="在-httpd-中启用-virtualhost">6. 在 httpd 中启用 virtualHost</h1>
+<pre><code>$ cd ../../
 $ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
 $ vi /etc/httpd/conf.d/vhost-graphite.conf
-WSGISocketPrefix /var/run/httpd/wsgi
-</code></pre><h1 id="修改已知的-bug"><a href="#修改已知的-bug" class="headerlink" title="修改已知的 bug"></a>修改已知的 bug</h1><pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
+WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
+<h1 id="修改已知的-bug">7. 修改已知的 bug</h1>
+<pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
 
 def fetch(self, startTime, endTime, now=None):
     return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
 
 graph-index-master
-graphite-web-master
-</code></pre>
+graphite-web-master</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="买个-ss-帐号">买个 SS 帐号</h1>
+<p>不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机">路由刷机</h1>
+<ul>
+<li>路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code>注意：不是 WAN 口</code></li>
+<li>查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址</li>
+</ul>
+<figure>
+<img src="http://i.imgur.com/qlfwJ9j.jpg">
+</figure>
+<ul>
+<li>自己电脑中打开浏览器：http://192.168.1.1 ( 一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1 )</li>
+<li><p>用户名和密码默认 “admin/admin”</p></li>
+<li><p>登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “( 其实我们是先降级，因为斐讯的默认系统是不让刷机的 )。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件</p></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="curl">curl</h1>
+<h2 id="下载文件">下载文件</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
+<h2 id="详细信息">详细信息</h2>
+<pre><code>curl -v www.sina.com
+curl --trace output.txt www.sina.com
+curl --trace-ascii output.txt www.sina.com
+curl  -s  --head  www.sina.com</code></pre>
+<h2 id="上传文件">上传文件</h2>
+<pre><code>curl --form upload=@localfilename --form press=OK [URL]
+curl -T file.txt
+
+curl --cookie &quot;name=xxx&quot; www.example.com
+curl --user name@DOMAIN:password http://example.com
+
+curl -fsSL ...</code></pre>
+<h2 id="下载网页保存为文件名">下载网页保存为文件名</h2>
+<pre><code>curl -o [文件名] www.sina.com
+
+curl -L www.sina.com
+
+curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html</code></pre>
+<h2 id="对于-https-的方法添加-insecure">对于 https 的方法，添加 –insecure</h2>
+<pre><code>curl --insecure -LJO https://packages.gitlab.com/gitlab
+
+curl example.com/form.cgi?data=xxx</code></pre>
+<h2 id="增加头信息--h">增加头信息 (-H)</h2>
+<pre><code>curl -i -X GET --header &quot;Content-Type:application/json&quot; http://example.com
+# 模拟服务地址（例如有些网站只能用域名访问的）
+curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080
+
+POST：(-d)
+curl -i -X POST --data &quot;data=xxx&quot;           example.com/form.cgi
+curl -i -X POST --data-urlencode &quot;date=April 1&quot;     example.com/form.cgi</code></pre>
+<h2 id="referer-e">Referer(-e)</h2>
+<pre><code>curl --referer http://www.example.com http://www.example.com</code></pre>
+<h2 id="user-agent-字段--a">User Agent 字段 (-A)</h2>
+<pre><code>curl --user-agent &quot;[User Agent]&quot; http://www.example.com</code></pre>
+<h2 id="配置压缩--i-means-fetch-the-http-header-only">配置压缩 (-I means “Fetch the HTTP-header only”)</h2>
+<pre><code>curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom</code></pre>
+<h2 id="超时设置">超时设置</h2>
+<pre><code>--connect-timeout 3     # 3 秒连接时间
+-m | --max-time   5     # 连接 5 秒后自动断开</code></pre>
+<h2 id="本地-socket">本地 socket</h2>
+<pre><code>curl --unix-socket /var/run/docker.sock http:/images/json
+or
+curl --unix-socket /var/run/docker.sock http://localhost/images/json</code></pre>
+<h2 id="curl-examples">curl examples</h2>
+<pre><code># zabbix 使用 API 进行认证
+# curl -i -X POST -H &#39;Content-Type:application/json&#39; -d &#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&#39; http://192.168.0.54/api_jsonrpc.php
+
+HTTP/1.1 200 OK
+Date: Mon, 12 Aug 2013 05:53:05 GMT
+Server: Apache/2.2.21 (Linux/SUSE)
+X-Powered-By: PHP/5.3.8
+Content-Length: 68
+Content-Type: application/json
+
+{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0}
+
+# zabbix 利用 tokern 和 id 进行注册主机
+
+2. echo `cat /tmp/123.txt` --- 这样也可以 ...
+
+3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39; 格式化后的内容 &#39; http://192.168.0.54/api_jsonrpc.php
+
+-i|--include :  在输出中包含 HTTP 头 ( 如服务器名，日期，HTTP 版本等 )
+-s|--silent  :  静默模式
+-X|--request :  请求 HTTP 服务，默认为 GET</code></pre>
+<hr>
+<h1 id="resty-模拟请求">resty 模拟请求</h1>
+<pre><code># install resty
+curl -L http://github.com/micha/resty/raw/master/resty &gt; resty
+# 导入变量
+. resty
+$ resty http://127.0.0.1:8080/data
+  http://127.0.0.1:8080/data*
+
+$ GET /blogs.json
+[ {&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ]
+
+$ PUT /blogs/2.json &#39;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&#39;
+{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}
+
+$ DELETE /blogs/2
+
+$ POST /blogs.json &#39;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&#39;
+{&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}</code></pre>
+<hr>
+<h1 id="使用-httpie">使用 httpie</h1>
+<pre><code># install
+$ apt-get install httpie
+
+# usage
+$http httpie.org
+$ http PUT example.org X-API-Token:123 name=John
+
+$ http -f POST example.org hello=World
+$ http -v example.org
+$ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&#39;HTTPie is awesome! :heart:&#39;
+
+$ http example.org &lt; file.json
+$ http example.org/file &gt; file
+
+$ http --download example.org/file
+
+$ http --session=logged-in -a username:password httpbin.org/get API-Key:123
+$ http --session=logged-in httpbin.org/headers
+$ http localhost:8000 Host:example.com
+$ http DELETE example.org/todos/7</code></pre>
+<hr>
+<h1 id="httpstat">httpstat</h1>
+<figure>
+<img src="http://i.imgur.com/xR2OHZ4.png" alt="httpstat"><figcaption>httpstat</figcaption>
+</figure>
+<hr>
+<h1 id="wuzz">wuzz</h1>
+<figure>
+<img src="http://i.imgur.com/fdWQco8.gif" alt="wuzz"><figcaption>wuzz</figcaption>
+</figure>
+
           
         
       
@@ -1399,7 +1385,7 @@ graphite-web-master
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1444,7 +1430,7 @@ graphite-web-master
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

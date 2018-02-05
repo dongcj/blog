@@ -324,195 +324,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/SMATE、XFCE、VNC配置/" itemprop="url">SMATE、XFCE、VNC 配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-30T17:27:43+08:00">
-                2016-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/SMATE、XFCE、VNC配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/SMATE、XFCE、VNC配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/SMATE、XFCE、VNC配置/" class="leancloud_visitors" data-flag-title="SMATE、XFCE、VNC 配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="YUM-安装图像界面及-VNC"><a href="#YUM-安装图像界面及-VNC" class="headerlink" title="YUM 安装图像界面及 VNC"></a>YUM 安装图像界面及 VNC</h1><p>( 参考：<a href="http://www.ha97.com/4634.html" target="_blank" rel="external">http://www.ha97.com/4634.html</a> )</p>
-<pre><code>yum install epel-release
-
-yum grouplist
-yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
-yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
-
-yum groupinstall [ xfce | &quot;MATE Desktop&quot; ]（CentOS 安装 xfce 桌面环境，可选）
-
-# runlevel 5
-systemctl isolate graphical.target
-
-# Start the GUI on boot
-systemctl set-default graphical.target
-
-# 切换 display manager
-# 查看
-ls -l /etc/systemd/system/display-manager.service
-
-# 切换
-systemctl disable gdm &amp;&amp; systemctl enable lightdm
-
-# 刷新
-systemctl isolate graphical.target
-</code></pre><h1 id="安装-vnc-server"><a href="#安装-vnc-server" class="headerlink" title="安装 vnc server"></a>安装 vnc server</h1><pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
-yum install vnc-server vnc* （CentOS 5.x 里）
-yum install tigervnc-server tigervnc （CentOS 6.x 里）
-/etc/init.d/vncserver restart
-
-# 关闭具体的 vncserver 命令 :
-vncserver -kill :1
-</code></pre><blockquote>
-<p><a href="http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7" target="_blank" rel="external">http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -626,24 +437,31 @@ vncserver -kill :1
         
           
             <blockquote>
-<p>快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br><br>wget -N –no-check-certificate <a href="https://softs.pw/Bash/bbr.sh" target="_blank" rel="external">https://softs.pw/Bash/bbr.sh</a> &amp;&amp; chmod +x bbr.sh &amp;&amp; bash bbr.sh</p>
+<p>快速自动化安装方法（仅支持 Debian6+ / Ubuntu14+）<br> wget -N –no-check-certificate https://softs.pw/Bash/bbr.sh &amp;&amp; chmod +x bbr.sh &amp;&amp; bash bbr.sh</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效</span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
-<h1 id="Debian、Ubuntu-升级内核"><a href="#Debian、Ubuntu-升级内核" class="headerlink" title="Debian、Ubuntu 升级内核"></a>Debian、Ubuntu 升级内核</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核</span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核</span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本</span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
-<h1 id="RHEL、CentOS-升级内核"><a href="#RHEL、CentOS-升级内核" class="headerlink" title="RHEL、CentOS 升级内核"></a>RHEL、CentOS 升级内核</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核</span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核</span></div><div class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效</div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
-<h2 id="下载内核二进制包"><a href="#下载内核二进制包" class="headerlink" title="下载内核二进制包"></a>下载内核二进制包</h2><blockquote>
-<p>链接：<a href="http://mirrors.kernel.org/debian/pool/main/l/linux/" target="_blank" rel="external">http://mirrors.kernel.org/debian/pool/main/l/linux/</a></p>
+<h1 id="debianubuntu-升级内核">Debian、Ubuntu 升级内核</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核</span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核</span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本</span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
+<h1 id="rhelcentos-升级内核">RHEL、CentOS 升级内核</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核</span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核</span></div><div class="line">awk -F\<span class="string">' '</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效</div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
+<h2 id="下载内核二进制包">下载内核二进制包</h2>
+<blockquote>
+<p>链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
 </blockquote>
-<h2 id="解压安装"><a href="#解压安装" class="headerlink" title="解压安装"></a>解压安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb</div><div class="line">bzip2 -d data.tar.bz2</div><div class="line">tar -xf data.tar</div><div class="line">install -m644 boot/vmlinuz-4.9.0-11-generic /boot/vmlinuz-4.9.0-11-generic</div><div class="line">cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/</div><div class="line">depmod -a 4.9.0-11-generic</div></pre></td></tr></table></figure>
-<h2 id="加入引导"><a href="#加入引导" class="headerlink" title="加入引导"></a>加入引导</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dracut -f -v --hostonly -k <span class="string">'/lib/modules/4.9.0-11-generic'</span>  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic</div><div class="line"><span class="comment"># 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；</span></div><div class="line"></div><div class="line"><span class="comment"># centos7 是 grub2 可以用下面命令 :</span></div><div class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</div></pre></td></tr></table></figure>
-<h2 id="修改引导顺序"><a href="#修改引导顺序" class="headerlink" title="修改引导顺序"></a>修改引导顺序</h2><h3 id="查看引导内有哪些内核"><a href="#查看引导内有哪些内核" class="headerlink" title="查看引导内有哪些内核"></a>查看引导内有哪些内核</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">cat /boot/grub2/grub.cfg |grep menuentry</div><div class="line"></div><div class="line">cat /boot/grub2/grub.cfg |grep menuentry</div><div class="line"><span class="keyword">if</span> [ x<span class="string">"<span class="variable">$&#123;feature_menuentry_id&#125;</span>"</span> = xy ]; <span class="keyword">then</span></div><div class="line">  menuentry_id_option=<span class="string">"--id"</span></div><div class="line">  menuentry_id_option=<span class="string">""</span></div><div class="line">  <span class="built_in">export</span> menuentry_id_option</div><div class="line">  menuentry <span class="string">'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-4.9.0-rc8-amd64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div><div class="line">  menuentry <span class="string">'CentOS Linux (3.10.0-327.36.3.el7.x86_64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-3.10.0-327.36.3.el7.x86_64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div><div class="line">  menuentry <span class="string">'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div></pre></td></tr></table></figure>
+<h2 id="解压安装">解压安装</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb</div><div class="line">bzip2 -d data.tar.bz2</div><div class="line">tar -xf data.tar</div><div class="line">install -m644 boot/vmlinuz-4.9.0-11-generic /boot/vmlinuz-4.9.0-11-generic</div><div class="line">cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/</div><div class="line">depmod -a 4.9.0-11-generic</div></pre></td></tr></table></figure>
+<h2 id="加入引导">加入引导</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">dracut -f -v --hostonly -k <span class="string">'/lib/modules/4.9.0-11-generic'</span>  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic</div><div class="line"><span class="comment"># 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；</span></div><div class="line"></div><div class="line"><span class="comment"># centos7 是 grub2 可以用下面命令 :</span></div><div class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</div></pre></td></tr></table></figure>
+<h2 id="修改引导顺序">修改引导顺序</h2>
+<h3 id="查看引导内有哪些内核">查看引导内有哪些内核</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">cat /boot/grub2/grub.cfg |grep menuentry</div><div class="line"></div><div class="line">cat /boot/grub2/grub.cfg |grep menuentry</div><div class="line"><span class="keyword">if</span> [ x<span class="string">"<span class="variable">$&#123;feature_menuentry_id&#125;</span>"</span> = xy ]; <span class="keyword">then</span></div><div class="line">  menuentry_id_option=<span class="string">"--id"</span></div><div class="line">  menuentry_id_option=<span class="string">""</span></div><div class="line">  <span class="built_in">export</span> menuentry_id_option</div><div class="line">  menuentry <span class="string">'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-4.9.0-rc8-amd64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div><div class="line">  menuentry <span class="string">'CentOS Linux (3.10.0-327.36.3.el7.x86_64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-3.10.0-327.36.3.el7.x86_64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div><div class="line">  menuentry <span class="string">'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</div></pre></td></tr></table></figure>
 <pre><code># 下面命令的内核名称根据系统内部查到的实际名称来替换：
-grub2-set-default &apos;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&apos;
+grub2-set-default &#39;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&#39;
 
 grub2-editenv list
 
-saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
-</code></pre>
+saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
+
           
         
       
@@ -798,9 +616,11 @@ saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)
       
         
           
-            <h1 id="clone-soft"><a href="#clone-soft" class="headerlink" title="clone soft"></a>clone soft</h1><pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /usr/local/lazy_balancer
-</code></pre><h1 id="install-tengine"><a href="#install-tengine" class="headerlink" title="install tengine"></a>install tengine</h1><pre><code>$ git submodule update --init --recursive
+            <h1 id="clone-soft">clone soft</h1>
+<pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
+$ cd /usr/local/lazy_balancer</code></pre>
+<h1 id="install-tengine">install tengine</h1>
+<pre><code>$ git submodule update --init --recursive
 
 $ cd resource/nginx/tengine
 $ yum -y install pcre-devel
@@ -809,17 +629,221 @@ $ ./configure --user=nginx --group=nginx --prefix=/etc/nginx --sbin-path=/usr/sb
 $ make &amp;&amp; make install
 
 # add nginx user
-$ adduser --system --no-create-home --shell /bin/false   nginx
-</code></pre><h1 id="install-supervisor"><a href="#install-supervisor" class="headerlink" title="install supervisor"></a>install supervisor</h1><pre><code>$ yum -y install supervisor
+$ adduser --system --no-create-home --shell /bin/false   nginx</code></pre>
+<h1 id="install-supervisor">install supervisor</h1>
+<pre><code>$ yum -y install supervisor
 
 # add to supervisor config file
 $ echo &quot;[include]&quot; &gt;&gt;/etc/supervisord.conf
 $ echo &quot;files = /etc/supervisor/conf.d/*.conf&quot; &gt;&gt;/etc/supervisord.conf
 
 $ cp -rf /usr/local/lazy_balancer/service/* /etc/supervisor/
-$ vi /etc/supervisor/conf.d/supervisor_balancer.conf
-</code></pre><h1 id="start-service"><a href="#start-service" class="headerlink" title="start service"></a>start service</h1><pre><code>$ service supervisor restart
-</code></pre>
+$ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
+<h1 id="start-service">start service</h1>
+<pre><code>$ service supervisor restart</code></pre>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/DHCP高级配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/DHCP高级配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/DHCP高级配置/" class="leancloud_visitors" data-flag-title="DHCP 高级配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="一dhcp-中继代理配置"># 一、DHCP 中继代理配置</h2>
+<pre><code># ( 在其它服务上安装 dhcpd 软件 )：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1</code></pre>
+<h2 id="二dhcp-超网配置"># 二、DHCP 超网配置</h2>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式*/
+ignore client-updates;          /*忽略客户端 DNS 动态更新*/
+shared-network mynet {          /*超网作用域选项，共同部分*/
+    option subnet-mask 255.255.255.0;            /*子网掩码*/
+    option domain-name &quot;koumm.net&quot;;              /*域名*/
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /*广播地址*/
+    default-lease-time 86400;                    /*租期 1 天，秒数*/
+    max-lease-time 172800;                       /*最长租期 2 天*/
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段*/
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围*/
+        option routers 192.168.1.1;               /*网关地址*/
+        /*绑定 pc1 主机 ip 地址配置*/
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /*绑定 pc2 主机 ip 地址配置*/
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段*/
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围*/
+        option routers 192.168.2.1;                /*网关地址*/
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段*/
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围*/
+        option routers 192.168.3.1;                /*网关地址*/
+    }
+
+}</code></pre>
+
           
         
       
@@ -974,13 +998,14 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf
       
         
           
-            <h3 id="每块硬盘分一个区"><a href="#每块硬盘分一个区" class="headerlink" title="每块硬盘分一个区"></a>每块硬盘分一个区</h3><pre><code># 分区格式为 Linux software raid：
+            <h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
+<pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
-           switch off the mode (command &apos;c&apos;) and change display units to
-           sectors (command &apos;u&apos;).
+  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
+           switch off the mode (command &#39;c&#39;) and change display units to
+           sectors (command &#39;u&#39;).
 
   Command (m for help): n
   Command action
@@ -1014,8 +1039,9 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.
-</code></pre><h1 id="更改分区格式"><a href="#更改分区格式" class="headerlink" title="更改分区格式"></a>更改分区格式</h1><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+  Syncing disks.</code></pre>
+<h1 id="更改分区格式">更改分区格式</h1>
+<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
 $ fdisk /dev/sdd
@@ -1025,8 +1051,9 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...
-</code></pre><h1 id="创建-RAID"><a href="#创建-RAID" class="headerlink" title="创建 RAID"></a>创建 RAID</h1><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+...</code></pre>
+<h1 id="创建-raid">创建 RAID</h1>
+<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
 mdadm: layout defaults to n2
@@ -1100,9 +1127,12 @@ Working Devices : 6
        5       8       97        5      active sync   /dev/sdg1
 
 $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
-</code></pre><h1 id="RAID-维护命令"><a href="#RAID-维护命令" class="headerlink" title="RAID 维护命令"></a>RAID 维护命令</h1><h2 id="删除故障盘"><a href="#删除故障盘" class="headerlink" title="删除故障盘"></a>删除故障盘</h2><pre><code>$ mdadm /dev/md0 -r /dev/sdb1
-</code></pre><h2 id="增加新盘"><a href="#增加新盘" class="headerlink" title="增加新盘"></a>增加新盘</h2><pre><code>$ mdadm /dev/md0 -a /dev/sde1
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
+<h1 id="raid-维护命令">RAID 维护命令</h1>
+<h2 id="删除故障盘">删除故障盘</h2>
+<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
+<h2 id="增加新盘">增加新盘</h2>
+<pre><code>$ mdadm /dev/md0 -a /dev/sde1
 
 $ mdadm --stop /dev/md99    // 停止
 $ mdadm -As /dev/md0        // 启动
@@ -1111,8 +1141,8 @@ $ mdadm --remove /dev/md99
 mdadm --manage /dev/md99 --fail /dev/sd[cde]1
 mdadm --manage /dev/md99 --remove /dev/sd[cde]1
 mdadm --manage /dev/md99 --stop
-mdadm --zero-superblock /dev/sd[cde]1
-</code></pre>
+mdadm --zero-superblock /dev/sd[cde]1</code></pre>
+
           
         
       
@@ -1267,11 +1297,15 @@ mdadm --zero-superblock /dev/sd[cde]1
       
         
           
-            <h1 id="download-nginx-amp-module"><a href="#download-nginx-amp-module" class="headerlink" title="download nginx &amp; module"></a>download nginx &amp; module</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
-<h1 id="make-amp-install"><a href="#make-amp-install" class="headerlink" title="make &amp; install"></a>make &amp; install</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<h1 id="nginx-conf-amp-proxy-conf"><a href="#nginx-conf-amp-proxy-conf" class="headerlink" title="nginx.conf &amp; proxy.conf"></a>nginx.conf &amp; proxy.conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表</span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效</span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+            <h1 id="download-nginx-module">download nginx &amp; module</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
+<h1 id="make-install">make &amp; install</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h1 id="nginx.conf-proxy.conf">nginx.conf &amp; proxy.conf</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表</span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效</span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> /usr/local/nginx/conf/proxy.conf</div><div class="line"></div><div class="line">proxy_redirect <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div></pre></td></tr></table></figure>
-<h2 id="start-amp-auto-start"><a href="#start-amp-auto-start" class="headerlink" title="start &amp; auto-start"></a>start &amp; auto-start</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+<h2 id="start-auto-start">start &amp; auto-start</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
 
           
         
@@ -1310,7 +1344,7 @@ mdadm --zero-superblock /dev/sd[cde]1
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1355,7 +1389,7 @@ mdadm --zero-superblock /dev/sd[cde]1
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
