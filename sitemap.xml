@@ -4,63 +4,63 @@
   <url>
     <loc>http://blog.dongcj.com/m/%E4%BF%AE%E6%94%B9npm%E5%AE%89%E8%A3%85%E6%BA%90%E4%B8%BA%E5%9B%BD%E5%86%85%E6%BA%90/</loc>
     
-    <lastmod>2018-02-06T04:11:12.083Z</lastmod>
+    <lastmod>2018-02-06T06:43:12.571Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/m/SSH_config_proxycommand/</loc>
     
-    <lastmod>2018-02-06T04:10:57.673Z</lastmod>
+    <lastmod>2018-02-06T06:43:02.199Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/linux/RedHat%E3%80%81CentOS%E5%9B%BD%E5%86%85%E5%A4%87%E7%94%A8%E5%AE%89%E8%A3%85%E6%BA%90/</loc>
     
-    <lastmod>2018-02-06T04:10:51.377Z</lastmod>
+    <lastmod>2018-02-06T06:42:58.229Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/linux/Linux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip/</loc>
     
-    <lastmod>2018-02-06T04:10:33.650Z</lastmod>
+    <lastmod>2018-02-06T06:42:46.301Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/m/Harbor%E6%94%AF%E6%8C%81https/</loc>
     
-    <lastmod>2018-02-06T04:10:32.051Z</lastmod>
+    <lastmod>2018-02-06T06:42:45.364Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/linux/Git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
     
-    <lastmod>2018-02-06T04:10:27.488Z</lastmod>
+    <lastmod>2018-02-06T06:42:42.464Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/</loc>
     
-    <lastmod>2018-02-06T04:10:24.415Z</lastmod>
+    <lastmod>2018-02-06T06:42:40.231Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/linux/dns/Dnsmasq%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0host%E4%B8%BADNS/</loc>
     
-    <lastmod>2018-02-06T04:10:22.972Z</lastmod>
+    <lastmod>2018-02-06T06:42:38.963Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.dongcj.com/linux/CentOS%E9%83%A8%E7%BD%B2lazy-balancer%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/</loc>
     
-    <lastmod>2018-02-06T04:10:19.695Z</lastmod>
+    <lastmod>2018-02-06T06:42:35.869Z</lastmod>
     
   </url>
   
@@ -135,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
+    <loc>http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2016-08-30T09:48:08.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
     
     <lastmod>2016-08-30T09:48:08.000Z</lastmod>
     
@@ -156,35 +156,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.dongcj.com/linux/Bind%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -198,7 +177,63 @@
   </url>
   
   <url>
+    <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/web/Nginx%E5%8F%8Aupstreamcheck,fair%E6%A8%A1%E5%9D%97%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/Mdadm_raid10_raid5/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.dongcj.com/linux/VirtualBox%E6%8A%A5%E9%94%99E_FAIL0x80004005%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -213,41 +248,6 @@
   
   <url>
     <loc>http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
