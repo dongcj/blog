@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to            switch off the mode (command &amp;#39;c&amp;#39;) and c">
+<meta name="description" content="每块硬盘分一个区# 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;apos;s strongly recommended to            switch off the mode (command &amp;apos;c&amp;apos;) and chang">
 <meta name="keywords" content="soft raid,mdadm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mdadm_raid10_raid5">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to            switch off the mode (command &amp;#39;c&amp;#39;) and c">
+<meta property="og:description" content="每块硬盘分一个区# 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;apos;s strongly recommended to            switch off the mode (command &amp;apos;c&amp;apos;) and chang">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mdadm_raid10_raid5">
-<meta name="twitter:description" content="每块硬盘分一个区 # 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to            switch off the mode (command &amp;#39;c&amp;#39;) and c">
+<meta name="twitter:description" content="每块硬盘分一个区# 分区格式为 Linux software raid：  $ fdisk /dev/sda    WARNING: DOS-compatible mode is deprecated. It&amp;apos;s strongly recommended to            switch off the mode (command &amp;apos;c&amp;apos;) and chang">
 
 
 
@@ -432,14 +432,13 @@
       
 
       
-        <h3 id="每块硬盘分一个区">每块硬盘分一个区</h3>
-<pre><code># 分区格式为 Linux software raid：
+        <h3 id="每块硬盘分一个区"><a href="#每块硬盘分一个区" class="headerlink" title="每块硬盘分一个区"></a>每块硬盘分一个区</h3><pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+  WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+           switch off the mode (command &apos;c&apos;) and change display units to
+           sectors (command &apos;u&apos;).
 
   Command (m for help): n
   Command action
@@ -473,9 +472,8 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式">更改分区格式</h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+  Syncing disks.
+</code></pre><h1 id="更改分区格式"><a href="#更改分区格式" class="headerlink" title="更改分区格式"></a>更改分区格式</h1><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
 $ fdisk /dev/sdd
@@ -485,9 +483,8 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建-raid">创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+...
+</code></pre><h1 id="创建-RAID"><a href="#创建-RAID" class="headerlink" title="创建 RAID"></a>创建 RAID</h1><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
 mdadm: layout defaults to n2
@@ -561,12 +558,9 @@ Working Devices : 6
        5       8       97        5      active sync   /dev/sdg1
 
 $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid-维护命令">RAID 维护命令</h1>
-<h2 id="删除故障盘">删除故障盘</h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘">增加新盘</h2>
-<pre><code>$ mdadm /dev/md0 -a /dev/sde1
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre><h1 id="RAID-维护命令"><a href="#RAID-维护命令" class="headerlink" title="RAID 维护命令"></a>RAID 维护命令</h1><h2 id="删除故障盘"><a href="#删除故障盘" class="headerlink" title="删除故障盘"></a>删除故障盘</h2><pre><code>$ mdadm /dev/md0 -r /dev/sdb1
+</code></pre><h2 id="增加新盘"><a href="#增加新盘" class="headerlink" title="增加新盘"></a>增加新盘</h2><pre><code>$ mdadm /dev/md0 -a /dev/sde1
 
 $ mdadm --stop /dev/md99    // 停止
 $ mdadm -As /dev/md0        // 启动
@@ -575,8 +569,8 @@ $ mdadm --remove /dev/md99
 mdadm --manage /dev/md99 --fail /dev/sd[cde]1
 mdadm --manage /dev/md99 --remove /dev/sd[cde]1
 mdadm --manage /dev/md99 --stop
-mdadm --zero-superblock /dev/sd[cde]1</code></pre>
-
+mdadm --zero-superblock /dev/sd[cde]1
+</code></pre>
       
     </div>
 
@@ -837,7 +831,7 @@ mdadm --zero-superblock /dev/sd[cde]1</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#每块硬盘分一个区"><span class="nav-number">1.</span> <span class="nav-text">每块硬盘分一个区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改分区格式"><span class="nav-number"></span> <span class="nav-text">更改分区格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-raid"><span class="nav-number"></span> <span class="nav-text">创建 RAID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#raid-维护命令"><span class="nav-number"></span> <span class="nav-text">RAID 维护命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除故障盘"><span class="nav-number"></span> <span class="nav-text">删除故障盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加新盘"><span class="nav-number"></span> <span class="nav-text">增加新盘</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#每块硬盘分一个区"><span class="nav-number">1.</span> <span class="nav-text">每块硬盘分一个区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更改分区格式"><span class="nav-number"></span> <span class="nav-text">更改分区格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建-RAID"><span class="nav-number"></span> <span class="nav-text">创建 RAID</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RAID-维护命令"><span class="nav-number"></span> <span class="nav-text">RAID 维护命令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除故障盘"><span class="nav-number"></span> <span class="nav-text">删除故障盘</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加新盘"><span class="nav-number"></span> <span class="nav-text">增加新盘</span></a></div>
             
 
           </div>
