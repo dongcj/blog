@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="install&amp;gt; client: curl client (eg: 116.23.45.8) &amp;gt; server: rfw servers (default port: 7393) install rfw on ALL server(on client &amp;amp; server)$ git clone https://github.com/securitykiss-com/rfw.git">
+<meta name="description" content="install &amp;gt; client: curl client (eg: 116.23.45.8) &amp;gt; server: rfw servers (default port: 7393) install rfw on ALL server(on client &amp;amp; server) $ git clone https://github.com/securitykiss-com/r">
 <meta name="keywords" content="rfw,RemoteFirewall">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rfw-RemoteFirewall 远程管理防火墙">
 <meta property="og:url" content="http://blog.dongcj.com/linux/security/Rfw-RemoteFirewall远程管理防火墙/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="install&amp;gt; client: curl client (eg: 116.23.45.8) &amp;gt; server: rfw servers (default port: 7393) install rfw on ALL server(on client &amp;amp; server)$ git clone https://github.com/securitykiss-com/rfw.git">
+<meta property="og:description" content="install &amp;gt; client: curl client (eg: 116.23.45.8) &amp;gt; server: rfw servers (default port: 7393) install rfw on ALL server(on client &amp;amp; server) $ git clone https://github.com/securitykiss-com/r">
 <meta property="og:updated_time" content="2017-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rfw-RemoteFirewall 远程管理防火墙">
-<meta name="twitter:description" content="install&amp;gt; client: curl client (eg: 116.23.45.8) &amp;gt; server: rfw servers (default port: 7393) install rfw on ALL server(on client &amp;amp; server)$ git clone https://github.com/securitykiss-com/rfw.git">
+<meta name="twitter:description" content="install &amp;gt; client: curl client (eg: 116.23.45.8) &amp;gt; server: rfw servers (default port: 7393) install rfw on ALL server(on client &amp;amp; server) $ git clone https://github.com/securitykiss-com/r">
 
 
 
@@ -443,11 +443,14 @@
       
 
       
-        <h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><pre><code>&gt; client: curl client (eg: 116.23.45.8)
-&gt; server: rfw servers (default port: 7393)
-</code></pre><h2 id="install-rfw-on-ALL-server-on-client-amp-server"><a href="#install-rfw-on-ALL-server-on-client-amp-server" class="headerlink" title="install rfw on ALL server(on client &amp; server)"></a>install rfw on ALL server(on client &amp; server)</h2><pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
-$ cd rfw &amp;&amp; python setup.py install
-</code></pre><h2 id="generate-remote-crt-on-client"><a href="#generate-remote-crt-on-client" class="headerlink" title="generate remote crt(on client)"></a>generate remote crt(on client)</h2><pre><code>$ cd /etc/rfw/deploy/
+        <h1 id="install">install</h1>
+<pre><code>&gt; client: curl client (eg: 116.23.45.8)
+&gt; server: rfw servers (default port: 7393)</code></pre>
+<h2 id="install-rfw-on-all-serveron-client-server">install rfw on ALL server(on client &amp; server)</h2>
+<pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
+$ cd rfw &amp;&amp; python setup.py install</code></pre>
+<h2 id="generate-remote-crton-client">generate remote crt(on client)</h2>
+<pre><code>$ cd /etc/rfw/deploy/
 $ rfwgen  11.11.11.11
 $ rfwgen  22.22.22.22
 
@@ -462,17 +465,20 @@ $ rfwgen  22.22.22.22
 │   └── server.key
 └── server_22.22.22.22
   ├── server.crt
-  └── server.key
-</code></pre><h2 id="copy-key-to-server"><a href="#copy-key-to-server" class="headerlink" title="copy key to server"></a>copy key to server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># on master server</span></div><div class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</div></pre></td></tr></table></figure>
-<h2 id="edit-the-server-config"><a href="#edit-the-server-config" class="headerlink" title="edit the server config"></a>edit the server config</h2><pre><code>$ vi /etc/rfw/rfw.conf
+  └── server.key</code></pre>
+<h2 id="copy-key-to-server">copy key to server</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># on master server</span></div><div class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</div></pre></td></tr></table></figure>
+<h2 id="edit-the-server-config">edit the server config</h2>
+<pre><code>$ vi /etc/rfw/rfw.conf
 outward.server.certfile = /etc/rfw/ssl/server.crt
 outward.server.keyfile = /etc/rfw/ssl/server.key
 auth.username = your_username_here
 auth.password = your_password_here
 
 $ vi /etc/rfw/white.list
-116.23.45.8
-</code></pre><h2 id="start-rfw-on-server"><a href="#start-rfw-on-server" class="headerlink" title="start rfw(on server)"></a>start rfw(on server)</h2><pre><code>$ rfw &amp;
+116.23.45.8</code></pre>
+<h2 id="start-rfwon-server">start rfw(on server)</h2>
+<pre><code>$ rfw &amp;
 
 $ iptables -L -n
 Chain INPUT (policy ACCEPT)
@@ -486,13 +492,15 @@ target     prot opt source               destination
 Chain OUTPUT (policy ACCEPT)
 target     prot opt source               destination
 ACCEPT     tcp  --  0.0.0.0/0            116.23.45.8      tcp spt:7393
-DROP       tcp  --  0.0.0.0/0            0.0.0.0/0           tcp spt:7393
-</code></pre><h1 id="test"><a href="#test" class="headerlink" title="test"></a>test</h1><h2 id="on-client"><a href="#on-client" class="headerlink" title="on client"></a>on client</h2><pre><code># block some bad IP for 5 minutes:
+DROP       tcp  --  0.0.0.0/0            0.0.0.0/0           tcp spt:7393</code></pre>
+<h1 id="test">test</h1>
+<h2 id="on-client">on client</h2>
+<pre><code># block some bad IP for 5 minutes:
 $ curl -i --cacert /home/me/ca.crt --user your_username_here:your_password_here -XPUT https://11.11.11.11:7393/drop/eth/1.2.3.4?expire=5m
 
 # Check if the rule is present now and not present after 5 minutes:
-$ curl -i --cacert /home/me/ca.crt --user your_username_here:your_password_here https://11.11.11.11:7393/list
-</code></pre>
+$ curl -i --cacert /home/me/ca.crt --user your_username_here:your_password_here https://11.11.11.11:7393/list</code></pre>
+
       
     </div>
 
@@ -660,7 +668,7 @@ $ curl -i --cacert /home/me/ca.crt --user your_username_here:your_password_here 
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -753,7 +761,7 @@ $ curl -i --cacert /home/me/ca.crt --user your_username_here:your_password_here 
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#install"><span class="nav-number">1.</span> <span class="nav-text">install</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install-rfw-on-ALL-server-on-client-amp-server"><span class="nav-number">1.1.</span> <span class="nav-text">install rfw on ALL server(on client & server)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-remote-crt-on-client"><span class="nav-number">1.2.</span> <span class="nav-text">generate remote crt(on client)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copy-key-to-server"><span class="nav-number">1.3.</span> <span class="nav-text">copy key to server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edit-the-server-config"><span class="nav-number">1.4.</span> <span class="nav-text">edit the server config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start-rfw-on-server"><span class="nav-number">1.5.</span> <span class="nav-text">start rfw(on server)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test"><span class="nav-number">2.</span> <span class="nav-text">test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#on-client"><span class="nav-number">2.1.</span> <span class="nav-text">on client</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#install"><span class="nav-number">1.</span> <span class="nav-text">install</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install-rfw-on-all-serveron-client-server"><span class="nav-number">1.1.</span> <span class="nav-text">install rfw on ALL server(on client & server)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#generate-remote-crton-client"><span class="nav-number">1.2.</span> <span class="nav-text">generate remote crt(on client)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copy-key-to-server"><span class="nav-number">1.3.</span> <span class="nav-text">copy key to server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#edit-the-server-config"><span class="nav-number">1.4.</span> <span class="nav-text">edit the server config</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#start-rfwon-server"><span class="nav-number">1.5.</span> <span class="nav-text">start rfw(on server)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test"><span class="nav-number">2.</span> <span class="nav-text">test</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#on-client"><span class="nav-number">2.1.</span> <span class="nav-text">on client</span></a></li></ol></li></ol></div>
             
 
           </div>

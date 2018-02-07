@@ -97,16 +97,16 @@
 
 
 
-<meta name="description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  用 autossh 保证 ssh 隧道稳定性 :autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port   autossh 代理export AUTOSSH_P">
+<meta name="description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  用 autossh 保证 ssh 隧道稳定性 : autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port   autossh 代理 export A">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Autossh">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Autossh/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  用 autossh 保证 ssh 隧道稳定性 :autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port   autossh 代理export AUTOSSH_P">
+<meta property="og:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  用 autossh 保证 ssh 隧道稳定性 : autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port   autossh 代理 export A">
 <meta property="og:updated_time" content="2016-08-04T08:32:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Autossh">
-<meta name="twitter:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  用 autossh 保证 ssh 隧道稳定性 :autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port   autossh 代理export AUTOSSH_P">
+<meta name="twitter:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  用 autossh 保证 ssh 隧道稳定性 : autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port   autossh 代理 export A">
 
 
 
@@ -432,18 +432,20 @@
 
       
         <blockquote>
-<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="external">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
+<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
 </blockquote>
-<h1 id="用-autossh-保证-ssh-隧道稳定性"><a href="#用-autossh-保证-ssh-隧道稳定性" class="headerlink" title="用 autossh 保证 ssh 隧道稳定性 :"></a>用 autossh 保证 ssh 隧道稳定性 :</h1><pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
-</code></pre><h1 id="autossh-代理"><a href="#autossh-代理" class="headerlink" title="autossh 代理"></a>autossh 代理</h1><pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
+<h1 id="用-autossh-保证-ssh-隧道稳定性">用 autossh 保证 ssh 隧道稳定性 :</h1>
+<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  </code></pre>
+<h1 id="autossh-代理">autossh 代理</h1>
+<pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
 export AUTOSSH_POLL=60
 export AUTOSSH_FIRST_POLL=30
 export AUTOSSH_GATETIME=0
 export AUTOSSH_DEBUG=1
 autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
     -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
-    -o StrictHostKeyChecking=no USER@HOSTNAME
-</code></pre>
+    -o StrictHostKeyChecking=no USER@HOSTNAME</code></pre>
+
       
     </div>
 
@@ -603,7 +605,7 @@ autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
