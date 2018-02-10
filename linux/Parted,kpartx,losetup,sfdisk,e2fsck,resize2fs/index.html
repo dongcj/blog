@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="虚拟机增加系统盘根分区大小方法# 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )  # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/libvirt/i">
+<meta name="description" content="虚拟机增加系统盘根分区大小方法  # 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )  # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/l">
 <meta name="keywords" content="parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="虚拟机增加系统盘根分区大小方法# 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )  # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/libvirt/i">
+<meta property="og:description" content="虚拟机增加系统盘根分区大小方法  # 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )  # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/l">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
-<meta name="twitter:description" content="虚拟机增加系统盘根分区大小方法# 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )  # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/libvirt/i">
+<meta name="twitter:description" content="虚拟机增加系统盘根分区大小方法  # 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )  # 先增加实例文件大小，可以使用 dd 命令 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB） $ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/l">
 
 
 
@@ -432,7 +432,8 @@
       
 
       
-        <h1 id="虚拟机增加系统盘根分区大小方法"><a href="#虚拟机增加系统盘根分区大小方法" class="headerlink" title="虚拟机增加系统盘根分区大小方法"></a>虚拟机增加系统盘根分区大小方法</h1><pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
+        <h1 id="虚拟机增加系统盘根分区大小方法"> 虚拟机增加系统盘根分区大小方法 </h1>
+<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
 # 先增加实例文件大小，可以使用 dd 命令
 $ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
@@ -442,12 +443,12 @@ $ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
 # If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &apos;Linux swap&apos; |awk &apos;{print $1}&apos;`
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
 
 # Del swap
 $ parted -s ${loop} rm ${swap_part_num}
 
-# If does&apos;t have, add the new swap device
+# If does&#39;t have, add the new swap device
 $ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
 # 或者先只划分空间，再用 mkswap 进行操作
@@ -462,8 +463,8 @@ $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 $ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
 # 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239        ( 样例，要修改 )
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &apos;s/\//\\\\\//g&apos;`
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
 $ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
 # 重新刷新新变更的分区
@@ -472,8 +473,9 @@ $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
 # fs resize
 $ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1
-</code></pre><h1 id="parted-使用"><a href="#parted-使用" class="headerlink" title="parted 使用"></a>parted 使用</h1><pre><code># create all 100% space to one part
+$ resize2fs -f /dev/mapper/loop0p1</code></pre>
+<h1 id="parted- 使用">parted 使用 </h1>
+<pre><code># create all 100% space to one part
 $ parted -s /dev/sdb mklabel gpt
 $ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
 
@@ -483,8 +485,9 @@ parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
 
 # remove part
 parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3
-</code></pre><h1 id="分区对齐"><a href="#分区对齐" class="headerlink" title="分区对齐"></a>分区对齐</h1><pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
+parted -s /dev/sdb rm 3</code></pre>
+<h1 id="分区对齐"> 分区对齐 </h1>
+<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
   1048576
 $ cat /sys/block/sdb/queue/minimum_io_size
   262144
@@ -496,8 +499,8 @@ $ cat /sys/block/sdb/queue/physical_block_size
 $ mkpart primary 2048s 100%
 
 (parted) align-check optimal 1
-  1 aligned
-</code></pre>
+  1 aligned</code></pre>
+
       
     </div>
 
@@ -569,8 +572,8 @@ $ mkpart primary 2048s 100%
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/cluster/Gearman安装/" rel="prev" title="Gearman 安装">
-                Gearman 安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/PXE安装与设定/" rel="prev" title="PXE 安装与设定">
+                PXE 安装与设定 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -766,7 +769,7 @@ $ mkpart primary 2048s 100%
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机增加系统盘根分区大小方法"><span class="nav-number">1.</span> <span class="nav-text">虚拟机增加系统盘根分区大小方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#parted-使用"><span class="nav-number">2.</span> <span class="nav-text">parted 使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分区对齐"><span class="nav-number">3.</span> <span class="nav-text">分区对齐</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机增加系统盘根分区大小方法"><span class="nav-number">1.</span> <span class="nav-text"> 虚拟机增加系统盘根分区大小方法 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#parted- 使用"><span class="nav-number">2.</span> <span class="nav-text">parted 使用 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分区对齐"><span class="nav-number">3.</span> <span class="nav-text"> 分区对齐 </span></a></li></ol></div>
             
 
           </div>

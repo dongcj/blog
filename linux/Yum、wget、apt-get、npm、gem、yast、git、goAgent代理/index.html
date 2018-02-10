@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="yum 配置代理$ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  &amp;gt; UnicodeDecodeError: &amp;apos;ascii&amp;apos; codec can&amp;apos;t decod">
+<meta name="description" content="yum 配置代理  $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  &amp;gt; UnicodeDecodeError: &amp;#39;ascii&amp;#39; codec can&amp;#39;t">
 <meta name="keywords" content="git,yum,wget,apt-get,npm,gem,yast,goAgent,proxy">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .Md">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Yum、wget、apt-get、npm、gem、yast、git、goAgent代理/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="yum 配置代理$ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  &amp;gt; UnicodeDecodeError: &amp;apos;ascii&amp;apos; codec can&amp;apos;t decod">
+<meta property="og:description" content="yum 配置代理  $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  &amp;gt; UnicodeDecodeError: &amp;#39;ascii&amp;#39; codec can&amp;#39;t">
 <meta property="og:updated_time" content="2016-08-11T07:22:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Yum,wget,apt-get,npm,gem,yast,git,goAgent 代理 .Md">
-<meta name="twitter:description" content="yum 配置代理$ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  &amp;gt; UnicodeDecodeError: &amp;apos;ascii&amp;apos; codec can&amp;apos;t decod">
+<meta name="twitter:description" content="yum 配置代理  $ vi /etc/yum.conf   proxy=http://mycache.mydomain.com:808   用于 yum 连接的帐户细节   proxy_username=yum-user   proxy_password=qwerty  &amp;gt; UnicodeDecodeError: &amp;#39;ascii&amp;#39; codec can&amp;#39;t">
 
 
 
@@ -432,16 +432,18 @@
       
 
       
-        <h1 id="yum-配置代理"><a href="#yum-配置代理" class="headerlink" title="yum 配置代理"></a>yum 配置代理</h1><pre><code>$ vi /etc/yum.conf
+        <h1 id="yum- 配置代理">yum 配置代理 </h1>
+<pre><code>$ vi /etc/yum.conf
   proxy=http://mycache.mydomain.com:808
   用于 yum 连接的帐户细节
   proxy_username=yum-user
   proxy_password=qwerty
 
-&gt; UnicodeDecodeError: &apos;ascii&apos; codec can&apos;t decode byte 0xd1 in position 72: ordinal not in range(128)
+&gt; UnicodeDecodeError: &#39;ascii&#39; codec can&#39;t decode byte 0xd1 in position 72: ordinal not in range(128)
 
-$ rpm --import RPM-GPG-KEY-redhat-release
-</code></pre><h1 id="wget-配置代理"><a href="#wget-配置代理" class="headerlink" title="wget 配置代理"></a>wget 配置代理</h1><pre><code># 配置 .wgetrc
+$ rpm --import RPM-GPG-KEY-redhat-release</code></pre>
+<h1 id="wget- 配置代理">wget 配置代理 </h1>
+<pre><code># 配置 .wgetrc
   use_proxy=on
   http_proxy=http://proxy.yoyodyne.com:18023/
   #ftp_proxy=http://proxy.yoyodyne.com:18023/
@@ -450,25 +452,26 @@ $ rpm --import RPM-GPG-KEY-redhat-release
 $ wget -Y on &quot;http_proxy=http://192.168.88.57:808&quot; &quot;www.baidu.com&quot;
 
 # 进行断点下载示例
-$ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip
-</code></pre><h1 id="apt-get-配置代理"><a href="#apt-get-配置代理" class="headerlink" title="apt-get 配置代理"></a>apt-get 配置代理</h1><pre><code>  Acquire {
+$ wget -c [-O master.zip] --no-check-certificate https://xxx.com/file.zip</code></pre>
+<h1 id="apt-get- 配置代理">apt-get 配置代理 </h1>
+<pre><code>  Acquire {
    Retries &quot;0 ″ ;
-   HTTP {
-   Proxy &quot;http://192.168.0.246:808&quot;;
-   };
+   HTTP {Proxy &quot;http://192.168.0.246:808&quot;;};
    };
 
 $ apt-get install postfix -c /etc/apt/apt.proxy.conf
 
-# 方法 2：将以下代码写入 /etc/apt/apt.conf( 永久使用 )
+# 方法 2：将以下代码写入 /etc/apt/apt.conf(永久使用)
   Acquire::http::proxy  &quot;http:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
   Acquire::https::proxy  &quot;https:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
-  Acquire::ftp::proxy  &quot;ftp:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;
-</code></pre><h1 id="curl-配置代理"><a href="#curl-配置代理" class="headerlink" title="curl 配置代理"></a>curl 配置代理</h1><pre><code>$ curl -x 192.168.88.57:808 &quot;www.baidu.com&quot;
+  Acquire::ftp::proxy  &quot;ftp:// 用户名 : 密码 @ 代理地址 : 端口 &quot;;</code></pre>
+<h1 id="curl- 配置代理">curl 配置代理 </h1>
+<pre><code>$ curl -x 192.168.88.57:808 &quot;www.baidu.com&quot;
 
 $ vi /root/.bashrc
-  export http_proxy = http://PROXYSERVER:18023
-</code></pre><h1 id="git-配置代理"><a href="#git-配置代理" class="headerlink" title="git 配置代理"></a>git 配置代理</h1><pre><code>$ export http_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
+  export http_proxy = http://PROXYSERVER:18023</code></pre>
+<h1 id="git- 配置代理">git 配置代理 </h1>
+<pre><code>$ export http_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 $ export https_proxy=&quot;http://username:password@squid.vpsee.com:3128/&quot;
 
 -
@@ -488,13 +491,17 @@ $ cp connect /bin/
 $ echo &quot;connect -H http://192.168.88.57:808 $@&quot; &gt;/root/git_proxy
 $ chmod a+x /root/git_proxy
 
-$ git config --global core.gitproxy /root/git_proxy
-</code></pre><p>-</p>
-<h1 id="yast-配置代理"><a href="#yast-配置代理" class="headerlink" title="yast 配置代理"></a>yast 配置代理</h1><pre><code>$ vi /etc/sysconfig/proxy
+$ git config --global core.gitproxy /root/git_proxy</code></pre>
+<ul>
+<li></li>
+</ul>
+<h1 id="yast- 配置代理">yast 配置代理 </h1>
+<pre><code>$ vi /etc/sysconfig/proxy
 
   PROXY_ENABLED=&quot;on&quot;
-  HTTP_PROXY=&quot;http://192.168.11.35:808&quot;
-</code></pre><h1 id="GoAgent-代理"><a href="#GoAgent-代理" class="headerlink" title="GoAgent 代理"></a>GoAgent 代理</h1><pre><code>$ modutil -changepw &quot;NSS Certificate DB&quot; -dbdir $HOME/.pki/nssdb
+  HTTP_PROXY=&quot;http://192.168.11.35:808&quot;</code></pre>
+<h1 id="goagent- 代理">GoAgent 代理 </h1>
+<pre><code>$ modutil -changepw &quot;NSS Certificate DB&quot; -dbdir $HOME/.pki/nssdb
 
 # 查看证书
 $ certutil -d sql:$HOME/.pki/nssdb -L
@@ -524,8 +531,8 @@ $ gem install --http-proxy http://proxy.mysite.com:8080 sass
 
 # 取消 :
 # 安装时不加上 --http-proxy 参数
-$ gem install sass
-</code></pre>
+$ gem install sass</code></pre>
+
       
     </div>
 
@@ -603,8 +610,8 @@ $ gem install sass
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/PXE安装与设定/" rel="prev" title="PXE 安装与设定">
-                PXE 安装与设定 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/VirtualBox报错E_FAIL0x80004005解决方案/" rel="prev" title="VirtualBox 报错 E_FAIL0x80004005 解决方案">
+                VirtualBox 报错 E_FAIL0x80004005 解决方案 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -800,7 +807,7 @@ $ gem install sass
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum-配置代理"><span class="nav-number">1.</span> <span class="nav-text">yum 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget-配置代理"><span class="nav-number">2.</span> <span class="nav-text">wget 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apt-get-配置代理"><span class="nav-number">3.</span> <span class="nav-text">apt-get 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#curl-配置代理"><span class="nav-number">4.</span> <span class="nav-text">curl 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git-配置代理"><span class="nav-number">5.</span> <span class="nav-text">git 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yast-配置代理"><span class="nav-number">6.</span> <span class="nav-text">yast 配置代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GoAgent-代理"><span class="nav-number">7.</span> <span class="nav-text">GoAgent 代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum- 配置代理"><span class="nav-number">1.</span> <span class="nav-text">yum 配置代理 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wget- 配置代理"><span class="nav-number">2.</span> <span class="nav-text">wget 配置代理 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apt-get- 配置代理"><span class="nav-number">3.</span> <span class="nav-text">apt-get 配置代理 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#curl- 配置代理"><span class="nav-number">4.</span> <span class="nav-text">curl 配置代理 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#git- 配置代理"><span class="nav-number">5.</span> <span class="nav-text">git 配置代理 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#yast- 配置代理"><span class="nav-number">6.</span> <span class="nav-text">yast 配置代理 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#goagent- 代理"><span class="nav-number">7.</span> <span class="nav-text">GoAgent 代理 </span></a></li></ol></div>
             
 
           </div>

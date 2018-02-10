@@ -435,18 +435,21 @@
 
       
         
-          <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装</span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装</span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件</span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
-<h1 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h1><blockquote>
-<p>生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例</p>
+          <h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装 </span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装 </span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件 </span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
+<h1 id="配置"> 配置 </h1>
+<blockquote>
+<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选</span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选</span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令</span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动</span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选</span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选</span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><pre><code>$ service supervisord start
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
+<h1 id="启动"> 启动 </h1>
+<pre><code>$ service supervisord start
 
 &gt; 如果使用 pip 安装，需要自已写启动脚本
 
 supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
-</code></pre>
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
@@ -610,11 +613,15 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
 $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
-  libxml2 libxml2-devel bison flex libreadline6-devel
-</code></pre><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量</span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<h1 id="初始化数据库"><a href="#初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
-<h1 id="启动数据库-快速"><a href="#启动数据库-快速" class="headerlink" title="启动数据库 [快速]"></a>启动数据库 [快速]</h1><pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start
-</code></pre><h1 id="创建并导入库"><a href="#创建并导入库" class="headerlink" title="创建并导入库"></a>创建并导入库</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">su postgres</div><div class="line">psql</div><div class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></div><div class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></div><div class="line">\i &lt;DB_FILE&gt;.sql</div></pre></td></tr></table></figure>
+  libxml2 libxml2-devel bison flex libreadline6-devel</code></pre>
+<h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 配置用户、环境变量 </span></div><div class="line">$ useradd postgres</div><div class="line"></div><div class="line">$ vim /etc/profile</div><div class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</div><div class="line"></div><div class="line">$ <span class="built_in">source</span>  /etc/profile</div><div class="line"></div><div class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</div><div class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</div><div class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</div><div class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</div><div class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</div><div class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</div><div class="line"></div><div class="line">$ make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h1 id="初始化数据库"> 初始化数据库 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">mkdir -p /pgdata</div><div class="line">chown postgres /pgdata</div><div class="line">su - postgres</div><div class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</div><div class="line"></div><div class="line">    $ vim /pgdata/pg_hba.conf</div><div class="line">      host    all             all             0.0.0.0/0               trust</div><div class="line"></div><div class="line">    $ vim /pgdata/postgresql.conf</div><div class="line">      listen_addresses = <span class="string">'*'</span></div><div class="line">      max_connections = 1500</div></pre></td></tr></table></figure>
+<h1 id="启动数据库 - 快速"> 启动数据库 [快速]</h1>
+<pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
+<h1 id="创建并导入库"> 创建并导入库 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">su postgres</div><div class="line">psql</div><div class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></div><div class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></div><div class="line">\i &lt;DB_FILE&gt;.sql</div></pre></td></tr></table></figure>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -783,44 +790,46 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 <li><a href="README.md">Chinese Simplified</a></li>
 </ul>
 <hr>
-<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><!-- vim-markdown-toc GFM -->
+<h2 id="目录"> 目录 </h2>
+<!-- vim-markdown-toc GFM -->
 <ul>
-<li><a href="# 空格">空格</a><ul>
-<li><a href="# 中英文之间需要增加空格">中英文之间需要增加空格</a></li>
-<li><a href="# 中文与数字之间需要增加空格">中文与数字之间需要增加空格</a></li>
-<li><a href="# 数字与单位之间需要增加空格">数字与单位之间需要增加空格</a></li>
-<li><a href="# 全角标点与其他字符之间不加空格">全角标点与其他字符之间不加空格</a></li>
+<li><a href="#%20 空格"> 空格 </a>
+<ul>
+<li><a href="#%20 中英文之间需要增加空格"> 中英文之间需要增加空格 </a></li>
+<li><a href="#%20 中文与数字之间需要增加空格"> 中文与数字之间需要增加空格 </a></li>
+<li><a href="#%20 数字与单位之间需要增加空格"> 数字与单位之间需要增加空格 </a></li>
+<li><a href="#%20 全角标点与其他字符之间不加空格"> 全角标点与其他字符之间不加空格 </a></li>
 <li><a href="#-ms-text-autospace-to-the-rescue"><code>-ms-text-autospace</code> to the rescue?</a></li>
-</ul>
-</li>
-<li><a href="# 标点符号">标点符号</a><ul>
-<li><a href="# 不重复使用标点符号">不重复使用标点符号</a></li>
-</ul>
-</li>
-<li><a href="# 全角和半角">全角和半角</a><ul>
-<li><a href="# 使用全角中文标点">使用全角中文标点</a></li>
-<li><a href="# 数字使用半角字符">数字使用半角字符</a></li>
-<li><a href="# 遇到完整的英文整句特殊名词其內容使用半角标点">遇到完整的英文整句、特殊名词，其內容使用半角标点</a></li>
-</ul>
-</li>
-<li><a href="# 名词">名词</a><ul>
-<li><a href="# 专有名词使用正确的大小写">专有名词使用正确的大小写</a></li>
-<li><a href="# 不要使用不地道的缩写">不要使用不地道的缩写</a></li>
-</ul>
-</li>
-<li><a href="# 争议">争议</a><ul>
-<li><a href="# 链接之间增加空格">链接之间增加空格</a></li>
-<li><a href="# 简体中文使用直角引号">简体中文使用直角引号</a></li>
-</ul>
-</li>
-<li><a href="# 工具">工具</a></li>
-<li><a href="# 谁在这样做">谁在这样做？</a></li>
-<li><a href="# 参考文献">参考文献</a></li>
+</ul></li>
+<li><a href="#%20 标点符号"> 标点符号 </a>
+<ul>
+<li><a href="#%20 不重复使用标点符号"> 不重复使用标点符号 </a></li>
+</ul></li>
+<li><a href="#%20 全角和半角"> 全角和半角 </a>
+<ul>
+<li><a href="#%20 使用全角中文标点"> 使用全角中文标点 </a></li>
+<li><a href="#%20 数字使用半角字符"> 数字使用半角字符 </a></li>
+<li><a href="#%20 遇到完整的英文整句特殊名词其內容使用半角标点"> 遇到完整的英文整句、特殊名词，其內容使用半角标点 </a></li>
+</ul></li>
+<li><a href="#%20 名词"> 名词 </a>
+<ul>
+<li><a href="#%20 专有名词使用正确的大小写"> 专有名词使用正确的大小写 </a></li>
+<li><a href="#%20 不要使用不地道的缩写"> 不要使用不地道的缩写 </a></li>
+</ul></li>
+<li><a href="#%20 争议"> 争议 </a>
+<ul>
+<li><a href="#%20 链接之间增加空格"> 链接之间增加空格 </a></li>
+<li><a href="#%20 简体中文使用直角引号"> 简体中文使用直角引号 </a></li>
+</ul></li>
+<li><a href="#%20 工具"> 工具 </a></li>
+<li><a href="#%20 谁在这样做"> 谁在这样做？</a></li>
+<li><a href="#%20 参考文献"> 参考文献 </a></li>
 </ul>
 <!-- vim-markdown-toc -->
-<h2 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h2><p>与大家共勉之。」——<a href="https://github.com/vinta/pangu.js" target="_blank" rel="external">vinta/paranoid-auto-spacing</a></p>
-<p>完整的正确用法：</p>
-<p>例外：度／百分比与数字之间不需要增加空格：</p>
+<h2 id="空格"> 空格 </h2>
+<p> 与大家共勉之。」——<a href="https://github.com/vinta/pangu.js" target="_blank" rel="external">vinta/paranoid-auto-spacing</a></p>
+<p> 完整的正确用法：</p>
+<p> 例外：度／百分比与数字之间不需要增加空格：</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/markdown/中文文案排版指北/#more" rel="contents">
@@ -980,11 +989,11 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 
       
         
-          <h1 id="Sysdig"><a href="#Sysdig" class="headerlink" title="Sysdig"></a>Sysdig</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
-<h1 id="BCC"><a href="#BCC" class="headerlink" title="BCC"></a>BCC</h1><blockquote>
+          <h1 id="1-Sysdig"><a href="#1-Sysdig" class="headerlink" title="1. Sysdig"></a>1. Sysdig</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 网络</span></div><div class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></div><div class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></div><div class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></div><div class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></div><div class="line"></div><div class="line"><span class="comment"># IO</span></div><div class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></div><div class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></div><div class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></div><div class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></div><div class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></div><div class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></div><div class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></div><div class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></div><div class="line"></div><div class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></div><div class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></div><div class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></div><div class="line"></div><div class="line">sysdig -c topfiles_time</div><div class="line">sysdig -c topfiles_time proc.name=httpd</div><div class="line">sysdig -c topprocs_errors</div><div class="line">sysdig -c topfiles_errors</div><div class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></div><div class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></div><div class="line">sysdig -c topscalls_time</div><div class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></div><div class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></div><div class="line">sysdig -c fileslower 1</div><div class="line"></div><div class="line"><span class="comment"># 安全</span></div><div class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></div><div class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</div><div class="line">sysdig evt.type=open and fd.name contains /etc</div><div class="line">sysdig -r file.scap -c list_login_shells tar</div><div class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</div><div class="line"></div><div class="line"><span class="comment"># 容器</span></div><div class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></div><div class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></div><div class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></div><div class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></div><div class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></div><div class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></div><div class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></div><div class="line"></div><div class="line"><span class="comment"># 应用</span></div><div class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></div><div class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></div><div class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</div><div class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></div></pre></td></tr></table></figure>
+<h1 id="2-BCC"><a href="#2-BCC" class="headerlink" title="2. BCC"></a>2. BCC</h1><blockquote>
 <p><a href="https://github.com/iovisor/bcc" target="_blank" rel="external">https://github.com/iovisor/bcc</a></p>
 </blockquote>
-<h1 id="常用工具"><a href="#常用工具" class="headerlink" title="常用工具"></a>常用工具</h1><pre><code>uptime          CPU + Disks 的测量，1，5，15 分钟
+<h1 id="3- 常用工具"><a href="#3- 常用工具" class="headerlink" title="3. 常用工具"></a>3. 常用工具</h1><pre><code>uptime          CPU + Disks 的测量，1，5，15 分钟
 ps -eLf         打印线程
 ps -ef f    打印进程树
 pstree -alpha &lt;PID&gt; 查看某进程的详细情况
@@ -1002,21 +1011,21 @@ glances  综合工具
 
 # xxx 表示进程 id 或 pid
 /proc/cpuinfo，/proc/meminfo，/proc/cmdline，/proc/xxx/cwd，/proc/xxx/exe，/proc/xxx/fd/，/proc/xxx/smaps
-</code></pre><h1 id="sysstat-包含工具"><a href="#sysstat-包含工具" class="headerlink" title="sysstat 包含工具"></a>sysstat 包含工具</h1><pre><code>sar     综合工具 , 查看历史 iowait 值 (Collect, report, or save system activity information)
+</code></pre><h1 id="4-sysstat- 包含工具"><a href="#4-sysstat- 包含工具" class="headerlink" title="4. sysstat 包含工具"></a>4. sysstat 包含工具</h1><pre><code>sar     综合工具 , 查看历史 iowait 值 (Collect, report, or save system activity information)
 sadf        -x 可以使用 xml 格式打印信息
-pidstat     打印进程信息 (Report statistics for Linux tasks, 有占用信息 )
+pidstat     打印进程信息 (Report statistics for Linux tasks, 有占用信息)
 cifsiostat  查看 windows 共享的 io 状况
 mpstat      查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）
 iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）
-</code></pre><h1 id="网络监测工具"><a href="#网络监测工具" class="headerlink" title="网络监测工具"></a>网络监测工具</h1><pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
-iftop/iptraf            # 实时网络状况监测 ( 常用 -pn)，查找正在使用带宽的套接字连接或进程
-netstat                 # 查看网络状况 ( 常用 -tupnl)
+</code></pre><h1 id="5- 网络监测工具"><a href="#5- 网络监测工具" class="headerlink" title="5. 网络监测工具"></a>5. 网络监测工具</h1><pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
+iftop/iptraf            # 实时网络状况监测 (常用 -pn)，查找正在使用带宽的套接字连接或进程
+netstat                 # 查看网络状况 (常用 -tupnl)
        netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件
 slurm                   # yet another network load monitor
 
 tcpdump         # 抓取网络数据包，详细分析
 wireshark       # 抓取网络数据包，详细分析
-Tcptrace        # 数据包分析工具 (windows 下有 )
+Tcptrace        # 数据包分析工具 (windows 下有)
 tcptrack        # monitor your server network connections and bandwidth 
 tshark
 ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any 匹配所有接口，. 匹配所有内容 目标端口为 2003 的包
@@ -1025,8 +1034,8 @@ ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any 匹配所�
                 tcpdump &apos;port 5901 and (host 192.168.109.1)&apos;
 
 iperf       # 测试 TCP 和 UDP 带宽质量
-            # 服务端 : iperf [ -u] -s    客户端 : iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M
-                                              (-u UDP 测试 ;  -f 单位 , 可以是 kmKM;  -t 测试时间 ;  -P 线程数 ;  -b 测试数据包大小 )
+            # 服务端 : iperf [-u] -s    客户端 : iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M
+                                              (-u UDP 测试 ;  -f 单位 , 可以是 kmKM;  -t 测试时间 ;  -P 线程数 ;  -b 测试数据包大小)
 
 speed-test          # 网速测试工具 npm install --global speed-test
 traceroute/mtr/dig  # trace 工具
@@ -1202,75 +1211,73 @@ lsof | grep deleted | grep &quot;filename-of-my-big-file&quot;    # 文件删除
 
       
         
-          <h1 id="location-正则写法"><a href="#location-正则写法" class="headerlink" title="location 正则写法"></a>location 正则写法</h1><pre><code># 一个示例：
+          <h1 id="location- 正则写法">location 正则写法</h1>
+<pre><code># 一个示例：
 location  = / {
   # 精确匹配 / ，主机名后面不能带任何字符串
-  [ configuration A ]
+  [configuration A]
 }
 location  / {
   # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求
   # 但是正则和最长字符串会优先匹配
-  [ configuration B ]
+  [configuration B]
 }
 location /documents/ {
   # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
   # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
-  [ configuration C ]
+  [configuration C]
 }
 location ~ /documents/Abc {
   # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
   # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
-  [ configuration CC ]
+  [configuration CC]
 }
 location ^~ /images/ {
   # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。
-  [ configuration D ]
+  [configuration D]
 }
 location ~* \.(gif|jpg|jpeg)$ {
   # 匹配所有以 gif,jpg 或 jpeg 结尾的请求
   # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则
-  [ configuration E ]
+  [configuration E]
 }
 location /images/ {
   # 字符匹配到 /images/，继续往下，会发现 ^~ 存在
-  [ configuration F ]
+  [configuration F]
 }
 location /images/abc {
   # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在
   # F 与 G 的放置顺序是没有关系的
-  [ configuration G ]
+  [configuration G]
 }
 location ~ /images/abc/ {
   # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
-    [ configuration H ]
+    [configuration H]
 }
-location ~* /js/.*/\.js
-</code></pre><p>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配<br>~ 开头表示区分大小写的正则匹配 ;<br>~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到</p>
-<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg<br>-&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
-<pre><code>    location = / {
-        proxy_pass http://tomcat:8080/index
-    }
+location ~* /js/.*/\.js</code></pre>
+<dl>
+<dt>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配</dt>
+<dd>开头表示区分大小写的正则匹配 ; ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到
+</dd>
+</dl>
+<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg -&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+<pre><code>    location = / {proxy_pass http://tomcat:8080/index}
 
 # 第二个必选规则是处理静态文件请求，这是 nginx 作为 http 服务器的强项
-# 有两种配置模式，目录匹配或后缀匹配 , 任选其一或搭配使用 location ^~ /static/ {
-root /webroot/static/; } location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {
-root /webroot/res/; }
+# 有两种配置模式，目录匹配或后缀匹配 , 任选其一或搭配使用 location ^~ /static/ {root /webroot/static/;} location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {root /webroot/res/;}
 
 # 非静态文件请求就默认是动态请求，自己根据实际把握
 # 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
-location / {
-    proxy_pass http://tomcat:8080/
-}
-</code></pre><p><strong>引用</strong></p>
-<blockquote>
-<p><a href="http://tengine.taobao.org/book/chapter_02.html" target="_blank" rel="external">http://tengine.taobao.org/book/chapter_02.html</a><br><a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html" target="_blank" rel="external">http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</a></p>
-</blockquote>
-<h1 id="Rewrite-规则"><a href="#Rewrite-规则" class="headerlink" title="Rewrite 规则"></a>Rewrite 规则</h1><p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 <a href="http://seanlook.com/a/we/index.php?id=1&amp;u=str" target="_blank" rel="external">http://seanlook.com/a/we/index.php?id=1&amp;u=str</a> 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
+location / {proxy_pass http://tomcat:8080/}</code></pre>
+<p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
+<h1 id="rewrite- 规则">Rewrite 规则</h1>
+<p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
 <ul>
 <li>执行 server 块的 rewrite 指令</li>
 <li>执行 location 匹配</li>
 <li>执行选定的 location 中的 rewrite 指令</li>
 </ul>
+<p>last : 相当于 Apache 的 [L] 标记，表示完成 rewrite break : 停止执行当前虚拟主机的后续 rewrite 指令集 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/web/Nginx配置location总结及rewrite规则写法/#more" rel="contents">
