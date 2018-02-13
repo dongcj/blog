@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
+                <a class="post-title-link" href="/web/Nginx及upstreamcheck,fair模块安装/" itemprop="url">Nginx 及 Upstreamcheck,fair 模块安装</a></h2>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cluster/" itemprop="url" rel="index">
-                    <span itemprop="name">cluster</span>
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
                   </a>
                 </span>
 
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
+                <a href="/web/Nginx及upstreamcheck,fair模块安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="web/Nginx及upstreamcheck,fair模块安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
+             <span id="/web/Nginx及upstreamcheck,fair模块安装/" class="leancloud_visitors" data-flag-title="Nginx 及 Upstreamcheck,fair 模块安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,76 +435,19 @@
 
       
         
-          <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
-</blockquote>
-<pre><code>python gearman library home page
-http://samuelks.com/python-gearman/docs/
+          <h1 id="download-nginx-module">download nginx &amp; module</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
+<h1 id="make-install">make &amp; install</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h1 id="nginx.conf-proxy.conf">nginx.conf &amp; proxy.conf</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local]"$request"'</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent""$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表 </span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效 </span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> /usr/local/nginx/conf/proxy.conf</div><div class="line"></div><div class="line">proxy_redirect <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div></pre></td></tr></table></figure>
+<h2 id="start-auto-start">start &amp; auto-start</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
 
-Tim Yang：利用 Gearman 来实现远程监控与管理
-http://timyang.net/linux/gearman-monitor/</code></pre>
-<h1 id="一安装 -grarmand- 及 -libgearman-devel"> 一、安装 grarmand 及 libgearman-devel</h1>
-<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)</code></pre>
-<h1 id="二安装 -php- 的 -api"> 二、安装 PHP 的 API</h1>
-<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
-
-$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
-$ cd gearman-1.1.2
-$ phpize
-$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
-
-# 增加 php 扩展
-$ vi /etc/php.d/gearman.ini
-; Enable gearman extension module
-extension=gearman.so</code></pre>
-<h1 id="三启动 -gearmand"> 三、启动 gearmand</h1>
-<pre><code># (如果使用默认参数，需要开启 IPV6)
-
-# 可以设置成服务启动：
-$ vi /etc/sysconfig/gearmand
-    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
-
-$ service gearmand start
-
-$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
-
-# 如果需要使用数据库
-gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
-
-$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
-
-# 将 /etc/passwd 文件给函数 wc 进行处理
-$ gearman -f wc &lt; /etc/passwd
-
-$ gearadmin --show-jobs
-      --status
-      --workers
-      -- ...</code></pre>
-<h2 id="worker">1. Worker:</h2>
-<pre><code>&lt;?php
-
-$worker = new GearmanWorker();
-$worker-&gt;addServer();
-$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
-
-while (1) {
-    print &quot;Waiting for job...\n&quot;;
-    $ret = $worker-&gt;work();
-    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
-}
-
-function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
-    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
-    echo &quot;Workload: $workload\n&quot;;
-    $result = strrev($workload);
-    echo &quot;Result: $result\n&quot;;
-    return $result;
-}
-
-?&gt;</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
+            <a class="btn" href="/web/Nginx及upstreamcheck,fair模块安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -823,7 +766,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -842,7 +785,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
+                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
         
 
         <div class="post-meta">
@@ -877,8 +820,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/cluster/" itemprop="url" rel="index">
+                    <span itemprop="name">cluster</span>
                   </a>
                 </span>
 
@@ -895,9 +838,9 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#comments" itemprop="discussionUrl">
+                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="commentCount"></span>
+                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -905,7 +848,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
           
           
-             <span id="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" class="leancloud_visitors" data-flag-title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
+             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -934,78 +877,76 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
       
         
-          <h1 id="虚拟机增加系统盘根分区大小方法"> 虚拟机增加系统盘根分区大小方法 </h1>
-<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
+          <blockquote>
+<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
+</blockquote>
+<pre><code>python gearman library home page
+http://samuelks.com/python-gearman/docs/
 
-# 先增加实例文件大小，可以使用 dd 命令
-$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
-$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
+Tim Yang：利用 Gearman 来实现远程监控与管理
+http://timyang.net/linux/gearman-monitor/</code></pre>
+<h1 id="一安装 -grarmand- 及 -libgearman-devel"> 一、安装 grarmand 及 libgearman-devel</h1>
+<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)</code></pre>
+<h1 id="二安装 -php- 的 -api"> 二、安装 PHP 的 API</h1>
+<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
 
-# 挂载文件至系统，以便找出是否有 swap device
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
 
-# If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so</code></pre>
+<h1 id="三启动 -gearmand"> 三、启动 gearmand</h1>
+<pre><code># (如果使用默认参数，需要开启 IPV6)
 
-# Del swap
-$ parted -s ${loop} rm ${swap_part_num}
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
 
-# If does&#39;t have, add the new swap device
-$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
+$ service gearmand start
 
-# 或者先只划分空间，再用 mkswap 进行操作
-# 可选的：
-$ mkswap -v1 /dev/mapper/loop1p3
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 
-# 重新刷新新增加的 swap 设备
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-# 将新的 lo 设备分区进行打印
-$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
-# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239      (样例，要修改)
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
-$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
 
-# 重新刷新新变更的分区
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...</code></pre>
+<h2 id="worker">1. Worker:</h2>
+<pre><code>&lt;?php
 
-# fs resize
-$ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1</code></pre>
-<h1 id="parted- 使用">parted 使用 </h1>
-<pre><code># create all 100% space to one part
-$ parted -s /dev/sdb mklabel gpt
-$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
 
-# create other part
-parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
-parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
+}
 
-# remove part
-parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3</code></pre>
-<h1 id="分区对齐"> 分区对齐 </h1>
-<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
-  1048576
-$ cat /sys/block/sdb/queue/minimum_io_size
-  262144
-$ cat /sys/block/sdb/alignment_offset
-  0
-$ cat /sys/block/sdb/queue/physical_block_size
-  512
+function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
 
-$ mkpart primary 2048s 100%
-
-(parted) align-check optimal 1
-  1 aligned</code></pre>
-
+?&gt;</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
+            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1224,7 +1165,7 @@ $ psql$ select * from pg_stat_replication;</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1243,7 +1184,7 @@ $ psql$ select * from pg_stat_replication;</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
+                <a class="post-title-link" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
         
 
         <div class="post-meta">
@@ -1278,8 +1219,8 @@ $ psql$ select * from pg_stat_replication;</code></pre>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -1296,9 +1237,9 @@ $ psql$ select * from pg_stat_replication;</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1306,7 +1247,7 @@ $ psql$ select * from pg_stat_replication;</code></pre>
 
           
           
-             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
+             <span id="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" class="leancloud_visitors" data-flag-title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1335,66 +1276,78 @@ $ psql$ select * from pg_stat_replication;</code></pre>
 
       
         
-          <blockquote>
-<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件"> 安装软件 </h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
-<blockquote>
-<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
-</blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
+          <h1 id="虚拟机增加系统盘根分区大小方法"> 虚拟机增加系统盘根分区大小方法 </h1>
+<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
+$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+# 挂载文件至系统，以便找出是否有 swap device
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
-<pre><code>$ service glusterd start
+# If has swap device, del the swap device
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
 
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd
+# Del swap
+$ parted -s ${loop} rm ${swap_part_num}
 
-# from server1
-$ gluster peer probe SERVER2
+# If does&#39;t have, add the new swap device
+$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
-# from server2
-$ gluster peer probe SERVER1
+# 或者先只划分空间，再用 mkswap 进行操作
+# 可选的：
+$ mkswap -v1 /dev/mapper/loop1p3
 
-# check peer
-$ gluster peer status
+# 重新刷新新增加的 swap 设备
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
+# 将新的 lo 设备分区进行打印
+$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
-$ gluster volume info
-$ gluster volume status
+# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
+$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
+# 重新刷新新变更的分区
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-# delete Volume
-$ gluster volume delete gv0
+# fs resize
+$ e2fsck -pv /dev/mapper/loop0p1
+$ resize2fs -f /dev/mapper/loop0p1</code></pre>
+<h1 id="parted- 使用">parted 使用 </h1>
+<pre><code># create all 100% space to one part
+$ parted -s /dev/sdb mklabel gpt
+$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
 
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
+# create other part
+parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
+parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
+
+# remove part
+parted -s /dev/sdb rm 2
+parted -s /dev/sdb rm 3</code></pre>
+<h1 id="分区对齐"> 分区对齐 </h1>
+<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
+  1048576
+$ cat /sys/block/sdb/queue/minimum_io_size
+  262144
+$ cat /sys/block/sdb/alignment_offset
+  0
+$ cat /sys/block/sdb/queue/physical_block_size
+  512
+
+$ mkpart primary 2048s 100%
+
+(parted) align-check optimal 1
+  1 aligned</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
+            <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
