@@ -97,16 +97,16 @@
 
 
 
-<meta name="description" content="新建仓库目录   1mkdir -p /opt/svicloud/tools/harbor/data/cert/ 1echo -n &quot;svicloud85509336&quot; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey   使用 docker-compose 安装 harbor   docker-compose  下载地址">
+<meta name="description" content="新建仓库目录   1mkdir -p /opt/svicloud/tools/harbor/data/cert/ 1echo -n &quot;svicloud85509336&quot; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey   使用 docker-compose 安装 harbor   docker-compose  下载地址   12mv ha">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Harbor 支持 Https">
 <meta property="og:url" content="http://blog.dongcj.com/m/Harbor支持https/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="新建仓库目录   1mkdir -p /opt/svicloud/tools/harbor/data/cert/ 1echo -n &quot;svicloud85509336&quot; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey   使用 docker-compose 安装 harbor   docker-compose  下载地址">
+<meta property="og:description" content="新建仓库目录   1mkdir -p /opt/svicloud/tools/harbor/data/cert/ 1echo -n &quot;svicloud85509336&quot; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey   使用 docker-compose 安装 harbor   docker-compose  下载地址   12mv ha">
 <meta property="og:updated_time" content="2018-02-07T08:34:07.441Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Harbor 支持 Https">
-<meta name="twitter:description" content="新建仓库目录   1mkdir -p /opt/svicloud/tools/harbor/data/cert/ 1echo -n &quot;svicloud85509336&quot; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey   使用 docker-compose 安装 harbor   docker-compose  下载地址">
+<meta name="twitter:description" content="新建仓库目录   1mkdir -p /opt/svicloud/tools/harbor/data/cert/ 1echo -n &quot;svicloud85509336&quot; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey   使用 docker-compose 安装 harbor   docker-compose  下载地址   12mv ha">
 
 
 
@@ -409,12 +409,12 @@
       
 
       
-        <ol start="2" type="1">
+        <ol>
 <li> 新建仓库目录 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir -p /opt/svicloud/tools/harbor/data/cert/</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> -n <span class="string">"svicloud85509336"</span> &gt;/opt/svicloud/tools/harbor/data/cert/secretkey</div></pre></td></tr></table></figure>
-<ol start="5" type="1">
+<ol>
 <li> 使用 docker-compose 安装 harbor</li>
 </ol>
 <blockquote>
@@ -422,14 +422,14 @@
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mv harbor-docker-compose-v1.2.2.yml docker-compose.yml </div><div class="line">docker-compose up -d</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<ol start="6" type="1">
-<li><p> 测试下，应该可以成功，如无法成功，运行步骤 7</p></li>
-<li><p>（<code> 可选 </code>）修改 <code>registry</code> 中的证书 <code>root.crt</code> 和 <code>ui</code> 的 <code>private_key.pem</code></p></li>
+<ol>
+<li><p> 测试下，应该可以成功，如无法成功，运行步骤 7</p>
+</li>
+<li><p>（<code> 可选 </code>）修改 <code>registry</code> 中的证书 <code>root.crt</code> 和 <code>ui</code> 的 <code>private_key.pem</code></p>
+</li>
 </ol>
-<h1 id="通过 -curl- 请求测试"> 通过 curl 请求测试 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">curl -i  https://&lt;HARBOR.DOMAIN.COM&gt;/v2/_catalog</div><div class="line"></div><div class="line">HTTP/1.1 401 Unauthorized</div><div class="line">Server: nginx/1.11.5</div><div class="line">Date: Fri, 19 May 2017 06:45:06 GMT</div><div class="line">Content-Type: application/json; charset=utf-8</div><div class="line">Content-Length: 134</div><div class="line">Connection: keep-alive</div><div class="line">Docker-Distribution-Api-Version: registry/2.0</div><div class="line">Www-Authenticate: Bearer realm=<span class="string">"https://&lt;HARBOR.DOMAIN.COM&gt;/service/token"</span>,service=<span class="string">"token-service"</span>,scope=<span class="string">"registry:catalog:*"</span></div><div class="line"></div><div class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></div><div class="line">&#123;<span class="string">"errors"</span>:[&#123;<span class="string">"code"</span>:<span class="string">"UNAUTHORIZED"</span>,<span class="string">"message"</span>:<span class="string">"authentication required"</span>,<span class="string">"detail"</span>:[&#123;<span class="string">"Type"</span>:<span class="string">"registry"</span>,<span class="string">"Name"</span>:<span class="string">"catalog"</span>,<span class="string">"Action"</span>:<span class="string">"*"</span>&#125;]&#125;]&#125;</div><div class="line"></div><div class="line">/service/token?account=<span class="built_in">test</span>&amp;scope=repository:<span class="built_in">test</span>/repo:push,pull&amp;service=token-service</div></pre></td></tr></table></figure>
-<h1 id="附 jwt- 的 -claim- 格式"> 附：jwt 的 claim 格式 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">claim = &#123;</div><div class="line">    <span class="string">"iss"</span>: self.issuer,</div><div class="line">    <span class="string">"sub"</span>: self.account,</div><div class="line">    <span class="string">"aud"</span>: self.service,</div><div class="line">    <span class="string">"exp"</span>: now + self.token_expires,</div><div class="line">    <span class="string">"nbf"</span>: now,</div><div class="line">    <span class="string">"iat"</span>: now,</div><div class="line">    <span class="string">"jti"</span>: base64.b64encode(os.urandom(1024)), <span class="comment"># TODO</span></div><div class="line">    <span class="string">"access"</span>: self.access</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment"># iss 前期通过 registry.yaml 配置文件里的 issuser</span></div><div class="line"><span class="comment"># sub 当前操作的帐号或者说用户名 </span></div><div class="line"><span class="comment"># aud 前期通过 registry.yaml 配置文件里的 service</span></div><div class="line"><span class="comment"># exp 、 iat 和 nbf 表示的是 token 时间相关的 </span></div><div class="line"><span class="comment"># jti 是一段随机字符串 </span></div><div class="line"><span class="comment"># access 就是上述解析过后的 scope</span></div></pre></td></tr></table></figure>
+<h1 id="通过 -curl- 请求测试"><a href="# 通过 -curl- 请求测试" class="headerlink" title="通过 curl 请求测试"></a> 通过 curl 请求测试 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">curl -i  https://&lt;HARBOR.DOMAIN.COM&gt;/v2/_catalog</div><div class="line"></div><div class="line">HTTP/1.1 401 Unauthorized</div><div class="line">Server: nginx/1.11.5</div><div class="line">Date: Fri, 19 May 2017 06:45:06 GMT</div><div class="line">Content-Type: application/json; charset=utf-8</div><div class="line">Content-Length: 134</div><div class="line">Connection: keep-alive</div><div class="line">Docker-Distribution-Api-Version: registry/2.0</div><div class="line">Www-Authenticate: Bearer realm=<span class="string">"https://&lt;HARBOR.DOMAIN.COM&gt;/service/token"</span>,service=<span class="string">"token-service"</span>,scope=<span class="string">"registry:catalog:*"</span></div><div class="line"></div><div class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></div><div class="line">&#123;<span class="string">"errors"</span>:[&#123;<span class="string">"code"</span>:<span class="string">"UNAUTHORIZED"</span>,<span class="string">"message"</span>:<span class="string">"authentication required"</span>,<span class="string">"detail"</span>:[&#123;<span class="string">"Type"</span>:<span class="string">"registry"</span>,<span class="string">"Name"</span>:<span class="string">"catalog"</span>,<span class="string">"Action"</span>:<span class="string">"*"</span>&#125;]&#125;]&#125;</div><div class="line"></div><div class="line">/service/token?account=<span class="built_in">test</span>&amp;scope=repository:<span class="built_in">test</span>/repo:push,pull&amp;service=token-service</div></pre></td></tr></table></figure>
+<h1 id="附：jwt- 的 -claim- 格式"><a href="# 附：jwt- 的 -claim- 格式" class="headerlink" title="附：jwt 的 claim 格式"></a> 附：jwt 的 claim 格式 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">claim = &#123;</div><div class="line">    <span class="string">"iss"</span>: self.issuer,</div><div class="line">    <span class="string">"sub"</span>: self.account,</div><div class="line">    <span class="string">"aud"</span>: self.service,</div><div class="line">    <span class="string">"exp"</span>: now + self.token_expires,</div><div class="line">    <span class="string">"nbf"</span>: now,</div><div class="line">    <span class="string">"iat"</span>: now,</div><div class="line">    <span class="string">"jti"</span>: base64.b64encode(os.urandom(1024)), <span class="comment"># TODO</span></div><div class="line">    <span class="string">"access"</span>: self.access</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment"># iss 前期通过 registry.yaml 配置文件里的 issuser</span></div><div class="line"><span class="comment"># sub 当前操作的帐号或者说用户名 </span></div><div class="line"><span class="comment"># aud 前期通过 registry.yaml 配置文件里的 service</span></div><div class="line"><span class="comment"># exp 、 iat 和 nbf 表示的是 token 时间相关的 </span></div><div class="line"><span class="comment"># jti 是一段随机字符串 </span></div><div class="line"><span class="comment"># access 就是上述解析过后的 scope</span></div></pre></td></tr></table></figure>
 <ul>
 <li> 删除 harbor 容器 </li>
 </ul>
@@ -699,7 +699,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通过 -curl- 请求测试"><span class="nav-number">1.</span> <span class="nav-text"> 通过 curl 请求测试 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附 jwt- 的 -claim- 格式"><span class="nav-number">2.</span> <span class="nav-text"> 附：jwt 的 claim 格式 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#通过 -curl- 请求测试"><span class="nav-number">1.</span> <span class="nav-text"> 通过 curl 请求测试 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附：jwt- 的 -claim- 格式"><span class="nav-number">2.</span> <span class="nav-text"> 附：jwt 的 claim 格式 </span></a></li></ol></div>
             
 
           </div>

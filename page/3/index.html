@@ -435,8 +435,7 @@
 
       
         
-          <h2 id="表格输出"> 表格输出 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">"%-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
+          <h2 id="表格输出"><a href="# 表格输出" class="headerlink" title="表格输出"></a> 表格输出 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">"%-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line">\n3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%b\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line"></div><div class="line">3</div><div class="line">$</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%d\n"</span> 255 0xff 0377 3.5</div><div class="line">255</div><div class="line">255</div><div class="line">255</div><div class="line">bash: <span class="built_in">printf</span>: 3.5: invalid number</div><div class="line">3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.000000</div><div class="line">255.000000</div><div class="line">377.000000</div><div class="line">3.500000</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%.1f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.0</div><div class="line">255.0</div><div class="line">377.0</div><div class="line">3.5</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 10); <span class="keyword">do</span> <span class="built_in">printf</span> <span class="string">"%03d\t"</span> <span class="string">"<span class="variable">$i</span>"</span>; <span class="keyword">done</span></div><div class="line">001     002     003     004     005     006     007     008     009     010</div></pre></td></tr></table></figure>
 
@@ -599,11 +598,9 @@
 
       
         
-          <h1 id="clone-soft">clone soft</h1>
-<pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /usr/local/lazy_balancer</code></pre>
-<h1 id="install-tengine">install tengine</h1>
-<pre><code>$ git submodule update --init --recursive
+          <h1 id="clone-soft"><a href="#clone-soft" class="headerlink" title="clone soft"></a>clone soft</h1><pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
+$ cd /usr/local/lazy_balancer
+</code></pre><h1 id="install-tengine"><a href="#install-tengine" class="headerlink" title="install tengine"></a>install tengine</h1><pre><code>$ git submodule update --init --recursive
 
 $ cd resource/nginx/tengine
 $ yum -y install pcre-devel
@@ -612,19 +609,17 @@ $ ./configure --user=nginx --group=nginx --prefix=/etc/nginx --sbin-path=/usr/sb
 $ make &amp;&amp; make install
 
 # add nginx user
-$ adduser --system --no-create-home --shell /bin/false   nginx</code></pre>
-<h1 id="install-supervisor">install supervisor</h1>
-<pre><code>$ yum -y install supervisor
+$ adduser --system --no-create-home --shell /bin/false   nginx
+</code></pre><h1 id="install-supervisor"><a href="#install-supervisor" class="headerlink" title="install supervisor"></a>install supervisor</h1><pre><code>$ yum -y install supervisor
 
 # add to supervisor config file
 $ echo &quot;[include]&quot; &gt;&gt;/etc/supervisord.conf
 $ echo &quot;files = /etc/supervisor/conf.d/*.conf&quot; &gt;&gt;/etc/supervisord.conf
 
 $ cp -rf /usr/local/lazy_balancer/service/* /etc/supervisor/
-$ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
-<h1 id="start-service">start service</h1>
-<pre><code>$ service supervisor restart</code></pre>
-
+$ vi /etc/supervisor/conf.d/supervisor_balancer.conf
+</code></pre><h1 id="start-service"><a href="#start-service" class="headerlink" title="start service"></a>start service</h1><pre><code>$ service supervisor restart
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/CentOS部署lazy-balancer负载均衡/#more" rel="contents">
@@ -785,17 +780,13 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
       
         
           <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的 </span></div><div class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 </span></div><div class="line"><span class="comment"># 如果不是，则需先按下方升级内核 </span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效 </span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line"><span class="comment"># 查看 bbr 是否生效 </span></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
-<h1 id="debianubuntu- 升级内核">1. Debian、Ubuntu 升级内核 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核 </span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本 </span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
+<h1 id="1-Debian、Ubuntu- 升级内核"><a href="#1-Debian、Ubuntu- 升级内核" class="headerlink" title="1. Debian、Ubuntu 升级内核"></a>1. Debian、Ubuntu 升级内核 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核 </span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本 </span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="rhelcentos- 升级内核">2. RHEL、CentOS 升级内核 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核 </span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核 </span></div><div class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效 </div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
-<h1 id="手动安装">3. 手动安装 </h1>
-<h2 id="下载内核二进制包">3.1. 下载内核二进制包 </h2>
-<blockquote>
-<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
+<h1 id="2-RHEL、CentOS- 升级内核"><a href="#2-RHEL、CentOS- 升级内核" class="headerlink" title="2. RHEL、CentOS 升级内核"></a>2. RHEL、CentOS 升级内核 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核 </span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核 </span></div><div class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效 </div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
+<h1 id="3- 手动安装"><a href="#3- 手动安装" class="headerlink" title="3. 手动安装"></a>3. 手动安装 </h1><h2 id="3-1- 下载内核二进制包"><a href="#3-1- 下载内核二进制包" class="headerlink" title="3.1. 下载内核二进制包"></a>3.1. 下载内核二进制包 </h2><blockquote>
+<p> 链接：<a href="http://mirrors.kernel.org/debian/pool/main/l/linux/" target="_blank" rel="external">http://mirrors.kernel.org/debian/pool/main/l/linux/</a></p>
 </blockquote>
-<h2 id="解压安装">3.2. 解压安装 </h2>
+<h2 id="3-2- 解压安装"><a href="#3-2- 解压安装" class="headerlink" title="3.2. 解压安装"></a>3.2. 解压安装 </h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Linux升级kernel及tcp_BBR/#more" rel="contents">
@@ -955,9 +946,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
 
       
         
-          <h3 id="etchosts- 可以 -ping- 通对方域名">/etc/hosts 可以 ping 通对方域名 </h3>
-<h3 id="安装 -puppet"> 安装 puppet</h3>
-<pre><code>$ yum install ruby ruby-libs ruby-rdoc
+          <h3 id="etc-hosts- 可以 -ping- 通对方域名"><a href="#etc-hosts- 可以 -ping- 通对方域名" class="headerlink" title="/etc/hosts 可以 ping 通对方域名"></a>/etc/hosts 可以 ping 通对方域名 </h3><h3 id="安装 -puppet"><a href="# 安装 -puppet" class="headerlink" title="安装 puppet"></a> 安装 puppet</h3><pre><code>$ yum install ruby ruby-libs ruby-rdoc
 $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
 $ yum update
 
@@ -968,9 +957,8 @@ $ yum install puppet-server
 $ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
 
 # 客户端安装 puppet
-$ yum install puppet</code></pre>
-<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
-<pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
+$ yum install puppet
+</code></pre><h3 id="service-puppetmaster-start"><a href="#service-puppetmaster-start" class="headerlink" title="service puppetmaster start"></a>service puppetmaster start</h3><pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
 
 $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
 
@@ -985,9 +973,8 @@ $ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的
 
 $ puppetd --server bigdata.xxxx.com --test
 或者
-$ puppet agent --no-daemonize --onetime --verbose --debug</code></pre>
-<h3 id="安装 -dashboard"> 安装 dashboard</h3>
-<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
+$ puppet agent --no-daemonize --onetime --verbose --debug
+</code></pre><h3 id="安装 -dashboard"><a href="# 安装 -dashboard" class="headerlink" title="安装 dashboard"></a>安装 dashboard</h3><pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
 production:
 database: puppet
 username: root
@@ -996,11 +983,10 @@ encoding: utf8
 adapter: mysql
 
 $ vi /usr/share/puppet-dashboard/config/environment.rb
-config.time_zone = &#39;Beijing&#39;</code></pre>
-<h3 id="初始化数据库"> 初始化数据库 </h3>
-<pre><code>$ cd /usr/share/puppet-dashboard/
-rake RAILS_ENV=production db:migrate</code></pre>
-<h3 id="整合 -passenger- 和 -apache"> 整合 Passenger 和 apache</h3>
+config.time_zone = &apos;Beijing&apos;
+</code></pre><h3 id="初始化数据库"><a href="# 初始化数据库" class="headerlink" title="初始化数据库"></a>初始化数据库</h3><pre><code>$ cd /usr/share/puppet-dashboard/
+rake RAILS_ENV=production db:migrate
+</code></pre><h3 id="整合 -Passenger- 和 -apache"><a href="# 整合 -Passenger- 和 -apache" class="headerlink" title="整合 Passenger 和 apache"></a>整合 Passenger 和 apache</h3>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Puppet安装/#more" rel="contents">
@@ -1160,14 +1146,13 @@ rake RAILS_ENV=production db:migrate</code></pre>
 
       
         
-          <h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+          <h3 id="每块硬盘分一个区"><a href="# 每块硬盘分一个区" class="headerlink" title="每块硬盘分一个区"></a>每块硬盘分一个区</h3><pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+  WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+           switch off the mode (command &apos;c&apos;) and change display units to
+           sectors (command &apos;u&apos;).
 
   Command (m for help): n
   Command action
@@ -1201,9 +1186,8 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+  Syncing disks.
+</code></pre><h1 id="更改分区格式"><a href="# 更改分区格式" class="headerlink" title="更改分区格式"></a>更改分区格式</h1><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
 $ fdisk /dev/sdd
@@ -1213,9 +1197,8 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+...
+</code></pre><h1 id="创建 -RAID"><a href="# 创建 -RAID" class="headerlink" title="创建 RAID"></a>创建 RAID</h1><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
 mdadm: layout defaults to n2
@@ -1289,11 +1272,9 @@ Working Devices : 6
        5       8       97        5      active sync   /dev/sdg1
 
 $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid- 维护命令">RAID 维护命令 </h1>
-<h2 id="删除故障盘"> 删除故障盘 </h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘"> 增加新盘 </h2>
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre><h1 id="RAID- 维护命令"><a href="#RAID- 维护命令" class="headerlink" title="RAID 维护命令"></a>RAID 维护命令 </h1><h2 id="删除故障盘"><a href="# 删除故障盘" class="headerlink" title="删除故障盘"></a> 删除故障盘</h2><pre><code>$ mdadm /dev/md0 -r /dev/sdb1
+</code></pre><h2 id="增加新盘"><a href="# 增加新盘" class="headerlink" title="增加新盘"></a>增加新盘</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
