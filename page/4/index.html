@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/web/Nginx及upstreamcheck,fair模块安装/" itemprop="url">Nginx 及 Upstreamcheck,fair 模块安装</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/web/Nginx及upstreamcheck,fair模块安装/#comments" itemprop="discussionUrl">
+                <a href="/monitor/Graphite安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="web/Nginx及upstreamcheck,fair模块安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="monitor/Graphite安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/web/Nginx及upstreamcheck,fair模块安装/" class="leancloud_visitors" data-flag-title="Nginx 及 Upstreamcheck,fair 模块安装">
+             <span id="/monitor/Graphite安装/" class="leancloud_visitors" data-flag-title="Graphite 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,15 +435,42 @@
 
       
         
-          <h1 id="download-nginx-amp-module"><a href="#download-nginx-amp-module" class="headerlink" title="download nginx &amp; module"></a>download nginx &amp; module</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
-<h1 id="make-amp-install"><a href="#make-amp-install" class="headerlink" title="make &amp; install"></a>make &amp; install</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-<h1 id="nginx-conf-amp-proxy-conf"><a href="#nginx-conf-amp-proxy-conf" class="headerlink" title="nginx.conf &amp; proxy.conf"></a>nginx.conf &amp; proxy.conf</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local]"$request"'</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent""$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表 </span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效 </span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> /usr/local/nginx/conf/proxy.conf</div><div class="line"></div><div class="line">proxy_redirect <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div></pre></td></tr></table></figure>
-<h2 id="start-amp-auto-start"><a href="#start-amp-auto-start" class="headerlink" title="start &amp; auto-start"></a>start &amp; auto-start</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+          <blockquote>
+<p> 参考：<br>
+<a href="http://www.jsxubar.info/category/system-administration/graphite/" target="_blank" rel="external">http://www.jsxubar.info/category/system-administration/graphite/</a><br>
+<a href="http://www.jsxubar.info/category/system-administration/page/3/" target="_blank" rel="external">http://www.jsxubar.info/category/system-administration/page/3/</a><br>
+<a href="http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/" target="_blank" rel="external">http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</a></p>
+</blockquote>
+<h1 id="1- 使用 -yum- 安装环境"><a class="markdownIt-Anchor" href="#1- 使用 -yum- 安装环境"></a> 1. 使用 yum 安装环境 </h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web
+</code></pre>
+<h1 id="2- 安装并升级为最新的 -zopeinterface- 及 -twisted"><a class="markdownIt-Anchor" href="#2- 安装并升级为最新的 -zopeinterface- 及 -twisted"></a> 2. 安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;
+</code></pre>
+<h1 id="3-check-for-missing-dependencies"><a class="markdownIt-Anchor" href="#3-check-for-missing-dependencies"></a> 3. Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
+</code></pre>
+<h1 id="4- 设置权限"><a class="markdownIt-Anchor" href="#4- 设置权限"></a> 4. 设置权限 </h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/
+</code></pre>
+<h1 id="5- 配置文件"><a class="markdownIt-Anchor" href="#5- 配置文件"></a> 5. 配置文件 </h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/web/Nginx及upstreamcheck,fair模块安装/#more" rel="contents">
+            <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -489,7 +516,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -508,7 +535,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
+                <a class="post-title-link" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
         
 
         <div class="post-meta">
@@ -543,8 +570,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cluster/" itemprop="url" rel="index">
-                    <span itemprop="name">cluster</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -561,9 +588,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -571,7 +598,7 @@
 
           
           
-             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
+             <span id="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" class="leancloud_visitors" data-flag-title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -600,73 +627,81 @@
 
       
         
-          <blockquote>
-<p> 参考 <br>    <a href="http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html" target="_blank" rel="external">http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</a></p>
-</blockquote>
-<pre><code>python gearman library home page
-http://samuelks.com/python-gearman/docs/
+          <h1 id="虚拟机增加系统盘根分区大小方法"><a class="markdownIt-Anchor" href="# 虚拟机增加系统盘根分区大小方法"></a> 虚拟机增加系统盘根分区大小方法 </h1>
+<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
-Tim Yang：利用 Gearman 来实现远程监控与管理
-http://timyang.net/linux/gearman-monitor/
-</code></pre><h1 id="一、安装 -grarmand- 及 -libgearman-devel"><a href="# 一、安装 -grarmand- 及 -libgearman-devel" class="headerlink" title="一、安装 grarmand 及 libgearman-devel"></a> 一、安装 grarmand 及 libgearman-devel</h1><pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)
-</code></pre><h1 id="二、安装 -PHP- 的 -API"><a href="# 二、安装 -PHP- 的 -API" class="headerlink" title="二、安装 PHP 的 API"></a> 二、安装 PHP 的 API</h1><pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
+$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 
-$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
-$ cd gearman-1.1.2
-$ phpize
-$ ./configure; make; make install        // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
+# 挂载文件至系统，以便找出是否有 swap device
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-# 增加 php 扩展
-$ vi /etc/php.d/gearman.ini
-; Enable gearman extension module
-extension=gearman.so
-</code></pre><h1 id="三、启动 -gearmand"><a href="# 三、启动 -gearmand" class="headerlink" title="三、启动 gearmand"></a> 三、启动 gearmand</h1><pre><code># (如果使用默认参数，需要开启 IPV6)
+# If has swap device, del the swap device
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e 'Linux swap' |awk '{print $1}'`
 
-# 可以设置成服务启动：
-$ vi /etc/sysconfig/gearmand
-    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
+# Del swap
+$ parted -s ${loop} rm ${swap_part_num}
 
-$ service gearmand start
+# If does't have, add the new swap device
+$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
-$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
+# 或者先只划分空间，再用 mkswap 进行操作
+# 可选的：
+$ mkswap -v1 /dev/mapper/loop1p3
 
-# 如果需要使用数据库
-gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
+# 重新刷新新增加的 swap 设备
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-$ gearman -w -f wc -- wc -l    // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
+# 将新的 lo 设备分区进行打印
+$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
-# 将 /etc/passwd 文件给函数 wc 进行处理
-$ gearman -f wc &lt; /etc/passwd
+# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+  new_root=401625,14227239		(样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e 's/\//\\\\\//g'`
+$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
-$ gearadmin --show-jobs
-      --status
-      --workers
-      -- ...
-</code></pre><h2 id="1-Worker"><a href="#1-Worker" class="headerlink" title="1. Worker:"></a>1. Worker:</h2><pre><code>&lt;?php
+# 重新刷新新变更的分区
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-$worker = new GearmanWorker();
-$worker-&gt;addServer();
-$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
-
-while (1) {
-    print &quot;Waiting for job...\n&quot;;
-    $ret = $worker-&gt;work();
-    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
-}
-
-function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
-    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
-    echo &quot;Workload: $workload\n&quot;;
-    $result = strrev($workload);
-    echo &quot;Result: $result\n&quot;;
-    return $result;
-}
-
-?&gt;
+# fs resize
+$ e2fsck -pv /dev/mapper/loop0p1
+$ resize2fs -f /dev/mapper/loop0p1
 </code></pre>
+<h1 id="parted- 使用"><a class="markdownIt-Anchor" href="#parted- 使用"></a> parted 使用 </h1>
+<pre><code># create all 100% space to one part
+$ parted -s /dev/sdb mklabel gpt
+$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
+
+# create other part
+parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
+parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
+
+# remove part
+parted -s /dev/sdb rm 2
+parted -s /dev/sdb rm 3
+</code></pre>
+<h1 id="分区对齐"><a class="markdownIt-Anchor" href="# 分区对齐"></a> 分区对齐 </h1>
+<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
+  1048576
+$ cat /sys/block/sdb/queue/minimum_io_size
+  262144
+$ cat /sys/block/sdb/alignment_offset
+  0
+$ cat /sys/block/sdb/queue/physical_block_size
+  512
+
+$ mkpart primary 2048s 100%
+
+(parted) align-check optimal 1
+  1 aligned
+</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
+            <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -823,7 +858,8 @@ function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
 
       
         
-          <h1 id="安装软件"><a href="# 安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><pre><code># 安装的软件：
+          <h1 id="安装软件"><a class="markdownIt-Anchor" href="# 安装软件"></a> 安装软件 </h1>
+<pre><code># 安装的软件：
 dhcp-3.0.5-7.el5.x86_64.rpm
 vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
 xinetd-2.3.14-10.el5.x86_64.rpm
@@ -833,7 +869,9 @@ system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
 syslinux
 
 # 关闭 selinux &amp; iptables
-</code></pre><h1 id="dhcp- 配置"><a href="#dhcp- 配置" class="headerlink" title="dhcp 配置"></a>dhcp 配置</h1><pre><code>ddns-update-style interim;
+</code></pre>
+<h1 id="dhcp- 配置"><a class="markdownIt-Anchor" href="#dhcp- 配置"></a> dhcp 配置 </h1>
+<pre><code>ddns-update-style interim;
 ignore client-updates;
 allow booting;
 allow bootp;
@@ -851,14 +889,18 @@ range dynamic-bootp 10.85.138.100 10.85.138.249;
 default-lease-time 21600;
 max-lease-time 43200;
 }
-</code></pre><h1 id="增加 -tftp- 文件"><a href="# 增加 -tftp- 文件" class="headerlink" title="增加 tftp 文件"></a>增加 tftp 文件 </h1><pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
+</code></pre>
+<h1 id="增加 -tftp- 文件"><a class="markdownIt-Anchor" href="# 增加 -tftp- 文件"></a> 增加 tftp 文件 </h1>
+<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
 $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
 $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
 $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
 $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
 $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改
-</code></pre><h1 id="配置 -kickstart"><a href="# 配置 -kickstart" class="headerlink" title="配置 kickstart"></a>配置 kickstart</h1><pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
+</code></pre>
+<h1 id="配置 -kickstart"><a class="markdownIt-Anchor" href="# 配置 -kickstart"></a> 配置 kickstart</h1>
+<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
   label linux
     menu label ^Install or upgrade an existing system
     menu default
@@ -866,19 +908,20 @@ $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件
     append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
 # 修改 kickstart 自动安装 linux(见安装文件)
-</code></pre><blockquote>
-<p>附录：完整 DHCP 样例</p>
+</code></pre>
+<blockquote>
+<p> 附录：完整 DHCP 样例 </p>
 </blockquote>
 <pre><code>ddns-update-style interim;
 ddns-updates on;
 ignore client-updates;
 allow booting;  # for pxe only
 allow bootp;    # for pxe only
-authoritative;    # Do not know what is meaning??
+authoritative;	# Do not know what is meaning??
 
 class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
     # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&apos;s hostname, only for linux???
+    # option host-name = config-option server.ddns-hostname;    # set the server's hostname, only for linux???
     ddns-hostname = concat(&quot;v&quot;,
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
@@ -894,7 +937,7 @@ class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0
 class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
     option host-name = config-option server.ddns-hostname;
     #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,     # Windows instances will apply for a hostname by default
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;, 	# Windows instances will apply for a hostname by default
     ddns-hostname = concat(&quot;v&quot;,
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
@@ -921,7 +964,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
     option subnet-mask 255.255.255.0;
     option domain-name &quot;gwcloud.cn&quot;;
     option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&apos;s hostname, only for linux???
+    # option host-name &quot;Server001&quot;      # set the server's hostname, only for linux???
     # option ntp-servers 192.168.88.1   # set the ntp server
     option time-offset -18000;          # Eastern Standard Time
     range dynamic-bootp 192.168.88.100 192.168.88.200;
@@ -930,8 +973,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
     # the next is bonding the mac to static ip address
     # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&apos;s mac address
-    #    fixed-address 192.168.1.30;             # host&apos;s ip address
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host's mac address
+    #    fixed-address 192.168.1.30;             # host's ip address
 }
 </code></pre>
           <!--noindex-->
@@ -1093,16 +1136,21 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
       
         
-          <h1 id="安装好二台 -postgresql"><a href="# 安装好二台 -postgresql" class="headerlink" title="安装好二台 postgresql"></a> 安装好二台 postgresql</h1><blockquote>
-<p> 参见：<a href="http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/">http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/</a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上 </span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure></p>
+          <h1 id="安装好二台 -postgresql"><a class="markdownIt-Anchor" href="# 安装好二台 -postgresql"></a> 安装好二台 postgresql</h1>
+<blockquote>
+<p> 参见：<a href="http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/">http://blog.dongcj.com/database/Postgresql 安装 /</a></p>
 </blockquote>
-<h1 id="配置主服务器 -192-168-10-11"><a href="# 配置主服务器 -192-168-10-11" class="headerlink" title="配置主服务器 192.168.10.11"></a> 配置主服务器 192.168.10.11</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户 </span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数 </span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限 </span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
-<h1 id="配置从服务器 -192-168-10-12"><a href="# 配置从服务器 -192-168-10-12" class="headerlink" title="配置从服务器 192.168.10.12"></a> 配置从服务器 192.168.10.12</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上 </span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure>
+<h1 id="配置主服务器 -1921681011"><a class="markdownIt-Anchor" href="# 配置主服务器 -1921681011"></a> 配置主服务器 192.168.10.11</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户 </span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数 </span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限 </span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
+<h1 id="配置从服务器 -1921681012"><a class="markdownIt-Anchor" href="# 配置从服务器 -1921681012"></a> 配置从服务器 192.168.10.12</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
 <pre><code># 在主上应该有 sender 进程，在从上有 receiver 进程
 
 $ psql$ select * from pg_stat_replication;
-</code></pre><h1 id="主从切换命令"><a href="# 主从切换命令" class="headerlink" title="主从切换命令"></a> 主从切换命令 </h1><p>[postgres@node1 ~]$ pg_ctl stop -m f</p>
-<p>[postgres@node2 ~]$ pg_ctl promote</p>
+</code></pre>
+<h1 id="主从切换命令"><a class="markdownIt-Anchor" href="# 主从切换命令"></a> 主从切换命令 </h1>
+<p>[postgres@node1 ~]$ pg_ctl stop -m f</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
@@ -1151,7 +1199,7 @@ $ psql$ select * from pg_stat_replication;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1170,7 +1218,7 @@ $ psql$ select * from pg_stat_replication;
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
+                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
         
 
         <div class="post-meta">
@@ -1205,8 +1253,8 @@ $ psql$ select * from pg_stat_replication;
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/storage/" itemprop="url" rel="index">
+                    <span itemprop="name">storage</span>
                   </a>
                 </span>
 
@@ -1223,9 +1271,9 @@ $ psql$ select * from pg_stat_replication;
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#comments" itemprop="discussionUrl">
+                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="commentCount"></span>
+                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1233,7 +1281,7 @@ $ psql$ select * from pg_stat_replication;
 
           
           
-             <span id="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" class="leancloud_visitors" data-flag-title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
+             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1262,75 +1310,75 @@ $ psql$ select * from pg_stat_replication;
 
       
         
-          <h1 id="虚拟机增加系统盘根分区大小方法"><a href="# 虚拟机增加系统盘根分区大小方法" class="headerlink" title="虚拟机增加系统盘根分区大小方法"></a> 虚拟机增加系统盘根分区大小方法 </h1><pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
+          <blockquote>
+<p> 参考： <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="external">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
+</blockquote>
+<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
+</code></pre>
+<h1 id="安装软件"><a class="markdownIt-Anchor" href="# 安装软件"></a> 安装软件 </h1>
+<pre><code>yum install glusterfs{,-fuse,-server}
+yum install glusterfs-geo-replication.x86_64
+</code></pre>
+<blockquote>
+<p> 如遇到以下错误：<br>
+Transaction check error:<br>
+file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package  lvm2-7:2.02.105-14.el7.x86_64<br>
+file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64<br>
+file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+</blockquote>
+<pre><code># 删除 lvm2
+$ rpm -e lvm2
+</code></pre>
+<h1 id="挂载分区及配置防火墙"><a class="markdownIt-Anchor" href="# 挂载分区及配置防火墙"></a> 挂载分区及配置防火墙 </h1>
+<pre><code># mkdir
+$ mkdir /export/brick1
 
-# 先增加实例文件大小，可以使用 dd 命令
-$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
-$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
+# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
+$ chmod 777 /export/brick1
 
-# 挂载文件至系统，以便找出是否有 swap device
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+# firewall
+$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
 
-# If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &apos;Linux swap&apos; |awk &apos;{print $1}&apos;`
+$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
+$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
+--add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
+$ firewall-cmd --reload
+</code></pre>
+<h1 id="启动 -glusterd- 服务"><a class="markdownIt-Anchor" href="# 启动 -glusterd- 服务"></a> 启动 glusterd 服务 </h1>
+<pre><code>$ service glusterd start
 
-# Del swap
-$ parted -s ${loop} rm ${swap_part_num}
+# if centos7:
+$ systemctl enable glusterd
+$ systemctl start glusterd
+$ systemctl status glusterd
 
-# If does&apos;t have, add the new swap device
-$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
+# from server1
+$ gluster peer probe SERVER2
 
-# 或者先只划分空间，再用 mkswap 进行操作
-# 可选的：
-$ mkswap -v1 /dev/mapper/loop1p3
+# from server2
+$ gluster peer probe SERVER1
 
-# 重新刷新新增加的 swap 设备
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+# check peer
+$ gluster peer status
 
-# 将新的 lo 设备分区进行打印
-$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
+$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
+$ gluster volume start gv0
 
-# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239        (样例，要修改)
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &apos;s/\//\\\\\//g&apos;`
-$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
+$ gluster volume info
+$ gluster volume status
 
-# 重新刷新新变更的分区
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+# How to remove a volume or peer
+# stop Volume
+$ gluster volume stop gv0
 
-# fs resize
-$ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1
-</code></pre><h1 id="parted- 使用"><a href="#parted- 使用" class="headerlink" title="parted 使用"></a>parted 使用 </h1><pre><code># create all 100% space to one part
-$ parted -s /dev/sdb mklabel gpt
-$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
+# delete Volume
+$ gluster volume delete gv0
 
-# create other part
-parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
-parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
-
-# remove part
-parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3
-</code></pre><h1 id="分区对齐"><a href="# 分区对齐" class="headerlink" title="分区对齐"></a> 分区对齐 </h1><pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
-  1048576
-$ cat /sys/block/sdb/queue/minimum_io_size
-  262144
-$ cat /sys/block/sdb/alignment_offset
-  0
-$ cat /sys/block/sdb/queue/physical_block_size
-  512
-
-$ mkpart primary 2048s 100%
-
-(parted) align-check optimal 1
-  1 aligned
+$ gluster peer detach NAME_OF_PEERNODE
 </code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
+            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

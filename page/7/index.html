@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
+                <a class="post-title-link" href="/linux/dns/Dnsmasq使用本地host为DNS/" itemprop="url">Dnsmasq 使用本地 Hosts 配置提供 DNS 服务</a></h2>
         
 
         <div class="post-meta">
@@ -385,6 +385,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/dns/" itemprop="url" rel="index">
+                    <span itemprop="name">dns</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -396,9 +407,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/RedHat、CentOS国内备用安装源/#comments" itemprop="discussionUrl">
+                <a href="/linux/dns/Dnsmasq使用本地host为DNS/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/RedHat、CentOS国内备用安装源/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/dns/Dnsmasq使用本地host为DNS/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +417,7 @@
 
           
           
-             <span id="/linux/RedHat、CentOS国内备用安装源/" class="leancloud_visitors" data-flag-title="安装源_RedHat,CentOS 备用源">
+             <span id="/linux/dns/Dnsmasq使用本地host为DNS/" class="leancloud_visitors" data-flag-title="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,25 +446,42 @@
 
       
         
-          <h1 id="yum- 更新"><a href="#yum- 更新" class="headerlink" title="yum 更新"></a>yum 更新 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">yum search fastestmirror</div><div class="line">yum install yum-fastestmirror* -y</div><div class="line">yum update yum*</div><div class="line">yum update kernel*</div><div class="line">yum update</div></pre></td></tr></table></figure>
-<pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm
-</code></pre><h2 id="epel- 源 -elrepo-org"><a href="#epel- 源 -elrepo-org" class="headerlink" title="epel 源 (elrepo.org)"></a>epel 源 (elrepo.org)</h2><pre><code>yum install epel-release
-</code></pre><h2 id="elrepo-update-kernel"><a href="#elrepo-update-kernel" class="headerlink" title="elrepo(update kernel)"></a>elrepo(update kernel)</h2><pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
+          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务"><a class="markdownIt-Anchor" href="# 使用 -dnsmasq- 提供外网 -dns- 服务"></a> 使用 dnsmasq 提供外网 dns 服务 </h1>
+<pre><code>$ apt-get install dnsmasq
 
-# (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
+listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
+addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
+resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析
+</code></pre>
+<h2 id="生成域名映射"><a class="markdownIt-Anchor" href="# 生成域名映射"></a> 生成域名映射 </h2>
+<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
+vi /etc/dnsmasq.d/dns.conf
 
-# redhat/centos 6
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm
-</code></pre><h1 id="redhat-centos-7-only-have-x86-64-packages"><a href="#redhat-centos-7-only-have-x86-64-packages" class="headerlink" title="redhat/centos 7 only have x86_64 packages"></a>redhat/centos 7 only have x86_64 packages</h1><pre><code>rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
-</code></pre><h2 id="CentOS- 中国科学技术大学 -USTC-mirror- 每小时更新一次"><a href="#CentOS- 中国科学技术大学 -USTC-mirror- 每小时更新一次" class="headerlink" title="CentOS 中国科学技术大学 USTC mirror( 每小时更新一次)"></a>CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
+# 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
+address=&quot;/google.com/172.17.0.4&quot;
+</code></pre>
+<h2 id="启动服务"><a class="markdownIt-Anchor" href="# 启动服务"></a> 启动服务 </h2>
+<pre><code>/etc/init.d/dnsmasq start
+</code></pre>
+<h2 id="测试"><a class="markdownIt-Anchor" href="# 测试"></a> 测试 </h2>
+<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4
+</code></pre>
+<h1 id="本地 -hosts- 配合 -networkmanager- 方式"><a class="markdownIt-Anchor" href="# 本地 -hosts- 配合 -networkmanager- 方式"></a> 本地 hosts 配合 NetworkManager 方式 </h1>
+<pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
+addn-hosts=/etc/hosts
+
+$ sudo service networking restart
+$ sudo /etc/init.d/dns-clean restart
+
+$ host u1
+$ nslookup u1
+$ getent ahosts u1
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
+            <a class="btn" href="/linux/dns/Dnsmasq使用本地host为DNS/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -613,8 +641,11 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
           <blockquote>
 <p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="external">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
 </blockquote>
-<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性"><a href="# 用 -autossh- 保证 -ssh- 隧道稳定性" class="headerlink" title="用 autossh 保证 ssh 隧道稳定性 :"></a> 用 autossh 保证 ssh 隧道稳定性 :</h1><pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
-</code></pre><h1 id="autossh- 代理"><a href="#autossh- 代理" class="headerlink" title="autossh 代理"></a>autossh 代理 </h1><pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
+<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性"><a class="markdownIt-Anchor" href="# 用 -autossh- 保证 -ssh- 隧道稳定性"></a> 用 autossh 保证 ssh 隧道稳定性 :</h1>
+<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
+</code></pre>
+<h1 id="autossh- 代理"><a class="markdownIt-Anchor" href="#autossh- 代理"></a> autossh 代理 </h1>
+<pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
 export AUTOSSH_POLL=60
 export AUTOSSH_FIRST_POLL=30
 export AUTOSSH_GATETIME=0
@@ -623,6 +654,7 @@ autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
     -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
     -o StrictHostKeyChecking=no USER@HOSTNAME
 </code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Autossh/#more" rel="contents">
@@ -782,7 +814,8 @@ autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
 
       
         
-          <h1 id="screen- 后台"><a href="#screen- 后台" class="headerlink" title="screen 后台"></a>screen 后台 </h1><pre><code>screen -ls -&gt; 列出当前所有的 session
+          <h1 id="screen- 后台"><a class="markdownIt-Anchor" href="#screen- 后台"></a> screen 后台 </h1>
+<pre><code>screen -ls -&gt; 列出当前所有的 session
 screen -r yourname -&gt; 回到 yourname 这个 session
 screen -d yourname -&gt; 远程 detach 某个 session
 screen -d -r yourname -&gt; 结束当前 session 并回到 yourname 这个 session
@@ -793,10 +826,18 @@ screen -x &lt;SESSION_NAME&gt;
 screen -X -S [session_you_want_to_kill] quit
 
 screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
-</code></pre><h1 id="nohup- 后台"><a href="#nohup- 后台" class="headerlink" title="nohup 后台"></a>nohup 后台 </h1><pre><code>nohup ping www.ibm.com &amp;
-</code></pre><h1 id="setsid- 后台"><a href="#setsid- 后台" class="headerlink" title="setsid 后台"></a>setsid 后台 </h1><pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
-</code></pre><h1 id="subshell- 后台"><a href="#subshell- 后台" class="headerlink" title="subshell 后台"></a>subshell 后台 </h1><pre><code>(ping www.ibm.com &amp;)
-</code></pre><h1 id="disown- 后台"><a href="#disown- 后台" class="headerlink" title="disown 后台"></a>disown 后台 </h1><pre><code>disown -h JOBID
+</code></pre>
+<h1 id="nohup- 后台"><a class="markdownIt-Anchor" href="#nohup- 后台"></a> nohup 后台 </h1>
+<pre><code>nohup ping www.ibm.com &amp;
+</code></pre>
+<h1 id="setsid- 后台"><a class="markdownIt-Anchor" href="#setsid- 后台"></a> setsid 后台 </h1>
+<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
+</code></pre>
+<h1 id="subshell- 后台"><a class="markdownIt-Anchor" href="#subshell- 后台"></a> subshell 后台 </h1>
+<pre><code>(ping www.ibm.com &amp;)
+</code></pre>
+<h1 id="disown- 后台"><a class="markdownIt-Anchor" href="#disown- 后台"></a> disown 后台 </h1>
+<pre><code>disown -h JOBID
 </code></pre>
           <!--noindex-->
           <div class="post-button text-center">
@@ -958,10 +999,15 @@ screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
       
         
           <blockquote>
-<p> 参考：<br><a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="external">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a><br>DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="external">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
+<p> 参考：<br>
+<a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="external">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a><br>
+DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="external">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
 </blockquote>
-<h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><pre><code>$ rpm -ivh bind bind-chroot
-</code></pre><h1 id="配置"><a href="# 配置" class="headerlink" title="配置"></a> 配置 </h1><pre><code>1. 生成 rndc key
+<h1 id="安装"><a class="markdownIt-Anchor" href="# 安装"></a> 安装 </h1>
+<pre><code>$ rpm -ivh bind bind-chroot
+</code></pre>
+<h1 id="配置"><a class="markdownIt-Anchor" href="# 配置"></a> 配置 </h1>
+<pre><code>1. 生成 rndc key
 $ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
 $ chown root:named /etc/rndc.conf
 
@@ -1012,7 +1058,7 @@ view &quot;wan&quot; {match-clients { &quot;internet&quot;;};  // 吻合的才�
         };
 };
 
-key &quot;rndc-key&quot; {            // 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
+key &quot;rndc-key&quot; {			// 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
       algorithm hmac-md5;
       secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
 };
@@ -1025,7 +1071,9 @@ controls {
 logging {                               // 防止外部服务器错误导致 log 记录
         category lame-servers {null;};
 };
-</code></pre><h1 id="zone- 配置"><a href="#zone- 配置" class="headerlink" title="zone 配置"></a>zone 配置 </h1><pre><code>1. 正向 zone 内网配置
+</code></pre>
+<h1 id="zone- 配置"><a class="markdownIt-Anchor" href="#zone- 配置"></a> zone 配置 </h1>
+<pre><code>1. 正向 zone 内网配置
 $ vi /var/named/named.xdol.vicp.net
 
 $TTL    600
@@ -1034,7 +1082,7 @@ $TTL    600
 master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS 服务器 IP
 @                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
 
-www.xdol.vicp.net.      IN      A       192.168.1.109        ; 内部网卡的 IP
+www.xdol.vicp.net.      IN      A       192.168.1.109		; 内部网卡的 IP
 ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 
@@ -1046,10 +1094,10 @@ $ vi /var/named/named.xdol.vicp.net.inter
 $TTL    600
 @                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
 @                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
-master.xdol.vicp.net.   IN      A       11.11.11.11        ;DNS 服务器 IP
+master.xdol.vicp.net.   IN      A       11.11.11.11		;DNS 服务器 IP
 @                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
 
-www.xdol.vicp.net.      IN      A       11.11.11.11        ; 外部网卡的 IP
+www.xdol.vicp.net.      IN      A       11.11.11.11		; 外部网卡的 IP
 ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
 
@@ -1065,9 +1113,12 @@ $TTL    600
 
 109     IN      PTR     www.xdol.vicp.net.
 246     IN      PTR     client.xdol.vicp.net.
-</code></pre><h1 id="启动服务"><a href="# 启动服务" class="headerlink" title="启动服务"></a> 启动服务 </h1><pre><code>service named start
+</code></pre>
+<h1 id="启动服务"><a class="markdownIt-Anchor" href="# 启动服务"></a> 启动服务 </h1>
+<pre><code>service named start
 chkconfig named on
-</code></pre><h1 id="配置 -DDNS- 可选"><a href="# 配置 -DDNS- 可选" class="headerlink" title="配置 DDNS( 可选)"></a> 配置 DDNS(可选)</h1>
+</code></pre>
+<h1 id="配置 -ddns- 可选"><a class="markdownIt-Anchor" href="# 配置 -ddns- 可选"></a> 配置 DDNS(可选)</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
@@ -1227,14 +1278,15 @@ chkconfig named on
 
       
         
-          <h1 id="Systemd- 和 -Systemctl- 基础命令"><a href="#Systemd- 和 -Systemctl- 基础命令" class="headerlink" title="Systemd 和 Systemctl 基础命令"></a>Systemd 和 Systemctl 基础命令 </h1><pre><code> 查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
+          <h1 id="systemd- 和 -systemctl- 基础命令"><a class="markdownIt-Anchor" href="#systemd- 和 -systemctl- 基础命令"></a> Systemd 和 Systemctl 基础命令 </h1>
+<pre><code> 查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
 
 [启动 | 停止]:    systemctl [start | stop] &lt;SERVICE_NAME&gt;
 
 类似查 chkconfig:    systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;
                     systemctl is-enabled &lt;SERVICE_NAME&gt;
 
-[不]自动启动：      systemctl [disable | enable] &lt;SERVICE_NAME&gt;
+[不] 自动启动：      systemctl [disable | enable] &lt;SERVICE_NAME&gt;
 
 # 系统级的 systemd 在 /etc/systemd/system
 # 用户级的 systemd 在 /usr/lib/systemd/system/ （main）
@@ -1246,7 +1298,9 @@ systemctl disable &lt;SERVICE_NAME&gt;
 rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
 systemctl daemon-reload
 `systemctl reset-failed`   # 只有运行这样才可以看到服务消失
-</code></pre><h3 id="1- 首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本"><a href="#1- 首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本" class="headerlink" title="1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本"></a>1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本</h3><pre><code>[root@manage ~]# systemctl --version
+</code></pre>
+<h3 id="1- 首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本"><a class="markdownIt-Anchor" href="#1- 首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本"></a> 1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本 </h3>
+<pre><code>[root@manage ~]# systemctl --version
 systemd 215
 +PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
 上例中很清楚地表明，我们安装了 215 版本的 systemd。
@@ -1255,16 +1309,22 @@ systemd 215
 systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
 [root@manage ~]# whereis systemctl
 systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz
-</code></pre><h3 id="3- 检查 -systemd- 是否运行"><a href="#3- 检查 -systemd- 是否运行" class="headerlink" title="3. 检查 systemd 是否运行"></a>3. 检查 systemd 是否运行</h3><pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
+</code></pre>
+<h3 id="3- 检查 -systemd- 是否运行"><a class="markdownIt-Anchor" href="#3- 检查 -systemd- 是否运行"></a> 3. 检查 systemd 是否运行 </h3>
+<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
 root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
 root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
 root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
 root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
 dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
 注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
-</code></pre><h3 id="4- 分析 -systemd- 启动进程"><a href="#4- 分析 -systemd- 启动进程" class="headerlink" title="4. 分析 systemd 启动进程"></a>4. 分析 systemd 启动进程</h3><pre><code>[root@manage ~]# systemd-analyze
+</code></pre>
+<h3 id="4- 分析 -systemd- 启动进程"><a class="markdownIt-Anchor" href="#4- 分析 -systemd- 启动进程"></a> 4. 分析 systemd 启动进程 </h3>
+<pre><code>[root@manage ~]# systemd-analyze
 Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s
-</code></pre><h3 id="5- 分析启动时各个进程花费的时间"><a href="#5- 分析启动时各个进程花费的时间" class="headerlink" title="5. 分析启动时各个进程花费的时间"></a>5. 分析启动时各个进程花费的时间</h3><pre><code>[root@manage ~]# systemd-analyze blame
+</code></pre>
+<h3 id="5- 分析启动时各个进程花费的时间"><a class="markdownIt-Anchor" href="#5- 分析启动时各个进程花费的时间"></a> 5. 分析启动时各个进程花费的时间 </h3>
+<pre><code>[root@manage ~]# systemd-analyze blame
 8.565s mariadb.service
 7.991s webmin.service
 6.095s postfix.service

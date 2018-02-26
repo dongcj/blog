@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrela">
+<meta name="description" content="一、DHCP 中继代理配置   # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrel">
 <meta name="keywords" content="dhcp,pxe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DHCP 高级配置">
 <meta property="og:url" content="http://blog.dongcj.com/linux/DHCP高级配置/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrela">
+<meta property="og:description" content="一、DHCP 中继代理配置   # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrel">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DHCP 高级配置">
-<meta name="twitter:description" content="一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrela">
+<meta name="twitter:description" content="一、DHCP 中继代理配置   # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrel">
 
 
 
@@ -432,7 +432,8 @@
       
 
       
-        <h1 id="一、DHCP- 中继代理配置"><a href="# 一、DHCP- 中继代理配置" class="headerlink" title="一、DHCP 中继代理配置"></a> 一、DHCP 中继代理配置 </h1><hr>
+        <h1 id="一 -dhcp- 中继代理配置"><a class="markdownIt-Anchor" href="# 一 -dhcp- 中继代理配置"></a> 一、DHCP 中继代理配置 </h1>
+<hr>
 <pre><code># (在其它服务上安装 dhcpd 软件)：
 
 $ vi /etc/sysconfig/dhcrelay
@@ -442,7 +443,9 @@ $ vi /etc/sysconfig/dhcrelay
 
 # 也可以通过以下命令方式来实现：
 $ dhcrelay -i eth1 -i eth2 192.168.1.1
-</code></pre><h1 id="二、DHCP- 超网配置"><a href="# 二、DHCP- 超网配置" class="headerlink" title="二、DHCP 超网配置"></a> 二、DHCP 超网配置 </h1><hr>
+</code></pre>
+<h1 id="二 -dhcp- 超网配置"><a class="markdownIt-Anchor" href="# 二 -dhcp- 超网配置"></a> 二、DHCP 超网配置 </h1>
+<hr>
 <pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
 ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
 shared-network mynet {          /* 超网作用域选项，共同部分 */
@@ -480,6 +483,7 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
 
 }
 </code></pre>
+
       
     </div>
 
@@ -543,8 +547,8 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/monitor/Graphite安装/" rel="prev" title="Graphite 安装">
-                Graphite 安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" rel="prev" title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+                Curl、resty、httpie、httpstat、wuzz 使用介绍 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -740,7 +744,7 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、DHCP- 中继代理配置"><span class="nav-number">1.</span> <span class="nav-text"> 一、DHCP 中继代理配置 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、DHCP- 超网配置"><span class="nav-number">2.</span> <span class="nav-text"> 二、DHCP 超网配置 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一 -dhcp- 中继代理配置"><span class="nav-number">1.</span> <span class="nav-text"> 一、DHCP 中继代理配置 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二 -dhcp- 超网配置"><span class="nav-number">2.</span> <span class="nav-text"> 二、DHCP 超网配置 </span></a></li></ol></div>
             
 
           </div>

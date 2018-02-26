@@ -436,24 +436,28 @@
       
         
           <blockquote>
-<p>参考：<a href="http://www.jianshu.com/p/f7b5431418d2" target="_blank" rel="external">http://www.jianshu.com/p/f7b5431418d2</a></p>
-<p>猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" target="_blank" rel="external">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
+<p> 参考：<a href="http://www.jianshu.com/p/f7b5431418d2" target="_blank" rel="external">http://www.jianshu.com/p/f7b5431418d2</a></p>
 </blockquote>
-<h1 id="常见问题"><a href="# 常见问题" class="headerlink" title="常见问题"></a>常见问题 </h1><h2 id="使用 -key- 方式认证"><a href="# 使用 -key- 方式认证" class="headerlink" title="使用 key 方式认证"></a> 使用 key 方式认证</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># start the ssh-agent in the background</span></div><div class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></div><div class="line">    Agent pid 59566</div><div class="line"></div><div class="line">ssh-add ~/.ssh/id_rsa</div><div class="line"></div><div class="line"><span class="comment"># 测试</span></div><div class="line">ssh git@github.com</div></pre></td></tr></table></figure>
-<h2 id="Windows- 下 -tortiseGit- 不弹出密码输入"><a href="#Windows- 下 -tortiseGit- 不弹出密码输入" class="headerlink" title="Windows 下 tortiseGit 不弹出密码输入"></a>Windows 下 tortiseGit 不弹出密码输入</h2><pre><code># 删除以下文件夹中的文件：
+<blockquote>
+<p> 猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" target="_blank" rel="external">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
+</blockquote>
+<h1 id="常见问题"><a class="markdownIt-Anchor" href="# 常见问题"></a> 常见问题 </h1>
+<h2 id="使用 -key- 方式认证"><a class="markdownIt-Anchor" href="# 使用 -key- 方式认证"></a> 使用 key 方式认证 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># start the ssh-agent in the background</span></div><div class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></div><div class="line">    Agent pid 59566</div><div class="line"></div><div class="line">ssh-add ~/.ssh/id_rsa</div><div class="line"></div><div class="line"><span class="comment"># 测试 </span></div><div class="line">ssh git@github.com</div></pre></td></tr></table></figure>
+<h2 id="windows- 下 -tortisegit- 不弹出密码输入"><a class="markdownIt-Anchor" href="#windows- 下 -tortisegit- 不弹出密码输入"></a> Windows 下 tortiseGit 不弹出密码输入 </h2>
+<pre><code># 删除以下文件夹中的文件：
 %appdata%\..\Local\Microsoft\Credentials
 
 # 但是还是好麻烦，请看下面
-</code></pre><h2 id="同一网站，多个不同的帐号使用 -git-key- 切换"><a href="# 同一网站，多个不同的帐号使用 -git-key- 切换" class="headerlink" title="同一网站，多个不同的帐号使用 git key 切换"></a>同一网站，多个不同的帐号使用 git key 切换</h2><ul>
-<li>安装 Git</li>
-<li>安装 <a href="https://tortoisegit.org/" target="_blank" rel="external">TortoiseGit</a> (Windows 下初学者推荐)</li>
-<li>在安装时指定 ssh，而不是 plink</li>
+</code></pre>
+<h2 id="同一网站多个不同的帐号使用 -git-key- 切换"><a class="markdownIt-Anchor" href="# 同一网站多个不同的帐号使用 -git-key- 切换"></a> 同一网站，多个不同的帐号使用 git key 切换 </h2>
+<ul>
+<li> 安装 Git</li>
+<li> 安装 <a href="https://tortoisegit.org/" target="_blank" rel="external">TortoiseGit</a> (Windows 下初学者推荐)</li>
+<li> 在安装时指定 ssh，而不是 plink</li>
 <li>vi ~/.ssh/config</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment"># &lt;GIT_DOMAIN&gt;</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># git clone git@&lt;ID1&gt;.&lt;GIT_DOMAIN&gt;:&lt;GIT_USER1&gt;/&lt;GIT_REPO1&gt;.git</span></div><div class="line">host &lt;ID1&gt;.&lt;GIT_DOMAIN&gt;</div><div class="line">    hostname &lt;GIT_DOMAIN&gt;</div><div class="line">    Port 22</div><div class="line">    User &lt;GIT_USER&gt;</div><div class="line">    IdentityFile ~/.ssh/&lt;GIT_DOMAIN&gt;-&lt;GIT_USER&gt;-id_rsa</div><div class="line"></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment"># &lt;GIT_DOMAIN&gt;</span></div><div class="line"><span class="comment">#--------------------------------------------------------------------------</span></div><div class="line"><span class="comment">#</span></div><div class="line"><span class="comment"># git clone git@&lt;ID2&gt;.&lt;GIT_DOMAIN&gt;:&lt;GIT_USER2&gt;/&lt;GIT_REPO2&gt;.git</span></div><div class="line">host &lt;ID2&gt;.&lt;GIT_DOMAIN&gt;</div><div class="line">    hostname &lt;GIT_DOMAIN&gt;</div><div class="line">    Port 22</div><div class="line">    User &lt;GIT_USER&gt;</div><div class="line">    IdentityFile ~/.ssh/&lt;GIT_DOMAIN&gt;-&lt;GIT_USER&gt;-id_rsa</div></pre></td></tr></table></figure>
-<ul>
-<li>使用不同的 ssh 别名连接 Git (host 后面接的即为别名)</li>
-</ul>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Git常用命令与使用/#more" rel="contents">
