@@ -446,29 +446,25 @@
 
       
         
-          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务"><a class="markdownIt-Anchor" href="# 使用 -dnsmasq- 提供外网 -dns- 服务"></a> 使用 dnsmasq 提供外网 dns 服务 </h1>
+          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务"> 使用 dnsmasq 提供外网 dns 服务 </h1>
 <pre><code>$ apt-get install dnsmasq
 
 # 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
 listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
 addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
 resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)
-conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析
-</code></pre>
-<h2 id="生成域名映射"><a class="markdownIt-Anchor" href="# 生成域名映射"></a> 生成域名映射 </h2>
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析 </code></pre>
+<h2 id="生成域名映射"> 生成域名映射 </h2>
 <pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
 vi /etc/dnsmasq.d/dns.conf
 
 # 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
-address=&quot;/google.com/172.17.0.4&quot;
-</code></pre>
-<h2 id="启动服务"><a class="markdownIt-Anchor" href="# 启动服务"></a> 启动服务 </h2>
-<pre><code>/etc/init.d/dnsmasq start
-</code></pre>
-<h2 id="测试"><a class="markdownIt-Anchor" href="# 测试"></a> 测试 </h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4
-</code></pre>
-<h1 id="本地 -hosts- 配合 -networkmanager- 方式"><a class="markdownIt-Anchor" href="# 本地 -hosts- 配合 -networkmanager- 方式"></a> 本地 hosts 配合 NetworkManager 方式 </h1>
+address=&quot;/google.com/172.17.0.4&quot;</code></pre>
+<h2 id="启动服务"> 启动服务 </h2>
+<pre><code>/etc/init.d/dnsmasq start</code></pre>
+<h2 id="测试"> 测试 </h2>
+<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+<h1 id="本地 -hosts- 配合 -networkmanager- 方式"> 本地 hosts 配合 NetworkManager 方式 </h1>
 <pre><code>$ cat /etc/NetworkManager/dnsmasq.d/hosts.conf
 addn-hosts=/etc/hosts
 
@@ -477,8 +473,7 @@ $ sudo /etc/init.d/dns-clean restart
 
 $ host u1
 $ nslookup u1
-$ getent ahosts u1
-</code></pre>
+$ getent ahosts u1</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/dns/Dnsmasq使用本地host为DNS/#more" rel="contents">
@@ -639,12 +634,11 @@ $ getent ahosts u1
       
         
           <blockquote>
-<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="external">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
+<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
 </blockquote>
-<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性"><a class="markdownIt-Anchor" href="# 用 -autossh- 保证 -ssh- 隧道稳定性"></a> 用 autossh 保证 ssh 隧道稳定性 :</h1>
-<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
-</code></pre>
-<h1 id="autossh- 代理"><a class="markdownIt-Anchor" href="#autossh- 代理"></a> autossh 代理 </h1>
+<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性"> 用 autossh 保证 ssh 隧道稳定性 :</h1>
+<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  </code></pre>
+<h1 id="autossh- 代理">autossh 代理 </h1>
 <pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
 export AUTOSSH_POLL=60
 export AUTOSSH_FIRST_POLL=30
@@ -652,8 +646,7 @@ export AUTOSSH_GATETIME=0
 export AUTOSSH_DEBUG=1
 autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
     -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
-    -o StrictHostKeyChecking=no USER@HOSTNAME
-</code></pre>
+    -o StrictHostKeyChecking=no USER@HOSTNAME</code></pre>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -814,7 +807,7 @@ autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
 
       
         
-          <h1 id="screen- 后台"><a class="markdownIt-Anchor" href="#screen- 后台"></a> screen 后台 </h1>
+          <h1 id="screen- 后台">screen 后台 </h1>
 <pre><code>screen -ls -&gt; 列出当前所有的 session
 screen -r yourname -&gt; 回到 yourname 这个 session
 screen -d yourname -&gt; 远程 detach 某个 session
@@ -825,20 +818,15 @@ screen -x &lt;SESSION_NAME&gt;
 
 screen -X -S [session_you_want_to_kill] quit
 
-screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
-</code></pre>
-<h1 id="nohup- 后台"><a class="markdownIt-Anchor" href="#nohup- 后台"></a> nohup 后台 </h1>
-<pre><code>nohup ping www.ibm.com &amp;
-</code></pre>
-<h1 id="setsid- 后台"><a class="markdownIt-Anchor" href="#setsid- 后台"></a> setsid 后台 </h1>
-<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
-</code></pre>
-<h1 id="subshell- 后台"><a class="markdownIt-Anchor" href="#subshell- 后台"></a> subshell 后台 </h1>
-<pre><code>(ping www.ibm.com &amp;)
-</code></pre>
-<h1 id="disown- 后台"><a class="markdownIt-Anchor" href="#disown- 后台"></a> disown 后台 </h1>
-<pre><code>disown -h JOBID
-</code></pre>
+screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;</code></pre>
+<h1 id="nohup- 后台">nohup 后台 </h1>
+<pre><code>nohup ping www.ibm.com &amp;</code></pre>
+<h1 id="setsid- 后台">setsid 后台 </h1>
+<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)</code></pre>
+<h1 id="subshell- 后台">subshell 后台 </h1>
+<pre><code>(ping www.ibm.com &amp;)</code></pre>
+<h1 id="disown- 后台">disown 后台 </h1>
+<pre><code>disown -h JOBID</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Screen、nohup、setsid、disown后台运行/#more" rel="contents">
@@ -999,14 +987,11 @@ screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
       
         
           <blockquote>
-<p> 参考：<br>
-<a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="external">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a><br>
-DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="external">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
+<p> 参考： http://linux.vbird.org/linux_server/0350dns.php#server_settings DDNS 的安装见：http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
 </blockquote>
-<h1 id="安装"><a class="markdownIt-Anchor" href="# 安装"></a> 安装 </h1>
-<pre><code>$ rpm -ivh bind bind-chroot
-</code></pre>
-<h1 id="配置"><a class="markdownIt-Anchor" href="# 配置"></a> 配置 </h1>
+<h1 id="安装"> 安装 </h1>
+<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
+<h1 id="配置"> 配置 </h1>
 <pre><code>1. 生成 rndc key
 $ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
 $ chown root:named /etc/rndc.conf
@@ -1058,7 +1043,7 @@ view &quot;wan&quot; {match-clients { &quot;internet&quot;;};  // 吻合的才�
         };
 };
 
-key &quot;rndc-key&quot; {			// 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
+key &quot;rndc-key&quot; {            // 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
       algorithm hmac-md5;
       secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
 };
@@ -1070,9 +1055,8 @@ controls {
 
 logging {                               // 防止外部服务器错误导致 log 记录
         category lame-servers {null;};
-};
-</code></pre>
-<h1 id="zone- 配置"><a class="markdownIt-Anchor" href="#zone- 配置"></a> zone 配置 </h1>
+};</code></pre>
+<h1 id="zone- 配置">zone 配置 </h1>
 <pre><code>1. 正向 zone 内网配置
 $ vi /var/named/named.xdol.vicp.net
 
@@ -1082,7 +1066,7 @@ $TTL    600
 master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS 服务器 IP
 @                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
 
-www.xdol.vicp.net.      IN      A       192.168.1.109		; 内部网卡的 IP
+www.xdol.vicp.net.      IN      A       192.168.1.109       ; 内部网卡的 IP
 ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 
@@ -1094,10 +1078,10 @@ $ vi /var/named/named.xdol.vicp.net.inter
 $TTL    600
 @                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
 @                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
-master.xdol.vicp.net.   IN      A       11.11.11.11		;DNS 服务器 IP
+master.xdol.vicp.net.   IN      A       11.11.11.11     ;DNS 服务器 IP
 @                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
 
-www.xdol.vicp.net.      IN      A       11.11.11.11		; 外部网卡的 IP
+www.xdol.vicp.net.      IN      A       11.11.11.11     ; 外部网卡的 IP
 ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
 ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
 
@@ -1112,13 +1096,11 @@ $TTL    600
 109     IN      PTR     master.xdol.vicp.net. ; 将原来的 A 改为 PTR 标志而已
 
 109     IN      PTR     www.xdol.vicp.net.
-246     IN      PTR     client.xdol.vicp.net.
-</code></pre>
-<h1 id="启动服务"><a class="markdownIt-Anchor" href="# 启动服务"></a> 启动服务 </h1>
+246     IN      PTR     client.xdol.vicp.net.</code></pre>
+<h1 id="启动服务"> 启动服务 </h1>
 <pre><code>service named start
-chkconfig named on
-</code></pre>
-<h1 id="配置 -ddns- 可选"><a class="markdownIt-Anchor" href="# 配置 -ddns- 可选"></a> 配置 DDNS(可选)</h1>
+chkconfig named on</code></pre>
+<h1 id="配置 -ddns- 可选"> 配置 DDNS(可选)</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
@@ -1278,7 +1260,7 @@ chkconfig named on
 
       
         
-          <h1 id="systemd- 和 -systemctl- 基础命令"><a class="markdownIt-Anchor" href="#systemd- 和 -systemctl- 基础命令"></a> Systemd 和 Systemctl 基础命令 </h1>
+          <h1 id="systemd- 和 -systemctl- 基础命令">Systemd 和 Systemctl 基础命令 </h1>
 <pre><code> 查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
 
 [启动 | 停止]:    systemctl [start | stop] &lt;SERVICE_NAME&gt;
@@ -1297,9 +1279,8 @@ systemctl stop &lt;SERVICE_NAME&gt;
 systemctl disable &lt;SERVICE_NAME&gt;
 rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
 systemctl daemon-reload
-`systemctl reset-failed`   # 只有运行这样才可以看到服务消失
-</code></pre>
-<h3 id="1- 首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本"><a class="markdownIt-Anchor" href="#1- 首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本"></a> 1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本 </h3>
+`systemctl reset-failed`   # 只有运行这样才可以看到服务消失 </code></pre>
+<h3 id="首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本 </h3>
 <pre><code>[root@manage ~]# systemctl --version
 systemd 215
 +PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
@@ -1308,22 +1289,19 @@ systemd 215
 [root@manage ~]# whereis systemd
 systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
 [root@manage ~]# whereis systemctl
-systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz
-</code></pre>
-<h3 id="3- 检查 -systemd- 是否运行"><a class="markdownIt-Anchor" href="#3- 检查 -systemd- 是否运行"></a> 3. 检查 systemd 是否运行 </h3>
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
+<h3 id="检查 -systemd- 是否运行">3. 检查 systemd 是否运行 </h3>
 <pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
 root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
 root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
 root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
 root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
 dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
-注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
-</code></pre>
-<h3 id="4- 分析 -systemd- 启动进程"><a class="markdownIt-Anchor" href="#4- 分析 -systemd- 启动进程"></a> 4. 分析 systemd 启动进程 </h3>
+注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。</code></pre>
+<h3 id="分析 -systemd- 启动进程">4. 分析 systemd 启动进程 </h3>
 <pre><code>[root@manage ~]# systemd-analyze
-Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s
-</code></pre>
-<h3 id="5- 分析启动时各个进程花费的时间"><a class="markdownIt-Anchor" href="#5- 分析启动时各个进程花费的时间"></a> 5. 分析启动时各个进程花费的时间 </h3>
+Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
+<h3 id="分析启动时各个进程花费的时间">5. 分析启动时各个进程花费的时间 </h3>
 <pre><code>[root@manage ~]# systemd-analyze blame
 8.565s mariadb.service
 7.991s webmin.service
@@ -1335,8 +1313,7 @@ Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.
 1.712s network.service
 1.394s lvm2-monitor.service
 1.126s systemd-logind.service
-....
-</code></pre>
+....</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Systemd使用/#more" rel="contents">

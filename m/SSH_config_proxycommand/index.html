@@ -97,16 +97,16 @@
 
 
 
-<meta name="description" content="ProxyCommand 12345678# 直接跳到远程计算机 ssh -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot; -p 1098 lmx@target.machine# 拷贝文件到远程计算机 scp -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h">
+<meta name="description" content="ProxyCommand 12345678# 直接跳到远程计算机 ssh -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot; -p 1098 lmx@target.machine# 拷贝文件到远程计算机 scp -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH_config_proxycommand">
 <meta property="og:url" content="http://blog.dongcj.com/m/SSH_config_proxycommand/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="ProxyCommand 12345678# 直接跳到远程计算机 ssh -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot; -p 1098 lmx@target.machine# 拷贝文件到远程计算机 scp -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h">
+<meta property="og:description" content="ProxyCommand 12345678# 直接跳到远程计算机 ssh -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot; -p 1098 lmx@target.machine# 拷贝文件到远程计算机 scp -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h">
 <meta property="og:updated_time" content="2018-02-07T09:57:59.182Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH_config_proxycommand">
-<meta name="twitter:description" content="ProxyCommand 12345678# 直接跳到远程计算机 ssh -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot; -p 1098 lmx@target.machine# 拷贝文件到远程计算机 scp -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h">
+<meta name="twitter:description" content="ProxyCommand 12345678# 直接跳到远程计算机 ssh -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot; -p 1098 lmx@target.machine# 拷贝文件到远程计算机 scp -o &quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h">
 
 
 
@@ -409,9 +409,9 @@
       
 
       
-        <h1 id="proxycommand"><a class="markdownIt-Anchor" href="#proxycommand"></a> ProxyCommand</h1>
+        <h1 id="proxycommand">ProxyCommand</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接跳到远程计算机 </span></div><div class="line">ssh -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -p 1098 lmx@target.machine</div><div class="line"></div><div class="line"><span class="comment"># 拷贝文件到远程计算机 </span></div><div class="line">scp -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -P 1098 -r lmx@target.machine:~/rdsAgent .</div><div class="line"></div><div class="line"><span class="comment"># 在远程计算机执行命令 </span></div><div class="line">ssh -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -p 1098 lmx@target.machine <span class="string">'ip a'</span></div></pre></td></tr></table></figure>
-<h1 id="ssh-config-file-example"><a class="markdownIt-Anchor" href="#ssh-config-file-example"></a> ssh config file example</h1>
+<h1 id="ssh-config-file-example">ssh config file example</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$ cat ~/.ssh/config</div><div class="line">Host *</div><div class="line">ForwardAgent yes</div><div class="line">ForwardX11 no</div><div class="line">KeepAlive yes</div><div class="line">ServerAliveInterval 30</div><div class="line">CheckHostIP no</div><div class="line">ControlMaster auto</div><div class="line">ControlPath /tmp/ssh_mux_%h_%p_%r</div><div class="line"></div><div class="line"><span class="comment"># client --&gt; 203.195.207.108:46707 --&gt; 118.193.254.66:22</span></div><div class="line">Host hk-jumpserver</div><div class="line">user root</div><div class="line">IdentityFile /cygdrive/c/Users/root/id_rsa</div><div class="line">ProxyCommand ssh -i /cygdrive/c/Users/root/id_rsa root@203.195.207.108 -p 46707 nc 118.193.254.66 22</div></pre></td></tr></table></figure>
 
       
@@ -666,7 +666,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#proxycommand"><span class="nav-number">1.</span> <span class="nav-text"> ProxyCommand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh-config-file-example"><span class="nav-number">2.</span> <span class="nav-text"> ssh config file example</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#proxycommand"><span class="nav-number">1.</span> <span class="nav-text">ProxyCommand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh-config-file-example"><span class="nav-number">2.</span> <span class="nav-text">ssh config file example</span></a></li></ol></div>
             
 
           </div>

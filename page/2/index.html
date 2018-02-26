@@ -435,21 +435,21 @@
 
       
         
-          <h1 id="1- 准备步骤"><a class="markdownIt-Anchor" href="#1- 准备步骤"></a> 1. 准备步骤</h1>
-<h2 id="11- 服务器时间同步"><a class="markdownIt-Anchor" href="#11- 服务器时间同步"></a> 1.1. 服务器时间同步</h2>
+          <h1 id="准备步骤">1. 准备步骤</h1>
+<h2 id="服务器时间同步">1.1. 服务器时间同步</h2>
 <blockquote>
-<p>如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 <strong>UTC</strong> 时间</p>
+<p>如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 <strong>UTC</strong> 时间 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接删除 /etc/localtime 即可使用 UTC 时间</span></div><div class="line">rm -rf /etc/localtime</div></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接删除 /etc/localtime 即可使用 UTC 时间</span></div><div class="line">rm -rf /etc/localtime</div></pre></td></tr></table></figure>
-<h2 id="12- 支持 -bbr 请升级内核至 -49- 以上版本弱网环境建议"><a class="markdownIt-Anchor" href="#12- 支持 -bbr 请升级内核至 -49- 以上版本弱网环境建议"></a> 1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</h2>
+<h2 id="支持 -bbr 请升级内核至 -4.9- 以上版本弱网环境建议">1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</h2>
 <blockquote>
-<p>如果要支持 aufs，请安装 linux-image-extra 的包<br>
-参考链接： <a href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/">Linux 升级 Kernel 及 tcp_BBR</a></p>
+<p>如果要支持 aufs，请安装 linux-image-extra 的包 参考链接： <a href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/">Linux 升级 Kernel 及 tcp_BBR</a></p>
 </blockquote>
-<h2 id="13- 所有服务器设置外部 -dns"><a class="markdownIt-Anchor" href="#13- 所有服务器设置外部 -dns"></a> 1.3. 所有服务器设置外部 DNS</h2>
+<h2 id="所有服务器设置外部 -dns">1.3. 所有服务器设置外部 DNS</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># stop and disable the local dns generator</span></div><div class="line">systemctl stop systemd-resolved.service</div><div class="line">systemctl <span class="built_in">disable</span> systemd-resolved.service</div><div class="line"></div><div class="line">systemctl stop resolvconf.service</div><div class="line">systemctl <span class="built_in">disable</span> resolvconf.service</div><div class="line"></div><div class="line">systemctl stop NetworkManager.service</div><div class="line">systemctl <span class="built_in">disable</span> NetworkManager.service</div><div class="line"></div><div class="line"><span class="comment"># 修改为外部 DNS 服务器</span></div><div class="line">vi /etc/network/interfaces</div><div class="line">  dns-nameservers 114.114.114.114</div><div class="line"></div><div class="line"><span class="comment"># set the /etc/resolv.conf</span></div><div class="line">unlink /etc/resolv.conf</div><div class="line">vi /etc/resolv.conf</div><div class="line">nameserver 114.114.114.114</div><div class="line"></div><div class="line"><span class="comment"># show the service status</span></div><div class="line">systemctl status systemd-resolved.service</div><div class="line">systemctl status resolvconf.service</div><div class="line">systemctl status NetworkManager</div><div class="line"></div><div class="line">systemctl restart docker</div><div class="line"></div><div class="line"><span class="comment"># If has dnsmasq service</span></div><div class="line"><span class="comment"># Comment out the dns=dnsmasq line</span></div><div class="line"><span class="comment"># vi /etc/NetworkManager/NetworkManager.conf</span></div><div class="line">  <span class="comment"># dns=dnsmasq</span></div><div class="line"></div><div class="line"><span class="comment"># restart network and docker service</span></div><div class="line"><span class="comment">#systemctl restart network-manager</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="14- 设置 -hostname"><a class="markdownIt-Anchor" href="#14- 设置 -hostname"></a> 1.4. 设置 hostname</h2>
+<h2 id="设置 -hostname">1.4. 设置 hostname</h2>
+<pre><code>[root@rancher-server] echo &quot;&lt;HOSTNAME&gt;&quot; &gt;/etc/hostname &amp;&amp; hostname &lt;HOSTNAME&gt;
+[root@rancher-server] hostnamectl set-hostname svi1r01n08</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/docker/Rancher安装/#more" rel="contents">
@@ -612,25 +612,21 @@
           <pre><code>[+]新增
 [-]删除
 [^]升级
-[#]修复
-</code></pre>
-<h1 id="1- 高亮 -tail-f- 搜索"><a class="markdownIt-Anchor" href="#1- 高亮 -tail-f- 搜索"></a> 1. 高亮 tail -f 搜索</h1>
+[#]修复</code></pre>
+<h1 id="高亮 -tail--f- 搜索">1. 高亮 tail -f 搜索</h1>
 <pre><code>1. less xxx.log
 2. 搜索你要高亮的关键字
-3. SHIFT+F，进入 follow 模式
-</code></pre>
-<h1 id="2-windows"><a class="markdownIt-Anchor" href="#2-windows"></a> 2. Windows</h1>
-<h2 id="21-windows-mount- 网络共享为一个文件夹"><a class="markdownIt-Anchor" href="#21-windows-mount- 网络共享为一个文件夹"></a> 2.1. Windows mount 网络共享为一个文件夹</h2>
+3. SHIFT+F，进入 follow 模式</code></pre>
+<h1 id="windows">2. Windows</h1>
+<h2 id="windows-mount- 网络共享为一个文件夹">2.1. Windows mount 网络共享为一个文件夹</h2>
 <pre><code>net use \\192.168.11.111\public\data
-mklink /d d:\ccc \\192.168.11.111\public\data
-</code></pre>
-<h2 id="22-windows- 网络设置"><a class="markdownIt-Anchor" href="#22-windows- 网络设置"></a> 2.2. Windows 网络设置</h2>
+mklink /d d:\ccc \\192.168.11.111\public\data</code></pre>
+<h2 id="windows- 网络设置">2.2. Windows 网络设置</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ipconfig | findstr /c:&quot;IPv4&quot;</div><div class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</div><div class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</div></pre></td></tr></table></figure>
-<h2 id="23-windows- 如何删除隐藏设备"><a class="markdownIt-Anchor" href="#23-windows- 如何删除隐藏设备"></a> 2.3. windows 如何删除隐藏设备</h2>
+<h2 id="windows- 如何删除隐藏设备">2.3. windows 如何删除隐藏设备</h2>
 <pre><code>set devmgr_show_nonpresent_devices=1
 devmgmt.msc
-打开隐藏设备
-</code></pre>
+打开隐藏设备</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/常用命令/#more" rel="contents">
@@ -801,15 +797,13 @@ devmgmt.msc
 
       
         
-          <h1 id="install"><a class="markdownIt-Anchor" href="#install"></a> install</h1>
+          <h1 id="install">install</h1>
 <pre><code>&gt; client: curl client (eg: 116.23.45.8)
-&gt; server: rfw servers (default port: 7393)
-</code></pre>
-<h2 id="install-rfw-on-all-serveron-client-server"><a class="markdownIt-Anchor" href="#install-rfw-on-all-serveron-client-server"></a> install rfw on ALL server(on client &amp; server)</h2>
+&gt; server: rfw servers (default port: 7393)</code></pre>
+<h2 id="install-rfw-on-all-serveron-client-server">install rfw on ALL server(on client &amp; server)</h2>
 <pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
-$ cd rfw &amp;&amp; python setup.py install
-</code></pre>
-<h2 id="generate-remote-crton-client"><a class="markdownIt-Anchor" href="#generate-remote-crton-client"></a> generate remote crt(on client)</h2>
+$ cd rfw &amp;&amp; python setup.py install</code></pre>
+<h2 id="generate-remote-crton-client">generate remote crt(on client)</h2>
 <pre><code>$ cd /etc/rfw/deploy/
 $ rfwgen  11.11.11.11
 $ rfwgen  22.22.22.22
@@ -825,11 +819,10 @@ $ rfwgen  22.22.22.22
 │   └── server.key
 └── server_22.22.22.22
   ├── server.crt
-  └── server.key
-</code></pre>
-<h2 id="copy-key-to-server"><a class="markdownIt-Anchor" href="#copy-key-to-server"></a> copy key to server</h2>
+  └── server.key</code></pre>
+<h2 id="copy-key-to-server">copy key to server</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># on master server</span></div><div class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</div><div class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</div></pre></td></tr></table></figure>
-<h2 id="edit-the-server-config"><a class="markdownIt-Anchor" href="#edit-the-server-config"></a> edit the server config</h2>
+<h2 id="edit-the-server-config">edit the server config</h2>
 <pre><code>$ vi /etc/rfw/rfw.conf
 outward.server.certfile = /etc/rfw/ssl/server.crt
 outward.server.keyfile = /etc/rfw/ssl/server.key
@@ -837,8 +830,7 @@ auth.username = your_username_here
 auth.password = your_password_here
 
 $ vi /etc/rfw/white.list
-116.23.45.8
-</code></pre>
+116.23.45.8</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/security/Rfw-RemoteFirewall远程管理防火墙/#more" rel="contents">
@@ -998,16 +990,15 @@ $ vi /etc/rfw/white.list
 
       
         
-          <h1 id="升级 -python"><a class="markdownIt-Anchor" href="# 升级 -python"></a> 升级 python</h1>
-<h2 id="install"><a class="markdownIt-Anchor" href="#install"></a> install</h2>
+          <h1 id="升级 -python"> 升级 python</h1>
+<h2 id="install">install</h2>
 <pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
 $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
 
 $ yum -y install mysql mysql-devel
 
-$ yum -y install libxml2-devel  libxslt-devel
-</code></pre>
-<h2 id="编译安装 -python- 新版"><a class="markdownIt-Anchor" href="# 编译安装 -python- 新版"></a> 编译安装 python 新版 </h2>
+$ yum -y install libxml2-devel  libxslt-devel</code></pre>
+<h2 id="编译安装 -python- 新版"> 编译安装 python 新版 </h2>
 <pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
 
 # 加上 --enable-shared 解决 &quot;Cannot build PL/Python because libpython is not a shared library&quot;
@@ -1021,16 +1012,13 @@ $ ln -s /usr/local/bin/python /usr/bin/python
 
 # copy bz2 module
 $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
-$ python -V
-</code></pre>
-<h1 id="安装 -easy_install- 和 -pip"><a class="markdownIt-Anchor" href="# 安装 -easy_install- 和 -pip"></a> 安装 easy_install 和 pip</h1>
-<pre><code># 参见：[《linux 安装 easy_install 及 pip》][1]
-</code></pre>
-<h2 id="修改 -yum- 中的 -python- 版本为 -python26"><a class="markdownIt-Anchor" href="# 修改 -yum- 中的 -python- 版本为 -python26"></a> 修改 yum 中的 python 版本为 <strong>python2.6</strong></h2>
+$ python -V</code></pre>
+<h1 id="安装 -easy_install- 和 -pip"> 安装 easy_install 和 pip</h1>
+<pre><code># 参见：[《linux 安装 easy_install 及 pip》][1]</code></pre>
+<h2 id="修改 -yum- 中的 -python- 版本为 -python2.6"> 修改 yum 中的 python 版本为 <strong>python2.6</strong></h2>
 <pre><code>$ vi /usr/bin/yum
-$ vi /usr/bin/yum-config-manager
-</code></pre>
-<h2 id="安装一些基础软件"><a class="markdownIt-Anchor" href="# 安装一些基础软件"></a> 安装一些基础软件 </h2>
+$ vi /usr/bin/yum-config-manager</code></pre>
+<h2 id="安装一些基础软件"> 安装一些基础软件 </h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Python2.6升级至python2.7/#more" rel="contents">
@@ -1079,7 +1067,7 @@ $ vi /usr/bin/yum-config-manager
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/使用printf进行格式化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1098,7 +1086,7 @@ $ vi /usr/bin/yum-config-manager
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/SMATE、XFCE、VNC配置/" itemprop="url">SMATE、XFCE、VNC 配置</a></h2>
+                <a class="post-title-link" href="/linux/使用printf进行格式化/" itemprop="url">使用 Printf 进行格式化</a></h2>
         
 
         <div class="post-meta">
@@ -1151,9 +1139,9 @@ $ vi /usr/bin/yum-config-manager
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/SMATE、XFCE、VNC配置/#comments" itemprop="discussionUrl">
+                <a href="/linux/使用printf进行格式化/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/SMATE、XFCE、VNC配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/使用printf进行格式化/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1161,7 +1149,7 @@ $ vi /usr/bin/yum-config-manager
 
           
           
-             <span id="/linux/SMATE、XFCE、VNC配置/" class="leancloud_visitors" data-flag-title="SMATE、XFCE、VNC 配置">
+             <span id="/linux/使用printf进行格式化/" class="leancloud_visitors" data-flag-title="使用 Printf 进行格式化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1190,48 +1178,14 @@ $ vi /usr/bin/yum-config-manager
 
       
         
-          <h1 id="yum- 安装图像界面及 -vnc"><a class="markdownIt-Anchor" href="#yum- 安装图像界面及 -vnc"></a> YUM 安装图像界面及 VNC</h1>
-<p>(参考：<a href="http://www.ha97.com/4634.html" target="_blank" rel="external">http://www.ha97.com/4634.html</a> )</p>
-<pre><code>yum install epel-release
-
-yum grouplist
-yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
-yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
-
-yum groupinstall [xfce | &quot;MATE Desktop&quot;]（CentOS 安装 xfce 桌面环境，可选）
-
-# runlevel 5
-systemctl isolate graphical.target
-
-# Start the GUI on boot
-systemctl set-default graphical.target
-
-# 切换 display manager
-# 查看
-ls -l /etc/systemd/system/display-manager.service
-
-# 切换
-systemctl disable gdm &amp;&amp; systemctl enable lightdm
-
-# 刷新
-systemctl isolate graphical.target
-</code></pre>
-<h1 id="安装 -vnc-server"><a class="markdownIt-Anchor" href="# 安装 -vnc-server"></a> 安装 vnc server</h1>
-<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
-yum install vnc-server vnc* （CentOS 5.x 里）
-yum install tigervnc-server tigervnc （CentOS 6.x 里）
-/etc/init.d/vncserver restart
-
-# 关闭具体的 vncserver 命令 :
-vncserver -kill :1
-</code></pre>
-<blockquote>
-<p><a href="http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7" target="_blank" rel="external">http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</a></p>
-</blockquote>
+          <h2 id="表格输出"> 表格输出 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">"%-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line">\n3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%b\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line"></div><div class="line">3</div><div class="line">$</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%d\n"</span> 255 0xff 0377 3.5</div><div class="line">255</div><div class="line">255</div><div class="line">255</div><div class="line">bash: <span class="built_in">printf</span>: 3.5: invalid number</div><div class="line">3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.000000</div><div class="line">255.000000</div><div class="line">377.000000</div><div class="line">3.500000</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%.1f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.0</div><div class="line">255.0</div><div class="line">377.0</div><div class="line">3.5</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 10); <span class="keyword">do</span> <span class="built_in">printf</span> <span class="string">"%03d\t"</span> <span class="string">"<span class="variable">$i</span>"</span>; <span class="keyword">done</span></div><div class="line">001     002     003     004     005     006     007     008     009     010</div></pre></td></tr></table></figure>
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/SMATE、XFCE、VNC配置/#more" rel="contents">
+            <a class="btn" href="/linux/使用printf进行格式化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

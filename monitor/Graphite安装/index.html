@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diam">
+<meta name="description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-dia">
 <meta name="keywords" content="graphite">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Graphite 安装">
 <meta property="og:url" content="http://blog.dongcj.com/monitor/Graphite安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diam">
+<meta property="og:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-dia">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Graphite 安装">
-<meta name="twitter:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diam">
+<meta name="twitter:description" content="参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-dia">
 
 
 
@@ -433,19 +433,15 @@
 
       
         <blockquote>
-<p> 参考：<br>
-<a href="http://www.jsxubar.info/category/system-administration/graphite/" target="_blank" rel="external">http://www.jsxubar.info/category/system-administration/graphite/</a><br>
-<a href="http://www.jsxubar.info/category/system-administration/page/3/" target="_blank" rel="external">http://www.jsxubar.info/category/system-administration/page/3/</a><br>
-<a href="http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/" target="_blank" rel="external">http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</a></p>
+<p> 参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/ http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
 </blockquote>
-<h1 id="1- 使用 -yum- 安装环境"><a class="markdownIt-Anchor" href="#1- 使用 -yum- 安装环境"></a> 1. 使用 yum 安装环境 </h1>
+<h1 id="使用 -yum- 安装环境">1. 使用 yum 安装环境 </h1>
 <pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
 $ pip install whisper
 $ pip install carbon
-$ pip install graphite-web
-</code></pre>
-<h1 id="2- 安装并升级为最新的 -zopeinterface- 及 -twisted"><a class="markdownIt-Anchor" href="#2- 安装并升级为最新的 -zopeinterface- 及 -twisted"></a> 2. 安装并升级为最新的 zope.interface 及 twisted</h1>
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的 -zope.interface- 及 -twisted">2. 安装并升级为最新的 zope.interface 及 twisted</h1>
 <pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
 $ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
 $ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
@@ -456,15 +452,12 @@ Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
 [GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
 Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
 &gt;&gt;&gt; from twisted.python.compat import _PY3
-&gt;&gt;&gt;
-</code></pre>
-<h1 id="3-check-for-missing-dependencies"><a class="markdownIt-Anchor" href="#3-check-for-missing-dependencies"></a> 3. Check for missing dependencies</h1>
-<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
-</code></pre>
-<h1 id="4- 设置权限"><a class="markdownIt-Anchor" href="#4- 设置权限"></a> 4. 设置权限 </h1>
-<pre><code>$ chown -R apache:apache /opt/graphite/storage/
-</code></pre>
-<h1 id="5- 配置文件"><a class="markdownIt-Anchor" href="#5- 配置文件"></a> 5. 配置文件 </h1>
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">3. Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限">4. 设置权限 </h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+<h1 id="配置文件">5. 配置文件 </h1>
 <pre><code>$ cp /opt/graphite/webapp/graphite/local_settings.py.example /opt/graphite/webapp/graphite/local_settings.py
 $ cp /opt/graphite/conf/carbon.conf.example /opt/graphite/conf/carbon.conf
 $ cp /opt/graphite/conf/storage-schemas.conf.example /opt/graphite/conf/storage-schemas.conf
@@ -478,24 +471,21 @@ $ cp storage-schemas.conf.example storage-schemas.conf
 $ cp carbon.conf.example carbon.conf
 
 $ cd /opt/graphite/webapp/graphite
-$ cp local_settings.py.example local_settings.py
-</code></pre>
-<h1 id="6- 在 -httpd- 中启用 -virtualhost"><a class="markdownIt-Anchor" href="#6- 在 -httpd- 中启用 -virtualhost"></a> 6. 在 httpd 中启用 virtualHost</h1>
+$ cp local_settings.py.example local_settings.py</code></pre>
+<h1 id="在 -httpd- 中启用 -virtualhost">6. 在 httpd 中启用 virtualHost</h1>
 <pre><code>$ cd ../../
 $ cp examples/example-graphite-vhost.conf /etc/httpd/conf.d/vhost-graphite.conf
 
 $ vi /etc/httpd/conf.d/vhost-graphite.conf
-WSGISocketPrefix /var/run/httpd/wsgi
-</code></pre>
-<h1 id="7- 修改已知的 -bug"><a class="markdownIt-Anchor" href="#7- 修改已知的 -bug"></a> 7. 修改已知的 bug</h1>
+WSGISocketPrefix /var/run/httpd/wsgi</code></pre>
+<h1 id="修改已知的 -bug">7. 修改已知的 bug</h1>
 <pre><code>$ vi /opt/graphite/webapp/graphite/storage.py
 
 def fetch(self, startTime, endTime, now=None):
     return whisper.fetch(self.fs_path, startTime, endTime)   # 去掉最后一个 now
 
 graph-index-master
-graphite-web-master
-</code></pre>
+graphite-web-master</code></pre>
 
       
     </div>
@@ -548,8 +538,8 @@ graphite-web-master
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="next" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
-                <i class="fa fa-chevron-left"></i> Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs
+              <a href="/linux/DHCP高级配置/" rel="next" title="DHCP 高级配置">
+                <i class="fa fa-chevron-left"></i> DHCP 高级配置
               </a>
             
           </div>
@@ -558,8 +548,8 @@ graphite-web-master
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="prev" title="Nginx 及 Upstreamcheck,fair 模块安装">
-                Nginx 及 Upstreamcheck,fair 模块安装 <i class="fa fa-chevron-right"></i>
+              <a href="/storage/GlusterFS安装/" rel="prev" title="GlusterFS 安装">
+                GlusterFS 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -755,7 +745,7 @@ graphite-web-master
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1- 使用 -yum- 安装环境"><span class="nav-number">1.</span> <span class="nav-text"> 1. 使用 yum 安装环境 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2- 安装并升级为最新的 -zopeinterface- 及 -twisted"><span class="nav-number">2.</span> <span class="nav-text"> 2. 安装并升级为最新的 zope.interface 及 twisted</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-check-for-missing-dependencies"><span class="nav-number">3.</span> <span class="nav-text"> 3. Check for missing dependencies</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4- 设置权限"><span class="nav-number">4.</span> <span class="nav-text"> 4. 设置权限 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5- 配置文件"><span class="nav-number">5.</span> <span class="nav-text"> 5. 配置文件 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6- 在 -httpd- 中启用 -virtualhost"><span class="nav-number">6.</span> <span class="nav-text"> 6. 在 httpd 中启用 virtualHost</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7- 修改已知的 -bug"><span class="nav-number">7.</span> <span class="nav-text"> 7. 修改已知的 bug</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用 -yum- 安装环境"><span class="nav-number">1.</span> <span class="nav-text">1. 使用 yum 安装环境 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装并升级为最新的 -zope.interface- 及 -twisted"><span class="nav-number">2.</span> <span class="nav-text">2. 安装并升级为最新的 zope.interface 及 twisted</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#check-for-missing-dependencies"><span class="nav-number">3.</span> <span class="nav-text">3. Check for missing dependencies</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置权限"><span class="nav-number">4.</span> <span class="nav-text">4. 设置权限 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置文件"><span class="nav-number">5.</span> <span class="nav-text">5. 配置文件 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在 -httpd- 中启用 -virtualhost"><span class="nav-number">6.</span> <span class="nav-text">6. 在 httpd 中启用 virtualHost</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改已知的 -bug"><span class="nav-number">7.</span> <span class="nav-text">7. 修改已知的 bug</span></a></li></ol></div>
             
 
           </div>
