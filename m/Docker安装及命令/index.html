@@ -103,7 +103,7 @@
 <meta property="og:url" content="http://blog.dongcj.com/m/Docker安装及命令/index.html">
 <meta property="og:site_name" content="Krrish">
 <meta property="og:description" content="为了支持 bbr、aufs，必须安装 extra, 详见：Linux 升级 kernel 及 tcp_BBR  1. Ubuntu 安装 Docker 12345# clone 后直接脚本安装 , CentOS 没有测试过 git clone https://github.com/rancher/install-docker.gitcd ./install-docker# instal">
-<meta property="og:updated_time" content="2018-02-11T06:12:09.010Z">
+<meta property="og:updated_time" content="2018-02-28T01:20:37.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 安装及命令">
 <meta name="twitter:description" content="为了支持 bbr、aufs，必须安装 extra, 详见：Linux 升级 kernel 及 tcp_BBR  1. Ubuntu 安装 Docker 12345# clone 后直接脚本安装 , CentOS 没有测试过 git clone https://github.com/rancher/install-docker.gitcd ./install-docker# instal">
@@ -464,7 +464,7 @@
 <h2 id="备份容器中的数据将容器中的数据目录拷贝至当前目录下">9.1. 备份容器中的数据（将容器中的数据目录拷贝至当前目录下）</h2>
 <pre><code>docker run --rm --volume-from dbdata -v ${pwd}:/backup  ubuntu tar cvf /backup/backup.tar /dbdata</code></pre>
 <h2 id="已运行容器通过 -iptbles- 来 -nat">9.2. 已运行容器通过 iptbles 来 nat</h2>
-<pre><code># 相当于端口映射
+<pre><code># 将容器的 3306 重新映射
 CONTAINER_NET=&quot;172.17.0.2/32&quot;
 iptables -A DOCKER -d $CONTAINER_NET ! -i docker0 -o docker0 -p tcp -m tcp --dport 3306 -j ACCEPT
 iptables -t nat -A  DOCKER -p tcp --dport 3306 -j DNAT --to-destination ${CONTAINER_NET/%\/*/}:3306
