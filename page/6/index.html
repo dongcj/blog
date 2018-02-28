@@ -497,7 +497,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -516,7 +516,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+                <a class="post-title-link" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
         
 
         <div class="post-meta">
@@ -569,9 +569,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#comments" itemprop="discussionUrl">
+                <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -579,7 +579,7 @@
 
           
           
-             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+             <span id="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" class="leancloud_visitors" data-flag-title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -608,32 +608,78 @@
 
       
         
-          <h1 id="curl">curl</h1>
-<h2 id="下载文件"> 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<pre><code>curl -v www.sina.com
-curl --trace output.txt www.sina.com
-curl --trace-ascii output.txt www.sina.com
-curl  -s  --head  www.sina.com</code></pre>
-<h2 id="上传文件"> 上传文件 </h2>
-<pre><code>curl --form upload=@localfilename --form press=OK [URL]
-curl -T file.txt
+          <h1 id="虚拟机增加系统盘根分区大小方法"> 虚拟机增加系统盘根分区大小方法 </h1>
+<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
-curl --cookie &quot;name=xxx&quot; www.example.com
-curl --user name@DOMAIN:password http://example.com
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
+$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 
-curl -fsSL ...</code></pre>
-<h2 id="下载网页保存为文件名"> 下载网页保存为文件名 </h2>
-<pre><code>curl -o [文件名] www.sina.com
+# 挂载文件至系统，以便找出是否有 swap device
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-curl -L www.sina.com
+# If has swap device, del the swap device
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
 
-curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html</code></pre>
-<h2 id="对于 -https- 的方法添加 -insecure"> 对于 https 的方法，添加 –insecure</h2>
+# Del swap
+$ parted -s ${loop} rm ${swap_part_num}
+
+# If does&#39;t have, add the new swap device
+$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
+
+# 或者先只划分空间，再用 mkswap 进行操作
+# 可选的：
+$ mkswap -v1 /dev/mapper/loop1p3
+
+# 重新刷新新增加的 swap 设备
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+
+# 将新的 lo 设备分区进行打印
+$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
+
+# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
+$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
+
+# 重新刷新新变更的分区
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+
+# fs resize
+$ e2fsck -pv /dev/mapper/loop0p1
+$ resize2fs -f /dev/mapper/loop0p1</code></pre>
+<h1 id="parted- 使用">parted 使用 </h1>
+<pre><code># create all 100% space to one part
+$ parted -s /dev/sdb mklabel gpt
+$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
+
+# create other part
+parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
+parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
+
+# remove part
+parted -s /dev/sdb rm 2
+parted -s /dev/sdb rm 3</code></pre>
+<h1 id="分区对齐"> 分区对齐 </h1>
+<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
+  1048576
+$ cat /sys/block/sdb/queue/minimum_io_size
+  262144
+$ cat /sys/block/sdb/alignment_offset
+  0
+$ cat /sys/block/sdb/queue/physical_block_size
+  512
+
+$ mkpart primary 2048s 100%
+
+(parted) align-check optimal 1
+  1 aligned</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
+            <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
