@@ -520,6 +520,177 @@ vncserver -kill :1</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Linux升级kernel及tcp_BBR/" itemprop="url">Linux 升级 Kernel 及 tcp_BBR</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-28T17:44:33+08:00">
+                2016-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/linux/Linux升级kernel及tcp_BBR/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="linux/Linux升级kernel及tcp_BBR/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/linux/Linux升级kernel及tcp_BBR/" class="leancloud_visitors" data-flag-title="Linux 升级 Kernel 及 tcp_BBR">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的 </span></div><div class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 </span></div><div class="line"><span class="comment"># 如果不是，则需先按下方升级内核 </span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效 </span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line"><span class="comment"># 查看 bbr 是否生效 </span></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
+<h1 id="debianubuntu- 升级内核">1. Debian、Ubuntu 升级内核 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核 </span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本 </span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="rhelcentos- 升级内核">2. RHEL、CentOS 升级内核 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核 </span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核 </span></div><div class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效 </div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
+<h1 id="手动安装">3. 手动安装 </h1>
+<h2 id="下载内核二进制包">3.1. 下载内核二进制包 </h2>
+<blockquote>
+<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
+</blockquote>
+<h2 id="解压安装">3.2. 解压安装 </h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/Linux升级kernel及tcp_BBR/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -705,7 +876,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux升级kernel及tcp_BBR/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -724,178 +895,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Linux升级kernel及tcp_BBR/" itemprop="url">Linux 升级 Kernel 及 tcp_BBR</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-28T17:44:33+08:00">
-                2016-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/linux/Linux升级kernel及tcp_BBR/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Linux升级kernel及tcp_BBR/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/linux/Linux升级kernel及tcp_BBR/" class="leancloud_visitors" data-flag-title="Linux 升级 Kernel 及 tcp_BBR">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的 </span></div><div class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 </span></div><div class="line"><span class="comment"># 如果不是，则需先按下方升级内核 </span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效 </span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line"><span class="comment"># 查看 bbr 是否生效 </span></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
-<h1 id="debianubuntu- 升级内核">1. Debian、Ubuntu 升级内核 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核 </span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本 </span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h1 id="rhelcentos- 升级内核">2. RHEL、CentOS 升级内核 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核 </span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核 </span></div><div class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效 </div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
-<h1 id="手动安装">3. 手动安装 </h1>
-<h2 id="下载内核二进制包">3.1. 下载内核二进制包 </h2>
-<blockquote>
-<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
-</blockquote>
-<h2 id="解压安装">3.2. 解压安装 </h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Linux升级kernel及tcp_BBR/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
         
 
         <div class="post-meta">
@@ -948,9 +948,9 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
+                <a href="/linux/斐讯K2路由器刷机/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/斐讯K2路由器刷机/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -958,7 +958,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
 
           
           
-             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
+             <span id="/linux/斐讯K2路由器刷机/" class="leancloud_visitors" data-flag-title="斐讯 K2 路由器刷机">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -987,143 +987,25 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
 
       
         
-          <h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+          <h1 id="买个 -ss- 帐号"> 买个 SS 帐号 </h1>
+<p> 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机"> 路由刷机 </h1>
+<ul>
+<li> 路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code> 注意：不是 WAN 口 </code></li>
+<li> 查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址 </li>
+</ul>
+<figure>
+<img src="http://i.imgur.com/qlfwJ9j.jpg">
+</figure>
+<ul>
+<li> 自己电脑中打开浏览器：http://192.168.1.1 (一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1)</li>
+<li><p> 用户名和密码默认 “admin/admin”</p></li>
+<li><p> 登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “(其实我们是先降级，因为斐讯的默认系统是不让刷机的)。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件 </p></li>
+</ul>
 
-$ fdisk /dev/sda
-
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
-
-  Command (m for help): n
-  Command action
-     e   extended
-     p   primary partition (1-4)
-  p
-  Partition number (1-4): 1
-  First cylinder (1-91201, default 1):
-  Using default value 1
-  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
-  Using default value 91201
-
-  Command (m for help): p
-
-  Disk /dev/sda: 750.2 GB, 750156374016 bytes
-  255 heads, 63 sectors/track, 91201 cylinders
-  Units = cylinders of 16065 * 512 = 8225280 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disk identifier: 0x0005c259
-
-     Device Boot      Start         End      Blocks   Id  System
-  /dev/sda1               1       91201   732572001   83  Linux
-
-  Command (m for help): t
-  Selected partition 1
-  Hex code (type L to list codes): fd
-  Changed system type of partition 1 to fd (Linux raid autodetect)
-
-  Command (m for help): w
-  The partition table has been altered!
-
-  Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
-$ fdisk /dev/sdc
-...
-$ fdisk /dev/sdd
-...
-$ fdisk /dev/sde
-...
-$ fdisk /dev/sdf
-...
-$ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
-$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
-mdadm: layout defaults to n2
-mdadm: layout defaults to n2
-mdadm: chunk size defaults to 512K
-mdadm: size set to 732440576K
-mdadm: Defaulting to version 1.2 metadata
-mdadm: array /dev/md0 started.
-
-# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
-# watch cat /proc/mdstat
-Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
-
-Personalities : [raid10]
-md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
-      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
-      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
-0948K/sec
-
-unused devices:
-
-$ fdisk /dev/md0
-$ mkfs.ext4 /dev/md0p1
-
-$ mkdir /raid10
-$ mount /dev/md0p1 /raid10
-
-$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-
-$ blkid
-  ...
-  /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot;
-
-$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
-
-$ mdadm --query --detail /dev/md0
-/dev/md0:
-        Version : 1.2
-  Creation Time : Tue Feb 11 12:50:38 2014
-     Raid Level : raid10
-     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
-  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
-   Raid Devices : 6
-  Total Devices : 6
-    Persistence : Superblock is persistent
-
-    Update Time : Tue Feb 11 18:48:10 2014
-          State : clean
- Active Devices : 6
-Working Devices : 6
- Failed Devices : 0
-  Spare Devices : 0
-
-         Layout : near=2
-     Chunk Size : 512K
-
-           Name : local:0  (local to host local)
-           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
-         Events : 70
-
-    Number   Major   Minor   RaidDevice State
-       0       8        1        0      active sync   /dev/sda1
-       1       8       33        1      active sync   /dev/sdc1
-       2       8       49        2      active sync   /dev/sdd1
-       3       8       65        3      active sync   /dev/sde1
-       4       8       81        4      active sync   /dev/sdf1
-       5       8       97        5      active sync   /dev/sdg1
-
-$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid- 维护命令">RAID 维护命令 </h1>
-<h2 id="删除故障盘"> 删除故障盘 </h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘"> 增加新盘 </h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
+            <a class="btn" href="/linux/斐讯K2路由器刷机/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

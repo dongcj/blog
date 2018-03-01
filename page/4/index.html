@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
+                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/编码与文件格式转换/#comments" itemprop="discussionUrl">
+                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/编码与文件格式转换/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/编码与文件格式转换/" class="leancloud_visitors" data-flag-title="编码与文件格式转换">
+             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,20 +435,143 @@
 
       
         
-          <h1 id="作用"> 作用 </h1>
-<blockquote>
-<p> 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
-</blockquote>
-<h1 id="编码转换 -trans_to_utf-8.py"> 编码转换 “Trans_To_UTF-8.py”</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下 </span></div><div class="line"><span class="keyword">import</span> os,sys</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"convert"</span> + filename,</div><div class="line">        content = open(filename).read()</div><div class="line">        new_content = content.decode(in_enc).encode(out_enc)</div><div class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</div><div class="line">        <span class="keyword">print</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">print</span> <span class="string">"error"</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></div><div class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</div><div class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</div><div class="line">            path = os.path.join(root, file)</div><div class="line">            convert(path)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</div><div class="line">        <span class="keyword">if</span> os.path.isfile(path):</div><div class="line">            convert(path)</div><div class="line">        <span class="keyword">elif</span> os.path.isdir(path):</div><div class="line">            explore(path)</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</div><div class="line">    main()</div></pre></td></tr></table></figure>
-<h1 id="准备脚本 -prepare.sh"> 准备脚本 “prepare.sh”</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></div><div class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</div><div class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></div><div class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></div><div class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></div><div class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></div><div class="line">        <span class="built_in">continue</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to unix</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></div><div class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></div><div class="line">        <span class="comment"># change to UTF-8</span></div><div class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></div><div class="line"></div><div class="line">        <span class="comment"># rename suffix to ".md"</span></div><div class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></div><div class="line"></div><div class="line">    <span class="comment"># if does not have title</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></div><div class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># zero title content</span></div><div class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</div><div class="line">    <span class="keyword">if</span> [-z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></div><div class="line">        <span class="comment"># update title when it is NULL</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></div><div class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">else</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="comment"># add author info</span></div><div class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></div><div class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"></div><div class="line">    <span class="built_in">echo</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
-<h1 id="windows- 下 - 更新博客 -.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">REM</span></div><div class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</div><div class="line"><span class="function">D:</span></div><div class="line"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></div><div class="line"><span class="title">echo</span> "<span class="title">success</span>"</div></pre></td></tr></table></figure>
+          <h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
+<pre><code># 分区格式为 Linux software raid：
 
+$ fdisk /dev/sda
+
+  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
+           switch off the mode (command &#39;c&#39;) and change display units to
+           sectors (command &#39;u&#39;).
+
+  Command (m for help): n
+  Command action
+     e   extended
+     p   primary partition (1-4)
+  p
+  Partition number (1-4): 1
+  First cylinder (1-91201, default 1):
+  Using default value 1
+  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
+  Using default value 91201
+
+  Command (m for help): p
+
+  Disk /dev/sda: 750.2 GB, 750156374016 bytes
+  255 heads, 63 sectors/track, 91201 cylinders
+  Units = cylinders of 16065 * 512 = 8225280 bytes
+  Sector size (logical/physical): 512 bytes / 512 bytes
+  I/O size (minimum/optimal): 512 bytes / 512 bytes
+  Disk identifier: 0x0005c259
+
+     Device Boot      Start         End      Blocks   Id  System
+  /dev/sda1               1       91201   732572001   83  Linux
+
+  Command (m for help): t
+  Selected partition 1
+  Hex code (type L to list codes): fd
+  Changed system type of partition 1 to fd (Linux raid autodetect)
+
+  Command (m for help): w
+  The partition table has been altered!
+
+  Calling ioctl() to re-read partition table.
+  Syncing disks.</code></pre>
+<h1 id="更改分区格式"> 更改分区格式 </h1>
+<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+$ fdisk /dev/sdc
+...
+$ fdisk /dev/sdd
+...
+$ fdisk /dev/sde
+...
+$ fdisk /dev/sdf
+...
+$ fdisk /dev/sdg
+...</code></pre>
+<h1 id="创建 -raid"> 创建 RAID</h1>
+<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
+mdadm: layout defaults to n2
+mdadm: layout defaults to n2
+mdadm: chunk size defaults to 512K
+mdadm: size set to 732440576K
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
+# watch cat /proc/mdstat
+Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+
+Personalities : [raid10]
+md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
+      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
+      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
+0948K/sec
+
+unused devices:
+
+$ fdisk /dev/md0
+$ mkfs.ext4 /dev/md0p1
+
+$ mkdir /raid10
+$ mount /dev/md0p1 /raid10
+
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+
+$ blkid
+  ...
+  /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot;
+
+$ vi /etc/fstab
+  ...
+  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
+  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
+
+$ mdadm --query --detail /dev/md0
+/dev/md0:
+        Version : 1.2
+  Creation Time : Tue Feb 11 12:50:38 2014
+     Raid Level : raid10
+     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
+  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
+   Raid Devices : 6
+  Total Devices : 6
+    Persistence : Superblock is persistent
+
+    Update Time : Tue Feb 11 18:48:10 2014
+          State : clean
+ Active Devices : 6
+Working Devices : 6
+ Failed Devices : 0
+  Spare Devices : 0
+
+         Layout : near=2
+     Chunk Size : 512K
+
+           Name : local:0  (local to host local)
+           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
+         Events : 70
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       33        1      active sync   /dev/sdc1
+       2       8       49        2      active sync   /dev/sdd1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       81        4      active sync   /dev/sdf1
+       5       8       97        5      active sync   /dev/sdg1
+
+$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
+<h1 id="raid- 维护命令">RAID 维护命令 </h1>
+<h2 id="删除故障盘"> 删除故障盘 </h2>
+<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
+<h2 id="增加新盘"> 增加新盘 </h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/编码与文件格式转换/#more" rel="contents">
+            <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1166,7 +1289,7 @@ $ psql$ select * from pg_stat_replication;</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1185,7 +1308,7 @@ $ psql$ select * from pg_stat_replication;</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
+                <a class="post-title-link" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
         
 
         <div class="post-meta">
@@ -1220,8 +1343,8 @@ $ psql$ select * from pg_stat_replication;</code></pre>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -1238,9 +1361,9 @@ $ psql$ select * from pg_stat_replication;</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/storage/GlusterFS安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="storage/GlusterFS安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1248,7 +1371,7 @@ $ psql$ select * from pg_stat_replication;</code></pre>
 
           
           
-             <span id="/storage/GlusterFS安装/" class="leancloud_visitors" data-flag-title="GlusterFS 安装">
+             <span id="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" class="leancloud_visitors" data-flag-title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1277,66 +1400,78 @@ $ psql$ select * from pg_stat_replication;</code></pre>
 
       
         
-          <blockquote>
-<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件"> 安装软件 </h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
-<blockquote>
-<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
-</blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
+          <h1 id="虚拟机增加系统盘根分区大小方法"> 虚拟机增加系统盘根分区大小方法 </h1>
+<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
+$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+# 挂载文件至系统，以便找出是否有 swap device
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
-<pre><code>$ service glusterd start
+# If has swap device, del the swap device
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
 
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd
+# Del swap
+$ parted -s ${loop} rm ${swap_part_num}
 
-# from server1
-$ gluster peer probe SERVER2
+# If does&#39;t have, add the new swap device
+$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
-# from server2
-$ gluster peer probe SERVER1
+# 或者先只划分空间，再用 mkswap 进行操作
+# 可选的：
+$ mkswap -v1 /dev/mapper/loop1p3
 
-# check peer
-$ gluster peer status
+# 重新刷新新增加的 swap 设备
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
+# 将新的 lo 设备分区进行打印
+$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
-$ gluster volume info
-$ gluster volume status
+# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
+$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
+# 重新刷新新变更的分区
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-# delete Volume
-$ gluster volume delete gv0
+# fs resize
+$ e2fsck -pv /dev/mapper/loop0p1
+$ resize2fs -f /dev/mapper/loop0p1</code></pre>
+<h1 id="parted- 使用">parted 使用 </h1>
+<pre><code># create all 100% space to one part
+$ parted -s /dev/sdb mklabel gpt
+$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
 
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
+# create other part
+parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
+parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
+
+# remove part
+parted -s /dev/sdb rm 2
+parted -s /dev/sdb rm 3</code></pre>
+<h1 id="分区对齐"> 分区对齐 </h1>
+<pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
+  1048576
+$ cat /sys/block/sdb/queue/minimum_io_size
+  262144
+$ cat /sys/block/sdb/alignment_offset
+  0
+$ cat /sys/block/sdb/queue/physical_block_size
+  512
+
+$ mkpart primary 2048s 100%
+
+(parted) align-check optimal 1
+  1 aligned</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
+            <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
