@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Systemd使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
+                <a class="post-title-link" href="/linux/Systemd使用/" itemprop="url">Systemd,systemctl 命令</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Supervisor安装与配置/#comments" itemprop="discussionUrl">
+                <a href="/linux/Systemd使用/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Supervisor安装与配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Systemd使用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/Supervisor安装与配置/" class="leancloud_visitors" data-flag-title="Supervisor 安装与配置">
+             <span id="/linux/Systemd使用/" class="leancloud_visitors" data-flag-title="Systemd,systemctl 命令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,24 +435,63 @@
 
       
         
-          <h1 id="安装"> 安装 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 建议使用 yum 安装 </span></div><div class="line">yum install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 也可以使用 pip 安装 </span></div><div class="line">pip install supervisor</div><div class="line"></div><div class="line"><span class="comment"># 生成配置文件 </span></div><div class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</div></pre></td></tr></table></figure>
-<h1 id="配置"> 配置 </h1>
-<blockquote>
-<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">[program:mysql]</div><div class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></div><div class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></div><div class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></div><div class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></div><div class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></div><div class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></div><div class="line"></div><div class="line">[program:opsview]</div><div class="line"><span class="built_in">command</span>=service opsview start</div><div class="line">autorestart=<span class="literal">true</span></div><div class="line"></div><div class="line">[program:opsview-web]</div><div class="line"><span class="built_in">command</span>=service opsview-web start</div><div class="line">autorestart=<span class="literal">true</span></div></pre></td></tr></table></figure>
-<h1 id="启动"> 启动 </h1>
-<pre><code>$ service supervisord start
+          <h1 id="systemd- 和 -systemctl- 基础命令">Systemd 和 Systemctl 基础命令 </h1>
+<pre><code> 查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
 
-&gt; 如果使用 pip 安装，需要自已写启动脚本
+[启动 | 停止]:    systemctl [start | stop] &lt;SERVICE_NAME&gt;
 
-supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+类似查 chkconfig:    systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;
+                    systemctl is-enabled &lt;SERVICE_NAME&gt;
 
+[不] 自动启动：      systemctl [disable | enable] &lt;SERVICE_NAME&gt;
+
+# 系统级的 systemd 在 /etc/systemd/system
+# 用户级的 systemd 在 /usr/lib/systemd/system/ （main）
+# 运行级的 systemd 在 /run/systemd/system
+
+# 如删除服务，需要：
+systemctl stop &lt;SERVICE_NAME&gt;
+systemctl disable &lt;SERVICE_NAME&gt;
+rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
+systemctl daemon-reload
+`systemctl reset-failed`   # 只有运行这样才可以看到服务消失 </code></pre>
+<h3 id="首先检查你的系统中是否安装有 -systemd- 并确定当前安装的版本">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本 </h3>
+<pre><code>[root@manage ~]# systemctl --version
+systemd 215
++PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
+上例中很清楚地表明，我们安装了 215 版本的 systemd。
+
+[root@manage ~]# whereis systemd
+systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
+[root@manage ~]# whereis systemctl
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
+<h3 id="检查 -systemd- 是否运行">3. 检查 systemd 是否运行 </h3>
+<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
+root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
+dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。</code></pre>
+<h3 id="分析 -systemd- 启动进程">4. 分析 systemd 启动进程 </h3>
+<pre><code>[root@manage ~]# systemd-analyze
+Startup finished in 487ms (kernel) + 2.776s (initrd) + 20.229s (userspace) = 23.493s</code></pre>
+<h3 id="分析启动时各个进程花费的时间">5. 分析启动时各个进程花费的时间 </h3>
+<pre><code>[root@manage ~]# systemd-analyze blame
+8.565s mariadb.service
+7.991s webmin.service
+6.095s postfix.service
+4.311s httpd.service
+3.926s firewalld.service
+3.780s kdump.service
+3.238s tuned.service
+1.712s network.service
+1.394s lvm2-monitor.service
+1.126s systemd-logind.service
+....</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
+            <a class="btn" href="/linux/Systemd使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1022,7 +1061,7 @@ cifsiostat  查看 windows 共享的 io 状况
 mpstat      查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）
 iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）</code></pre>
 <h1 id="网络监测工具">5. 网络监测工具</h1>
-<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
+<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况  ifstat  -i eno1  5 (5 指秒显示 一次）
 iftop/iptraf            # 实时网络状况监测 (常用 -pn)，查找正在使用带宽的套接字连接或进程
 netstat                 # 查看网络状况 (常用 -tupnl)
        netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件

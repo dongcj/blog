@@ -467,7 +467,7 @@ cifsiostat  查看 windows 共享的 io 状况
 mpstat      查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）
 iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）</code></pre>
 <h1 id="网络监测工具">5. 网络监测工具</h1>
-<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况
+<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况  ifstat  -i eno1  5 (5 指秒显示 一次）
 iftop/iptraf            # 实时网络状况监测 (常用 -pn)，查找正在使用带宽的套接字连接或进程
 netstat                 # 查看网络状况 (常用 -tupnl)
        netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件
@@ -512,7 +512,7 @@ pmap PID        # 查看进程打开的文件 , 等同于 lsof -p PID
 lshw/lspci/lscpu/lsusb
 
 # ipc 信息
-lsipc/lsns
+lsipc/lsns/lsmem
 
 # 共享内存
 ipcs -m

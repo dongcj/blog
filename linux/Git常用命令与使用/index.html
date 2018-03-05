@@ -104,7 +104,7 @@
 <meta property="og:url" content="http://blog.dongcj.com/linux/Git常用命令与使用/index.html">
 <meta property="og:site_name" content="Krrish">
 <meta property="og:description" content="参考：http://www.jianshu.com/p/f7b5431418d2    猴子都能懂的 git 入门：https://backlog.com/git-tutorial/cn/intro/intro5_2.html  1. 常见问题  1.1. 使用 key 方式认证  12345678# start the ssh-agent in the backgrounde">
-<meta property="og:updated_time" content="2018-02-28T02:03:32.531Z">
+<meta property="og:updated_time" content="2018-03-02T07:24:26.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 常用命令与使用">
 <meta name="twitter:description" content="参考：http://www.jianshu.com/p/f7b5431418d2    猴子都能懂的 git 入门：https://backlog.com/git-tutorial/cn/intro/intro5_2.html  1. 常见问题  1.1. 使用 key 方式认证  12345678# start the ssh-agent in the backgrounde">
@@ -467,8 +467,8 @@ git config  user.name &quot;suzie&quot;</code></pre>
 <pre><code>find . -name &quot;.git&quot; | xargs rm -Rf</code></pre>
 <h2 id="打包下载 -git- 文件中目录">1.5. 打包下载 git 文件中目录 </h2>
 <pre><code># 只能使用 git 协议，不可能使用 https
-GIT_REPO=&quot;git@github.com:rancher/cattle.git&quot;
-git archive --remote=${GIT_REPO} scripts dongcj | tar xvf - -C /tmp</code></pre>
+GIT_REPO=&quot;git@github.com:vmware/harbor.git&quot;
+git archive --remote=${GIT_REPO} dongcj contrib/sdk/harbor-py  | tar xvf - -C /tmp</code></pre>
 <h3 id="使用 -ssh-config">1.5.1. 使用 ssh config</h3>
 <blockquote>
 <p>http://memoryboxes.github.io/blog/2014/12/07/duo-ge-gitzhang-hao-zhi-jian-de-qie-huan/</p>
