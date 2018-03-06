@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/使用printf进行格式化/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/使用printf进行格式化/" itemprop="url">使用 Printf 进行格式化</a></h2>
+                <a class="post-title-link" href="/linux/SMATE、XFCE、VNC配置/" itemprop="url">SMATE、XFCE、VNC 配置</a></h2>
         
 
         <div class="post-meta">
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/使用printf进行格式化/#comments" itemprop="discussionUrl">
+                <a href="/linux/SMATE、XFCE、VNC配置/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/使用printf进行格式化/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/SMATE、XFCE、VNC配置/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/使用printf进行格式化/" class="leancloud_visitors" data-flag-title="使用 Printf 进行格式化">
+             <span id="/linux/SMATE、XFCE、VNC配置/" class="leancloud_visitors" data-flag-title="SMATE、XFCE、VNC 配置">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,14 +435,48 @@
 
       
         
-          <h2 id="表格输出"> 表格输出 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">"%-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line">\n3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%b\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line"></div><div class="line">3</div><div class="line">$</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%d\n"</span> 255 0xff 0377 3.5</div><div class="line">255</div><div class="line">255</div><div class="line">255</div><div class="line">bash: <span class="built_in">printf</span>: 3.5: invalid number</div><div class="line">3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.000000</div><div class="line">255.000000</div><div class="line">377.000000</div><div class="line">3.500000</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%.1f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.0</div><div class="line">255.0</div><div class="line">377.0</div><div class="line">3.5</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 10); <span class="keyword">do</span> <span class="built_in">printf</span> <span class="string">"%03d\t"</span> <span class="string">"<span class="variable">$i</span>"</span>; <span class="keyword">done</span></div><div class="line">001     002     003     004     005     006     007     008     009     010</div></pre></td></tr></table></figure>
+          <h1 id="yum- 安装图像界面及 -vnc"><a class="markdownIt-Anchor" href="#yum- 安装图像界面及 -vnc"></a> YUM 安装图像界面及 VNC</h1>
+<p>(参考：<a href="http://www.ha97.com/4634.html" target="_blank" rel="external">http://www.ha97.com/4634.html</a> )</p>
+<pre><code>yum install epel-release
+
+yum grouplist
+yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
+yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
+
+yum groupinstall [xfce | &quot;MATE Desktop&quot;]（CentOS 安装 xfce 桌面环境，可选）
+
+# runlevel 5
+systemctl isolate graphical.target
+
+# Start the GUI on boot
+systemctl set-default graphical.target
+
+# 切换 display manager
+# 查看
+ls -l /etc/systemd/system/display-manager.service
+
+# 切换
+systemctl disable gdm &amp;&amp; systemctl enable lightdm
+
+# 刷新
+systemctl isolate graphical.target
+</code></pre>
+<h1 id="安装 -vnc-server"><a class="markdownIt-Anchor" href="# 安装 -vnc-server"></a> 安装 vnc server</h1>
+<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
+yum install vnc-server vnc* （CentOS 5.x 里）
+yum install tigervnc-server tigervnc （CentOS 6.x 里）
+/etc/init.d/vncserver restart
+
+# 关闭具体的 vncserver 命令 :
+vncserver -kill :1
+</code></pre>
+<blockquote>
+<p><a href="http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7" target="_blank" rel="external">http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</a></p>
+</blockquote>
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/使用printf进行格式化/#more" rel="contents">
+            <a class="btn" href="/linux/SMATE、XFCE、VNC配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -599,10 +633,11 @@
 
       
         
-          <h1 id="clone-soft">clone soft</h1>
+          <h1 id="clone-soft"><a class="markdownIt-Anchor" href="#clone-soft"></a> clone soft</h1>
 <pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /usr/local/lazy_balancer</code></pre>
-<h1 id="install-tengine">install tengine</h1>
+$ cd /usr/local/lazy_balancer
+</code></pre>
+<h1 id="install-tengine"><a class="markdownIt-Anchor" href="#install-tengine"></a> install tengine</h1>
 <pre><code>$ git submodule update --init --recursive
 
 $ cd resource/nginx/tengine
@@ -612,8 +647,9 @@ $ ./configure --user=nginx --group=nginx --prefix=/etc/nginx --sbin-path=/usr/sb
 $ make &amp;&amp; make install
 
 # add nginx user
-$ adduser --system --no-create-home --shell /bin/false   nginx</code></pre>
-<h1 id="install-supervisor">install supervisor</h1>
+$ adduser --system --no-create-home --shell /bin/false   nginx
+</code></pre>
+<h1 id="install-supervisor"><a class="markdownIt-Anchor" href="#install-supervisor"></a> install supervisor</h1>
 <pre><code>$ yum -y install supervisor
 
 # add to supervisor config file
@@ -621,9 +657,11 @@ $ echo &quot;[include]&quot; &gt;&gt;/etc/supervisord.conf
 $ echo &quot;files = /etc/supervisor/conf.d/*.conf&quot; &gt;&gt;/etc/supervisord.conf
 
 $ cp -rf /usr/local/lazy_balancer/service/* /etc/supervisor/
-$ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
-<h1 id="start-service">start service</h1>
-<pre><code>$ service supervisor restart</code></pre>
+$ vi /etc/supervisor/conf.d/supervisor_balancer.conf
+</code></pre>
+<h1 id="start-service"><a class="markdownIt-Anchor" href="#start-service"></a> start service</h1>
+<pre><code>$ service supervisor restart
+</code></pre>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -785,17 +823,17 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
       
         
           <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 这二个是打开 BBR 必需的 </span></div><div class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 </span></div><div class="line"><span class="comment"># 如果不是，则需先按下方升级内核 </span></div><div class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</div><div class="line"></div><div class="line"><span class="comment"># 保存生效 </span></div><div class="line">sysctl -p</div><div class="line"></div><div class="line"><span class="comment"># 查看 bbr 是否生效 </span></div><div class="line">lsmod | grep bbr</div></pre></td></tr></table></figure>
-<h1 id="debianubuntu- 升级内核">1. Debian、Ubuntu 升级内核 </h1>
+<h1 id="1-debian-ubuntu- 升级内核"><a class="markdownIt-Anchor" href="#1-debian-ubuntu- 升级内核"></a> 1. Debian、Ubuntu 升级内核 </h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></div><div class="line">apt-get update</div><div class="line">apt-cache search linux-image-extra</div><div class="line"></div><div class="line"><span class="comment"># 安装最新的内核 </span></div><div class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">dpkg -l | grep linux-image</div><div class="line"></div><div class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</div><div class="line"></div><div class="line">update-grub</div><div class="line">reboot</div><div class="line"></div><div class="line"><span class="comment"># 查看一下目前的内核版本 </span></div><div class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></div><div class="line">uname -r</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="rhelcentos- 升级内核">2. RHEL、CentOS 升级内核 </h1>
+<h1 id="2-rhel-centos- 升级内核"><a class="markdownIt-Anchor" href="#2-rhel-centos- 升级内核"></a> 2. RHEL、CentOS 升级内核 </h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">yum update -y</div><div class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el7</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 如果是 el6</span></div><div class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</div><div class="line"></div><div class="line"><span class="comment"># 安装内核 </span></div><div class="line">yum --enablerepo=elrepo-kernel install kernel-ml</div><div class="line"></div><div class="line"><span class="comment"># 查看当前已安装的内核 </span></div><div class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></div><div class="line"></div><div class="line"># 设定默认内核 (centos7)</div><div class="line">grub2-set-default 0</div><div class="line">reboot</div><div class="line"></div><div class="line"># 设定默认内核 (centos6)</div><div class="line">vi /etc/grub.conf</div><div class="line"># 修改 default=&lt;ID 号 &gt;</div><div class="line"></div><div class="line"># 设定 /etc/sysctl.conf</div><div class="line">net.core.default_qdisc = fq</div><div class="line">net.ipv4.tcp_congestion_control = bbr</div><div class="line"></div><div class="line"># 生效 </div><div class="line">sysctl -p</div></pre></td></tr></table></figure>
-<h1 id="手动安装">3. 手动安装 </h1>
-<h2 id="下载内核二进制包">3.1. 下载内核二进制包 </h2>
+<h1 id="3- 手动安装"><a class="markdownIt-Anchor" href="#3- 手动安装"></a> 3. 手动安装 </h1>
+<h2 id="31- 下载内核二进制包"><a class="markdownIt-Anchor" href="#31- 下载内核二进制包"></a> 3.1. 下载内核二进制包 </h2>
 <blockquote>
-<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
+<p> 链接：<a href="http://mirrors.kernel.org/debian/pool/main/l/linux/" target="_blank" rel="external">http://mirrors.kernel.org/debian/pool/main/l/linux/</a></p>
 </blockquote>
-<h2 id="解压安装">3.2. 解压安装 </h2>
+<h2 id="32- 解压安装"><a class="markdownIt-Anchor" href="#32- 解压安装"></a> 3.2. 解压安装 </h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Linux升级kernel及tcp_BBR/#more" rel="contents">
@@ -844,7 +882,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx及upstreamcheck,fair模块安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -863,7 +901,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/database/Postgresql主从配置/" itemprop="url">Postgresql 主从配置</a></h2>
+                <a class="post-title-link" href="/web/Nginx及upstreamcheck,fair模块安装/" itemprop="url">Nginx 及 Upstreamcheck,fair 模块安装</a></h2>
         
 
         <div class="post-meta">
@@ -898,8 +936,8 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
                   </a>
                 </span>
 
@@ -916,9 +954,9 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/database/Postgresql主从配置/#comments" itemprop="discussionUrl">
+                <a href="/web/Nginx及upstreamcheck,fair模块安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="database/Postgresql主从配置/" itemprop="commentCount"></span>
+                        data-disqus-identifier="web/Nginx及upstreamcheck,fair模块安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -926,7 +964,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
 
           
           
-             <span id="/database/Postgresql主从配置/" class="leancloud_visitors" data-flag-title="Postgresql 主从配置">
+             <span id="/web/Nginx及upstreamcheck,fair模块安装/" class="leancloud_visitors" data-flag-title="Nginx 及 Upstreamcheck,fair 模块安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -955,23 +993,19 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
 
       
         
-          <h1 id="安装好二台 -postgresql"> 安装好二台 postgresql</h1>
-<blockquote>
-<p> 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上 </span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="配置主服务器 -192.168.10.11"> 配置主服务器 192.168.10.11</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户 </span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数 </span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限 </span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
-<h1 id="配置从服务器 -192.168.10.12"> 配置从服务器 192.168.10.12</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
-<pre><code># 在主上应该有 sender 进程，在从上有 receiver 进程
+          <h1 id="download-nginx-module"><a class="markdownIt-Anchor" href="#download-nginx-module"></a> download nginx &amp; module</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /tmp</div><div class="line"><span class="comment"># main software</span></div><div class="line">wget http://nginx.org/download/nginx-1.11.5.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># dependency(if necessary)</span></div><div class="line">wget https://nchc.dl.sourceforge.net/project/pcre/pcre/8.41/pcre-8.41.tar.gz</div><div class="line"></div><div class="line"><span class="comment"># module nginx_upstream_check_module</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/yaoweibin/nginx_upstream_check_module.git</div><div class="line"></div><div class="line"><span class="comment"># module nginx-upstream-fair</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/gnosek/nginx-upstream-fair.git</div></pre></td></tr></table></figure>
+<h1 id="make-install"><a class="markdownIt-Anchor" href="#make-install"></a> make &amp; install</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># install dependency(if necessary)</span></div><div class="line">tar xzf pcre-8.41.tar.gz</div><div class="line"><span class="built_in">cd</span> pcre-8.41</div><div class="line">./configure</div><div class="line">make &amp;&amp; make install</div><div class="line">ldconfig</div><div class="line"></div><div class="line"><span class="comment"># install nginx</span></div><div class="line">tar xzf nginx-1.11.5.tar.gz</div><div class="line"><span class="built_in">cd</span> nginx-1.11.5</div><div class="line">./configure --user=nobody --group=nobody --prefix=/usr/<span class="built_in">local</span>/nginx/ \</div><div class="line">--with-http_stub_status_module \</div><div class="line">--add-module=../nginx_upstream_check_module \</div><div class="line">--add-module=../nginx-upstream-fair</div><div class="line"></div><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
+<h1 id="nginxconf-proxyconf"><a class="markdownIt-Anchor" href="#nginxconf-proxyconf"></a> nginx.conf &amp; proxy.conf</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div></pre></td><td class="code"><pre><div class="line">vi /usr/<span class="built_in">local</span>/nginx/conf/nginx.conf</div><div class="line"></div><div class="line">user  nobody;</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line"><span class="comment"># security</span></div><div class="line"><span class="comment"># server_tokens   off;</span></div><div class="line"><span class="comment"># proxy_hide_header   X-Powered-By;</span></div><div class="line"></div><div class="line">error_log     /var/<span class="built_in">log</span>/nginx/error.log  warn;</div><div class="line"><span class="comment">#error_log     /var/log/nginx/error.log  notice;</span></div><div class="line"><span class="comment">#error_log      /var/log/nginx/error.log  debug;</span></div><div class="line"></div><div class="line">pid        /var/run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">    worker_connections  8192;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    include       /usr/<span class="built_in">local</span>/nginx/conf/mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line"></div><div class="line">    log_format  main  <span class="string">'$remote_addr - $remote_user [$time_local]"$request"'</span></div><div class="line">                      <span class="string">'$status $body_bytes_sent "$http_referer" '</span></div><div class="line">                      <span class="string">'"$http_user_agent""$http_x_forwarded_for"'</span>;</div><div class="line"></div><div class="line">    access_log  /var/<span class="built_in">log</span>/nginx/access.log  main;</div><div class="line"></div><div class="line">    sendfile        on;</div><div class="line">    tcp_nopush      on;</div><div class="line">    tcp_nodelay     on;</div><div class="line"></div><div class="line">    keepalive_timeout  65;</div><div class="line"></div><div class="line">    <span class="comment"># 设定负载均衡的服务器列表 </span></div><div class="line">    upstream lb.xxx.com &#123;</div><div class="line">        server xxxx:8088;</div><div class="line">        server xxxx:8088;</div><div class="line"></div><div class="line">        <span class="comment"># upstream check</span></div><div class="line">        check interval=6000 rise=1 fall=3 timeout=4000;</div><div class="line"></div><div class="line">        <span class="comment"># fairly scheduler</span></div><div class="line">        fair;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment"># fastcgi config</span></div><div class="line">    fastcgi_connect_timeout 300;</div><div class="line">    fastcgi_send_timeout 300;</div><div class="line">    fastcgi_read_timeout 300;</div><div class="line">    fastcgi_buffer_size 64k;</div><div class="line">    fastcgi_buffers 4 64k;</div><div class="line">    fastcgi_busy_buffers_size 128k;</div><div class="line">    fastcgi_temp_file_write_size 128k;</div><div class="line"></div><div class="line">    <span class="comment"># gzip config</span></div><div class="line">    gzip on;</div><div class="line">    gzip_min_length  1k;</div><div class="line">    gzip_buffers     4 16k;</div><div class="line">    gzip_http_version 1.0;</div><div class="line">    gzip_comp_level 2;</div><div class="line">    gzip_types       text/plain application/x-javascript text/css application/xml;</div><div class="line">    gzip_vary on;</div><div class="line"></div><div class="line">    server &#123;</div><div class="line">        listen 80;</div><div class="line">        include proxy.conf;</div><div class="line"></div><div class="line">        <span class="comment"># check_status_module</span></div><div class="line">        <span class="comment"># usage: curl http://localhost/status?format=json</span></div><div class="line">        <span class="comment"># 好像无法生效 </span></div><div class="line">        location /status?format=json &#123;</div><div class="line">            check_status;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">       &#125;</div><div class="line"></div><div class="line">        <span class="comment"># http_stub_status</span></div><div class="line">        location /ng_status &#123;</div><div class="line">            stub_status on;</div><div class="line">            access_log  off;</div><div class="line">            allow 127.0.0.1;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># upstream</span></div><div class="line">        location / &#123;</div><div class="line">            proxy_pass http://lb.xxx.com;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># static file expires</span></div><div class="line">            location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)($|/) &#123;</div><div class="line">            expires      30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment"># js &amp; css expires</span></div><div class="line">            location ~ .*\.(js|css)($|/) &#123;</div><div class="line">            expires      8h;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">vi</span> /usr/local/nginx/conf/proxy.conf</div><div class="line"></div><div class="line">proxy_redirect <span class="literal">off</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> Host <span class="variable">$host</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line"><span class="attribute">proxy_set_header</span> X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line"><span class="attribute">client_max_body_size</span> <span class="number">10m</span>;</div><div class="line"><span class="attribute">client_body_buffer_size</span> <span class="number">128k</span>;</div><div class="line"><span class="attribute">proxy_connect_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_send_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_read_timeout</span> <span class="number">90</span>;</div><div class="line"><span class="attribute">proxy_buffer_size</span> <span class="number">4k</span>;</div><div class="line"><span class="attribute">proxy_buffers</span> <span class="number">4</span> <span class="number">32k</span>;</div><div class="line"><span class="attribute">proxy_busy_buffers_size</span> <span class="number">64k</span>;</div><div class="line"><span class="attribute">proxy_temp_file_write_size</span> <span class="number">64k</span>;</div></pre></td></tr></table></figure>
+<h2 id="start-auto-start"><a class="markdownIt-Anchor" href="#start-auto-start"></a> start &amp; auto-start</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># autostart</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf"</span> &gt;&gt;/etc/rc.local</div><div class="line"><span class="comment"># make log dir</span></div><div class="line">mkdir -p /var/<span class="built_in">log</span>/nginx/</div><div class="line"><span class="comment"># start</span></div><div class="line">/etc/rc.local</div><div class="line"><span class="comment"># stop</span></div><div class="line">pkill nginx</div><div class="line"><span class="comment"># reload</span></div><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
 
-$ psql$ select * from pg_stat_replication;</code></pre>
-<h1 id="主从切换命令"> 主从切换命令 </h1>
-<p>[postgres@node1 ~]$ pg_ctl stop -m f</p>
-<p>[postgres@node2 ~]$ pg_ctl promote</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
+            <a class="btn" href="/web/Nginx及upstreamcheck,fair模块安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1128,14 +1162,14 @@ $ psql$ select * from pg_stat_replication;</code></pre>
 
       
         
-          <h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
+          <h3 id="每块硬盘分一个区"><a class="markdownIt-Anchor" href="# 每块硬盘分一个区"></a> 每块硬盘分一个区 </h3>
 <pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+  WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+           switch off the mode (command 'c') and change display units to
+           sectors (command 'u').
 
   Command (m for help): n
   Command action
@@ -1169,8 +1203,9 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
+  Syncing disks.
+</code></pre>
+<h1 id="更改分区格式"><a class="markdownIt-Anchor" href="# 更改分区格式"></a> 更改分区格式 </h1>
 <pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
@@ -1181,8 +1216,9 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
+...
+</code></pre>
+<h1 id="创建 -raid"><a class="markdownIt-Anchor" href="# 创建 -raid"></a> 创建 RAID</h1>
 <pre><code># 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
@@ -1257,11 +1293,13 @@ Working Devices : 6
        5       8       97        5      active sync   /dev/sdg1
 
 $ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid- 维护命令">RAID 维护命令 </h1>
-<h2 id="删除故障盘"> 删除故障盘 </h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘"> 增加新盘 </h2>
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre>
+<h1 id="raid- 维护命令"><a class="markdownIt-Anchor" href="#raid- 维护命令"></a> RAID 维护命令 </h1>
+<h2 id="删除故障盘"><a class="markdownIt-Anchor" href="# 删除故障盘"></a> 删除故障盘 </h2>
+<pre><code>$ mdadm /dev/md0 -r /dev/sdb1
+</code></pre>
+<h2 id="增加新盘"><a class="markdownIt-Anchor" href="# 增加新盘"></a> 增加新盘 </h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">

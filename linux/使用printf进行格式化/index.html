@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="表格输出  123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader=&quot;\n %-10s %8s %10s %11s\n&quot;format=&quot;%-10s %08d %10s %11.2f\n&quot;width=43printf &quot;$header&quot; &quot;I">
+<meta name="description" content="表格输出  123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader=&quot;\n %-10s %8s %10s %11s\n&quot;format=&quot;%-10s %08d %10s %11.2f\n&quot;width=43printf &quot;$header&quot; &quot;IT">
 <meta name="keywords" content="shell,printf">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用 Printf 进行格式化">
 <meta property="og:url" content="http://blog.dongcj.com/linux/使用printf进行格式化/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="表格输出  123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader=&quot;\n %-10s %8s %10s %11s\n&quot;format=&quot;%-10s %08d %10s %11.2f\n&quot;width=43printf &quot;$header&quot; &quot;I">
+<meta property="og:description" content="表格输出  123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader=&quot;\n %-10s %8s %10s %11s\n&quot;format=&quot;%-10s %08d %10s %11.2f\n&quot;width=43printf &quot;$header&quot; &quot;IT">
 <meta property="og:updated_time" content="2016-08-30T09:48:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用 Printf 进行格式化">
-<meta name="twitter:description" content="表格输出  123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader=&quot;\n %-10s %8s %10s %11s\n&quot;format=&quot;%-10s %08d %10s %11.2f\n&quot;width=43printf &quot;$header&quot; &quot;I">
+<meta name="twitter:description" content="表格输出  123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader=&quot;\n %-10s %8s %10s %11s\n&quot;format=&quot;%-10s %08d %10s %11.2f\n&quot;width=43printf &quot;$header&quot; &quot;IT">
 
 
 
@@ -432,7 +432,7 @@
       
 
       
-        <h2 id="表格输出"> 表格输出 </h2>
+        <h2 id="表格输出"><a class="markdownIt-Anchor" href="# 表格输出"></a> 表格输出 </h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#/bin/bash</span></div><div class="line"></div><div class="line">divider===============================</div><div class="line">divider=<span class="variable">$divider</span><span class="variable">$divider</span></div><div class="line"></div><div class="line">header=<span class="string">"\n %-10s %8s %10s %11s\n"</span></div><div class="line">format=<span class="string">"%-10s %08d %10s %11.2f\n"</span></div><div class="line"></div><div class="line">width=43</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$header</span>"</span> <span class="string">"ITEM NAME"</span> <span class="string">"ITEM ID"</span> <span class="string">"COLOR"</span> <span class="string">"PRICE"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%<span class="variable">$width</span>.<span class="variable">$&#123;width&#125;</span>s\n"</span> <span class="string">"<span class="variable">$divider</span>"</span></div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"<span class="variable">$format</span>"</span> \</div><div class="line">Triangle 13  red 20 \</div><div class="line">Oval 204449 <span class="string">"dark blue"</span> 65.656 \</div><div class="line">Square 3145 orange .7</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">printf</span> <span class="string">"%s\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line">\n3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%b\n"</span> <span class="string">"1"</span> <span class="string">"2"</span> <span class="string">"\n3"</span></div><div class="line">1</div><div class="line">2</div><div class="line"></div><div class="line">3</div><div class="line">$</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%d\n"</span> 255 0xff 0377 3.5</div><div class="line">255</div><div class="line">255</div><div class="line">255</div><div class="line">bash: <span class="built_in">printf</span>: 3.5: invalid number</div><div class="line">3</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.000000</div><div class="line">255.000000</div><div class="line">377.000000</div><div class="line">3.500000</div><div class="line"></div><div class="line"><span class="built_in">printf</span> <span class="string">"%.1f\n"</span> 255 0xff 0377 3.5</div><div class="line">255.0</div><div class="line">255.0</div><div class="line">377.0</div><div class="line">3.5</div></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(seq 1 10); <span class="keyword">do</span> <span class="built_in">printf</span> <span class="string">"%03d\t"</span> <span class="string">"<span class="variable">$i</span>"</span>; <span class="keyword">done</span></div><div class="line">001     002     003     004     005     006     007     008     009     010</div></pre></td></tr></table></figure>
@@ -490,8 +490,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/CentOS部署lazy-balancer负载均衡/" rel="next" title="CentOS 部署 Lazy-Balancer 负载均衡　">
-                <i class="fa fa-chevron-left"></i> CentOS 部署 Lazy-Balancer 负载均衡　
+              <a href="/linux/SMATE、XFCE、VNC配置/" rel="next" title="SMATE、XFCE、VNC 配置">
+                <i class="fa fa-chevron-left"></i> SMATE、XFCE、VNC 配置
               </a>
             
           </div>
@@ -500,8 +500,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/SMATE、XFCE、VNC配置/" rel="prev" title="SMATE、XFCE、VNC 配置">
-                SMATE、XFCE、VNC 配置 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Python2.6升级至python2.7/" rel="prev" title="Python2.6 升级至 python2.7">
+                Python2.6 升级至 python2.7 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
