@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
+                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/cluster/" itemprop="url" rel="index">
+                    <span itemprop="name">cluster</span>
                   </a>
                 </span>
 
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/linux/Mdadm_raid10_raid5/#comments" itemprop="discussionUrl">
+                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="linux/Mdadm_raid10_raid5/" itemprop="commentCount"></span>
+                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/linux/Mdadm_raid10_raid5/" class="leancloud_visitors" data-flag-title="Mdadm_raid10_raid5">
+             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,143 +435,76 @@
 
       
         
-          <h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+          <blockquote>
+<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
+</blockquote>
+<pre><code>python gearman library home page
+http://samuelks.com/python-gearman/docs/
 
-$ fdisk /dev/sda
+Tim Yang：利用 Gearman 来实现远程监控与管理
+http://timyang.net/linux/gearman-monitor/</code></pre>
+<h1 id="一安装 -grarmand- 及 -libgearman-devel"> 一、安装 grarmand 及 libgearman-devel</h1>
+<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)</code></pre>
+<h1 id="二安装 -php- 的 -api"> 二、安装 PHP 的 API</h1>
+<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
 
-  Command (m for help): n
-  Command action
-     e   extended
-     p   primary partition (1-4)
-  p
-  Partition number (1-4): 1
-  First cylinder (1-91201, default 1):
-  Using default value 1
-  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
-  Using default value 91201
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so</code></pre>
+<h1 id="三启动 -gearmand"> 三、启动 gearmand</h1>
+<pre><code># (如果使用默认参数，需要开启 IPV6)
 
-  Command (m for help): p
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
 
-  Disk /dev/sda: 750.2 GB, 750156374016 bytes
-  255 heads, 63 sectors/track, 91201 cylinders
-  Units = cylinders of 16065 * 512 = 8225280 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disk identifier: 0x0005c259
+$ service gearmand start
 
-     Device Boot      Start         End      Blocks   Id  System
-  /dev/sda1               1       91201   732572001   83  Linux
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
 
-  Command (m for help): t
-  Selected partition 1
-  Hex code (type L to list codes): fd
-  Changed system type of partition 1 to fd (Linux raid autodetect)
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
 
-  Command (m for help): w
-  The partition table has been altered!
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
 
-  Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
-$ fdisk /dev/sdc
-...
-$ fdisk /dev/sdd
-...
-$ fdisk /dev/sde
-...
-$ fdisk /dev/sdf
-...
-$ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
-$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
-mdadm: layout defaults to n2
-mdadm: layout defaults to n2
-mdadm: chunk size defaults to 512K
-mdadm: size set to 732440576K
-mdadm: Defaulting to version 1.2 metadata
-mdadm: array /dev/md0 started.
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
 
-# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
-# watch cat /proc/mdstat
-Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...</code></pre>
+<h2 id="worker">1. Worker:</h2>
+<pre><code>&lt;?php
 
-Personalities : [raid10]
-md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
-      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
-      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
-0948K/sec
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
 
-unused devices:
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
+}
 
-$ fdisk /dev/md0
-$ mkfs.ext4 /dev/md0p1
+function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
 
-$ mkdir /raid10
-$ mount /dev/md0p1 /raid10
-
-$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-
-$ blkid
-  ...
-  /dev/md0p1: UUID=&quot;093e0605-1fa2-4279-99b2-746c70b78f1b&quot; TYPE=&quot;ext4&quot;
-
-$ vi /etc/fstab
-  ...
-  /dev/md0p1 /raid10 ext4 noatime,rw 0 0
-  **UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**
-
-$ mdadm --query --detail /dev/md0
-/dev/md0:
-        Version : 1.2
-  Creation Time : Tue Feb 11 12:50:38 2014
-     Raid Level : raid10
-     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
-  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
-   Raid Devices : 6
-  Total Devices : 6
-    Persistence : Superblock is persistent
-
-    Update Time : Tue Feb 11 18:48:10 2014
-          State : clean
- Active Devices : 6
-Working Devices : 6
- Failed Devices : 0
-  Spare Devices : 0
-
-         Layout : near=2
-     Chunk Size : 512K
-
-           Name : local:0  (local to host local)
-           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
-         Events : 70
-
-    Number   Major   Minor   RaidDevice State
-       0       8        1        0      active sync   /dev/sda1
-       1       8       33        1      active sync   /dev/sdc1
-       2       8       49        2      active sync   /dev/sdd1
-       3       8       65        3      active sync   /dev/sde1
-       4       8       81        4      active sync   /dev/sdf1
-       5       8       97        5      active sync   /dev/sdg1
-
-$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
-$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf</code></pre>
-<h1 id="raid- 维护命令">RAID 维护命令 </h1>
-<h2 id="删除故障盘"> 删除故障盘 </h2>
-<pre><code>$ mdadm /dev/md0 -r /dev/sdb1</code></pre>
-<h2 id="增加新盘"> 增加新盘 </h2>
+?&gt;</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
+            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

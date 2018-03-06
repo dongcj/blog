@@ -324,7 +324,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -343,7 +343,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
+                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
         
 
         <div class="post-meta">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cluster/" itemprop="url" rel="index">
-                    <span itemprop="name">cluster</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -396,9 +396,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/cluster/Gearman安装/#comments" itemprop="discussionUrl">
+                <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="cluster/Gearman安装/" itemprop="commentCount"></span>
+                        data-disqus-identifier="linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -406,7 +406,7 @@
 
           
           
-             <span id="/cluster/Gearman安装/" class="leancloud_visitors" data-flag-title="Gearman 安装">
+             <span id="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" class="leancloud_visitors" data-flag-title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -435,76 +435,32 @@
 
       
         
-          <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</p>
-</blockquote>
-<pre><code>python gearman library home page
-http://samuelks.com/python-gearman/docs/
+          <h1 id="curl">curl</h1>
+<h2 id="下载文件"> 下载文件 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</div><div class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</div><div class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</div><div class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></div><div class="line"><span class="comment"># or </span></div><div class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></div></pre></td></tr></table></figure>
+<h2 id="详细信息"> 详细信息 </h2>
+<pre><code>curl -v www.sina.com
+curl --trace output.txt www.sina.com
+curl --trace-ascii output.txt www.sina.com
+curl  -s  --head  www.sina.com</code></pre>
+<h2 id="上传文件"> 上传文件 </h2>
+<pre><code>curl --form upload=@localfilename --form press=OK [URL]
+curl -T file.txt
 
-Tim Yang：利用 Gearman 来实现远程监控与管理
-http://timyang.net/linux/gearman-monitor/</code></pre>
-<h1 id="一安装 -grarmand- 及 -libgearman-devel"> 一、安装 grarmand 及 libgearman-devel</h1>
-<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)</code></pre>
-<h1 id="二安装 -php- 的 -api"> 二、安装 PHP 的 API</h1>
-<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
+curl --cookie &quot;name=xxx&quot; www.example.com
+curl --user name@DOMAIN:password http://example.com
 
-$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
-$ cd gearman-1.1.2
-$ phpize
-$ ./configure; make; make install       // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
+curl -fsSL ...</code></pre>
+<h2 id="下载网页保存为文件名"> 下载网页保存为文件名 </h2>
+<pre><code>curl -o [文件名] www.sina.com
 
-# 增加 php 扩展
-$ vi /etc/php.d/gearman.ini
-; Enable gearman extension module
-extension=gearman.so</code></pre>
-<h1 id="三启动 -gearmand"> 三、启动 gearmand</h1>
-<pre><code># (如果使用默认参数，需要开启 IPV6)
+curl -L www.sina.com
 
-# 可以设置成服务启动：
-$ vi /etc/sysconfig/gearmand
-    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;    --&gt; 根据自己需求设置 --verbose
-
-$ service gearmand start
-
-$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
-
-# 如果需要使用数据库
-gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
-
-$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
-
-# 将 /etc/passwd 文件给函数 wc 进行处理
-$ gearman -f wc &lt; /etc/passwd
-
-$ gearadmin --show-jobs
-      --status
-      --workers
-      -- ...</code></pre>
-<h2 id="worker">1. Worker:</h2>
-<pre><code>&lt;?php
-
-$worker = new GearmanWorker();
-$worker-&gt;addServer();
-$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
-
-while (1) {
-    print &quot;Waiting for job...\n&quot;;
-    $ret = $worker-&gt;work();
-    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
-}
-
-function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
-    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
-    echo &quot;Workload: $workload\n&quot;;
-    $result = strrev($workload);
-    echo &quot;Result: $result\n&quot;;
-    return $result;
-}
-
-?&gt;</code></pre>
+curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html</code></pre>
+<h2 id="对于 -https- 的方法添加 -insecure"> 对于 https 的方法，添加 –insecure</h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
+            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -823,179 +779,6 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/database/Postgresql主从配置/" itemprop="url">Postgresql 主从配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/database/Postgresql主从配置/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="database/Postgresql主从配置/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/database/Postgresql主从配置/" class="leancloud_visitors" data-flag-title="Postgresql 主从配置">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装好二台 -postgresql"> 安装好二台 postgresql</h1>
-<blockquote>
-<p> 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上 </span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="配置主服务器 -192.168.10.11"> 配置主服务器 192.168.10.11</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户 </span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数 </span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限 </span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
-<h1 id="配置从服务器 -192.168.10.12"> 配置从服务器 192.168.10.12</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
-<pre><code># 在主上应该有 sender 进程，在从上有 receiver 进程
-
-$ psql$ select * from pg_stat_replication;</code></pre>
-<h1 id="主从切换命令"> 主从切换命令 </h1>
-<p>[postgres@node1 ~]$ pg_ctl stop -m f</p>
-<p>[postgres@node2 ~]$ pg_ctl promote</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1179,6 +962,179 @@ $ mkpart primary 2048s 100%
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/database/Postgresql主从配置/" itemprop="url">Postgresql 主从配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/database/" itemprop="url" rel="index">
+                    <span itemprop="name">database</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/database/Postgresql主从配置/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="database/Postgresql主从配置/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/database/Postgresql主从配置/" class="leancloud_visitors" data-flag-title="Postgresql 主从配置">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="安装好二台 -postgresql"> 安装好二台 postgresql</h1>
+<blockquote>
+<p> 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主服务器上 </span></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div><div class="line"></div><div class="line">vi /etc/profile</div><div class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</div><div class="line"></div><div class="line"><span class="built_in">source</span> /etc/profile</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="配置主服务器 -192.168.10.11"> 配置主服务器 192.168.10.11</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata</div><div class="line">chown -R postgres:postgres /pgdata/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></div><div class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</div><div class="line"></div><div class="line"><span class="comment"># 增加 replica 用户 </span></div><div class="line"><span class="built_in">cd</span> /pgdata</div><div class="line">vi pg_hba.conf</div><div class="line">  host    replication     replica       192.168.10.12/32               md5</div><div class="line"></div><div class="line"><span class="comment"># 配置复制参数 </span></div><div class="line">vi postgresql.conf</div><div class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></div><div class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></div><div class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></div><div class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></div><div class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></div><div class="line"></div><div class="line"><span class="comment"># 修改权限 </span></div><div class="line">chmod -R 700 /pgdata/</div><div class="line"></div><div class="line"><span class="comment"># 重启 pg</span></div><div class="line">pg_ctl restart</div></pre></td></tr></table></figure>
+<h1 id="配置从服务器 -192.168.10.12"> 配置从服务器 192.168.10.12</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 使用 root 帐户 </span></div><div class="line">mkdir /pgdata_backup</div><div class="line">chown -R postgres:postgres /pgdata_backup/</div><div class="line"></div><div class="line">su - postgres</div><div class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</div><div class="line"><span class="comment"># password is: replica</span></div><div class="line"></div><div class="line"><span class="built_in">cd</span> /pgdata_backup</div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi recovery.conf</div><div class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></div><div class="line">recovery_target_timeline = <span class="string">'latest'</span></div><div class="line">standby_mode = on</div><div class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></div><div class="line"></div><div class="line"><span class="comment"># 编辑配置 </span></div><div class="line">vi postgresql.conf</div><div class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></div><div class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></div><div class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></div><div class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></div><div class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></div><div class="line"></div><div class="line">chmod -R 700 /pgdata_backup/</div><div class="line"></div><div class="line"><span class="comment"># 启动从 pg</span></div><div class="line">pg_ctl start</div></pre></td></tr></table></figure>
+<pre><code># 在主上应该有 sender 进程，在从上有 receiver 进程
+
+$ psql$ select * from pg_stat_replication;</code></pre>
+<h1 id="主从切换命令"> 主从切换命令 </h1>
+<p>[postgres@node1 ~]$ pg_ctl stop -m f</p>
+<p>[postgres@node2 ~]$ pg_ctl promote</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
