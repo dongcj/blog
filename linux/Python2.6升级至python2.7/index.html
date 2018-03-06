@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="升级 python  install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel  $ yum -y install mysql">
+<meta name="description" content="升级 python install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel  $ yum -y install my">
 <meta name="keywords" content="python 升级">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python2.6 升级至 python2.7">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Python2.6升级至python2.7/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="升级 python  install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel  $ yum -y install mysql">
+<meta property="og:description" content="升级 python install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel  $ yum -y install my">
 <meta property="og:updated_time" content="2017-08-09T01:03:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python2.6 升级至 python2.7">
-<meta name="twitter:description" content="升级 python  install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel  $ yum -y install mysql">
+<meta name="twitter:description" content="升级 python install # 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel  $ yum -y install my">
 
 
 
@@ -432,16 +432,15 @@
       
 
       
-        <h1 id="升级 -python"><a class="markdownIt-Anchor" href="# 升级 -python"></a> 升级 python</h1>
-<h2 id="install"><a class="markdownIt-Anchor" href="#install"></a> install</h2>
+        <h1 id="升级 -python"> 升级 python</h1>
+<h2 id="install">install</h2>
 <pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
 $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
 
 $ yum -y install mysql mysql-devel
 
-$ yum -y install libxml2-devel  libxslt-devel
-</code></pre>
-<h2 id="编译安装 -python- 新版"><a class="markdownIt-Anchor" href="# 编译安装 -python- 新版"></a> 编译安装 python 新版 </h2>
+$ yum -y install libxml2-devel  libxslt-devel</code></pre>
+<h2 id="编译安装 -python- 新版"> 编译安装 python 新版 </h2>
 <pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
 
 # 加上 --enable-shared 解决 &quot;Cannot build PL/Python because libpython is not a shared library&quot;
@@ -455,21 +454,17 @@ $ ln -s /usr/local/bin/python /usr/bin/python
 
 # copy bz2 module
 $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
-$ python -V
-</code></pre>
-<h1 id="安装 -easy_install- 和 -pip"><a class="markdownIt-Anchor" href="# 安装 -easy_install- 和 -pip"></a> 安装 easy_install 和 pip</h1>
-<pre><code># 参见：[《linux 安装 easy_install 及 pip》][1]
-</code></pre>
-<h2 id="修改 -yum- 中的 -python- 版本为 -python26"><a class="markdownIt-Anchor" href="# 修改 -yum- 中的 -python- 版本为 -python26"></a> 修改 yum 中的 python 版本为 <strong>python2.6</strong></h2>
+$ python -V</code></pre>
+<h1 id="安装 -easy_install- 和 -pip"> 安装 easy_install 和 pip</h1>
+<pre><code># 参见：[《linux 安装 easy_install 及 pip》][1]</code></pre>
+<h2 id="修改 -yum- 中的 -python- 版本为 -python2.6"> 修改 yum 中的 python 版本为 <strong>python2.6</strong></h2>
 <pre><code>$ vi /usr/bin/yum
-$ vi /usr/bin/yum-config-manager
-</code></pre>
-<h2 id="安装一些基础软件"><a class="markdownIt-Anchor" href="# 安装一些基础软件"></a> 安装一些基础软件 </h2>
+$ vi /usr/bin/yum-config-manager</code></pre>
+<h2 id="安装一些基础软件"> 安装一些基础软件 </h2>
 <pre><code>$ pip install readline
 
 $ pip install MySQL-python pssh flask
-$ pip install lxml virtualenv virtualenvwrapper websockify
-</code></pre>
+$ pip install lxml virtualenv virtualenvwrapper websockify</code></pre>
 
       
     </div>
@@ -729,7 +724,7 @@ $ pip install lxml virtualenv virtualenvwrapper websockify
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#升级 -python"><span class="nav-number">1.</span> <span class="nav-text"> 升级 python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text"> install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装 -python- 新版"><span class="nav-number">1.2.</span> <span class="nav-text"> 编译安装 python 新版 </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装 -easy_install- 和 -pip"><span class="nav-number">2.</span> <span class="nav-text"> 安装 easy_install 和 pip</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改 -yum- 中的 -python- 版本为 -python26"><span class="nav-number">2.1.</span> <span class="nav-text"> 修改 yum 中的 python 版本为 python2.6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装一些基础软件"><span class="nav-number">2.2.</span> <span class="nav-text"> 安装一些基础软件 </span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#升级 -python"><span class="nav-number">1.</span> <span class="nav-text"> 升级 python</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#install"><span class="nav-number">1.1.</span> <span class="nav-text">install</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译安装 -python- 新版"><span class="nav-number">1.2.</span> <span class="nav-text"> 编译安装 python 新版 </span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装 -easy_install- 和 -pip"><span class="nav-number">2.</span> <span class="nav-text"> 安装 easy_install 和 pip</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改 -yum- 中的 -python- 版本为 -python2.6"><span class="nav-number">2.1.</span> <span class="nav-text"> 修改 yum 中的 python 版本为 python2.6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装一些基础软件"><span class="nav-number">2.2.</span> <span class="nav-text"> 安装一些基础软件 </span></a></li></ol></li></ol></div>
             
 
           </div>

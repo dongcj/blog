@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer   install tengine $ git submodule update --init --recursive  $ cd resource">
+<meta name="description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine $ git submodule update --init --recursive  $ cd resou">
 <meta name="keywords" content="nginx,tengine,lazy-balancer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CentOS 部署 Lazy-Balancer 负载均衡　">
 <meta property="og:url" content="http://blog.dongcj.com/linux/CentOS部署lazy-balancer负载均衡/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer   install tengine $ git submodule update --init --recursive  $ cd resource">
-<meta property="og:updated_time" content="2018-03-06T01:21:20.238Z">
+<meta property="og:description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine $ git submodule update --init --recursive  $ cd resou">
+<meta property="og:updated_time" content="2018-03-06T01:43:32.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CentOS 部署 Lazy-Balancer 负载均衡　">
-<meta name="twitter:description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer   install tengine $ git submodule update --init --recursive  $ cd resource">
+<meta name="twitter:description" content="clone soft $ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer $ cd /usr/local/lazy_balancer install tengine $ git submodule update --init --recursive  $ cd resou">
 
 
 
@@ -432,11 +432,10 @@
       
 
       
-        <h1 id="clone-soft"><a class="markdownIt-Anchor" href="#clone-soft"></a> clone soft</h1>
+        <h1 id="clone-soft">clone soft</h1>
 <pre><code>$ git clone https://github.com/v55448330/lazy-balancer.git /usr/local/lazy_balancer
-$ cd /usr/local/lazy_balancer
-</code></pre>
-<h1 id="install-tengine"><a class="markdownIt-Anchor" href="#install-tengine"></a> install tengine</h1>
+$ cd /usr/local/lazy_balancer</code></pre>
+<h1 id="install-tengine">install tengine</h1>
 <pre><code>$ git submodule update --init --recursive
 
 $ cd resource/nginx/tengine
@@ -446,9 +445,8 @@ $ ./configure --user=nginx --group=nginx --prefix=/etc/nginx --sbin-path=/usr/sb
 $ make &amp;&amp; make install
 
 # add nginx user
-$ adduser --system --no-create-home --shell /bin/false   nginx
-</code></pre>
-<h1 id="install-supervisor"><a class="markdownIt-Anchor" href="#install-supervisor"></a> install supervisor</h1>
+$ adduser --system --no-create-home --shell /bin/false   nginx</code></pre>
+<h1 id="install-supervisor">install supervisor</h1>
 <pre><code>$ yum -y install supervisor
 
 # add to supervisor config file
@@ -456,11 +454,9 @@ $ echo &quot;[include]&quot; &gt;&gt;/etc/supervisord.conf
 $ echo &quot;files = /etc/supervisor/conf.d/*.conf&quot; &gt;&gt;/etc/supervisord.conf
 
 $ cp -rf /usr/local/lazy_balancer/service/* /etc/supervisor/
-$ vi /etc/supervisor/conf.d/supervisor_balancer.conf
-</code></pre>
-<h1 id="start-service"><a class="markdownIt-Anchor" href="#start-service"></a> start service</h1>
-<pre><code>$ service supervisor restart
-</code></pre>
+$ vi /etc/supervisor/conf.d/supervisor_balancer.conf</code></pre>
+<h1 id="start-service">start service</h1>
+<pre><code>$ service supervisor restart</code></pre>
 
       
     </div>
@@ -517,8 +513,8 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="next" title="Linux 升级 Kernel 及 tcp_BBR">
-                <i class="fa fa-chevron-left"></i> Linux 升级 Kernel 及 tcp_BBR
+              <a href="/web/Nginx及upstreamcheck,fair模块安装/" rel="next" title="Nginx 及 Upstreamcheck,fair 模块安装">
+                <i class="fa fa-chevron-left"></i> Nginx 及 Upstreamcheck,fair 模块安装
               </a>
             
           </div>
@@ -527,8 +523,8 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/SMATE、XFCE、VNC配置/" rel="prev" title="SMATE、XFCE、VNC 配置">
-                SMATE、XFCE、VNC 配置 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="prev" title="Linux 升级 Kernel 及 tcp_BBR">
+                Linux 升级 Kernel 及 tcp_BBR <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -724,7 +720,7 @@ $ vi /etc/supervisor/conf.d/supervisor_balancer.conf
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#clone-soft"><span class="nav-number">1.</span> <span class="nav-text"> clone soft</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-tengine"><span class="nav-number">2.</span> <span class="nav-text"> install tengine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-supervisor"><span class="nav-number">3.</span> <span class="nav-text"> install supervisor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#start-service"><span class="nav-number">4.</span> <span class="nav-text"> start service</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#clone-soft"><span class="nav-number">1.</span> <span class="nav-text">clone soft</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-tengine"><span class="nav-number">2.</span> <span class="nav-text">install tengine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#install-supervisor"><span class="nav-number">3.</span> <span class="nav-text">install supervisor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#start-service"><span class="nav-number">4.</span> <span class="nav-text">start service</span></a></li></ol></div>
             
 
           </div>

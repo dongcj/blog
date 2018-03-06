@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html ) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot;X W">
+<meta name="description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot">
 <meta name="keywords" content="xorg,smate,xfce,vnc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SMATE、XFCE、VNC 配置">
 <meta property="og:url" content="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html ) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot;X W">
+<meta property="og:description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot">
 <meta property="og:updated_time" content="2016-08-30T09:48:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SMATE、XFCE、VNC 配置">
-<meta name="twitter:description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html ) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot;X W">
+<meta name="twitter:description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot">
 
 
 
@@ -432,8 +432,8 @@
       
 
       
-        <h1 id="yum- 安装图像界面及 -vnc"><a class="markdownIt-Anchor" href="#yum- 安装图像界面及 -vnc"></a> YUM 安装图像界面及 VNC</h1>
-<p>(参考：<a href="http://www.ha97.com/4634.html" target="_blank" rel="external">http://www.ha97.com/4634.html</a> )</p>
+        <h1 id="yum- 安装图像界面及 -vnc">YUM 安装图像界面及 VNC</h1>
+<p>(参考：http://www.ha97.com/4634.html)</p>
 <pre><code>yum install epel-release
 
 yum grouplist
@@ -456,19 +456,17 @@ ls -l /etc/systemd/system/display-manager.service
 systemctl disable gdm &amp;&amp; systemctl enable lightdm
 
 # 刷新
-systemctl isolate graphical.target
-</code></pre>
-<h1 id="安装 -vnc-server"><a class="markdownIt-Anchor" href="# 安装 -vnc-server"></a> 安装 vnc server</h1>
+systemctl isolate graphical.target</code></pre>
+<h1 id="安装 -vnc-server"> 安装 vnc server</h1>
 <pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
 yum install vnc-server vnc* （CentOS 5.x 里）
 yum install tigervnc-server tigervnc （CentOS 6.x 里）
 /etc/init.d/vncserver restart
 
 # 关闭具体的 vncserver 命令 :
-vncserver -kill :1
-</code></pre>
+vncserver -kill :1</code></pre>
 <blockquote>
-<p><a href="http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7" target="_blank" rel="external">http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</a></p>
+<p>http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</p>
 </blockquote>
 
       
@@ -528,8 +526,8 @@ vncserver -kill :1
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/CentOS部署lazy-balancer负载均衡/" rel="next" title="CentOS 部署 Lazy-Balancer 负载均衡　">
-                <i class="fa fa-chevron-left"></i> CentOS 部署 Lazy-Balancer 负载均衡　
+              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="next" title="Linux 升级 Kernel 及 tcp_BBR">
+                <i class="fa fa-chevron-left"></i> Linux 升级 Kernel 及 tcp_BBR
               </a>
             
           </div>
@@ -735,7 +733,7 @@ vncserver -kill :1
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum- 安装图像界面及 -vnc"><span class="nav-number">1.</span> <span class="nav-text"> YUM 安装图像界面及 VNC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装 -vnc-server"><span class="nav-number">2.</span> <span class="nav-text"> 安装 vnc server</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum- 安装图像界面及 -vnc"><span class="nav-number">1.</span> <span class="nav-text">YUM 安装图像界面及 VNC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装 -vnc-server"><span class="nav-number">2.</span> <span class="nav-text"> 安装 vnc server</span></a></li></ol></div>
             
 
           </div>
