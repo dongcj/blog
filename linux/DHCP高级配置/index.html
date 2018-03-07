@@ -97,17 +97,18 @@
 
 
 
-<meta name="description" content="# 一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现：">
+<meta name="description" content="一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrela">
 <meta name="keywords" content="dhcp,pxe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DHCP 高级配置">
 <meta property="og:url" content="http://blog.dongcj.com/linux/DHCP高级配置/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="# 一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现：">
+<meta property="og:description" content="一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrela">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DHCP 高级配置">
-<meta name="twitter:description" content="# 一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现：">
+<meta name="twitter:description" content="一、DHCP 中继代理配置  # (在其它服务上安装 dhcpd 软件)：  $ vi /etc/sysconfig/dhcrelay   # Command line options here   INTERFACES=&amp;quot;eth1 eth2&amp;quot;   DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;  # 也可以通过以下命令方式来实现： $ dhcrela">
 
 
 
@@ -410,7 +411,7 @@
       
 
       
-        <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
+        <h1 id="一、DHCP- 中继代理配置"><a href="# 一、DHCP- 中继代理配置" class="headerlink" title="一、DHCP 中继代理配置"></a> 一、DHCP 中继代理配置 </h1><hr>
 <pre><code># (在其它服务上安装 dhcpd 软件)：
 
 $ vi /etc/sysconfig/dhcrelay
@@ -419,8 +420,8 @@ $ vi /etc/sysconfig/dhcrelay
   DHCPSERVERS=&quot;192.168.1.1&quot;
 
 # 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1</code></pre>
-<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+</code></pre><h1 id="二、DHCP- 超网配置"><a href="# 二、DHCP- 超网配置" class="headerlink" title="二、DHCP 超网配置"></a> 二、DHCP 超网配置 </h1><hr>
 <pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
 ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
 shared-network mynet {          /* 超网作用域选项，共同部分 */
@@ -456,8 +457,8 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
         option routers 192.168.3.1;                /* 网关地址 */
     }
 
-}</code></pre>
-
+}
+</code></pre>
       
     </div>
 
@@ -511,8 +512,8 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs/" rel="next" title="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
-                <i class="fa fa-chevron-left"></i> Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs
+              <a href="/linux/斐讯K2路由器刷机/" rel="next" title="斐讯 K2 路由器刷机">
+                <i class="fa fa-chevron-left"></i> 斐讯 K2 路由器刷机
               </a>
             
           </div>
@@ -521,8 +522,8 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/斐讯K2路由器刷机/" rel="prev" title="斐讯 K2 路由器刷机">
-                斐讯 K2 路由器刷机 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/编码与文件格式转换/" rel="prev" title="编码与文件格式转换">
+                编码与文件格式转换 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -688,7 +689,7 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一 dhcp- 中继代理配置"><span class="nav-text"># 一、DHCP 中继代理配置 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二 dhcp- 超网配置"><span class="nav-text"># 二、DHCP 超网配置 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、DHCP- 中继代理配置"><span class="nav-text"> 一、DHCP 中继代理配置 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、DHCP- 超网配置"><span class="nav-text"> 二、DHCP 超网配置 </span></a></li></ol></div>
             
 
           </div>
