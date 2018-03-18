@@ -325,748 +325,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux安装easy_install及pip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
-</blockquote>
-<h1 id="安装 -easy-install"><a href="# 安装 -easy-install" class="headerlink" title="安装 easy_install"></a> 安装 easy_install</h1><pre><code># 获取软件包
-$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-# 解压 :
-$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
-# 使用 Python 2.7.x 安装 setuptools
-/usr/local/bin/python2.7 setup.py install
-
-更多 easy_install 用法见： easy_install 用法
-</code></pre><h1 id="安装 -PIP"><a href="# 安装 -PIP" class="headerlink" title="安装 PIP"></a> 安装 PIP</h1><pre><code># 下载方法 1
-$ curl https://bootstrap.pypa.io/get-pip.py | python -
-# 下载方法 2
-$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
-
-# 安装方法 1
-$ yum install python-pip
-
-# 安装方法 2
-$ /usr/local/bin/easy_install pip  (建议 , 如果升级使用此方法！)
-
-# 升级 pip
-$ /usr/local/bin/easy_install --upgrade pip
-
-# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案)
-$ pip install -U distribute
-
-# 升级 ez_setup
-$ curl https://bootstrap.pypa.io/ez_setup.py | python -
-
-$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-
-&gt; 安装墙内 PIP
-http://realfavicongenerator.net/
-</code></pre><h1 id="easy-install- 用法"><a href="#easy-install- 用法" class="headerlink" title="easy_install 用法"></a>easy_install 用法 </h1><pre><code># 1 直接安装：
-  easy_install SQLObject
-# 2 使用下载页面地址安装
-  easy_install -f http://pythonpaste.org/package_index.html SQLObject
-# 3 直接给出下载 url 安装
-  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
-# 4 .egg 文件的安装
-  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
-# 5 跟新安装过的包
-  easy_install --upgrade PyProtocols
-# 6 安装已经下载和提取在当前目录下的包
-  easy_install .
-# 7 安装特定特定版本的库
-  easy_install &quot;SomePackage==2.0&quot;
-# 8 大于某个版本
-  easy_install &quot;SomePackage&gt;2.0
-# 9 卸载库
-easy_install -m PackageName
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Linux安装easy_install及pip/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Autossh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Autossh/" itemprop="url">Autossh</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T16:32:12+08:00">
-                2016-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="noopener">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
-</blockquote>
-<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性"><a href="# 用 -autossh- 保证 -ssh- 隧道稳定性" class="headerlink" title="用 autossh 保证 ssh 隧道稳定性 :"></a> 用 autossh 保证 ssh 隧道稳定性 :</h1><pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
-</code></pre><h1 id="autossh- 代理"><a href="#autossh- 代理" class="headerlink" title="autossh 代理"></a>autossh 代理 </h1><pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
-export AUTOSSH_POLL=60
-export AUTOSSH_FIRST_POLL=30
-export AUTOSSH_GATETIME=0
-export AUTOSSH_DEBUG=1
-autossh -M 0 -4 -fN -R 8080:127.0.0.1:80 -o &quot;ServerAliveInterval 60&quot; \
-    -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
-    -o StrictHostKeyChecking=no USER@HOSTNAME
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Autossh/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Screen、nohup、setsid、disown后台运行/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Screen、nohup、setsid、disown后台运行/" itemprop="url">Screen、nohup、setsid、disown 后台运行</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T16:20:35+08:00">
-                2016-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="screen- 后台"><a href="#screen- 后台" class="headerlink" title="screen 后台"></a>screen 后台 </h1><pre><code>screen -ls -&gt; 列出当前所有的 session
-screen -r yourname -&gt; 回到 yourname 这个 session
-screen -d yourname -&gt; 远程 detach 某个 session
-screen -d -r yourname -&gt; 结束当前 session 并回到 yourname 这个 session
-
-# 有用的命令，可以做为同步演示用 , 比 script 强大
-screen -x &lt;SESSION_NAME&gt;
-
-screen -X -S [session_you_want_to_kill] quit
-
-screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
-</code></pre><h1 id="nohup- 后台"><a href="#nohup- 后台" class="headerlink" title="nohup 后台"></a>nohup 后台 </h1><pre><code>nohup ping www.ibm.com &amp;
-</code></pre><h1 id="setsid- 后台"><a href="#setsid- 后台" class="headerlink" title="setsid 后台"></a>setsid 后台 </h1><pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
-</code></pre><h1 id="subshell- 后台"><a href="#subshell- 后台" class="headerlink" title="subshell 后台"></a>subshell 后台 </h1><pre><code>(ping www.ibm.com &amp;)
-</code></pre><h1 id="disown- 后台"><a href="#disown- 后台" class="headerlink" title="disown 后台"></a>disown 后台 </h1><pre><code>disown -h JOBID
-</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Screen、nohup、setsid、disown后台运行/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Bind安装配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Bind安装配置/" itemprop="url">Bind 安装配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-11T15:40:19+08:00">
-                2016-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 参考：<br><a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="noopener">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a><br>DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="noopener">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
-</blockquote>
-<h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><pre><code>$ rpm -ivh bind bind-chroot
-</code></pre><h1 id="配置"><a href="# 配置" class="headerlink" title="配置"></a> 配置 </h1><pre><code>1. 生成 rndc key
-$ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
-$ chown root:named /etc/rndc.conf
-
-2. 配置 named.conf
-$ vi /etc/named.conf
-options
-{
-        // Put files that named is allowed to write in the data/ directory:
-        directory               &quot;/var/named&quot;;           // &quot;Working&quot; directory
-        dump-file               &quot;data/cache_dump.db&quot;;
-        statistics-file         &quot;data/named_stats.txt&quot;;
-        memstatistics-file      &quot;data/named_mem_stats.txt&quot;;
-        allow-query             {any;};
-        recursion               yes;
-        listen-on port 53       {any;};
-        allow-transfer          {none;}; // 不允许别人进行 zone 转移 , 如果有 slave DNS，则可以开启
-};
-
-acl intranet {192.168.1.0/24;}; // 本地来源 IP
-acl internet {! 192.168.1.0/24; any;}; // 外部来源 IP. 惊叹号表示反向选择
-
-        match-clients {&quot;intranet&quot;;};  // 吻合的才使用底下的 zone
-        zone &quot;.&quot; IN {
-                type hint;
-                file &quot;named.ca&quot;;
-        };
-
-        zone &quot;xdol.vicp.net&quot; IN {
-                type master;
-                file &quot;named.xdol.vicp.net&quot;;
-        };
-
-        zone &quot;1.168.192.in-addr.arpa&quot; IN {
-                type master;
-                file &quot;named.192.168.1&quot;;
-        };
-};
-
-view &quot;wan&quot; {match-clients { &quot;internet&quot;;};  // 吻合的才使用底下的 zone
-        zone &quot;.&quot; IN {
-                type hint;
-                file &quot;named.ca&quot;;
-        };
-
-        zone &quot;xdol.vicp.net&quot; IN {
-                type master;
-                file &quot;named.xdol.vicp.net.inter&quot;;
-        };
-};
-
-key &quot;rndc-key&quot; {            // 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
-      algorithm hmac-md5;
-      secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
-};
-
-controls {
-      inet 127.0.0.1 port 953
-              allow {127.0.0.1;} keys {&quot;rndc-key&quot;;};
-};
-
-logging {                               // 防止外部服务器错误导致 log 记录
-        category lame-servers {null;};
-};
-</code></pre><h1 id="zone- 配置"><a href="#zone- 配置" class="headerlink" title="zone 配置"></a>zone 配置 </h1><pre><code>1. 正向 zone 内网配置
-$ vi /var/named/named.xdol.vicp.net
-
-$TTL    600
-@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
-@                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
-master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS 服务器 IP
-@                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
-
-www.xdol.vicp.net.      IN      A       192.168.1.109        ; 内部网卡的 IP
-ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-
-client.xdol.vicp.net.   IN      A       192.168.1.246
-
-2. 正向 zone 外网配置
-$ vi /var/named/named.xdol.vicp.net.inter
-
-$TTL    600
-@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
-@                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
-master.xdol.vicp.net.   IN      A       11.11.11.11        ;DNS 服务器 IP
-@                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
-
-www.xdol.vicp.net.      IN      A       11.11.11.11        ; 外部网卡的 IP
-ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
-
-client.xdol.vicp.net.   IN      A       192.168.1.246
-
-3. 反向 zone 内、外网设置 (外网不需要反向 zone)
-$ vi /var/named/named.192.168.1
-
-$TTL    600
-@       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D)
-@       IN      NS      master.xdol.vicp.net.
-109     IN      PTR     master.xdol.vicp.net. ; 将原来的 A 改为 PTR 标志而已
-
-109     IN      PTR     www.xdol.vicp.net.
-246     IN      PTR     client.xdol.vicp.net.
-</code></pre><h1 id="启动服务"><a href="# 启动服务" class="headerlink" title="启动服务"></a> 启动服务 </h1><pre><code>service named start
-chkconfig named on
-</code></pre><h1 id="配置 -DDNS- 可选"><a href="# 配置 -DDNS- 可选" class="headerlink" title="配置 DDNS( 可选)"></a> 配置 DDNS(可选)</h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1156,19 +414,763 @@ chkconfig named on
 
       
         
-          <pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
+          <h1 id="安装相关依赖库"> 安装相关依赖库 </h1>
+<pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
 $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
-  libxml2 libxml2-devel bison flex libreadline6-devel
-</code></pre><h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户、环境变量 </span></span><br><span class="line">$ useradd postgres</span><br><span class="line"></span><br><span class="line">$ vim /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">source</span>  /etc/profile</span><br><span class="line"></span><br><span class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</span><br><span class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</span><br><span class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</span><br><span class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</span><br><span class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</span><br><span class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</span><br><span class="line"></span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-<h1 id="初始化数据库"><a href="# 初始化数据库" class="headerlink" title="初始化数据库"></a> 初始化数据库 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /pgdata</span><br><span class="line">chown postgres /pgdata</span><br><span class="line">su - postgres</span><br><span class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</span><br><span class="line"></span><br><span class="line">    $ vim /pgdata/pg_hba.conf</span><br><span class="line">      host    all             all             0.0.0.0/0               trust</span><br><span class="line"></span><br><span class="line">    $ vim /pgdata/postgresql.conf</span><br><span class="line">      listen_addresses = <span class="string">'*'</span></span><br><span class="line">      max_connections = 1500</span><br></pre></td></tr></table></figure>
-<h1 id="启动数据库 - 快速"><a href="# 启动数据库 - 快速" class="headerlink" title="启动数据库 [ 快速]"></a> 启动数据库 [快速]</h1><pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start
-</code></pre><h1 id="创建并导入库"><a href="# 创建并导入库" class="headerlink" title="创建并导入库"></a> 创建并导入库 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su postgres</span><br><span class="line">psql</span><br><span class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></span><br><span class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></span><br><span class="line">\i &lt;DB_FILE&gt;.sql</span><br></pre></td></tr></table></figure>
-
+  libxml2 libxml2-devel bison flex libreadline6-devel</code></pre>
+<h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户、环境变量 </span></span><br><span class="line">$ useradd postgres</span><br><span class="line"></span><br><span class="line">$ vim /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">source</span>  /etc/profile</span><br><span class="line"></span><br><span class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</span><br><span class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</span><br><span class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</span><br><span class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</span><br><span class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</span><br><span class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</span><br><span class="line"></span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h1 id="初始化数据库"> 初始化数据库 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /pgdata</span><br><span class="line">chown postgres /pgdata</span><br><span class="line">su - postgres</span><br><span class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库参数修改 </span></span><br><span class="line">    $ vim /pgdata/pg_hba.conf</span><br><span class="line">      host    all             all             0.0.0.0/0               trust</span><br><span class="line"></span><br><span class="line">    $ vim /pgdata/postgresql.conf</span><br><span class="line">      listen_addresses = <span class="string">'*'</span></span><br><span class="line">      max_connections = 1500</span><br></pre></td></tr></table></figure>
+<h1 id="启动数据库 - 快速"> 启动数据库 [快速]</h1>
+<pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
+<h1 id="创建并导入库"> 创建并导入库 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su postgres</span><br><span class="line">psql</span><br><span class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></span><br><span class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></span><br><span class="line">\i &lt;DB_FILE&gt;.sql</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/database/Postgresql安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/systemd、systemctl命令/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/systemd、systemctl命令/" itemprop="url">Systemd,systemctl 命令</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
+                2016-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="systemd 和 systemctl 基础命令">Systemd 和 Systemctl 基础命令 </h1>
+<h2 id="几个常用的服务控制"> 几个常用的服务控制 </h2>
+<pre><code> 查看目前状态：      systemctl status &lt;SERVICE_NAME&gt;
+
+[启动 | 停止]:    systemctl [start | stop] &lt;SERVICE_NAME&gt;
+
+类似查 chkconfig:    systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;
+                    systemctl is-enabled &lt;SERVICE_NAME&gt;
+
+[不] 自动启动：      systemctl [disable | enable] &lt;SERVICE_NAME&gt;
+
+# 系统级的 systemd 在 /etc/systemd/system
+# 用户级的 systemd 在 /usr/lib/systemd/system/ （main）
+# 运行级的 systemd 在 /run/systemd/system
+
+# 如删除服务，需要：
+systemctl stop &lt;SERVICE_NAME&gt;
+systemctl disable &lt;SERVICE_NAME&gt;
+rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;
+systemctl daemon-reload
+`systemctl reset-failed`   # 只有运行这样才可以看到服务消失 </code></pre>
+<h2 id="首先检查你的系统中是否安装有 systemd 并确定当前安装的版本">1. 首先检查你的系统中是否安装有 systemd 并确定当前安装的版本 </h2>
+<pre><code>[root@manage ~]# systemctl --version
+systemd 215
++PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR
+上例中很清楚地表明，我们安装了 215 版本的 systemd。</code></pre>
+<h2 id="检查 systemd 和 systemctl 的二进制文件和库文件的安装位置">2. 检查 systemd 和 systemctl 的二进制文件和库文件的安装位置 </h2>
+<pre><code>[root@manage ~]# whereis systemd
+systemd: /usr/lib/systemd /etc/systemd /usr/share/systemd /usr/share/man/man1/systemd.1.gz
+[root@manage ~]# whereis systemctl
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz</code></pre>
+<h2 id="检查 systemd 是否运行">3. 检查 systemd 是否运行 </h2>
+<pre><code>[root@manage ~]# ps -eaf | grep [s]ystemd
+root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23
+root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald
+root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd
+root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind
+dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation
+注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。
+
+也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。</code></pre>
+<h2 id="分析 systemd 启动进程">4. 分析 systemd 启动进程 </h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/systemd、systemctl命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
+                2016-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<h1 id="配置"> 配置 </h1>
+<blockquote>
+<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动"> 启动 </h1>
+<pre><code>$ service supervisord start
+
+&gt; 如果使用 pip 安装，需要自已写启动脚本 </code></pre>
+<h1 id="检查安装"> 检查安装 </h1>
+<pre><code># 如下即表示正常
+supervisorctl status
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/常用监控工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/monitor/常用监控工具/" itemprop="url">常用监控工具</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T08:50:10+08:00">
+                2016-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="sysdig">1. Sysdig</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 网络</span></span><br><span class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></span><br><span class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></span><br><span class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># IO</span></span><br><span class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></span><br><span class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></span><br><span class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></span><br><span class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></span><br><span class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></span><br><span class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></span><br><span class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></span><br><span class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></span><br><span class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></span><br><span class="line"></span><br><span class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></span><br><span class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></span><br><span class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></span><br><span class="line"></span><br><span class="line">sysdig -c topfiles_time</span><br><span class="line">sysdig -c topfiles_time proc.name=httpd</span><br><span class="line">sysdig -c topprocs_errors</span><br><span class="line">sysdig -c topfiles_errors</span><br><span class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></span><br><span class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></span><br><span class="line">sysdig -c topscalls_time</span><br><span class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></span><br><span class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></span><br><span class="line">sysdig -c fileslower 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安全</span></span><br><span class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></span><br><span class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</span><br><span class="line">sysdig evt.type=open and fd.name contains /etc</span><br><span class="line">sysdig -r file.scap -c list_login_shells tar</span><br><span class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器</span></span><br><span class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></span><br><span class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></span><br><span class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></span><br><span class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></span><br><span class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></span><br><span class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></span><br><span class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用</span></span><br><span class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></span><br><span class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></span><br><span class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></span><br><span class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</span><br><span class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></span><br></pre></td></tr></table></figure>
+<h1 id="bcc">2. BCC</h1>
+<blockquote>
+<p><a href="https://github.com/iovisor/bcc" class="uri" target="_blank" rel="noopener">https://github.com/iovisor/bcc</a></p>
+</blockquote>
+<h1 id="常用工具">3. 常用工具</h1>
+<pre><code>uptime          CPU + Disks 的测量，1，5，15 分钟
+ps -eLf         打印线程
+ps -ef f    打印进程树
+pstree -alpha &lt;PID&gt; 查看某进程的详细情况
+
+free        查看内存占用情况（下面有详细的说明）
+top/atop/htop/gtop   查看进程活动状态以及一些系统状况 , 常用 htop
+rtop        远程通过 ssh 查看其它服务器的信息
+vtop        node.js 的 console 查看服务器状态
+iotop       查看硬盘状况排序  （通常使用 iotop -Pao -d 2 )
+
+vmstat   综合工具           （通常使用   vmstat 1 50     注：每秒显示 1 次，共显示 50 次）
+dstat    综合工具           （通常使用   dstat -cmdnlpsy     注：显示所有）
+nmon     综合工具
+glances  综合工具
+
+# xxx 表示进程 id 或 pid
+/proc/cpuinfo，/proc/meminfo，/proc/cmdline，/proc/xxx/cwd，/proc/xxx/exe，/proc/xxx/fd/，/proc/xxx/smaps</code></pre>
+<h1 id="sysstat- 包含工具">4. sysstat 包含工具</h1>
+<pre><code>sar     综合工具 , 查看历史 iowait 值 (Collect, report, or save system activity information)
+sadf        -x 可以使用 xml 格式打印信息
+pidstat     打印进程信息 (Report statistics for Linux tasks, 有占用信息)
+cifsiostat  查看 windows 共享的 io 状况
+mpstat      查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）
+iostat      查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）</code></pre>
+<h1 id="网络监测工具">5. 网络监测工具</h1>
+<pre><code>ifstat/bwm/nethogs      # 查看网络 in/out 状况  ifstat  -i eno1  5 (5 指秒显示 一次）
+iftop/iptraf            # 实时网络状况监测 (常用 -pn)，查找正在使用带宽的套接字连接或进程
+netstat                 # 查看网络状况 (常用 -tupnl)
+       netstat -p &lt;PID&gt; # 可以查看该进程的所有调用文件
+slurm                   # yet another network load monitor
+
+tcpdump         # 抓取网络数据包，详细分析
+wireshark       # 抓取网络数据包，详细分析
+Tcptrace        # 数据包分析工具 (windows 下有)
+tcptrack        # monitor your server network connections and bandwidth 
+tshark
+ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any 匹配所有接口，. 匹配所有内容 目标端口为 2003 的包
+                ngrep  -qd any -W byline &quot;^(GET|POST)&quot;  port not 22
+                # 相当于：
+                tcpdump &#39;port 5901 and (host 192.168.109.1)&#39;
+
+iperf       # 测试 TCP 和 UDP 带宽质量
+            # 服务端 : iperf [-u] -s    客户端 : iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M
+                                              (-u UDP 测试 ;  -f 单位 , 可以是 kmKM;  -t 测试时间 ;  -P 线程数 ;  -b 测试数据包大小)
+
+speed-test          # 网速测试工具 npm install --global speed-test
+traceroute/mtr/dig  # trace 工具
+tcptrace            # 不在 linux 默认，需要安装
+ss -l/-s            # Socket Statistics
+pstree -alpha       # ps 树形列表
+pstree -al pid      # 单个进程的树形列表
+
+lsof -iTCP -sTCP:ESTABLISHED    # tcp/udp 网络服务
+lsof -i :22                     # 知道 22 端口现在运行什么程序
+lsof -c abc                     # 显示 abc 进程现在打开的文件
+lsof -p 12                      # 看进程号为 12 的进程打开了哪些文件 , 等同于 pmap 12 和 netstat -p 12
+lsof -U                         # 列出所有的 socket, 等同于 ss -l
+lsof | grep FILEorDir           # 查看文件被哪个进程打个
+lsof | grep deleted | grep &quot;filename-of-my-big-file&quot;    # 文件删除了，但是还占用空间</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/monitor/常用监控工具/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx配置location总结及rewrite规则写法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/web/Nginx配置location总结及rewrite规则写法/" itemprop="url">Nginx 配置 Location 总结及 Rewrite 规则写法</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-04-17T17:49:55+08:00">
+                2016-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index">
+                    <span itemprop="name">web</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="location- 正则写法">location 正则写法</h1>
+<pre><code># 一个示例：
+location  = / {
+  # 精确匹配 / ，主机名后面不能带任何字符串
+  [configuration A]
+}
+location  / {
+  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求
+  # 但是正则和最长字符串会优先匹配
+  [configuration B]
+}
+location /documents/ {
+  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
+  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
+  [configuration C]
+}
+location ~ /documents/Abc {
+  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索
+  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条
+  [configuration CC]
+}
+location ^~ /images/ {
+  # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。
+  [configuration D]
+}
+location ~* \.(gif|jpg|jpeg)$ {
+  # 匹配所有以 gif,jpg 或 jpeg 结尾的请求
+  # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则
+  [configuration E]
+}
+location /images/ {
+  # 字符匹配到 /images/，继续往下，会发现 ^~ 存在
+  [configuration F]
+}
+location /images/abc {
+  # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在
+  # F 与 G 的放置顺序是没有关系的
+  [configuration G]
+}
+location ~ /images/abc/ {
+  # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
+    [configuration H]
+}
+location ~* /js/.*/\.js</code></pre>
+<dl>
+<dt>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配</dt>
+<dd>开头表示区分大小写的正则匹配 ; ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到
+</dd>
+</dl>
+<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg -&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+<pre><code>    location = / {proxy_pass http://tomcat:8080/index}
+
+# 第二个必选规则是处理静态文件请求，这是 nginx 作为 http 服务器的强项
+# 有两种配置模式，目录匹配或后缀匹配 , 任选其一或搭配使用 location ^~ /static/ {root /webroot/static/;} location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ {root /webroot/res/;}
+
+# 非静态文件请求就默认是动态请求，自己根据实际把握
+# 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
+location / {proxy_pass http://tomcat:8080/}</code></pre>
+<p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
+<h1 id="rewrite- 规则">Rewrite 规则</h1>
+<p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
+<ul>
+<li>执行 server 块的 rewrite 指令</li>
+<li>执行 location 匹配</li>
+<li>执行选定的 location 中的 rewrite 指令</li>
+</ul>
+<p>last : 相当于 Apache 的 [L] 标记，表示完成 rewrite break : 停止执行当前虚拟主机的后续 rewrite 指令集 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/web/Nginx配置location总结及rewrite规则写法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1209,7 +1211,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1254,7 +1256,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1265,7 +1267,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1276,7 +1278,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

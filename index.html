@@ -393,16 +393,18 @@
       
         
           <blockquote>
-<p> 淘宝源地址：<a href="http://npm.taobao.org/" target="_blank" rel="noopener">http://npm.taobao.org/</a></p>
+<p> 淘宝源地址：<a href="http://npm.taobao.org/" class="uri" target="_blank" rel="noopener">http://npm.taobao.org/</a></p>
 </blockquote>
-<h1 id="删除已有 -npm- 包 - 可选"><a href="# 删除已有 -npm- 包 - 可选" class="headerlink" title="删除已有 npm 包 ( 可选)"></a> 删除已有 npm 包 (可选)</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已安装的 npm package</span></span><br><span class="line">npm -g ls        </span><br><span class="line"></span><br><span class="line"><span class="comment">## 删除所有 npm</span></span><br><span class="line">npm ls -gp | awk -F/ <span class="string">'/node_modules/ &amp;&amp; !/node_modules.*node_modules/ &#123;print $NF&#125;'</span> | xargs npm -g rm</span><br></pre></td></tr></table></figure>
+<h1 id="删除已有 -npm- 包 - 可选"> 删除已有 npm 包 (可选)</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看已安装的 npm package</span></span><br><span class="line">npm -g ls        </span><br><span class="line"></span><br><span class="line"><span class="comment">## 删除所有 npm</span></span><br><span class="line">npm ls -gp | awk -F/ <span class="string">'/node_modules/ &amp;&amp; !/node_modules.*node_modules/ &#123;print $NF&#125;'</span> | xargs npm -g rm</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>npm ls -g 如果报错，可以进行以下处理 :</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># （原因是 node-modules 中不允许用软链接，但 inherits 却用了）：</span></span><br><span class="line">npm ERR! missing: inherits@*, required by undefined@undefined</span><br><span class="line">npm ERR! missing: inherits@*, required by block-stream@0.0.7</span><br><span class="line">npm ERR! missing: inherits@*, required by fstream@0.1.24</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /usr/lib/node_modules/</span><br><span class="line">unlink inherit</span><br><span class="line">mv inherits@2/ inherits/</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm update npm -g <span class="built_in">set</span> registry=https://registry.npm.taobao.org</span><br><span class="line">npm config <span class="built_in">set</span> ca <span class="string">""</span></span><br><span class="line"></span><br><span class="line">npm install npm -g <span class="built_in">set</span> registry=https://registry.npm.taobao.org</span><br><span class="line">npm config delete ca</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<h1 id="或者做个 -cnpm- 的 -alias"><a href="# 或者做个 -cnpm- 的 -alias" class="headerlink" title="或者做个 cnpm 的 alias"></a> 或者做个 cnpm 的 alias</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install cnpm</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># make alias</span></span><br><span class="line"><span class="built_in">alias</span> cnpm=<span class="string">"npm --registry=https://registry.npm.taobao.org \</span></span><br><span class="line"><span class="string">--cache=<span class="variable">$HOME</span>/.npm/.cache/cnpm \</span></span><br><span class="line"><span class="string">--disturl=https://npm.taobao.org/dist \</span></span><br><span class="line"><span class="string">--userconfig=<span class="variable">$HOME</span>/.cnpmrc"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Or alias it in .bashrc or .zshrc</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'\n#alias for cnpm\nalias cnpm="npm --registry=https://registry.npm.taobao.org \</span></span><br><span class="line"><span class="string">  --cache=$HOME/.npm/.cache/cnpm \</span></span><br><span class="line"><span class="string">  --disturl=https://npm.taobao.org/dist \</span></span><br><span class="line"><span class="string">  --userconfig=$HOME/.cnpmrc"'</span> &gt;&gt; ~/.zshrc &amp;&amp; <span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># install module / sync / info</span></span><br><span class="line">cnpm install &lt;NAME&gt;</span><br><span class="line">cnpm sync connect</span><br><span class="line">cnpm info connect</span><br></pre></td></tr></table></figure>
+<h1 id="或者做个 -cnpm- 的 -alias"> 或者做个 cnpm 的 alias</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># install cnpm</span></span><br><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># make alias</span></span><br><span class="line"><span class="built_in">alias</span> cnpm=<span class="string">"npm --registry=https://registry.npm.taobao.org \</span></span><br><span class="line"><span class="string">--cache=<span class="variable">$HOME</span>/.npm/.cache/cnpm \</span></span><br><span class="line"><span class="string">--disturl=https://npm.taobao.org/dist \</span></span><br><span class="line"><span class="string">--userconfig=<span class="variable">$HOME</span>/.cnpmrc"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Or alias it in .bashrc or .zshrc</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'\n#alias for cnpm\nalias cnpm="npm --registry=https://registry.npm.taobao.org \</span></span><br><span class="line"><span class="string">  --cache=$HOME/.npm/.cache/cnpm \</span></span><br><span class="line"><span class="string">  --disturl=https://npm.taobao.org/dist \</span></span><br><span class="line"><span class="string">  --userconfig=$HOME/.cnpmrc"'</span> &gt;&gt; ~/.zshrc &amp;&amp; <span class="built_in">source</span> ~/.zshrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># install module / sync / info</span></span><br><span class="line">cnpm install &lt;NAME&gt;</span><br><span class="line">cnpm sync connect</span><br><span class="line">cnpm info connect</span><br></pre></td></tr></table></figure>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -452,7 +454,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/Harbor支持https/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/SSH_config_proxycommand/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -471,7 +473,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/m/Harbor支持https/" itemprop="url">Harbor 支持 Https</a></h2>
+                <a class="post-title-link" href="/m/SSH_config_proxycommand/" itemprop="url">SSH_config_proxycommand</a></h2>
         
 
         <div class="post-meta">
@@ -483,7 +485,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T09:54:13+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T09:54:32+08:00">
                 2018-03-06
               </time>
             
@@ -519,29 +521,14 @@
 
       
         
-          <ol>
-<li> 新建仓库目录 </li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/svicloud/tools/harbor/data/cert/</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n <span class="string">"svicloud85509336"</span> &gt;/opt/svicloud/tools/harbor/data/cert/secretkey</span><br></pre></td></tr></table></figure>
-<ol>
-<li> 使用 docker-compose 安装 harbor</li>
-</ol>
-<blockquote>
-<p>docker-compose <a href="http://download.svicloud.com/harbor-docker-compose-v1.2.2.yml" target="_blank" rel="noopener"> 下载地址 </a></p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv harbor-docker-compose-v1.2.2.yml docker-compose.yml </span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<ol>
-<li><p> 测试下，应该可以成功，如无法成功，运行步骤 7</p>
-</li>
-<li><p>（<code> 可选 </code>）修改 <code>registry</code> 中的证书 <code>root.crt</code> 和 <code>ui</code> 的 <code>private_key.pem</code></p>
-</li>
-</ol>
-<h1 id="通过 -curl- 请求测试"><a href="# 通过 -curl- 请求测试" class="headerlink" title="通过 curl 请求测试"></a> 通过 curl 请求测试 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">curl -i  https://&lt;HARBOR.DOMAIN.COM&gt;/v2/_catalog</span><br><span class="line"></span><br><span class="line">HTTP/1.1 401 Unauthorized</span><br><span class="line">Server: nginx/1.11.5</span><br><span class="line">Date: Fri, 19 May 2017 06:45:06 GMT</span><br><span class="line">Content-Type: application/json; charset=utf-8</span><br><span class="line">Content-Length: 134</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Docker-Distribution-Api-Version: registry/2.0</span><br><span class="line">Www-Authenticate: Bearer realm=<span class="string">"https://&lt;HARBOR.DOMAIN.COM&gt;/service/token"</span>,service=<span class="string">"token-service"</span>,scope=<span class="string">"registry:catalog:*"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></span><br><span class="line">&#123;<span class="string">"errors"</span>:[&#123;<span class="string">"code"</span>:<span class="string">"UNAUTHORIZED"</span>,<span class="string">"message"</span>:<span class="string">"authentication required"</span>,<span class="string">"detail"</span>:[&#123;<span class="string">"Type"</span>:<span class="string">"registry"</span>,<span class="string">"Name"</span>:<span class="string">"catalog"</span>,<span class="string">"Action"</span>:<span class="string">"*"</span>&#125;]&#125;]&#125;</span><br><span class="line"></span><br><span class="line">/service/token?account=<span class="built_in">test</span>&amp;scope=repository:<span class="built_in">test</span>/repo:push,pull&amp;service=token-service</span><br></pre></td></tr></table></figure>
+          <h1 id="proxycommand">1. ProxyCommand</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接跳到远程计算机 </span></span><br><span class="line">ssh -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -p 1098 lmx@target.machine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝文件到远程计算机 </span></span><br><span class="line">scp -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -P 1098 -r lmx@target.machine:~/rdsAgent .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在远程计算机执行命令 </span></span><br><span class="line">ssh -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -p 1098 lmx@target.machine <span class="string">'ip a'</span></span><br></pre></td></tr></table></figure>
+<h1 id="ssh-config-file-example">2. ssh config file example</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/config</span><br><span class="line">Host *</span><br><span class="line">ForwardAgent yes</span><br><span class="line">ForwardX11 no</span><br><span class="line">KeepAlive yes</span><br><span class="line">ServerAliveInterval 30</span><br><span class="line">CheckHostIP no</span><br><span class="line">ControlMaster auto</span><br><span class="line">ControlPath /tmp/ssh_mux_%h_%p_%r</span><br><span class="line"></span><br><span class="line"><span class="comment"># client --&gt; 203.195.207.108:46707 --&gt; 118.193.254.66:22</span></span><br><span class="line">Host hk-jumpserver</span><br><span class="line">User root</span><br><span class="line">IdentityFile /cygdrive/c/Users/root/id_rsa</span><br><span class="line">ProxyCommand ssh -i /cygdrive/c/Users/root/id_rsa root@203.195.207.108 -p 46707 nc 118.193.254.66 22</span><br></pre></td></tr></table></figure>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/m/Harbor支持https/#more" rel="contents">
+            <a class="btn" href="/m/SSH_config_proxycommand/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -657,14 +644,17 @@
           <blockquote>
 <p> 为了支持 bbr、aufs，必须安装 extra, 详见：<a href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/">Linux 升级 kernel 及 tcp_BBR</a></p>
 </blockquote>
-<h1 id="1-Ubuntu- 安装 -Docker"><a href="#1-Ubuntu- 安装 -Docker" class="headerlink" title="1. Ubuntu 安装 Docker"></a>1. Ubuntu 安装 Docker</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone 后直接脚本安装 , CentOS 没有测试过 </span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</span><br><span class="line"><span class="built_in">cd</span> ./install-docker</span><br><span class="line"><span class="comment"># install the latest docker release, eg: </span></span><br><span class="line">bash 17.12.sh</span><br></pre></td></tr></table></figure>
-<h1 id="2- 配置 -Docker- 加速器（用于国内加速，可选）"><a href="#2- 配置 -Docker- 加速器（用于国内加速，可选）" class="headerlink" title="2. 配置 Docker 加速器（用于国内加速，可选）"></a>2. 配置 Docker 加速器（用于国内加速，可选）</h1><blockquote>
+<h1 id="ubuntu- 安装 -docker">1. Ubuntu 安装 Docker</h1>
+<h2 id="install-dockerlatest">1.1. install docker(latest)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone 后直接脚本安装 , CentOS 没有测试过 </span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</span><br><span class="line"><span class="built_in">cd</span> ./install-docker</span><br></pre></td></tr></table></figure>
+<h2 id="install-dockerprevious-release">1.2. install docker(previous release)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if you want install pre version</span></span><br><span class="line"><span class="comment"># add the repo to the apt</span></span><br><span class="line">deb [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable</span><br><span class="line">deb-src [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the version avaiable</span></span><br><span class="line">apt update</span><br><span class="line">apt-cache madison docker-ce</span><br><span class="line"></span><br><span class="line"><span class="comment"># install the specify docker release</span></span><br><span class="line">apt install docker-ce=17.06.2~ce-0~ubuntu</span><br></pre></td></tr></table></figure>
+<h1 id="配置 -docker- 加速器用于国内加速可选">2. 配置 Docker 加速器（用于国内加速，可选）</h1>
+<blockquote>
 <p> 以下操作需重启 Docker 服务生效 </p>
 </blockquote>
 <p>vi /etc/docker/daemon.json</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</span><br><span class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</span><br><span class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</span><br><span class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h1 id="3- 配置 -Docker- 代理（国内无法访问国外某些网站的 -https，可选）"><a href="#3- 配置 -Docker- 代理（国内无法访问国外某些网站的 -https，可选）" class="headerlink" title="3. 配置 Docker 代理（国内无法访问国外某些网站的 https，可选）"></a>3. 配置 Docker 代理（国内无法访问国外某些网站的 https，可选）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 临时使用直接启动 dockerd（当然也可以写入 systemd 长期生效）</span><br><span class="line">http_proxy=PROXY_ADDR:PORT https_proxy=PROXY_ADDR:PORT dockerd</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/m/Docker安装及命令/#more" rel="contents">
@@ -713,7 +703,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/awk命令/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/Bind安装配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -732,7 +722,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/m/awk命令/" itemprop="url">Awk 命令</a></h2>
+                <a class="post-title-link" href="/m/Bind安装配置/" itemprop="url">未命名</a></h2>
         
 
         <div class="post-meta">
@@ -744,7 +734,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T09:54:01+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T09:54:03+08:00">
                 2018-03-06
               </time>
             
@@ -780,15 +770,130 @@
 
       
         
-          <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">msg=$(awk <span class="string">'</span></span><br><span class="line"><span class="string">    BEGIN &#123; IGNORECASE = 1; ORS ="%20"&#125;</span></span><br><span class="line"><span class="string">    /FAILED|ERROR/ &#123;</span></span><br><span class="line"><span class="string">        gsub(/[[:blank:]]+(FAILED|ERROR)/,"")</span></span><br><span class="line"><span class="string">        gsub(/[[:blank:]]+/, "_")</span></span><br><span class="line"><span class="string">gsub(/[^[:alnum:]_]/, "")</span></span><br><span class="line"><span class="string">        print</span></span><br><span class="line"><span class="string">    &#125;'</span> \</span><br><span class="line">    <span class="regexp">/var/</span>clone<span class="regexp">/check/</span>check_baseos.log \</span><br><span class="line">    <span class="regexp">/var/</span>clone<span class="regexp">/check/</span>check_gemstone_init.log \</span><br><span class="line">    <span class="regexp">/var/</span>clone<span class="regexp">/check/</span>check_pe_profile.log \</span><br><span class="line">    <span class="regexp">/var/</span>clone<span class="regexp">/check/</span>check_agent.log <span class="number">2</span>&gt;<span class="regexp">/dev/</span>null | cut -c1-<span class="number">70</span>)</span><br><span class="line">``` </span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="comment"># 计算第三列的总和 </span></span><br><span class="line">```awk</span><br><span class="line">awk <span class="string">'&#123; x += $3 &#125; END &#123; print x &#125;'</span> myfile</span><br></pre></td></tr></table></figure>
-<h1 id="1-awk- 内建变量示例详解之 -NR、FNR、NF、FILENAME"><a href="#1-awk- 内建变量示例详解之 -NR、FNR、NF、FILENAME" class="headerlink" title="1. awk 内建变量示例详解之 NR、FNR、NF、FILENAME"></a>1. awk 内建变量示例详解之 NR、FNR、NF、FILENAME</h1><blockquote>
-<p>NR: Number of Record<br>NF: Number of Field</p>
+          <blockquote>
+<p>�ο��� http://linux.vbird.org/linux_server/0350dns.php#server_settings DDNS �İ�װ����http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
 </blockquote>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">cat class1.txt</span><br><span class="line">zhaoyun <span class="number">85</span> <span class="number">87</span></span><br><span class="line">guanyu <span class="number">87</span> <span class="number">88</span></span><br><span class="line">liubei <span class="number">90</span> <span class="number">86</span></span><br><span class="line"></span><br><span class="line">cat class2.txt</span><br><span class="line">caocao <span class="number">92</span> <span class="number">87</span> <span class="number">90</span></span><br><span class="line">guojia <span class="number">99</span> <span class="number">96</span> <span class="number">92</span></span><br><span class="line"></span><br><span class="line">awk <span class="string">'&#123;print FILENAME,"NR="NR,"FNR="FNR,"$"NF"="$NF&#125;'</span> class1.txt class2.txt</span><br><span class="line">class1.txt NR=<span class="number">1</span> FNR=<span class="number">1</span> <span class="variable">$3</span>=<span class="number">87</span></span><br><span class="line">class1.txt NR=<span class="number">2</span> FNR=<span class="number">2</span> <span class="variable">$3</span>=<span class="number">88</span></span><br><span class="line">class1.txt NR=<span class="number">3</span> FNR=<span class="number">3</span> <span class="variable">$3</span>=<span class="number">86</span></span><br><span class="line">class2.txt NR=<span class="number">4</span> FNR=<span class="number">1</span> <span class="variable">$4</span>=<span class="number">90</span></span><br><span class="line">class2.txt NR=<span class="number">5</span> FNR=<span class="number">2</span> <span class="variable">$4</span>=<span class="number">92</span></span><br></pre></td></tr></table></figure>
+<h1 id="װ">��װ</h1>
+<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
+<h1 id="section">����</h1>
+<pre><code>1. ���� rndc key
+$ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
+$ chown root:named /etc/rndc.conf
 
+2. ���� named.conf
+$ vi /etc/named.conf
+options
+{
+        // Put files that named is allowed to write in the data/ directory:
+        directory               &quot;/var/named&quot;;           // &quot;Working&quot; directory
+        dump-file               &quot;data/cache_dump.db&quot;;
+        statistics-file         &quot;data/named_stats.txt&quot;;
+        memstatistics-file      &quot;data/named_mem_stats.txt&quot;;
+        allow-query             {any;};
+        recursion               yes;
+        listen-on port 53       {any;};
+        allow-transfer          {none;}; // ��������˽��� zone ת�� , ����� slave DNS������Կ���
+};
+
+acl intranet {192.168.1.0/24;}; // ������Դ IP
+acl internet {! 192.168.1.0/24; any;}; // �ⲿ��Դ IP. ��̾�ű�ʾ����ѡ��
+
+view &quot;lan&quot; {                    // lan ֻ��һ�����ֶ��ѣ������������
+        match-clients {&quot;intranet&quot;;};  // �ǺϵĲ�ʹ�õ��µ� zone
+        zone &quot;.&quot; IN {
+                type hint;
+                file &quot;named.ca&quot;;
+        };
+
+        zone &quot;xdol.vicp.net&quot; IN {
+                type master;
+                file &quot;named.xdol.vicp.net&quot;;
+        };
+
+        zone &quot;1.168.192.in-addr.arpa&quot; IN {
+                type master;
+                file &quot;named.192.168.1&quot;;
+        };
+};
+
+view &quot;wan&quot; {match-clients { &quot;internet&quot;;};  // �ǺϵĲ�ʹ�õ��µ� zone
+        zone &quot;.&quot; IN {
+                type hint;
+                file &quot;named.ca&quot;;
+        };
+
+        zone &quot;xdol.vicp.net&quot; IN {
+                type master;
+                file &quot;named.xdol.vicp.net.inter&quot;;
+        };
+};
+
+key &quot;rndc-key&quot; {            // ������ rndc ����Կ����Ҫ�޸�Ϊ /etc/rndc.conf ��һ���� secret
+      algorithm hmac-md5;
+      secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
+};
+
+controls {
+      inet 127.0.0.1 port 953
+              allow {127.0.0.1;} keys {&quot;rndc-key&quot;;};
+};
+
+logging {                               // ��ֹ�ⲿ������������ log ��¼
+        category lame-servers {null;};
+};</code></pre>
+<h1 id="zone">zone ����</h1>
+<pre><code>1. ���� zone ��������
+$ vi /var/named/named.xdol.vicp.net
+
+$TTL    600
+@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
+@                       IN      NS      master.xdol.vicp.net.   ;DNS ����������
+master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS ������ IP
+@                       IN      MX      10 www.xdol.vicp.net.   ; �ʼ�������
+
+; ���� 192.168.1.109 �ⲿ�����������趨
+www.xdol.vicp.net.      IN      A       192.168.1.109       ; �ڲ������� IP
+ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
+ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
+
+; ������������ȷ�趨
+client.xdol.vicp.net.   IN      A       192.168.1.246
+
+
+2. ���� zone ��������
+$ vi /var/named/named.xdol.vicp.net.inter
+
+$TTL    600
+@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
+@                       IN      NS      master.xdol.vicp.net.   ;DNS ����������
+master.xdol.vicp.net.   IN      A       11.11.11.11     ;DNS ������ IP
+@                       IN      MX      10 www.xdol.vicp.net.   ; �ʼ�������
+
+; ���� 192.168.1.109 �ⲿ�����������趨
+www.xdol.vicp.net.      IN      A       11.11.11.11     ; �ⲿ������ IP
+ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
+ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
+
+; ������������ȷ�趨
+client.xdol.vicp.net.   IN      A       192.168.1.246
+
+3. ���� zone �ڡ��������� (��������Ҫ���� zone)
+$ vi /var/named/named.192.168.1
+
+$TTL    600
+@       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D)
+@       IN      NS      master.xdol.vicp.net.
+109     IN      PTR     master.xdol.vicp.net. ; ��ԭ���� A ��Ϊ PTR ��־����
+
+109     IN      PTR     www.xdol.vicp.net.
+246     IN      PTR     client.xdol.vicp.net.</code></pre>
+<h1 id="section-1">�����</h1>
+<pre><code>service named start
+chkconfig named on</code></pre>
+<h1 id="ddns-ѡ">���� DDNS(��ѡ)</h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/m/awk命令/#more" rel="contents">
+            <a class="btn" href="/m/Bind安装配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -834,7 +939,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/SSH_config_proxycommand/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/docker/Rancher安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -853,7 +958,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/m/SSH_config_proxycommand/" itemprop="url">SSH_config_proxycommand</a></h2>
+                <a class="post-title-link" href="/docker/Rancher安装/" itemprop="url">Rancher 安装</a></h2>
         
 
         <div class="post-meta">
@@ -865,8 +970,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-07T16:34:00+08:00">
-                2018-02-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T15:43:19+08:00">
+                2017-12-24
               </time>
             
 
@@ -875,6 +980,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -901,12 +1028,48 @@
 
       
         
-          <h1 id="ProxyCommand"><a href="#ProxyCommand" class="headerlink" title="ProxyCommand"></a>ProxyCommand</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接跳到远程计算机 </span></span><br><span class="line">ssh -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -p 1098 lmx@target.machine</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝文件到远程计算机 </span></span><br><span class="line">scp -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -P 1098 -r lmx@target.machine:~/rdsAgent .</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在远程计算机执行命令 </span></span><br><span class="line">ssh -o <span class="string">"ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p"</span> -p 1098 lmx@target.machine <span class="string">'ip a'</span></span><br></pre></td></tr></table></figure>
-<h1 id="ssh-config-file-example"><a href="#ssh-config-file-example" class="headerlink" title="ssh config file example"></a>ssh config file example</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ cat ~/.ssh/config</span><br><span class="line">Host *</span><br><span class="line">ForwardAgent yes</span><br><span class="line">ForwardX11 no</span><br><span class="line">KeepAlive yes</span><br><span class="line">ServerAliveInterval 30</span><br><span class="line">CheckHostIP no</span><br><span class="line">ControlMaster auto</span><br><span class="line">ControlPath /tmp/ssh_mux_%h_%p_%r</span><br><span class="line"></span><br><span class="line"><span class="comment"># client --&gt; 203.195.207.108:46707 --&gt; 118.193.254.66:22</span></span><br><span class="line">Host hk-jumpserver</span><br><span class="line">user root</span><br><span class="line">IdentityFile /cygdrive/c/Users/root/id_rsa</span><br><span class="line">ProxyCommand ssh -i /cygdrive/c/Users/root/id_rsa root@203.195.207.108 -p 46707 nc 118.193.254.66 22</span><br></pre></td></tr></table></figure>
-
+          <h1 id="准备步骤">1. 准备步骤 </h1>
+<blockquote>
+<p> 注意，请严格按照版本以下配套安装，否则，会有极高机率出错！</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>OS version</th>
+<th>rancher server version</th>
+<th>docker version</th>
+<th> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Ubuntu 16.04.3 LTS</td>
+<td>1.6.13</td>
+<td>17.10.0<sub>ce-0</sub>ubuntu</td>
+<td> 线上版本，基本不会出错 </td>
+</tr>
+<tr class="even">
+<td>Ubuntu 17.10</td>
+<td>1.6.14</td>
+<td>17.06.2<sub>ce-0</sub>ubuntu</td>
+<td> 个人测试版本 </td>
+</tr>
+</tbody>
+</table>
+<h2 id="服务器时间同步">1.1. 服务器时间同步 </h2>
+<blockquote>
+<p> 如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 <strong>UTC</strong> 时间 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接删除 /etc/localtime 即可使用 UTC 时间 </span></span><br><span class="line">rm -rf /etc/localtime</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="支持 -bbr 请升级内核至 -4.9- 以上版本弱网环境建议">1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）</h2>
+<blockquote>
+<p> 如果要支持 aufs，请安装 linux-image-extra 的包 参考链接： <a href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/">Linux 升级 Kernel 及 tcp_BBR</a></p>
+</blockquote>
+<h2 id="所有服务器设置外部 -dns">1.3. 所有服务器设置外部 DNS</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># stop and disable the local dns generator</span></span><br><span class="line">systemctl stop systemd-resolved.service</span><br><span class="line">systemctl <span class="built_in">disable</span> systemd-resolved.service</span><br><span class="line"></span><br><span class="line">systemctl stop resolvconf.service</span><br><span class="line">systemctl <span class="built_in">disable</span> resolvconf.service</span><br><span class="line"></span><br><span class="line">systemctl stop NetworkManager.service</span><br><span class="line">systemctl <span class="built_in">disable</span> NetworkManager.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改为外部 DNS 服务器 </span></span><br><span class="line">vi /etc/network/interfaces</span><br><span class="line">  dns-nameservers 114.114.114.114</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the /etc/resolv.conf</span></span><br><span class="line">unlink /etc/resolv.conf</span><br><span class="line">vi /etc/resolv.conf</span><br><span class="line">nameserver 114.114.114.114</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the service status</span></span><br><span class="line">systemctl status systemd-resolved.service</span><br><span class="line">systemctl status resolvconf.service</span><br><span class="line">systemctl status NetworkManager</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># If has dnsmasq service</span></span><br><span class="line"><span class="comment"># Comment out the dns=dnsmasq line</span></span><br><span class="line"><span class="comment"># vi /etc/NetworkManager/NetworkManager.conf</span></span><br><span class="line">  <span class="comment"># dns=dnsmasq</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># restart network and docker service</span></span><br><span class="line"><span class="comment">#systemctl restart network-manager</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/m/SSH_config_proxycommand/#more" rel="contents">
+            <a class="btn" href="/docker/Rancher安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -947,7 +1110,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -992,7 +1155,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1003,7 +1166,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1014,7 +1177,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
