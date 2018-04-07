@@ -474,7 +474,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -493,7 +493,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
+                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
         
 
         <div class="post-meta">
@@ -563,79 +563,215 @@
 
       
         
-          <h1 id="linux- 根分区修改为 -lvm">1. linux 根分区修改为 lvm</h1>
-<ol type="1">
-<li><p>First Create an LVM partition: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb1</span><br><span class="line">vgcreate vg01  /dev/sdb1</span><br><span class="line">lvcreate -L 100%VG -n lv01 vg01</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Format this new LVM partition with ext3 or ext4 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/vg01/lv01</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Create a new mount point and then mount the LVM Partition on it <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Copy all contents of “/” to the newly mounted folder <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x</span><br><span class="line">cp -aux /dev /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
-<li><p>edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg01/lv01      /       ext4    defaults     1 1</span><br></pre></td></tr></table></figure></p></li>
-<li><p>chroot to new filesystem and create initrd with raid and lvm support <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /dev /mnt/NEW_ROOT_PARTITION/dev</span><br><span class="line">chroot /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount -t proc /proc /proc</span><br><span class="line">mount -t sysfs /sys /sys</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgscan</span><br><span class="line">vgchange -ay</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">umount /sys</span><br><span class="line">umount /proc</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">mv /mnt/lv0/boot/initrd-`uname -r`.lvm.img /boot</span><br></pre></td></tr></table></figure>
-<ol start="7" type="1">
-<li><p>Edit /boot/grub/grub.conf to point to new root /dev/vg_new_root/lv0 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br><span class="line">grub-set-default</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Reboot <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<h1 id="虚拟机增加系统盘根分区大小">2. 虚拟机增加系统盘根分区大小 </h1>
-<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
+          <h1 id="curl">1. curl</h1>
+<h2 id="下载文件">1.1. 下载文件 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
+<h2 id="详细信息"> 详细信息 </h2>
+<pre><code>curl -v www.sina.com
+curl --trace output.txt www.sina.com
+curl --trace-ascii output.txt www.sina.com
+curl  -s  --head  www.sina.com</code></pre>
+<h2 id="上传文件">1.3. 上传文件 </h2>
+<pre><code>curl --form upload=@localfilename --form press=OK [URL]
+curl -T file.txt
 
-# 先增加实例文件大小，可以使用 dd 命令
-$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
-$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
+curl --cookie &quot;name=xxx&quot; www.example.com
+curl --user name@DOMAIN:password http://example.com
 
-# 挂载文件至系统，以便找出是否有 swap device
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
-
-# If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
-
-# Del swap
-$ parted -s ${loop} rm ${swap_part_num}
-
-# If does&#39;t have, add the new swap device
-$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
-
-# 或者先只划分空间，再用 mkswap 进行操作
-# 可选的：
-$ mkswap -v1 /dev/mapper/loop1p3
-
-# 重新刷新新增加的 swap 设备
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
-
-# 将新的 lo 设备分区进行打印
-$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
-
-# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239      (样例，要修改)
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
-$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
-
-# 重新刷新新变更的分区
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
-
-# fs resize
-$ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1</code></pre>
-<h1 id="parted- 使用">3. parted 使用 </h1>
-<pre><code># create all 100% space to one part
-$ parted -s /dev/sdb mklabel gpt
-$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
-
-# create other part
-parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
-parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
-
-# remove part
-parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3</code></pre>
-<h1 id="分区对齐">4. 分区对齐 </h1>
+curl -fsSL ...</code></pre>
+<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/#more" rel="contents">
+            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
+<pre><code># (在其它服务上安装 dhcpd 软件)：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
+<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &quot;koumm.net&quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
+
+}</code></pre>
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -904,7 +1040,7 @@ $ mount /dev/md0p1 /raid10</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -923,7 +1059,7 @@ $ mount /dev/md0p1 /raid10</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
         
 
         <div class="post-meta">
@@ -993,275 +1129,25 @@ $ mount /dev/md0p1 /raid10</code></pre>
 
       
         
-          <h1 id="作用"> 作用 </h1>
-<blockquote>
-<p> 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
-</blockquote>
-<h1 id="编码转换 -trans_to_utf-8.py"> 编码转换 “Trans_To_UTF-8.py”</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下 </span></span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"convert"</span> + filename,</span><br><span class="line">        content = open(filename).read()</span><br><span class="line">        new_content = content.decode(in_enc).encode(out_enc)</span><br><span class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"error"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            path = os.path.join(root, file)</span><br><span class="line">            convert(path)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">            convert(path)</span><br><span class="line">        <span class="keyword">elif</span> os.path.isdir(path):</span><br><span class="line">            explore(path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h1 id="准备脚本 -prepare.sh"> 准备脚本 “prepare.sh”</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></span><br><span class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</span><br><span class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></span><br><span class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></span><br><span class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></span><br><span class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to unix</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></span><br><span class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to UTF-8</span></span><br><span class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># rename suffix to ".md"</span></span><br><span class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># if does not have title</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></span><br><span class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># zero title content</span></span><br><span class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</span><br><span class="line">    <span class="keyword">if</span> [-z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># update title when it is NULL</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></span><br><span class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># add author info</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></span><br><span class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h1 id="windows- 下 - 更新博客 -.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM</span></span><br><span class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</span><br><span class="line"><span class="function">D:</span></span><br><span class="line"><span class="function"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></span></span><br><span class="line"><span class="function"><span class="title">echo</span> "<span class="title">success</span>"</span></span><br></pre></td></tr></table></figure>
+          <h1 id="买个 -ss- 帐号"> 买个 SS 帐号 </h1>
+<p> 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机"> 路由刷机 </h1>
+<ul>
+<li> 路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code> 注意：不是 WAN 口 </code></li>
+<li> 查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址 </li>
+</ul>
+<figure>
+<img src="http://i.imgur.com/qlfwJ9j.jpg">
+</figure>
+<ul>
+<li> 自己电脑中打开浏览器：http://192.168.1.1 (一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1)</li>
+<li><p> 用户名和密码默认 “admin/admin”</p></li>
+<li><p> 登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “(其实我们是先降级，因为斐讯的默认系统是不让刷机的)。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件 </p></li>
+</ul>
 
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/编码与文件格式转换/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE 安装与设定</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装软件"> 安装软件 </h1>
-<pre><code># 安装的软件：
-dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
-xinetd-2.3.14-10.el5.x86_64.rpm
-tftp-server-0.42-3.1.x86_64.rpm
-pykickstart-0.43.3-1.el5.noarch.rpm
-system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
-syslinux
-
-# 关闭 selinux &amp; iptables</code></pre>
-<h1 id="dhcp- 配置">dhcp 配置 </h1>
-<pre><code>ddns-update-style interim;
-ignore client-updates;
-allow booting;
-allow bootp;
-class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
-filename &quot;/pxelinux.0&quot;;
-next-server 10.85.138.9;
-}
-subnet 10.85.138.0 netmask 255.255.254.0 {
-option routers 10.85.138.1;
-option subnet-mask 255.255.254.0;
-option domain-name &quot;gwcloud.com&quot;;
-option domain-name-servers 10.85.138.1;
-option time-offset -18000; # Eastern Standard Time
-range dynamic-bootp 10.85.138.100 10.85.138.249;
-default-lease-time 21600;
-max-lease-time 43200;
-}</code></pre>
-<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
-<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
-$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
-$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
-
-
-$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
-<h1 id="配置 -kickstart"> 配置 kickstart</h1>
-<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
-  label linux
-    menu label ^Install or upgrade an existing system
-    menu default
-    kernel vmlinuz
-    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
-
-# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
-<blockquote>
-<p> 附录：完整 DHCP 样例 </p>
-</blockquote>
-<pre><code>ddns-update-style interim;
-ddns-updates on;
-ignore client-updates;
-allow booting;  # for pxe only
-allow bootp;    # for pxe only
-authoritative;  # Do not know what is meaning??
-
-class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
-    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-    filename &quot;/pxelinux.0&quot;;     # for pxe only
-    next-server 192.168.88.1;   # for pxe only
-}
-
-
-class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
-    option host-name = config-option server.ddns-hostname;
-    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-}
-
-
-option host-name = config-option server.ddns-hostname;
-ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-));
-set vendor-string = option vendor-class-identifier;
-
-
-subnet 192.168.88.0 netmask 255.255.255.0 {
-    option routers 192.168.88.1;
-    option subnet-mask 255.255.255.0;
-    option domain-name &quot;gwcloud.cn&quot;;
-    option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
-    # option ntp-servers 192.168.88.1   # set the ntp server
-    option time-offset -18000;          # Eastern Standard Time
-    range dynamic-bootp 192.168.88.100 192.168.88.200;
-    default-lease-time 21600;
-    max-lease-time 43200;
-
-    # the next is bonding the mac to static ip address
-    # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
-    #    fixed-address 192.168.1.30;             # host&#39;s ip address
-}</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
+            <a class="btn" href="/linux/斐讯K2路由器刷机/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
