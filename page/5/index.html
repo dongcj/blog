@@ -491,7 +491,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -510,7 +510,7 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
         
 
         <div class="post-meta">
@@ -545,8 +545,8 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/storage/" itemprop="url" rel="index">
+                    <span itemprop="name">storage</span>
                   </a>
                 </span>
 
@@ -580,28 +580,66 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 
       
         
-          <h1 id="curl">1. curl</h1>
-<h2 id="下载文件">1.1. 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<pre><code>curl -v www.sina.com
-curl --trace output.txt www.sina.com
-curl --trace-ascii output.txt www.sina.com
-curl  -s  --head  www.sina.com</code></pre>
-<h2 id="上传文件">1.3. 上传文件 </h2>
-<pre><code>curl --form upload=@localfilename --form press=OK [URL]
-curl -T file.txt
+          <blockquote>
+<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
+</blockquote>
+<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
+<h1 id="安装软件"> 安装软件 </h1>
+<pre><code>yum install glusterfs{,-fuse,-server}
+yum install glusterfs-geo-replication.x86_64</code></pre>
+<blockquote>
+<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+</blockquote>
+<pre><code># 删除 lvm2
+$ rpm -e lvm2</code></pre>
+<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
+<pre><code># mkdir
+$ mkdir /export/brick1
 
-curl --cookie &quot;name=xxx&quot; www.example.com
-curl --user name@DOMAIN:password http://example.com
+# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
+$ chmod 777 /export/brick1
 
-curl -fsSL ...</code></pre>
-<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
+# firewall
+$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+
+$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
+$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
+--add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
+$ firewall-cmd --reload</code></pre>
+<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
+<pre><code>$ service glusterd start
+
+# if centos7:
+$ systemctl enable glusterd
+$ systemctl start glusterd
+$ systemctl status glusterd
+
+# from server1
+$ gluster peer probe SERVER2
+
+# from server2
+$ gluster peer probe SERVER1
+
+# check peer
+$ gluster peer status
+
+$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
+$ gluster volume start gv0
+
+$ gluster volume info
+$ gluster volume status
+
+# How to remove a volume or peer
+# stop Volume
+$ gluster volume stop gv0
+
+# delete Volume
+$ gluster volume delete gv0
+
+$ gluster peer detach NAME_OF_PEERNODE</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
+            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -647,7 +685,7 @@ curl -fsSL ...</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -666,7 +704,7 @@ curl -fsSL ...</code></pre>
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
         
 
         <div class="post-meta">
@@ -736,95 +774,59 @@ curl -fsSL ...</code></pre>
 
       
         
-          <blockquote>
-<p> 建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
-</blockquote>
-<h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
+<pre><code># (在其它服务上安装 dhcpd 软件)：
 
-$ fdisk /dev/sda
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
 
-  Command (m for help): n
-  Command action
-     e   extended
-     p   primary partition (1-4)
-  p
-  Partition number (1-4): 1
-  First cylinder (1-91201, default 1):
-  Using default value 1
-  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
-  Using default value 91201
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
+<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &quot;koumm.net&quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
 
-  Command (m for help): p
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
 
-  Disk /dev/sda: 750.2 GB, 750156374016 bytes
-  255 heads, 63 sectors/track, 91201 cylinders
-  Units = cylinders of 16065 * 512 = 8225280 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disk identifier: 0x0005c259
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
 
-     Device Boot      Start         End      Blocks   Id  System
-  /dev/sda1               1       91201   732572001   83  Linux
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
 
-  Command (m for help): t
-  Selected partition 1
-  Hex code (type L to list codes): fd
-  Changed system type of partition 1 to fd (Linux raid autodetect)
+}</code></pre>
 
-  Command (m for help): w
-  The partition table has been altered!
-
-  Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
-$ fdisk /dev/sdc
-...
-$ fdisk /dev/sdd
-...
-$ fdisk /dev/sde
-...
-$ fdisk /dev/sdf
-...
-$ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
-$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
-mdadm: layout defaults to n2
-mdadm: layout defaults to n2
-mdadm: chunk size defaults to 512K
-mdadm: size set to 732440576K
-mdadm: Defaulting to version 1.2 metadata
-mdadm: array /dev/md0 started.
-
-
-# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
-# watch cat /proc/mdstat
-Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
-
-Personalities : [raid10]
-md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
-      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
-      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
-0948K/sec
-
-unused devices:</code></pre>
-<h1 id="给 -md0- 设备创建分区和文件系统"> 给 md0 设备创建分区和文件系统 </h1>
-<pre><code>$ fdisk /dev/md0
-$ mkfs.ext4 /dev/md0p1
-
-$ mkdir /raid10
-$ mount /dev/md0p1 /raid10</code></pre>
-<h1 id="修改 -etcfstab- 启动时自动挂载"> 修改 /etc/fstab 启动时自动挂载 </h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
+            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
