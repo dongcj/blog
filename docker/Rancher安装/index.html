@@ -97,19 +97,19 @@
 
 
 
-<meta name="description" content="1. 准备步骤    注意，请严格按照版本以下配套安装，否则，会有极高机率出错！     OS version rancher server version docker version  备注      Ubuntu 16.04.3 LTS 1.6.13 17.10.0ce-0ubuntu  线上版本，基本不会出错    Ubuntu 17.10 1.">
+<meta name="description" content="1. 准备步骤  1.1. 服务器时间同步    如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 UTC 时间 12# 直接删除 /etc/localtime 即可使用 UTC 时间 rm -rf /etc/localtime  1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）   如果要支持 aufs，请安装 linux-image-extr">
 <meta name="keywords" content="rancher,docker,caas">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Rancher 安装">
 <meta property="og:url" content="http://blog.dongcj.com/docker/Rancher安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="1. 准备步骤    注意，请严格按照版本以下配套安装，否则，会有极高机率出错！     OS version rancher server version docker version  备注      Ubuntu 16.04.3 LTS 1.6.13 17.10.0ce-0ubuntu  线上版本，基本不会出错    Ubuntu 17.10 1.">
+<meta property="og:description" content="1. 准备步骤  1.1. 服务器时间同步    如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 UTC 时间 12# 直接删除 /etc/localtime 即可使用 UTC 时间 rm -rf /etc/localtime  1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）   如果要支持 aufs，请安装 linux-image-extr">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.imgur.com/TEg1m2a.png">
 <meta property="og:updated_time" content="2017-12-24T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rancher 安装">
-<meta name="twitter:description" content="1. 准备步骤    注意，请严格按照版本以下配套安装，否则，会有极高机率出错！     OS version rancher server version docker version  备注      Ubuntu 16.04.3 LTS 1.6.13 17.10.0ce-0ubuntu  线上版本，基本不会出错    Ubuntu 17.10 1.">
+<meta name="twitter:description" content="1. 准备步骤  1.1. 服务器时间同步    如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 UTC 时间 12# 直接删除 /etc/localtime 即可使用 UTC 时间 rm -rf /etc/localtime  1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）   如果要支持 aufs，请安装 linux-image-extr">
 <meta name="twitter:image" content="https://i.imgur.com/TEg1m2a.png">
 
 
@@ -414,33 +414,6 @@
 
       
         <h1 id="准备步骤">1. 准备步骤 </h1>
-<blockquote>
-<p> 注意，请严格按照版本以下配套安装，否则，会有极高机率出错！</p>
-</blockquote>
-<table>
-<thead>
-<tr class="header">
-<th>OS version</th>
-<th>rancher server version</th>
-<th>docker version</th>
-<th> 备注 </th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Ubuntu 16.04.3 LTS</td>
-<td>1.6.13</td>
-<td>17.10.0<sub>ce-0</sub>ubuntu</td>
-<td> 线上版本，基本不会出错 </td>
-</tr>
-<tr class="even">
-<td>Ubuntu 17.10</td>
-<td>1.6.14</td>
-<td>17.06.2<sub>ce-0</sub>ubuntu</td>
-<td> 个人测试版本 </td>
-</tr>
-</tbody>
-</table>
 <h2 id="服务器时间同步">1.1. 服务器时间同步 </h2>
 <blockquote>
 <p> 如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 <strong>UTC</strong> 时间 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接删除 /etc/localtime 即可使用 UTC 时间 </span></span><br><span class="line">rm -rf /etc/localtime</span><br></pre></td></tr></table></figure></p>

@@ -325,6 +325,328 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p> 参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+</blockquote>
+<blockquote>
+<p> 更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+</blockquote>
+<h1 id="使用 -yum- 安装环境"> 使用 yum 安装环境 </h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的 -zope.interface- 及 -twisted"> 安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限"> 设置权限 </h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="curl">1. curl</h1>
+<h2 id="下载文件">1.1. 下载文件 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
+<h2 id="详细信息"> 详细信息 </h2>
+<pre><code>curl -v www.sina.com
+curl --trace output.txt www.sina.com
+curl --trace-ascii output.txt www.sina.com
+curl  -s  --head  www.sina.com</code></pre>
+<h2 id="上传文件">1.3. 上传文件 </h2>
+<pre><code>curl --form upload=@localfilename --form press=OK [URL]
+curl -T file.txt
+
+curl --cookie &quot;name=xxx&quot; www.example.com
+curl --user name@DOMAIN:password http://example.com
+
+curl -fsSL ...</code></pre>
+<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -435,571 +757,6 @@ $ psql$ select * from pg_stat_replication;
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet 安装</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="etchosts- 可以 -ping- 通对方域名">/etc/hosts 可以 ping 通对方域名 </h3>
-<h3 id="安装 -puppet"> 安装 puppet</h3>
-<pre><code>$ yum install ruby ruby-libs ruby-rdoc
-$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
-$ yum update
-
-# 服务端安装 puppet-server
-$ yum install puppet-server
-
-# 服务端安装 puppet 图形界面（可选）
-$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
-
-# 客户端安装 puppet
-$ yum install puppet</code></pre>
-<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
-<pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
-
-$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
-
-$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
-*.xxx.com
-EOF
-
-$ service puppetmaster restart
-$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
-
-在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
-
-$ puppetd --server bigdata.xxxx.com --test
-或者
-$ puppet agent --no-daemonize --onetime --verbose --debug</code></pre>
-<h3 id="安装 -dashboard"> 安装 dashboard</h3>
-<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
-production:
-database: puppet
-username: root
-password: passw0rd
-encoding: utf8
-adapter: mysql
-
-$ vi /usr/share/puppet-dashboard/config/environment.rb
-config.time_zone = &#39;Beijing&#39;</code></pre>
-<h3 id="初始化数据库"> 初始化数据库 </h3>
-<pre><code>$ cd /usr/share/puppet-dashboard/
-rake RAILS_ENV=production db:migrate</code></pre>
-<h3 id="整合 -passenger- 和 -apache"> 整合 Passenger 和 apache</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Puppet安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
-<pre><code># (在其它服务上安装 dhcpd 软件)：
-
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
-
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1
-
-# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
-<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
-ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
-shared-network mynet {          /* 超网作用域选项，共同部分 */
-    option subnet-mask 255.255.255.0;            /* 子网掩码 */
-    option domain-name &quot;koumm.net&quot;;              /* 域名 */
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /* 广播地址 */
-    default-lease-time 86400;                    /* 租期 1 天，秒数 */
-    max-lease-time 172800;                       /* 最长租期 2 天 */
-
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
-        option routers 192.168.1.1;               /* 网关地址 */
-        /* 绑定 pc1 主机 ip 地址配置 */
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /* 绑定 pc2 主机 ip 地址配置 */
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
-
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
-        option routers 192.168.2.1;                /* 网关地址 */
-    }
-
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
-        option routers 192.168.3.1;                /* 网关地址 */
-    }
-
-}</code></pre>
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/linux安装easy_install及pip/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
-</blockquote>
-<h1 id="安装 -easy_install"> 安装 easy_install</h1>
-<pre><code># 获取软件包
-$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-# 解压 :
-$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
-# 使用 Python 2.7.x 安装 setuptools
-/usr/local/bin/python2.7 setup.py install
-
-更多 easy_install 用法见： easy_install 用法 </code></pre>
-<h1 id="安装 -pip"> 安装 PIP</h1>
-<pre><code># 下载方法 1
-$ curl https://bootstrap.pypa.io/get-pip.py | python -
-# 下载方法 2
-$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
-
-# 安装方法 1
-$ yum install python-pip
-
-# 安装方法 2
-$ /usr/local/bin/easy_install pip  (建议 , 如果升级使用此方法！)
-
-# 升级 pip
-$ /usr/local/bin/easy_install --upgrade pip
-
-# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案)
-$ pip install -U distribute
-
-# 升级 ez_setup
-$ curl https://bootstrap.pypa.io/ez_setup.py | python -
-
-&gt; PIP 使用指定源，且不缓存到目录
-$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-
-&gt; 安装墙内 PIP
-http://realfavicongenerator.net/</code></pre>
-<h1 id="easy_install- 用法">easy_install 用法 </h1>
-<pre><code># 1 直接安装：
-  easy_install SQLObject
-# 2 使用下载页面地址安装
-  easy_install -f http://pythonpaste.org/package_index.html SQLObject
-# 3 直接给出下载 url 安装
-  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
-# 4 .egg 文件的安装
-  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
-# 5 跟新安装过的包
-  easy_install --upgrade PyProtocols
-# 6 安装已经下载和提取在当前目录下的包
-  easy_install .
-# 7 安装特定特定版本的库
-  easy_install &quot;SomePackage==2.0&quot;
-# 8 大于某个版本
-  easy_install &quot;SomePackage&gt;2.0
-# 9 卸载库
-easy_install -m PackageName</code></pre>
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/linux安装easy_install及pip/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1159,6 +916,172 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/dns/Dnsmasq使用本地host为DNS/" itemprop="url">Dnsmasq 使用本地 Hosts 配置提供 DNS 服务</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/dns/" itemprop="url" rel="index">
+                    <span itemprop="name">dns</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务"> 使用 dnsmasq 提供外网 dns 服务 </h1>
+<pre><code>$ apt-get install dnsmasq</code></pre>
+<h2 id="修改 -dnsmasq- 主配置文件"> 修改 dnsmasq 主配置文件 </h2>
+<pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
+listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
+addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
+resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析 </code></pre>
+<h2 id="生成域名映射"> 生成域名映射 </h2>
+<pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
+vi /etc/dnsmasq.d/dns.conf
+
+# 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
+address=&quot;/google.com/172.17.0.4&quot;</code></pre>
+<h2 id="启动服务"> 启动服务 </h2>
+<pre><code>/etc/init.d/dnsmasq start</code></pre>
+<h2 id="测试"> 测试 </h2>
+<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/dns/Dnsmasq使用本地host为DNS/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

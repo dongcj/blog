@@ -651,7 +651,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if you want install pre version</span></span><br><span class="line"><span class="comment"># add the repo to the apt</span></span><br><span class="line">deb [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable</span><br><span class="line">deb-src [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the version avaiable</span></span><br><span class="line">apt update</span><br><span class="line">apt-cache madison docker-ce</span><br><span class="line"></span><br><span class="line"><span class="comment"># install the specify docker release</span></span><br><span class="line">apt install docker-ce=17.06.2~ce-0~ubuntu</span><br></pre></td></tr></table></figure>
 <h1 id="配置 -docker- 加速器用于国内加速可选">2. 配置 Docker 加速器（用于国内加速，可选）</h1>
 <blockquote>
-<p> 以下操作需重启 Docker 服务生效 </p>
+<p> 以下操作需 <code> 重启 </code> Docker 服务生效 </p>
 </blockquote>
 <p>vi /etc/docker/daemon.json</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</span><br><span class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</span><br><span class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</span><br><span class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -793,33 +793,6 @@
       
         
           <h1 id="准备步骤">1. 准备步骤 </h1>
-<blockquote>
-<p> 注意，请严格按照版本以下配套安装，否则，会有极高机率出错！</p>
-</blockquote>
-<table>
-<thead>
-<tr class="header">
-<th>OS version</th>
-<th>rancher server version</th>
-<th>docker version</th>
-<th> 备注 </th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Ubuntu 16.04.3 LTS</td>
-<td>1.6.13</td>
-<td>17.10.0<sub>ce-0</sub>ubuntu</td>
-<td> 线上版本，基本不会出错 </td>
-</tr>
-<tr class="even">
-<td>Ubuntu 17.10</td>
-<td>1.6.14</td>
-<td>17.06.2<sub>ce-0</sub>ubuntu</td>
-<td> 个人测试版本 </td>
-</tr>
-</tbody>
-</table>
 <h2 id="服务器时间同步">1.1. 服务器时间同步 </h2>
 <blockquote>
 <p> 如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 <strong>UTC</strong> 时间 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接删除 /etc/localtime 即可使用 UTC 时间 </span></span><br><span class="line">rm -rf /etc/localtime</span><br></pre></td></tr></table></figure></p>
@@ -831,6 +804,9 @@
 <h2 id="所有服务器设置外部 -dns">1.3. 所有服务器设置外部 DNS</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># stop and disable the local dns generator</span></span><br><span class="line">systemctl stop systemd-resolved.service</span><br><span class="line">systemctl <span class="built_in">disable</span> systemd-resolved.service</span><br><span class="line"></span><br><span class="line">systemctl stop resolvconf.service</span><br><span class="line">systemctl <span class="built_in">disable</span> resolvconf.service</span><br><span class="line"></span><br><span class="line">systemctl stop NetworkManager.service</span><br><span class="line">systemctl <span class="built_in">disable</span> NetworkManager.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改为外部 DNS 服务器 </span></span><br><span class="line">vi /etc/network/interfaces</span><br><span class="line">  dns-nameservers 114.114.114.114</span><br><span class="line"></span><br><span class="line"><span class="comment"># set the /etc/resolv.conf</span></span><br><span class="line">unlink /etc/resolv.conf</span><br><span class="line">vi /etc/resolv.conf</span><br><span class="line">nameserver 114.114.114.114</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the service status</span></span><br><span class="line">systemctl status systemd-resolved.service</span><br><span class="line">systemctl status resolvconf.service</span><br><span class="line">systemctl status NetworkManager</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br><span class="line"></span><br><span class="line"><span class="comment"># If has dnsmasq service</span></span><br><span class="line"><span class="comment"># Comment out the dns=dnsmasq line</span></span><br><span class="line"><span class="comment"># vi /etc/NetworkManager/NetworkManager.conf</span></span><br><span class="line">  <span class="comment"># dns=dnsmasq</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># restart network and docker service</span></span><br><span class="line"><span class="comment">#systemctl restart network-manager</span></span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<h2 id="设置 -hostname">1.4. 设置 hostname</h2>
+<pre><code>[root@rancher-server] echo &quot;&lt;HOSTNAME&gt;&quot; &gt;/etc/hostname &amp;&amp; hostname &lt;HOSTNAME&gt;
+[root@rancher-server] hostnamectl set-hostname svi1r01n08</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/docker/Rancher安装/#more" rel="contents">
