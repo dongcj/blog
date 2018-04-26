@@ -417,7 +417,7 @@
           <blockquote>
 <p> 需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
 </blockquote>
-<h1 id="安装 -easy_install"> 安装 easy_install</h1>
+<h1 id="安装 -easy_install"><a class="markdownIt-Anchor" href="# 安装 -easy_install"></a> 安装 easy_install</h1>
 <pre><code># 获取软件包
 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
 # 解压 :
@@ -425,8 +425,9 @@ $ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
 # 使用 Python 2.7.x 安装 setuptools
 /usr/local/bin/python2.7 setup.py install
 
-更多 easy_install 用法见： easy_install 用法 </code></pre>
-<h1 id="安装 -pip"> 安装 PIP</h1>
+更多 easy_install 用法见： easy_install 用法
+</code></pre>
+<h1 id="安装 -pip"><a class="markdownIt-Anchor" href="# 安装 -pip"></a> 安装 PIP</h1>
 <pre><code># 下载方法 1
 $ curl https://bootstrap.pypa.io/get-pip.py | python -
 # 下载方法 2
@@ -451,8 +452,9 @@ $ curl https://bootstrap.pypa.io/ez_setup.py | python -
 $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
 
 &gt; 安装墙内 PIP
-http://realfavicongenerator.net/</code></pre>
-<h1 id="easy_install- 用法">easy_install 用法 </h1>
+http://realfavicongenerator.net/
+</code></pre>
+<h1 id="easy_install- 用法"><a class="markdownIt-Anchor" href="#easy_install- 用法"></a> easy_install 用法 </h1>
 <pre><code># 1 直接安装：
   easy_install SQLObject
 # 2 使用下载页面地址安装
@@ -470,7 +472,8 @@ http://realfavicongenerator.net/</code></pre>
 # 8 大于某个版本
   easy_install &quot;SomePackage&gt;2.0
 # 9 卸载库
-easy_install -m PackageName</code></pre>
+easy_install -m PackageName
+</code></pre>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -610,11 +613,12 @@ easy_install -m PackageName</code></pre>
       
         
           <blockquote>
-<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
+<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="noopener">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
 </blockquote>
-<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性">1. 用 autossh 保证 ssh 隧道稳定性 :</h1>
-<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  </code></pre>
-<h1 id="autossh- 代理">2. autossh 代理 </h1>
+<h1 id="1- 用 -autossh- 保证 -ssh- 隧道稳定性"><a class="markdownIt-Anchor" href="#1- 用 -autossh- 保证 -ssh- 隧道稳定性"></a> 1. 用 autossh 保证 ssh 隧道稳定性 :</h1>
+<pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
+</code></pre>
+<h1 id="2-autossh- 代理"><a class="markdownIt-Anchor" href="#2-autossh- 代理"></a> 2. autossh 代理 </h1>
 <pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
 export AUTOSSH_POLL=60
 export AUTOSSH_FIRST_POLL=30
@@ -622,7 +626,8 @@ export AUTOSSH_GATETIME=0
 export AUTOSSH_DEBUG=1
 autossh -M 0 -4 -fN -R 8366:127.0.0.1:22 -o &quot;ServerAliveInterval 60&quot; \
     -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
-    -o StrictHostKeyChecking=no -p 46178  root@HOSTNAME</code></pre>
+    -o StrictHostKeyChecking=no -p 46178  root@HOSTNAME
+</code></pre>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -761,7 +766,7 @@ autossh -M 0 -4 -fN -R 8366:127.0.0.1:22 -o &quot;ServerAliveInterval 60&quot; \
 
       
         
-          <h1 id="screen- 后台">screen 后台 </h1>
+          <h1 id="screen- 后台"><a class="markdownIt-Anchor" href="#screen- 后台"></a> screen 后台 </h1>
 <pre><code>screen -ls -&gt; 列出当前所有的 session
 screen -r yourname -&gt; 回到 yourname 这个 session
 screen -d yourname -&gt; 远程 detach 某个 session
@@ -772,15 +777,20 @@ screen -x &lt;SESSION_NAME&gt;
 
 screen -X -S [session_you_want_to_kill] quit
 
-screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;</code></pre>
-<h1 id="nohup- 后台">nohup 后台 </h1>
-<pre><code>nohup ping www.ibm.com &amp;</code></pre>
-<h1 id="setsid- 后台">setsid 后台 </h1>
-<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)</code></pre>
-<h1 id="subshell- 后台">subshell 后台 </h1>
-<pre><code>(ping www.ibm.com &amp;)</code></pre>
-<h1 id="disown- 后台">disown 后台 </h1>
-<pre><code>disown -h JOBID</code></pre>
+screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
+</code></pre>
+<h1 id="nohup- 后台"><a class="markdownIt-Anchor" href="#nohup- 后台"></a> nohup 后台 </h1>
+<pre><code>nohup ping www.ibm.com &amp;
+</code></pre>
+<h1 id="setsid- 后台"><a class="markdownIt-Anchor" href="#setsid- 后台"></a> setsid 后台 </h1>
+<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
+</code></pre>
+<h1 id="subshell- 后台"><a class="markdownIt-Anchor" href="#subshell- 后台"></a> subshell 后台 </h1>
+<pre><code>(ping www.ibm.com &amp;)
+</code></pre>
+<h1 id="disown- 后台"><a class="markdownIt-Anchor" href="#disown- 后台"></a> disown 后台 </h1>
+<pre><code>disown -h JOBID
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Screen、nohup、setsid、disown后台运行/#more" rel="contents">
@@ -921,11 +931,12 @@ screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;</code></pre>
           <blockquote>
 <p> 参考：</p>
 </blockquote>
-<p>http://linux.vbird.org/linux_server/0350dns.php#server_settings</p>
-<p>DDNS 的安装见：http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
-<h1 id="安装">1. 安装 </h1>
-<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
-<h1 id="配置">2. 配置 </h1>
+<p><a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="noopener">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a></p>
+<p>DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="noopener">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
+<h1 id="1- 安装"><a class="markdownIt-Anchor" href="#1- 安装"></a> 1. 安装 </h1>
+<pre><code>$ rpm -ivh bind bind-chroot
+</code></pre>
+<h1 id="2- 配置"><a class="markdownIt-Anchor" href="#2- 配置"></a> 2. 配置 </h1>
 <pre><code>1. 生成 rndc key
 
 $ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
@@ -1054,8 +1065,9 @@ logging {                               // 防止外部服务器错误导致 log
 
         category lame-servers {null;};
 
-};</code></pre>
-<h1 id="zone- 配置">3. zone 配置 </h1>
+};
+</code></pre>
+<h1 id="3-zone- 配置"><a class="markdownIt-Anchor" href="#3-zone- 配置"></a> 3. zone 配置 </h1>
 <pre><code>1. 正向 zone 内网配置
 
 $ vi /var/named/named.xdol.vicp.net
@@ -1144,8 +1156,9 @@ $TTL    600
 
 109     IN      PTR     www.xdol.vicp.net.
 
-246     IN      PTR     client.xdol.vicp.net.</code></pre>
-<h1 id="启动服务">4. 启动服务 </h1>
+246     IN      PTR     client.xdol.vicp.net.
+</code></pre>
+<h1 id="4- 启动服务"><a class="markdownIt-Anchor" href="#4- 启动服务"></a> 4. 启动服务 </h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
@@ -1283,18 +1296,19 @@ $TTL    600
 
       
         
-          <h1 id="安装"> 安装 </h1>
+          <h1 id="安装"><a class="markdownIt-Anchor" href="# 安装"></a> 安装 </h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-<h1 id="配置"> 配置 </h1>
+<h1 id="配置"><a class="markdownIt-Anchor" href="# 配置"></a> 配置 </h1>
 <blockquote>
 <p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 id="启动"> 启动 </h1>
+<h1 id="启动"><a class="markdownIt-Anchor" href="# 启动"></a> 启动 </h1>
 <pre><code>$ service supervisord start
 
-&gt; 如果使用 pip 安装，需要自已写启动脚本 </code></pre>
-<h1 id="检查安装"> 检查安装 </h1>
+&gt; 如果使用 pip 安装，需要自已写启动脚本
+</code></pre>
+<h1 id="检查安装"><a class="markdownIt-Anchor" href="# 检查安装"></a> 检查安装 </h1>
 <pre><code># 如下即表示正常
 supervisorctl status
 remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>

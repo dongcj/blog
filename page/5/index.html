@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
         
 
         <div class="post-meta">
@@ -379,8 +379,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -414,66 +414,62 @@
 
       
         
-          <blockquote>
-<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件"> 安装软件 </h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
-<blockquote>
-<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
-</blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
+          <h1 id="一 -dhcp- 中继代理配置"><a class="markdownIt-Anchor" href="# 一 -dhcp- 中继代理配置"></a> 一、DHCP 中继代理配置 </h1>
+<hr>
+<pre><code># (在其它服务上安装 dhcpd 软件)：
 
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
 
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
 
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
-<pre><code>$ service glusterd start
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。
+</code></pre>
+<h1 id="二 -dhcp- 超网配置"><a class="markdownIt-Anchor" href="# 二 -dhcp- 超网配置"></a> 二、DHCP 超网配置 </h1>
+<hr>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &quot;koumm.net&quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
 
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
 
-# from server1
-$ gluster peer probe SERVER2
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
 
-# from server2
-$ gluster peer probe SERVER1
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
 
-# check peer
-$ gluster peer status
+}</code></pre>
 
-$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
-
-$ gluster volume info
-$ gluster volume status
-
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
-
-# delete Volume
-$ gluster volume delete gv0
-
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
+            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -609,13 +605,64 @@ $ gluster peer detach NAME_OF_PEERNODE</code></pre>
       
         
           <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: <?php
-$worker = new GearmanWorker();
-$worker->addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = <span class="math inline">\(worker-&gt;work(); if(\)</span>worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; <span class="math inline">\(result = strrev(\)</span>workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: <?php
-$client = new GearmanClient();
-$client->addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;</p>
+<p> 参考 <br>
+<a href="http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html" target="_blank" rel="noopener">http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</a><br>
+python gearman library home page<br>
+<a href="http://samuelks.com/python-gearman/docs/" target="_blank" rel="noopener">http://samuelks.com/python-gearman/docs/</a><br>
+Tim Yang：利用 Gearman 来实现远程监控与管理 <br>
+<a href="http://timyang.net/linux/gearman-monitor/" target="_blank" rel="noopener">http://timyang.net/linux/gearman-monitor/</a></p>
 </blockquote>
-
+<h1 id="一 - 安装 -grarmand- 及 -libgearman-devel"><a class="markdownIt-Anchor" href="# 一 - 安装 -grarmand- 及 -libgearman-devel"></a> 一、安装 grarmand 及 libgearman-devel</h1>
+<pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)
+</code></pre>
+<h1 id="二 - 安装 -php- 的 -api"><a class="markdownIt-Anchor" href="# 二 - 安装 -php- 的 -api"></a> 二、安装 PHP 的 API</h1>
+<pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install   // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so
+</code></pre>
+<h1 id="三 - 启动 -gearmand"><a class="markdownIt-Anchor" href="# 三 - 启动 -gearmand"></a> 三、启动 gearmand</h1>
+<pre><code># (如果使用默认参数，需要开启 IPV6)
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;  --&gt; 根据自己需求设置 --verbose
+$ service gearmand start
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...
+</code></pre>
+<h2 id="1-worker"><a class="markdownIt-Anchor" href="#1-worker"></a> 1. Worker:</h2>
+<pre><code>&lt;?php
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
+}
+function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
+?&gt;
+</code></pre>
+<h2 id="2-client"><a class="markdownIt-Anchor" href="#2-client"></a> 2. client:</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
@@ -664,7 +711,7 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -683,7 +730,7 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
+                <a class="post-title-link" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
         
 
         <div class="post-meta">
@@ -753,20 +800,29 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
 
       
         
-          <h1 id="作用"> 作用 </h1>
-<blockquote>
-<p> 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
-</blockquote>
-<h1 id="编码转换 -trans_to_utf-8.py"> 编码转换 “Trans_To_UTF-8.py”</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下 </span></span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"convert"</span> + filename,</span><br><span class="line">        content = open(filename).read()</span><br><span class="line">        new_content = content.decode(in_enc).encode(out_enc)</span><br><span class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"error"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            path = os.path.join(root, file)</span><br><span class="line">            convert(path)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">            convert(path)</span><br><span class="line">        <span class="keyword">elif</span> os.path.isdir(path):</span><br><span class="line">            explore(path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h1 id="准备脚本 -prepare.sh"> 准备脚本 “prepare.sh”</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></span><br><span class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</span><br><span class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></span><br><span class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></span><br><span class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></span><br><span class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to unix</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></span><br><span class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to UTF-8</span></span><br><span class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># rename suffix to ".md"</span></span><br><span class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># if does not have title</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></span><br><span class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># zero title content</span></span><br><span class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</span><br><span class="line">    <span class="keyword">if</span> [-z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># update title when it is NULL</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></span><br><span class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># add author info</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></span><br><span class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h1 id="windows- 下 - 更新博客 -.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM</span></span><br><span class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</span><br><span class="line"><span class="function">D:</span></span><br><span class="line"><span class="function"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></span></span><br><span class="line"><span class="function"><span class="title">echo</span> "<span class="title">success</span>"</span></span><br></pre></td></tr></table></figure>
-
+          <h1 id="1-linux- 根分区修改为 -lvm"><a class="markdownIt-Anchor" href="#1-linux- 根分区修改为 -lvm"></a> 1. linux 根分区修改为 lvm</h1>
+<ol>
+<li>First Create an LVM partition:</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb1</span><br><span class="line">vgcreate vg01  /dev/sdb1</span><br><span class="line">lvcreate -L 100%VG -n lv01 vg01</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Format this new LVM partition with ext3 or ext4</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/vg01/lv01</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Create a new mount point and then mount the LVM Partition on it</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>Copy all contents of “/” to the newly mounted folder</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x</span><br><span class="line">cp -aux /dev /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root</li>
+</ol>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/编码与文件格式转换/#more" rel="contents">
+            <a class="btn" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -901,14 +957,16 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
 
       
         
-          <h1 id="yum- 更新">yum 更新 </h1>
+          <h1 id="yum- 更新"><a class="markdownIt-Anchor" href="#yum- 更新"></a> yum 更新 </h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
 <pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
 rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
-<h2 id="epel- 源 -elrepo.org">epel 源 (elrepo.org)</h2>
-<pre><code>yum install epel-release</code></pre>
-<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
+rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm
+</code></pre>
+<h2 id="epel- 源 -elrepoorg"><a class="markdownIt-Anchor" href="#epel- 源 -elrepoorg"></a> epel 源 (<a href="http://elrepo.org" target="_blank" rel="noopener">elrepo.org</a>)</h2>
+<pre><code>yum install epel-release
+</code></pre>
+<h2 id="elrepoupdate-kernel"><a class="markdownIt-Anchor" href="#elrepoupdate-kernel"></a> elrepo(update kernel)</h2>
 <pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
 
 # (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
@@ -917,12 +975,12 @@ rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 # redhat/centos 6
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
-<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
-<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次">CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
-<blockquote>
-<p> 地址：http://centos.ustc.edu.cn/</p>
-</blockquote>
+rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm
+</code></pre>
+<h1 id="redhatcentos-7-only-have-x86_64-packages"><a class="markdownIt-Anchor" href="#redhatcentos-7-only-have-x86_64-packages"></a> redhat/centos 7 only have x86_64 packages</h1>
+<pre><code>rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
+</code></pre>
+<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次"><a class="markdownIt-Anchor" href="#centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次"></a> CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
@@ -1071,24 +1129,29 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
 
       
         
-          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务"> 使用 dnsmasq 提供外网 dns 服务 </h1>
-<pre><code>$ apt-get install dnsmasq</code></pre>
-<h2 id="修改 -dnsmasq- 主配置文件"> 修改 dnsmasq 主配置文件 </h2>
+          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务"><a class="markdownIt-Anchor" href="# 使用 -dnsmasq- 提供外网 -dns- 服务"></a> 使用 dnsmasq 提供外网 dns 服务 </h1>
+<pre><code>$ apt-get install dnsmasq
+</code></pre>
+<h2 id="修改 -dnsmasq- 主配置文件"><a class="markdownIt-Anchor" href="# 修改 -dnsmasq- 主配置文件"></a> 修改 dnsmasq 主配置文件 </h2>
 <pre><code># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：
 listen-address=127.0.0.1,OUTER_IP      # 这里如果使用 0.0.0.0 会失败
 addn-hosts=/etc/hosts                   # 直接解析本地的 hosts
 resolv-file=/etc/resolv.dnsmasq.conf    # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)
-conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析 </code></pre>
-<h2 id="生成域名映射"> 生成域名映射 </h2>
+conf-dir=/etc/dnsmasq.d                 # 该目录下的所有文件都会解析
+</code></pre>
+<h2 id="生成域名映射"><a class="markdownIt-Anchor" href="# 生成域名映射"></a> 生成域名映射 </h2>
 <pre><code># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字
 vi /etc/dnsmasq.d/dns.conf
 
 # 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件
-address=&quot;/google.com/172.17.0.4&quot;</code></pre>
-<h2 id="启动服务"> 启动服务 </h2>
-<pre><code>/etc/init.d/dnsmasq start</code></pre>
-<h2 id="测试"> 测试 </h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+address=&quot;/google.com/172.17.0.4&quot;
+</code></pre>
+<h2 id="启动服务"><a class="markdownIt-Anchor" href="# 启动服务"></a> 启动服务 </h2>
+<pre><code>/etc/init.d/dnsmasq start
+</code></pre>
+<h2 id="测试"><a class="markdownIt-Anchor" href="# 测试"></a> 测试 </h2>
+<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/dns/Dnsmasq使用本地host为DNS/#more" rel="contents">
