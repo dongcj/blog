@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="screen 后台  screen -ls -&amp;gt; 列出当前所有的 session screen -r yourname -&amp;gt; 回到 yourname 这个 session screen -d yourname -&amp;gt; 远程 detach 某个 session screen -d -r yourname -&amp;gt; 结束当前 session 并回到 yourname 这个 sess">
+<meta name="description" content="screen 后台  screen -ls -&amp;gt; 列出当前所有的 session screen -r yourname -&amp;gt; 回到 yourname 这个 session screen -d yourname -&amp;gt; 远程 detach 某个 session screen -d -r yourname -&amp;gt; 结束当前 session 并回到 yourname 这个 s">
 <meta name="keywords" content="screen,nohup,setsid,disown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Screen、nohup、setsid、disown 后台运行">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Screen、nohup、setsid、disown后台运行/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="screen 后台  screen -ls -&amp;gt; 列出当前所有的 session screen -r yourname -&amp;gt; 回到 yourname 这个 session screen -d yourname -&amp;gt; 远程 detach 某个 session screen -d -r yourname -&amp;gt; 结束当前 session 并回到 yourname 这个 sess">
+<meta property="og:description" content="screen 后台  screen -ls -&amp;gt; 列出当前所有的 session screen -r yourname -&amp;gt; 回到 yourname 这个 session screen -d yourname -&amp;gt; 远程 detach 某个 session screen -d -r yourname -&amp;gt; 结束当前 session 并回到 yourname 这个 s">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2017-08-17T17:41:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Screen、nohup、setsid、disown 后台运行">
-<meta name="twitter:description" content="screen 后台  screen -ls -&amp;gt; 列出当前所有的 session screen -r yourname -&amp;gt; 回到 yourname 这个 session screen -d yourname -&amp;gt; 远程 detach 某个 session screen -d -r yourname -&amp;gt; 结束当前 session 并回到 yourname 这个 sess">
+<meta name="twitter:description" content="screen 后台  screen -ls -&amp;gt; 列出当前所有的 session screen -r yourname -&amp;gt; 回到 yourname 这个 session screen -d yourname -&amp;gt; 远程 detach 某个 session screen -d -r yourname -&amp;gt; 结束当前 session 并回到 yourname 这个 s">
 
 
 
@@ -411,7 +411,7 @@
       
 
       
-        <h1 id="screen- 后台"><a class="markdownIt-Anchor" href="#screen- 后台"></a> screen 后台 </h1>
+        <h1 id="screen- 后台">screen 后台 </h1>
 <pre><code>screen -ls -&gt; 列出当前所有的 session
 screen -r yourname -&gt; 回到 yourname 这个 session
 screen -d yourname -&gt; 远程 detach 某个 session
@@ -422,20 +422,15 @@ screen -x &lt;SESSION_NAME&gt;
 
 screen -X -S [session_you_want_to_kill] quit
 
-screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
-</code></pre>
-<h1 id="nohup- 后台"><a class="markdownIt-Anchor" href="#nohup- 后台"></a> nohup 后台 </h1>
-<pre><code>nohup ping www.ibm.com &amp;
-</code></pre>
-<h1 id="setsid- 后台"><a class="markdownIt-Anchor" href="#setsid- 后台"></a> setsid 后台 </h1>
-<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
-</code></pre>
-<h1 id="subshell- 后台"><a class="markdownIt-Anchor" href="#subshell- 后台"></a> subshell 后台 </h1>
-<pre><code>(ping www.ibm.com &amp;)
-</code></pre>
-<h1 id="disown- 后台"><a class="markdownIt-Anchor" href="#disown- 后台"></a> disown 后台 </h1>
-<pre><code>disown -h JOBID
-</code></pre>
+screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;</code></pre>
+<h1 id="nohup- 后台">nohup 后台 </h1>
+<pre><code>nohup ping www.ibm.com &amp;</code></pre>
+<h1 id="setsid- 后台">setsid 后台 </h1>
+<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)</code></pre>
+<h1 id="subshell- 后台">subshell 后台 </h1>
+<pre><code>(ping www.ibm.com &amp;)</code></pre>
+<h1 id="disown- 后台">disown 后台 </h1>
+<pre><code>disown -h JOBID</code></pre>
 
       
     </div>
@@ -671,7 +666,7 @@ screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#screen- 后台"><span class="nav-text"> screen 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nohup- 后台"><span class="nav-text"> nohup 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setsid- 后台"><span class="nav-text"> setsid 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#subshell- 后台"><span class="nav-text"> subshell 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#disown- 后台"><span class="nav-text"> disown 后台 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#screen- 后台"><span class="nav-text">screen 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nohup- 后台"><span class="nav-text">nohup 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#setsid- 后台"><span class="nav-text">setsid 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#subshell- 后台"><span class="nav-text">subshell 后台 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#disown- 后台"><span class="nav-text">disown 后台 </span></a></li></ol></div>
             
 
           </div>

@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="1. linux 根分区修改为 lvm  First Create an LVM partition:  123pvcreate /dev/sdb1vgcreate vg01  /dev/sdb1lvcreate -L 100%VG -n lv01 vg01  Format this new LVM partition with ext3 or ext4  1mkfs.ext4 /dev/vg0">
+<meta name="description" content="1. linux 根分区修改为 lvm  First Create an LVM partition: 123pvcreate /dev/sdb1vgcreate vg01  /dev/sdb1lvcreate -L 100%VG -n lv01 vg01 Format this new LVM partition with ext3 or ext4 1mkfs.ext4 /dev/vg01">
 <meta name="keywords" content="parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="1. linux 根分区修改为 lvm  First Create an LVM partition:  123pvcreate /dev/sdb1vgcreate vg01  /dev/sdb1lvcreate -L 100%VG -n lv01 vg01  Format this new LVM partition with ext3 or ext4  1mkfs.ext4 /dev/vg0">
+<meta property="og:description" content="1. linux 根分区修改为 lvm  First Create an LVM partition: 123pvcreate /dev/sdb1vgcreate vg01  /dev/sdb1lvcreate -L 100%VG -n lv01 vg01 Format this new LVM partition with ext3 or ext4 1mkfs.ext4 /dev/vg01">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs">
-<meta name="twitter:description" content="1. linux 根分区修改为 lvm  First Create an LVM partition:  123pvcreate /dev/sdb1vgcreate vg01  /dev/sdb1lvcreate -L 100%VG -n lv01 vg01  Format this new LVM partition with ext3 or ext4  1mkfs.ext4 /dev/vg0">
+<meta name="twitter:description" content="1. linux 根分区修改为 lvm  First Create an LVM partition: 123pvcreate /dev/sdb1vgcreate vg01  /dev/sdb1lvcreate -L 100%VG -n lv01 vg01 Format this new LVM partition with ext3 or ext4 1mkfs.ext4 /dev/vg01">
 
 
 
@@ -411,42 +411,22 @@
       
 
       
-        <h1 id="1-linux- 根分区修改为 -lvm"><a class="markdownIt-Anchor" href="#1-linux- 根分区修改为 -lvm"></a> 1. linux 根分区修改为 lvm</h1>
-<ol>
-<li>First Create an LVM partition:</li>
+        <h1 id="linux- 根分区修改为 -lvm">1. linux 根分区修改为 lvm</h1>
+<ol type="1">
+<li><p>First Create an LVM partition: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb1</span><br><span class="line">vgcreate vg01  /dev/sdb1</span><br><span class="line">lvcreate -L 100%VG -n lv01 vg01</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Format this new LVM partition with ext3 or ext4 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/vg01/lv01</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Create a new mount point and then mount the LVM Partition on it <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Copy all contents of “/” to the newly mounted folder <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x</span><br><span class="line">cp -aux /dev /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
+<li><p>edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg01/lv01      /       ext4    defaults     1 1</span><br></pre></td></tr></table></figure></p></li>
+<li><p>chroot to new filesystem and create initrd with raid and lvm support <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /dev /mnt/NEW_ROOT_PARTITION/dev</span><br><span class="line">chroot /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount -t proc /proc /proc</span><br><span class="line">mount -t sysfs /sys /sys</span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb1</span><br><span class="line">vgcreate vg01  /dev/sdb1</span><br><span class="line">lvcreate -L 100%VG -n lv01 vg01</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>Format this new LVM partition with ext3 or ext4</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/vg01/lv01</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li>Create a new mount point and then mount the LVM Partition on it</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>Copy all contents of “/” to the newly mounted folder</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x</span><br><span class="line">cp -aux /dev /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure>
-<ol start="5">
-<li>edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg01/lv01      /       ext4    defaults     1 1</span><br></pre></td></tr></table></figure>
-<ol start="6">
-<li>chroot to new filesystem and create initrd with raid and lvm support</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /dev /mnt/NEW_ROOT_PARTITION/dev</span><br><span class="line">chroot /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount -t proc /proc /proc</span><br><span class="line">mount -t sysfs /sys /sys</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgscan</span><br><span class="line">vgchange -ay</span><br></pre></td></tr></table></figure>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">umount /sys</span><br><span class="line">umount /proc</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">mv /mnt/lv0/boot/initrd-`uname -r`.lvm.img /boot</span><br></pre></td></tr></table></figure>
-<ol start="7">
-<li>Edit /boot/grub/grub.conf to point to new root /dev/vg_new_root/lv0</li>
+<ol start="7" type="1">
+<li><p>Edit /boot/grub/grub.conf to point to new root /dev/vg_new_root/lv0 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br><span class="line">grub-set-default</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Reboot <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></p></li>
 </ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br><span class="line">grub-set-default</span><br></pre></td></tr></table></figure>
-<ol start="8">
-<li>Reboot</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure>
-<h1 id="2- 虚拟机增加系统盘根分区大小"><a class="markdownIt-Anchor" href="#2- 虚拟机增加系统盘根分区大小"></a> 2. 虚拟机增加系统盘根分区大小 </h1>
+<h1 id="虚拟机增加系统盘根分区大小">2. 虚拟机增加系统盘根分区大小 </h1>
 <pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
 # 先增加实例文件大小，可以使用 dd 命令
@@ -457,12 +437,12 @@ $ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
 # If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e 'Linux swap' |awk '{print $1}'`
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
 
 # Del swap
 $ parted -s ${loop} rm ${swap_part_num}
 
-# If does't have, add the new swap device
+# If does&#39;t have, add the new swap device
 $ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
 # 或者先只划分空间，再用 mkswap 进行操作
@@ -477,8 +457,8 @@ $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 $ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
 # 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239		(样例，要修改)
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e 's/\//\\\\\//g'`
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
 $ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
 # 重新刷新新变更的分区
@@ -487,9 +467,8 @@ $ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
 # fs resize
 $ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1
-</code></pre>
-<h1 id="3-parted- 使用"><a class="markdownIt-Anchor" href="#3-parted- 使用"></a> 3. parted 使用 </h1>
+$ resize2fs -f /dev/mapper/loop0p1</code></pre>
+<h1 id="parted- 使用">3. parted 使用 </h1>
 <pre><code># create all 100% space to one part
 $ parted -s /dev/sdb mklabel gpt
 $ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
@@ -500,9 +479,8 @@ parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
 
 # remove part
 parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3
-</code></pre>
-<h1 id="4- 分区对齐"><a class="markdownIt-Anchor" href="#4- 分区对齐"></a> 4. 分区对齐 </h1>
+parted -s /dev/sdb rm 3</code></pre>
+<h1 id="分区对齐">4. 分区对齐 </h1>
 <pre><code>$ cat /sys/block/sdb/queue/optimal_io_size
   1048576
 $ cat /sys/block/sdb/queue/minimum_io_size
@@ -515,8 +493,7 @@ $ cat /sys/block/sdb/queue/physical_block_size
 $ mkpart primary 2048s 100%
 
 (parted) align-check optimal 1
-  1 aligned
-</code></pre>
+  1 aligned</code></pre>
 
       
     </div>
@@ -579,8 +556,8 @@ $ mkpart primary 2048s 100%
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/RedHat、CentOS国内备用安装源/" rel="next" title="安装源_RedHat,CentOS 备用源">
-                <i class="fa fa-chevron-left"></i> 安装源_RedHat,CentOS 备用源
+              <a href="/linux/Mdadm_raid10_raid5/" rel="next" title="Mdadm_raid10_raid5">
+                <i class="fa fa-chevron-left"></i> Mdadm_raid10_raid5
               </a>
             
           </div>
@@ -589,8 +566,8 @@ $ mkpart primary 2048s 100%
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/cluster/Gearman安装/" rel="prev" title="Gearman 安装">
-                Gearman 安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="prev" title="Linux 升级 Kernel 及 tcp_BBR">
+                Linux 升级 Kernel 及 tcp_BBR <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -756,7 +733,7 @@ $ mkpart primary 2048s 100%
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-linux- 根分区修改为 -lvm"><span class="nav-text"> 1. linux 根分区修改为 lvm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2- 虚拟机增加系统盘根分区大小"><span class="nav-text"> 2. 虚拟机增加系统盘根分区大小 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-parted- 使用"><span class="nav-text"> 3. parted 使用 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4- 分区对齐"><span class="nav-text"> 4. 分区对齐 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#linux- 根分区修改为 -lvm"><span class="nav-text">1. linux 根分区修改为 lvm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机增加系统盘根分区大小"><span class="nav-text">2. 虚拟机增加系统盘根分区大小 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#parted- 使用"><span class="nav-text">3. parted 使用 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分区对齐"><span class="nav-text">4. 分区对齐 </span></a></li></ol></div>
             
 
           </div>

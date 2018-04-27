@@ -26,9 +26,9 @@
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt; 淘宝源地址：&lt;a href=&quot;http://npm.taobao.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://npm.taobao.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; 淘宝源地址：&lt;a href=&quot;http://npm.taobao.org/&quot; class=&quot;uri&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://npm.taobao.org/&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;删除已有 -npm- 包 - 可选&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 删除已有 -npm- 包 - 可选&quot;&gt;&lt;/a&gt; 删除已有 npm 包 (可选)&lt;/h1&gt;
+&lt;h1 id=&quot;删除已有 -npm- 包 - 可选&quot;&gt; 删除已有 npm 包 (可选)&lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看已安装的 npm package&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm -g ls        &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;## 删除所有 npm&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm ls -gp | awk -F/ &lt;span class=&quot;string&quot;&gt;&#39;/node_modules/ &amp;amp;&amp;amp; !/node_modules.*node_modules/ &amp;#123;print $NF&amp;#125;&#39;&lt;/span&gt; | xargs npm -g rm&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;blockquote&gt;
 &lt;p&gt;npm ls -g 如果报错，可以进行以下处理 :&lt;/p&gt;
@@ -36,7 +36,7 @@
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# （原因是 node-modules 中不允许用软链接，但 inherits 却用了）：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by undefined@undefined&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by block-stream@0.0.7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm ERR! missing: inherits@*, required by fstream@0.1.24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /usr/lib/node_modules/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;unlink inherit&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv inherits@2/ inherits/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;npm update npm -g &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; registry=https://registry.npm.taobao.org&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm config &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; ca &lt;span class=&quot;string&quot;&gt;&quot;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm install npm -g &lt;span class=&quot;built_in&quot;&gt;set&lt;/span&gt; registry=https://registry.npm.taobao.org&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm config delete ca&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;或者做个 -cnpm- 的 -alias&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 或者做个 -cnpm- 的 -alias&quot;&gt;&lt;/a&gt; 或者做个 cnpm 的 alias&lt;/h1&gt;
+&lt;h1 id=&quot;或者做个 -cnpm- 的 -alias&quot;&gt; 或者做个 cnpm 的 alias&lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# install cnpm&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;npm install -g cnpm --registry=https://registry.npm.taobao.org&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# make alias&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;alias&lt;/span&gt; cnpm=&lt;span class=&quot;string&quot;&gt;&quot;npm --registry=https://registry.npm.taobao.org \&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;--cache=&lt;span class=&quot;variable&quot;&gt;$HOME&lt;/span&gt;/.npm/.cache/cnpm \&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;--disturl=https://npm.taobao.org/dist \&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;--userconfig=&lt;span class=&quot;variable&quot;&gt;$HOME&lt;/span&gt;/.cnpmrc&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Or alias it in .bashrc or .zshrc&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;\n#alias for cnpm\nalias cnpm=&quot;npm --registry=https://registry.npm.taobao.org \&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;  --cache=$HOME/.npm/.cache/cnpm \&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;  --disturl=https://npm.taobao.org/dist \&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;  --userconfig=$HOME/.cnpmrc&quot;&#39;&lt;/span&gt; &amp;gt;&amp;gt; ~/.zshrc &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; ~/.zshrc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# install module / sync / info&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cnpm install &amp;lt;NAME&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cnpm sync connect&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cnpm info connect&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
     
@@ -54,9 +54,9 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;1-proxycommand&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-proxycommand&quot;&gt;&lt;/a&gt; 1. ProxyCommand&lt;/h1&gt;
+      &lt;h1 id=&quot;proxycommand&quot;&gt;1. ProxyCommand&lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 直接跳到远程计算机 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssh -o &lt;span class=&quot;string&quot;&gt;&quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot;&lt;/span&gt; -p 1098 lmx@target.machine&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 拷贝文件到远程计算机 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scp -o &lt;span class=&quot;string&quot;&gt;&quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot;&lt;/span&gt; -P 1098 -r lmx@target.machine:~/rdsAgent .&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 在远程计算机执行命令 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ssh -o &lt;span class=&quot;string&quot;&gt;&quot;ProxyCommand ssh -p 1098 lmx@proxy.machine nc -w 1 %h %p&quot;&lt;/span&gt; -p 1098 lmx@target.machine &lt;span class=&quot;string&quot;&gt;&#39;ip a&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;2-ssh-config-file-example&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#2-ssh-config-file-example&quot;&gt;&lt;/a&gt; 2. ssh config file example&lt;/h1&gt;
+&lt;h1 id=&quot;ssh-config-file-example&quot;&gt;2. ssh config file example&lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ cat ~/.ssh/config&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Host *&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ForwardAgent yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ForwardX11 no&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;KeepAlive yes&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ServerAliveInterval 30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;CheckHostIP no&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ControlMaster auto&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ControlPath /tmp/ssh_mux_%h_%p_%r&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# client --&amp;gt; 203.195.207.108:46707 --&amp;gt; 118.193.254.66:22&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Host hk-jumpserver&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;User root&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;IdentityFile /cygdrive/c/Users/root/id_rsa&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;ProxyCommand ssh -i /cygdrive/c/Users/root/id_rsa root@203.195.207.108 -p 46707 nc 118.193.254.66 22&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
     
@@ -77,12 +77,12 @@
       &lt;blockquote&gt;
 &lt;p&gt; 弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：&lt;a href=&quot;http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/&quot;&gt;Linux 升级 kernel 及 tcp_BBR&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h1 id=&quot;1-ubuntu- 安装 -docker&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-ubuntu- 安装 -docker&quot;&gt;&lt;/a&gt; 1. Ubuntu 安装 Docker&lt;/h1&gt;
-&lt;h2 id=&quot;11-install-dockerlatest&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#11-install-dockerlatest&quot;&gt;&lt;/a&gt; 1.1. install docker(latest)&lt;/h2&gt;
+&lt;h1 id=&quot;ubuntu- 安装 -docker&quot;&gt;1. Ubuntu 安装 Docker&lt;/h1&gt;
+&lt;h2 id=&quot;install-dockerlatest&quot;&gt;1.1. install docker(latest)&lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# clone 后直接脚本安装 , CentOS 没有测试过 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;git &lt;span class=&quot;built_in&quot;&gt;clone&lt;/span&gt; https://github.com/rancher/install-docker.git&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; ./install-docker&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;12-install-dockerprevious-release&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#12-install-dockerprevious-release&quot;&gt;&lt;/a&gt; 1.2. install docker(previous release)&lt;/h2&gt;
+&lt;h2 id=&quot;install-dockerprevious-release&quot;&gt;1.2. install docker(previous release)&lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# if you want install pre version&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# add the repo to the apt&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;deb [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;deb-src [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# show the version avaiable&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-cache madison docker-ce&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# install the specify docker release&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt install docker-ce=17.06.2~ce-0~ubuntu&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;2- 配置 -docker- 加速器用于国内加速可选&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#2- 配置 -docker- 加速器用于国内加速可选&quot;&gt;&lt;/a&gt; 2. 配置 Docker 加速器（用于国内加速，可选）&lt;/h1&gt;
+&lt;h1 id=&quot;配置 -docker- 加速器用于国内加速可选&quot;&gt;2. 配置 Docker 加速器（用于国内加速，可选）&lt;/h1&gt;
 &lt;blockquote&gt;
 &lt;p&gt; 以下操作需 &lt;code&gt; 重启 &lt;/code&gt; Docker 服务生效 &lt;/p&gt;
 &lt;/blockquote&gt;
@@ -103,21 +103,21 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;1- 准备步骤&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1- 准备步骤&quot;&gt;&lt;/a&gt; 1. 准备步骤 &lt;/h1&gt;
-&lt;h2 id=&quot;11- 服务器时间同步&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#11- 服务器时间同步&quot;&gt;&lt;/a&gt; 1.1. 服务器时间同步 &lt;/h2&gt;
+      &lt;h1 id=&quot;准备步骤&quot;&gt;1. 准备步骤 &lt;/h1&gt;
+&lt;h2 id=&quot;服务器时间同步&quot;&gt;1.1. 服务器时间同步 &lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt; 如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 &lt;strong&gt;UTC&lt;/strong&gt; 时间 &lt;/p&gt;
+&lt;p&gt; 如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 &lt;strong&gt;UTC&lt;/strong&gt; 时间 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 直接删除 /etc/localtime 即可使用 UTC 时间 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rm -rf /etc/localtime&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 直接删除 /etc/localtime 即可使用 UTC 时间 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rm -rf /etc/localtime&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;12- 支持 -bbr 请升级内核至 -49- 以上版本弱网环境建议&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#12- 支持 -bbr 请升级内核至 -49- 以上版本弱网环境建议&quot;&gt;&lt;/a&gt; 1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）&lt;/h2&gt;
+&lt;h2 id=&quot;支持 -bbr 请升级内核至 -4.9- 以上版本弱网环境建议&quot;&gt;1.2. 支持 BBR，请升级内核至 4.9 以上版本（弱网环境建议）&lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt; 如果要支持 aufs，请安装 linux-image-extra 的包 &lt;br&gt;
-参考链接： &lt;a href=&quot;http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/&quot;&gt;Linux 升级 Kernel 及 tcp_BBR&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; 如果要支持 aufs，请安装 linux-image-extra 的包 参考链接： &lt;a href=&quot;http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/&quot;&gt;Linux 升级 Kernel 及 tcp_BBR&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;13- 所有服务器设置外部 -dns&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#13- 所有服务器设置外部 -dns&quot;&gt;&lt;/a&gt; 1.3. 所有服务器设置外部 DNS&lt;/h2&gt;
+&lt;h2 id=&quot;所有服务器设置外部 -dns&quot;&gt;1.3. 所有服务器设置外部 DNS&lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# stop and disable the local dns generator&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl stop systemd-resolved.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;disable&lt;/span&gt; systemd-resolved.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl stop resolvconf.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;disable&lt;/span&gt; resolvconf.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl stop NetworkManager.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl &lt;span class=&quot;built_in&quot;&gt;disable&lt;/span&gt; NetworkManager.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 修改为外部 DNS 服务器 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/network/interfaces&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  dns-nameservers 114.114.114.114&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# set the /etc/resolv.conf&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;unlink /etc/resolv.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/resolv.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;nameserver 114.114.114.114&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# show the service status&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status systemd-resolved.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status resolvconf.service&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl status NetworkManager&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;systemctl restart docker&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# If has dnsmasq service&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# Comment out the dns=dnsmasq line&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# vi /etc/NetworkManager/NetworkManager.conf&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;comment&quot;&gt;# dns=dnsmasq&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# restart network and docker service&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#systemctl restart network-manager&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;14- 设置 -hostname&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#14- 设置 -hostname&quot;&gt;&lt;/a&gt; 1.4. 设置 hostname&lt;/h2&gt;
+&lt;h2 id=&quot;设置 -hostname&quot;&gt;1.4. 设置 hostname&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;[root@rancher-server] echo &amp;quot;&amp;lt;HOSTNAME&amp;gt;&amp;quot; &amp;gt;/etc/hostname &amp;amp;&amp;amp; hostname &amp;lt;HOSTNAME&amp;gt;
+[root@rancher-server] hostnamectl set-hostname svi1r01n08&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -144,25 +144,21 @@
       &lt;pre&gt;&lt;code&gt;[+]新增
 [-]删除
 [^]升级
-[#]修复
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;1- 高亮 -tail-f- 搜索&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1- 高亮 -tail-f- 搜索&quot;&gt;&lt;/a&gt; 1. 高亮 tail -f 搜索&lt;/h1&gt;
+[#]修复&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;高亮 -tail--f- 搜索&quot;&gt;1. 高亮 tail -f 搜索&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;1. less xxx.log
 2. 搜索你要高亮的关键字
-3. SHIFT+F，进入 follow 模式
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;2-windows&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#2-windows&quot;&gt;&lt;/a&gt; 2. Windows&lt;/h1&gt;
-&lt;h2 id=&quot;21-windows-mount- 网络共享为一个文件夹&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#21-windows-mount- 网络共享为一个文件夹&quot;&gt;&lt;/a&gt; 2.1. Windows mount 网络共享为一个文件夹&lt;/h2&gt;
+3. SHIFT+F，进入 follow 模式&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;windows&quot;&gt;2. Windows&lt;/h1&gt;
+&lt;h2 id=&quot;windows-mount- 网络共享为一个文件夹&quot;&gt;2.1. Windows mount 网络共享为一个文件夹&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;net use \\192.168.11.111\public\data
-mklink /d d:\ccc \\192.168.11.111\public\data
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;22-windows- 网络设置&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#22-windows- 网络设置&quot;&gt;&lt;/a&gt; 2.2. Windows 网络设置&lt;/h2&gt;
+mklink /d d:\ccc \\192.168.11.111\public\data&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;windows- 网络设置&quot;&gt;2.2. Windows 网络设置&lt;/h2&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ipconfig | findstr /c:&amp;quot;IPv4&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sed -i -e &amp;quot;s/$/\x0d/g&amp;quot; $&amp;#123;MountPoint&amp;#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;netsh interface ip show interfaces &amp;quot; 本地连接 &amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;23-windows- 如何删除隐藏设备&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#23-windows- 如何删除隐藏设备&quot;&gt;&lt;/a&gt; 2.3. windows 如何删除隐藏设备&lt;/h2&gt;
+&lt;h2 id=&quot;windows- 如何删除隐藏设备&quot;&gt;2.3. windows 如何删除隐藏设备&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;set devmgr_show_nonpresent_devices=1
 devmgmt.msc
-打开隐藏设备
-&lt;/code&gt;&lt;/pre&gt;
+打开隐藏设备&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -182,20 +178,16 @@ devmgmt.msc
     
     <summary type="html">
     
-      &lt;ol start=&quot;2&quot;&gt;
+      &lt;ol start=&quot;2&quot; type=&quot;1&quot;&gt;
 &lt;li&gt; 新建仓库目录 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir -p /opt/svicloud/tools/harbor/data/cert/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;
-&lt;p&gt; 将证书的 &lt;code&gt;server.crt&lt;/code&gt; 和 &lt;code&gt;server.key&lt;/code&gt; 放置于上述目录 &lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt; 生成一个 &lt;code&gt;secretkey&lt;/code&gt; 文件，也放置于以上目录 &lt;/p&gt;
-&lt;/li&gt;
+&lt;ol start=&quot;3&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt; 将证书的 &lt;code&gt;server.crt&lt;/code&gt; 和 &lt;code&gt;server.key&lt;/code&gt; 放置于上述目录 &lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt; 生成一个 &lt;code&gt;secretkey&lt;/code&gt; 文件，也放置于以上目录 &lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;svicloud85509336&quot;&lt;/span&gt; &amp;gt;/opt/svicloud/tools/harbor/data/cert/secretkey&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;ol start=&quot;5&quot;&gt;
+&lt;ol start=&quot;5&quot; type=&quot;1&quot;&gt;
 &lt;li&gt; 使用 docker-compose 安装 harbor&lt;/li&gt;
 &lt;/ol&gt;
 &lt;blockquote&gt;
@@ -203,15 +195,11 @@ devmgmt.msc
 &lt;/blockquote&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mv harbor-docker-compose-v1.2.2.yml docker-compose.yml &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;docker-compose up -d&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ol start=&quot;6&quot;&gt;
-&lt;li&gt;
-&lt;p&gt; 测试下，应该可以成功，如无法成功，运行步骤 7&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;（&lt;code&gt; 可选 &lt;/code&gt;）修改 &lt;code&gt;registry&lt;/code&gt; 中的证书 &lt;code&gt;root.crt&lt;/code&gt; 和 &lt;code&gt;ui&lt;/code&gt; 的 &lt;code&gt;private_key.pem&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
+&lt;ol start=&quot;6&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt; 测试下，应该可以成功，如无法成功，运行步骤 7&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;（&lt;code&gt; 可选 &lt;/code&gt;）修改 &lt;code&gt;registry&lt;/code&gt; 中的证书 &lt;code&gt;root.crt&lt;/code&gt; 和 &lt;code&gt;ui&lt;/code&gt; 的 &lt;code&gt;private_key.pem&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1 id=&quot;2- 通过 -curl- 请求测试&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#2- 通过 -curl- 请求测试&quot;&gt;&lt;/a&gt; 2. 通过 curl 请求测试 &lt;/h1&gt;
+&lt;h1 id=&quot;通过 -curl- 请求测试&quot;&gt;2. 通过 curl 请求测试 &lt;/h1&gt;
     
     </summary>
     
@@ -227,15 +215,13 @@ devmgmt.msc
     
     <summary type="html">
     
-      &lt;h1 id=&quot;install&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#install&quot;&gt;&lt;/a&gt; install&lt;/h1&gt;
+      &lt;h1 id=&quot;install&quot;&gt;install&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;&amp;gt; client: curl client (eg: 116.23.45.8)
-&amp;gt; server: rfw servers (default port: 7393)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;install-rfw-on-all-serveron-client-server&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#install-rfw-on-all-serveron-client-server&quot;&gt;&lt;/a&gt; install rfw on ALL server(on client &amp;amp; server)&lt;/h2&gt;
+&amp;gt; server: rfw servers (default port: 7393)&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;install-rfw-on-all-serveron-client-server&quot;&gt;install rfw on ALL server(on client &amp;amp; server)&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;$ git clone https://github.com/securitykiss-com/rfw.git
-$ cd rfw &amp;amp;&amp;amp; python setup.py install
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;generate-remote-crton-client&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#generate-remote-crton-client&quot;&gt;&lt;/a&gt; generate remote crt(on client)&lt;/h2&gt;
+$ cd rfw &amp;amp;&amp;amp; python setup.py install&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;generate-remote-crton-client&quot;&gt;generate remote crt(on client)&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;$ cd /etc/rfw/deploy/
 $ rfwgen  11.11.11.11
 $ rfwgen  22.22.22.22
@@ -251,11 +237,10 @@ $ rfwgen  22.22.22.22
 │   └── server.key
 └── server_22.22.22.22
   ├── server.crt
-  └── server.key
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;copy-key-to-server&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#copy-key-to-server&quot;&gt;&lt;/a&gt; copy key to server&lt;/h2&gt;
+  └── server.key&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;copy-key-to-server&quot;&gt;copy key to server&lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# on master server&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;edit-the-server-config&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#edit-the-server-config&quot;&gt;&lt;/a&gt; edit the server config&lt;/h2&gt;
+&lt;h2 id=&quot;edit-the-server-config&quot;&gt;edit the server config&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;$ vi /etc/rfw/rfw.conf
 outward.server.certfile = /etc/rfw/ssl/server.crt
 outward.server.keyfile = /etc/rfw/ssl/server.key
@@ -263,8 +248,7 @@ auth.username = your_username_here
 auth.password = your_password_here
 
 $ vi /etc/rfw/white.list
-116.23.45.8
-&lt;/code&gt;&lt;/pre&gt;
+116.23.45.8&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -288,18 +272,15 @@ $ vi /etc/rfw/white.list
     
     <summary type="html">
     
-      &lt;h1 id=&quot;升级 -python&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 升级 -python&quot;&gt;&lt;/a&gt; 升级 python&lt;/h1&gt;
-&lt;h2 id=&quot;install&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#install&quot;&gt;&lt;/a&gt; install&lt;/h2&gt;
+      &lt;h1 id=&quot;升级 -python&quot;&gt; 升级 python&lt;/h1&gt;
+&lt;h2 id=&quot;install&quot;&gt;install&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;# 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
-$ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;如果要安装 -mysql-python 需要安装以下软件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 如果要安装 -mysql-python 需要安装以下软件&quot;&gt;&lt;/a&gt; 如果要安装 MySQL-python，需要安装以下软件 &lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;$ yum -y install mysql mysql-devel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;如果要安装 -lxml 需要安装以下软件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 如果要安装 -lxml 需要安装以下软件&quot;&gt;&lt;/a&gt; 如果要安装 lxml，需要安装以下软件 &lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;$ yum -y install libxml2-devel  libxslt-devel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;编译安装 -python- 新版&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 编译安装 -python- 新版&quot;&gt;&lt;/a&gt; 编译安装 python 新版 &lt;/h2&gt;
+$ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;如果要安装 -mysql-python 需要安装以下软件&quot;&gt; 如果要安装 MySQL-python，需要安装以下软件 &lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ yum -y install mysql mysql-devel&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;如果要安装 -lxml 需要安装以下软件&quot;&gt; 如果要安装 lxml，需要安装以下软件 &lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ yum -y install libxml2-devel  libxslt-devel&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;编译安装 -python- 新版&quot;&gt; 编译安装 python 新版 &lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
 
 # 加上 --enable-shared 解决 &amp;quot;Cannot build PL/Python because libpython is not a shared library&amp;quot;
@@ -313,9 +294,8 @@ $ ln -s /usr/local/bin/python /usr/bin/python
 
 # copy bz2 module
 $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
-$ python -V
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;安装 -easy_install- 和 -pip&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装 -easy_install- 和 -pip&quot;&gt;&lt;/a&gt; 安装 easy_install 和 pip&lt;/h1&gt;
+$ python -V&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;安装 -easy_install- 和 -pip&quot;&gt; 安装 easy_install 和 pip&lt;/h1&gt;
     
     </summary>
     
@@ -335,11 +315,11 @@ $ python -V
     
     <summary type="html">
     
-      &lt;h2 id=&quot;表格输出&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 表格输出&quot;&gt;&lt;/a&gt; 表格输出 &lt;/h2&gt;
+      &lt;h2 id=&quot;表格输出&quot;&gt; 表格输出 &lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;#/bin/bash&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;divider===============================&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;divider=&lt;span class=&quot;variable&quot;&gt;$divider&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$divider&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;header=&lt;span class=&quot;string&quot;&gt;&quot;\n %-10s %8s %10s %11s\n&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;format=&lt;span class=&quot;string&quot;&gt;&quot;%-10s %08d %10s %11.2f\n&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;width=43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$header&lt;/span&gt;&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;ITEM NAME&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;ITEM ID&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;COLOR&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;PRICE&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%&lt;span class=&quot;variable&quot;&gt;$width&lt;/span&gt;.&lt;span class=&quot;variable&quot;&gt;$&amp;#123;width&amp;#125;&lt;/span&gt;s\n&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$divider&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$format&lt;/span&gt;&quot;&lt;/span&gt; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Triangle 13  red 20 \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Oval 204449 &lt;span class=&quot;string&quot;&gt;&quot;dark blue&quot;&lt;/span&gt; 65.656 \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;Square 3145 orange .7&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;格式化&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 格式化&quot;&gt;&lt;/a&gt; 格式化 &lt;/h2&gt;
+&lt;h2 id=&quot;格式化&quot;&gt; 格式化 &lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%s\n&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;2&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;\n3&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;\n3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%b\n&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;2&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;\n3&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;$&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%d\n&quot;&lt;/span&gt; 255 0xff 0377 3.5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;bash: &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt;: 3.5: invalid number&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%f\n&quot;&lt;/span&gt; 255 0xff 0377 3.5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255.000000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255.000000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;377.000000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3.500000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%.1f\n&quot;&lt;/span&gt; 255 0xff 0377 3.5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;255.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;377.0&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3.5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;格式化 -2&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 格式化 -2&quot;&gt;&lt;/a&gt; 格式化 &lt;/h2&gt;
+&lt;h2 id=&quot;格式化 -1&quot;&gt; 格式化 &lt;/h2&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; $(seq 1 10); &lt;span class=&quot;keyword&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;built_in&quot;&gt;printf&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;%03d\t&quot;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;&quot;&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;done&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;001     002     003     004     005     006     007     008     009     010&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 
     
@@ -363,8 +343,8 @@ $ python -V
     
     <summary type="html">
     
-      &lt;h1 id=&quot;yum- 安装图像界面及 -vnc&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#yum- 安装图像界面及 -vnc&quot;&gt;&lt;/a&gt; YUM 安装图像界面及 VNC&lt;/h1&gt;
-&lt;p&gt;(参考：&lt;a href=&quot;http://www.ha97.com/4634.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.ha97.com/4634.html&lt;/a&gt; )&lt;/p&gt;
+      &lt;h1 id=&quot;yum- 安装图像界面及 -vnc&quot;&gt;YUM 安装图像界面及 VNC&lt;/h1&gt;
+&lt;p&gt;(参考：http://www.ha97.com/4634.html)&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;yum install epel-release
 
 yum grouplist
@@ -387,19 +367,17 @@ ls -l /etc/systemd/system/display-manager.service
 systemctl disable gdm &amp;amp;&amp;amp; systemctl enable lightdm
 
 # 刷新
-systemctl isolate graphical.target
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;安装 -vnc-server&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装 -vnc-server&quot;&gt;&lt;/a&gt; 安装 vnc server&lt;/h1&gt;
+systemctl isolate graphical.target&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;安装 -vnc-server&quot;&gt; 安装 vnc server&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
 yum install vnc-server vnc* （CentOS 5.x 里）
 yum install tigervnc-server tigervnc （CentOS 6.x 里）
 /etc/init.d/vncserver restart
 
 # 关闭具体的 vncserver 命令 :
-vncserver -kill :1
-&lt;/code&gt;&lt;/pre&gt;
+vncserver -kill :1&lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt;&lt;a href=&quot;http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7&lt;/p&gt;
 &lt;/blockquote&gt;
 
     
@@ -428,17 +406,17 @@ vncserver -kill :1
     <summary type="html">
     
       &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 这二个是打开 BBR 必需的 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 如果不是，则需先按下方升级内核 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;net.core.default_qdisc=fq&quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/sysctl.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;net.ipv4.tcp_congestion_control=bbr&quot;&lt;/span&gt; &amp;gt;&amp;gt; /etc/sysctl.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 保存生效 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;sysctl -p&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看 bbr 是否生效 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;lsmod | grep bbr&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;1-debian-ubuntu- 升级内核&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-debian-ubuntu- 升级内核&quot;&gt;&lt;/a&gt; 1. Debian、Ubuntu 升级内核 &lt;/h1&gt;
+&lt;h1 id=&quot;debianubuntu- 升级内核&quot;&gt;1. Debian、Ubuntu 升级内核 &lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 直接使用 apt-get 安装内核 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get update&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-cache search linux-image-extra&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 安装最新的内核 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get install linux-image-extra-&amp;lt;NEWEST_KERNEL_RELEASE&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;dpkg -l | grep linux-image&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;apt-get remove &amp;lt;OLD_KERNEL_RELEASE&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;update-grub&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;reboot&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看一下目前的内核版本 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 应该是显示为 &amp;lt;NEWEST_KERNEL_RELEASE&amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;uname -r&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h1 id=&quot;2-rhel-centos- 升级内核&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#2-rhel-centos- 升级内核&quot;&gt;&lt;/a&gt; 2. RHEL、CentOS 升级内核 &lt;/h1&gt;
+&lt;h1 id=&quot;rhelcentos- 升级内核&quot;&gt;2. RHEL、CentOS 升级内核 &lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;yum update -y&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 如果是 el7&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 如果是 el6&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 安装内核 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;yum --enablerepo=elrepo-kernel install kernel-ml&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 查看当前已安装的内核 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;awk -F\&lt;span class=&quot;string&quot;&gt;&#39;&#39;&lt;/span&gt;&lt;span class=&quot;variable&quot;&gt;$1&lt;/span&gt;==&lt;span class=&quot;string&quot;&gt;&quot;menuentry &quot;&lt;/span&gt; &amp;#123;&lt;span class=&quot;built_in&quot;&gt;print&lt;/span&gt; i++ &lt;span class=&quot;string&quot;&gt;&quot; : &quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$2&lt;/span&gt;&amp;#125;&lt;span class=&quot;string&quot;&gt;&#39; /etc/grub2.cfg&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;# 设定默认内核 (centos7)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;grub2-set-default 0&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;reboot&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;# 设定默认内核 (centos6)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;vi /etc/grub.conf&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;# 修改 default=&amp;lt;ID 号 &amp;gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;# 设定 /etc/sysctl.conf&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;net.core.default_qdisc = fq&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;net.ipv4.tcp_congestion_control = bbr&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;# 生效 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;string&quot;&gt;sysctl -p&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;3- 手动安装&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#3- 手动安装&quot;&gt;&lt;/a&gt; 3. 手动安装 &lt;/h1&gt;
-&lt;h2 id=&quot;31- 下载内核二进制包&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#31- 下载内核二进制包&quot;&gt;&lt;/a&gt; 3.1. 下载内核二进制包 &lt;/h2&gt;
+&lt;h1 id=&quot;手动安装&quot;&gt;3. 手动安装 &lt;/h1&gt;
+&lt;h2 id=&quot;下载内核二进制包&quot;&gt;3.1. 下载内核二进制包 &lt;/h2&gt;
 &lt;blockquote&gt;
-&lt;p&gt; 链接：&lt;a href=&quot;http://mirrors.kernel.org/debian/pool/main/l/linux/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://mirrors.kernel.org/debian/pool/main/l/linux/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h2 id=&quot;32- 解压安装&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#32- 解压安装&quot;&gt;&lt;/a&gt; 3.2. 解压安装 &lt;/h2&gt;
+&lt;h2 id=&quot;解压安装&quot;&gt;3.2. 解压安装 &lt;/h2&gt;
     
     </summary>
     
@@ -456,37 +434,101 @@ vncserver -kill :1
   </entry>
   
   <entry>
-    <title>编码与文件格式转换</title>
-    <link href="http://blog.dongcj.com/linux/%E7%BC%96%E7%A0%81%E4%B8%8E%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://blog.dongcj.com/linux/编码与文件格式转换/</id>
+    <title>Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</title>
+    <link href="http://blog.dongcj.com/linux/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/"/>
+    <id>http://blog.dongcj.com/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;作用&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 作用&quot;&gt;&lt;/a&gt; 作用 &lt;/h1&gt;
-&lt;blockquote&gt;
-&lt;p&gt; 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 &lt;br&gt;
-Windows 下自动将博客发布到 github&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;编码转换 -trans_to_utf-8py&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 编码转换 -trans_to_utf-8py&quot;&gt;&lt;/a&gt; 编码转换 “Trans_To_UTF-8.py”&lt;/h1&gt;
-&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 请把以下脚本放至 /usr/local/bin/ 目录下 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;import&lt;/span&gt; os,sys&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;convert&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(filename, in_enc = &lt;span class=&quot;string&quot;&gt;&quot;GBK&quot;&lt;/span&gt;, out_enc=&lt;span class=&quot;string&quot;&gt;&quot;UTF8&quot;&lt;/span&gt; )&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;try&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;convert&quot;&lt;/span&gt; + filename,&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        content = open(filename).read()&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        new_content = content.decode(in_enc).encode(out_enc)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        open(filename, &lt;span class=&quot;string&quot;&gt;&#39;w&#39;&lt;/span&gt;).write(new_content)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;except&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;print&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;error&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;explore&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(dir)&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; root, dirs, files &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; os.walk(dir):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; file &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; files:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            path = os.path.join(root, file)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            convert(path)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; path &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; sys.argv[&lt;span class=&quot;number&quot;&gt;1&lt;/span&gt;:]:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; os.path.isfile(path):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            convert(path)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;elif&lt;/span&gt; os.path.isdir(path):&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            explore(path)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; __name__ == &lt;span class=&quot;string&quot;&gt;&quot;__main__&quot;&lt;/span&gt;:&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    main()&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;准备脚本 -preparesh&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 准备脚本 -preparesh&quot;&gt;&lt;/a&gt; 准备脚本 “&lt;a href=&quot;http://prepare.sh&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;prepare.sh&lt;/a&gt;”&lt;/h1&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;POST_DIR=&lt;span class=&quot;string&quot;&gt;&quot;/cygdrive/e/blog/source/_posts&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;FBS_ESC=`&lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -en &lt;span class=&quot;string&quot;&gt;&quot;\033&quot;&lt;/span&gt;`&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COLOR_RED=&lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;FBS_ESC&amp;#125;&lt;/span&gt;[1;31m&quot;&lt;/span&gt;       &lt;span class=&quot;comment&quot;&gt;# Error&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COLOR_GREEN=&lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;FBS_ESC&amp;#125;&lt;/span&gt;[1;32m&quot;&lt;/span&gt;;    &lt;span class=&quot;comment&quot;&gt;# Success&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COLOR_YELLOW=&lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;FBS_ESC&amp;#125;&lt;/span&gt;[1;33m&quot;&lt;/span&gt;    &lt;span class=&quot;comment&quot;&gt;# Warning&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;COLOR_CLOSE=&lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;FBS_ESC&amp;#125;&lt;/span&gt;[0m&quot;&lt;/span&gt;        &lt;span class=&quot;comment&quot;&gt;# Close&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$POST_DIR&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;for&lt;/span&gt; i &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; *; &lt;span class=&quot;keyword&quot;&gt;do&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; grep -q &lt;span class=&quot;string&quot;&gt;&quot;author: dongcj &amp;lt;ntwk@163.com&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_GREEN&amp;#125;&lt;/span&gt;SKIP&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;: filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;...&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;continue&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; file &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; | grep -q &lt;span class=&quot;string&quot;&gt;&quot;CRLF&quot;&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;# change to unix&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_YELLOW&amp;#125;&lt;/span&gt;WARN&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;: filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, coverting to unix..&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        dos2unix &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt; || &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_RED&amp;#125;&lt;/span&gt;failed&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; ! file &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; | grep -q &lt;span class=&quot;string&quot;&gt;&quot;UTF-8&quot;&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;# change to UTF-8&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        python /usr/&lt;span class=&quot;built_in&quot;&gt;local&lt;/span&gt;/bin/Trans_To_UTF-8.py &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt; || &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_RED&amp;#125;&lt;/span&gt;failed&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; ! ls &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; | grep -q &lt;span class=&quot;string&quot;&gt;&quot;\.md$&quot;&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_YELLOW&amp;#125;&lt;/span&gt;WARN&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;: filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, renaming to &lt;span class=&quot;variable&quot;&gt;$&amp;#123;i%.*&amp;#125;&lt;/span&gt;.md..&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;# rename suffix to &quot;.md&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        mv &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$&amp;#123;i%.*&amp;#125;&lt;/span&gt;.md &amp;amp;&amp;amp; &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt; || &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_RED&amp;#125;&lt;/span&gt;failed&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, skipped rename~&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    no_suffix_filename=&lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;i%.*&amp;#125;&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# if does not have title&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; ! grep -q &lt;span class=&quot;string&quot;&gt;&quot;title:&quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_YELLOW&amp;#125;&lt;/span&gt;WARN&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;: filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, adding title..&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sed -i &lt;span class=&quot;string&quot;&gt;&quot;1s/^/---\ntitle: &lt;span class=&quot;variable&quot;&gt;$no_suffix_filename&lt;/span&gt;\n---\n/&quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# zero title content&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    title_content=`sed -n &lt;span class=&quot;string&quot;&gt;&#39;/title: /p&#39;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt; | awk -F&lt;span class=&quot;string&quot;&gt;&#39;:&#39;&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&#39;&amp;#123;print $NF&amp;#125;&#39;&lt;/span&gt; | xargs`&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; [-z &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$title_content&lt;/span&gt;&quot;&lt;/span&gt; ]; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;# update title when it is NULL&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_YELLOW&amp;#125;&lt;/span&gt;WARN&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;: filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, updating title..&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sed -i &lt;span class=&quot;string&quot;&gt;&quot;s/title: .*/title: &lt;span class=&quot;variable&quot;&gt;$no_suffix_filename&lt;/span&gt;/&quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;else&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, skipped update~&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;comment&quot;&gt;# add author info&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; ! grep -q &lt;span class=&quot;string&quot;&gt;&quot;author: dongcj &amp;lt;ntwk@163.com&amp;gt;&quot;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;; &lt;span class=&quot;keyword&quot;&gt;then&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; -n &lt;span class=&quot;string&quot;&gt;&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_YELLOW&amp;#125;&lt;/span&gt;WARN&lt;span class=&quot;variable&quot;&gt;$&amp;#123;COLOR_CLOSE&amp;#125;&lt;/span&gt;: filename: &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;, updating author..&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        sed -i &lt;span class=&quot;string&quot;&gt;&#39;/title: /a author: dongcj &amp;lt;ntwk@163.com&amp;gt;&#39;&lt;/span&gt; &lt;span class=&quot;variable&quot;&gt;$i&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&quot;done&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;fi&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;built_in&quot;&gt;echo&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;done&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;windows- 下 - 更新博客 -bat&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#windows- 下 - 更新博客 -bat&quot;&gt;&lt;/a&gt; Windows 下 &amp;quot; 更新博客 .bat&amp;quot;&lt;/h1&gt;
-&lt;figure class=&quot;highlight bat&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;REM&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; &quot;/cygdriver/d/blog&quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;D:&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;title&quot;&gt;hexo&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;g&lt;/span&gt; &amp;amp;&amp;amp; &lt;span class=&quot;title&quot;&gt;hexo&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;d&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;title&quot;&gt;echo&lt;/span&gt; &quot;&lt;span class=&quot;title&quot;&gt;success&lt;/span&gt;&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+      &lt;h1 id=&quot;linux- 根分区修改为 -lvm&quot;&gt;1. linux 根分区修改为 lvm&lt;/h1&gt;
+&lt;ol type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;First Create an LVM partition: &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;pvcreate /dev/sdb1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vgcreate vg01  /dev/sdb1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;lvcreate -L 100%VG -n lv01 vg01&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Format this new LVM partition with ext3 or ext4 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkfs.ext4 /dev/vg01/lv01&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a new mount point and then mount the LVM Partition on it &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mkdir /mnt/NEW_ROOT_PARTITION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Copy all contents of “/” to the newly mounted folder &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;cp -aux /dev /mnt/NEW_ROOT_PARTITION&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;/dev/vg01/lv01      /       ext4    defaults     1 1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;chroot to new filesystem and create initrd with raid and lvm support &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;mount --&lt;span class=&quot;built_in&quot;&gt;bind&lt;/span&gt; /dev /mnt/NEW_ROOT_PARTITION/dev&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chroot /mnt/NEW_ROOT_PARTITION&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount -t proc /proc /proc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mount -t sysfs /sys /sys&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;vgscan&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vgchange -ay&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;umount /sys&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;umount /proc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;exit&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mv /mnt/lv0/boot/initrd-`uname -r`.lvm.img /boot&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;ol start=&quot;7&quot; type=&quot;1&quot;&gt;
+&lt;li&gt;&lt;p&gt;Edit /boot/grub/grub.conf to point to new root /dev/vg_new_root/lv0 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;update-grub&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;grub-set-default&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Reboot &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;reboot&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&quot;虚拟机增加系统盘根分区大小&quot;&gt;2. 虚拟机增加系统盘根分区大小 &lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
+$ cat /tmp/temp_expand &amp;gt;&amp;gt;/var/lib/libvirt/images/my_vm.img
+
+# 挂载文件至系统，以便找出是否有 swap device
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+
+# If has swap device, del the swap device
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &amp;#39;Linux swap&amp;#39; |awk &amp;#39;{print $1}&amp;#39;`
+
+# Del swap
+$ parted -s ${loop} rm ${swap_part_num}
+
+# If does&amp;#39;t have, add the new swap device
+$ parted -s /dev/loop1 &amp;quot;unit mb mkpart primary linux-swap -2048MB -0&amp;quot;
+
+# 或者先只划分空间，再用 mkswap 进行操作
+# 可选的：
+$ mkswap -v1 /dev/mapper/loop1p3
+
+# 重新刷新新增加的 swap 设备
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+
+# 将新的 lo 设备分区进行打印
+$ sfdisk -d /dev/loop0 &amp;gt;/tmp/sfdisk_dump
+
+# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &amp;quot;/dev/loop0p1&amp;quot; | sed -e &amp;#39;s/\//\\\\\//g&amp;#39;`
+$ sed -e &amp;quot;s/^${converted_root_device}.*$/$new_root/&amp;quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
+
+# 重新刷新新变更的分区
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
+
+# fs resize
+$ e2fsck -pv /dev/mapper/loop0p1
+$ resize2fs -f /dev/mapper/loop0p1&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;parted- 使用&quot;&gt;3. parted 使用 &lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# create all 100% space to one part
+$ parted -s /dev/sdb mklabel gpt
+$ parted -a optimal -s /dev/sdb &amp;quot;mkpart primary 0% 100%&amp;quot;
+
+# create other part
+parted -a optimal -s /dev/sdb &amp;quot;mkpart logical 59G 459G&amp;quot;
+parted -a optimal -s /dev/sdb &amp;quot;mkpart logical 459G 859G&amp;quot;
+
+# remove part
+parted -s /dev/sdb rm 2
+parted -s /dev/sdb rm 3&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;分区对齐&quot;&gt;4. 分区对齐 &lt;/h1&gt;
     
     </summary>
     
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="utf-8" scheme="http://blog.dongcj.com/tags/utf-8/"/>
+      <category term="parted" scheme="http://blog.dongcj.com/tags/parted/"/>
     
-      <category term="编码" scheme="http://blog.dongcj.com/tags/%E7%BC%96%E7%A0%81/"/>
+      <category term="kpartx" scheme="http://blog.dongcj.com/tags/kpartx/"/>
     
-      <category term="hexo" scheme="http://blog.dongcj.com/tags/hexo/"/>
+      <category term="losetup" scheme="http://blog.dongcj.com/tags/losetup/"/>
+    
+      <category term="sfdisk" scheme="http://blog.dongcj.com/tags/sfdisk/"/>
+    
+      <category term="e2fsck" scheme="http://blog.dongcj.com/tags/e2fsck/"/>
+    
+      <category term="resize2fs" scheme="http://blog.dongcj.com/tags/resize2fs/"/>
     
   </entry>
   
@@ -500,17 +542,16 @@ Windows 下自动将博客发布到 github&lt;/p&gt;
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt; 建议：&lt;br&gt;
-如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！&lt;/p&gt;
+&lt;p&gt; 建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;h3 id=&quot;每块硬盘分一个区&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 每块硬盘分一个区&quot;&gt;&lt;/a&gt; 每块硬盘分一个区 &lt;/h3&gt;
+&lt;h3 id=&quot;每块硬盘分一个区&quot;&gt; 每块硬盘分一个区 &lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;# 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+  WARNING: DOS-compatible mode is deprecated. It&amp;#39;s strongly recommended to
+           switch off the mode (command &amp;#39;c&amp;#39;) and change display units to
+           sectors (command &amp;#39;u&amp;#39;).
 
   Command (m for help): n
   Command action
@@ -544,9 +585,8 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;更改分区格式&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 更改分区格式&quot;&gt;&lt;/a&gt; 更改分区格式 &lt;/h1&gt;
+  Syncing disks.&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;更改分区格式&quot;&gt; 更改分区格式 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
@@ -557,9 +597,8 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;创建 -raid&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 创建 -raid&quot;&gt;&lt;/a&gt; 创建 RAID&lt;/h1&gt;
+...&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;创建 -raid&quot;&gt; 创建 RAID&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
@@ -580,16 +619,14 @@ md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
       [&amp;gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
 0948K/sec
 
-unused devices:
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;给 -md0- 设备创建分区和文件系统&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 给 -md0- 设备创建分区和文件系统&quot;&gt;&lt;/a&gt; 给 md0 设备创建分区和文件系统 &lt;/h1&gt;
+unused devices:&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;给 -md0- 设备创建分区和文件系统&quot;&gt; 给 md0 设备创建分区和文件系统 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;$ fdisk /dev/md0
 $ mkfs.ext4 /dev/md0p1
 
 $ mkdir /raid10
-$ mount /dev/md0p1 /raid10
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;修改 -etcfstab- 启动时自动挂载&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 修改 -etcfstab- 启动时自动挂载&quot;&gt;&lt;/a&gt; 修改 /etc/fstab 启动时自动挂载 &lt;/h1&gt;
+$ mount /dev/md0p1 /raid10&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;修改 -etcfstab- 启动时自动挂载&quot;&gt; 修改 /etc/fstab 启动时自动挂载 &lt;/h1&gt;
     
     </summary>
     
@@ -603,50 +640,29 @@ $ mount /dev/md0p1 /raid10
   </entry>
   
   <entry>
-    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
-    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
-    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;1-curl&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#1-curl&quot;&gt;&lt;/a&gt; 1. curl&lt;/h1&gt;
-&lt;h2 id=&quot;11- 下载文件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#11- 下载文件&quot;&gt;&lt;/a&gt; 1.1. 下载文件 &lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; DOCKERIZE_ARCH=dockerize-linux-amd64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/&lt;span class=&quot;variable&quot;&gt;$&amp;#123;DOCKERIZE_VERION&amp;#125;&lt;/span&gt; | jq -r &lt;span class=&quot;string&quot;&gt;&quot;.assets[] | select(.name | test(\&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;DOCKERIZE_ARCH&amp;#125;&lt;/span&gt;\&quot;)) | .browser_download_url&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl -sSOL http://&lt;span class=&quot;variable&quot;&gt;$DOCKERIZE_DOWNLOADURL&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# or &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl -sSL &lt;span class=&quot;variable&quot;&gt;$&amp;#123;DOCKERIZE_DOWNLOADURL&amp;#125;&lt;/span&gt; | tar zxvf - -C &lt;span class=&quot;variable&quot;&gt;$&amp;#123;MODULE_HOME&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;12-https- 跳转地址调试&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#12-https- 跳转地址调试&quot;&gt;&lt;/a&gt; 1.2. https 跳转地址调试 &lt;/h2&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl  -iL --head  www.svi-tech.com.cn 2&amp;gt;/dev/null  | grep Location&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h2 id=&quot;详细信息&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 详细信息&quot;&gt;&lt;/a&gt; 详细信息 &lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;curl -v www.sina.com
-curl --trace output.txt www.sina.com
-curl --trace-ascii output.txt www.sina.com
-curl  -s  --head  www.sina.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;13- 上传文件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#13- 上传文件&quot;&gt;&lt;/a&gt; 1.3. 上传文件 &lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;curl --form upload=@localfilename --form press=OK [URL]
-curl -T file.txt
+      &lt;blockquote&gt;
+&lt;p&gt; 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&amp;gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &amp;lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: &lt;?php
+$worker = new GearmanWorker();
+$worker-&gt;addServer(); $worker-&amp;gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = &lt;span class=&quot;math inline&quot;&gt;\(worker-&amp;gt;work(); if(\)&lt;/span&gt;worker-&amp;gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&amp;gt;workload(); echo “Received job:”. $job-&amp;gt;handle(). “”; echo “Workload: $workload”; &lt;span class=&quot;math inline&quot;&gt;\(result = strrev(\)&lt;/span&gt;workload); echo “Result: $result”; return $result; } ?&amp;gt; ## 2. client: &lt;?php
+$client = new GearmanClient();
+$client-&gt;addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&amp;gt;&lt;/p&gt;
+&lt;/blockquote&gt;
 
-curl --cookie &amp;quot;name=xxx&amp;quot; www.example.com
-curl --user name@DOMAIN:password http://example.com
-
-curl -fsSL ...
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2 id=&quot;14- 下载网页保存为文件名&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#14- 下载网页保存为文件名&quot;&gt;&lt;/a&gt; 1.4. 下载网页保存为文件名 &lt;/h2&gt;
     
     </summary>
     
-      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
     
     
-      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
-    
-      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
-    
-      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
-    
-      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
-    
-      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
@@ -659,7 +675,7 @@ curl -fsSL ...
     
     <summary type="html">
     
-      &lt;h1 id=&quot;安装软件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装软件&quot;&gt;&lt;/a&gt; 安装软件 &lt;/h1&gt;
+      &lt;h1 id=&quot;安装软件&quot;&gt; 安装软件 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# 安装的软件：
 dhcp-3.0.5-7.el5.x86_64.rpm
 vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
@@ -669,9 +685,8 @@ pykickstart-0.43.3-1.el5.noarch.rpm
 system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
 syslinux
 
-# 关闭 selinux &amp;amp; iptables
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;dhcp- 配置&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#dhcp- 配置&quot;&gt;&lt;/a&gt; dhcp 配置 &lt;/h1&gt;
+# 关闭 selinux &amp;amp; iptables&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;dhcp- 配置&quot;&gt;dhcp 配置 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;ddns-update-style interim;
 ignore client-updates;
 allow booting;
@@ -689,9 +704,8 @@ option time-offset -18000; # Eastern Standard Time
 range dynamic-bootp 10.85.138.100 10.85.138.249;
 default-lease-time 21600;
 max-lease-time 43200;
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;增加 -tftp- 文件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 增加 -tftp- 文件&quot;&gt;&lt;/a&gt; 增加 tftp 文件 &lt;/h1&gt;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;增加 -tftp- 文件&quot;&gt; 增加 tftp 文件 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt; 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
 $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
 $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
@@ -699,9 +713,8 @@ $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
 $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
 $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;配置 -kickstart&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 配置 -kickstart&quot;&gt;&lt;/a&gt; 配置 kickstart&lt;/h1&gt;
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 &lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;配置 -kickstart&quot;&gt; 配置 kickstart&lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
   label linux
     menu label ^Install or upgrade an existing system
@@ -709,8 +722,7 @@ $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件
     kernel vmlinuz
     append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
-# 修改 kickstart 自动安装 linux(见安装文件)
-&lt;/code&gt;&lt;/pre&gt;
+# 修改 kickstart 自动安装 linux(见安装文件)&lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
 &lt;p&gt; 附录：完整 DHCP 样例 &lt;/p&gt;
 &lt;/blockquote&gt;
@@ -719,11 +731,11 @@ ddns-updates on;
 ignore client-updates;
 allow booting;  # for pxe only
 allow bootp;    # for pxe only
-authoritative;	# Do not know what is meaning??
+authoritative;  # Do not know what is meaning??
 
 class &amp;quot;pxeclients&amp;quot;{match if substring(option vendor-class-identifier,0,9) = &amp;quot;PXEClient&amp;quot;;   # for pxe
     # match if substring(option vendor-class-identifier, 0, 4) = &amp;quot;MSFT&amp;quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
+    # option host-name = config-option server.ddns-hostname;    # set the server&amp;#39;s hostname, only for linux???
     ddns-hostname = concat(&amp;quot;v&amp;quot;,
         suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 2, 1))), 2),
@@ -740,7 +752,7 @@ class &amp;quot;pxeclients&amp;quot;{match if substring(option vendor-class-iden
 class &amp;quot;MSFT&amp;quot; {match if substring(option vendor-class-identifier, 0, 4) = &amp;quot;MSFT&amp;quot;;
     option host-name = config-option server.ddns-hostname;
     #ddns-hostname = concat(&amp;quot;v&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&amp;quot;v&amp;quot;, 	# Windows instances will apply for a hostname by default
+    #ddns-hostname = pick (option host-name, concat(&amp;quot;v&amp;quot;,    # Windows instances will apply for a hostname by default
     ddns-hostname = concat(&amp;quot;v&amp;quot;,
         suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 2, 1))), 2),
@@ -769,7 +781,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
     option subnet-mask 255.255.255.0;
     option domain-name &amp;quot;gwcloud.cn&amp;quot;;
     option domain-name-servers 192.168.88.1;
-    # option host-name &amp;quot;Server001&amp;quot;      # set the server&#39;s hostname, only for linux???
+    # option host-name &amp;quot;Server001&amp;quot;      # set the server&amp;#39;s hostname, only for linux???
     # option ntp-servers 192.168.88.1   # set the ntp server
     option time-offset -18000;          # Eastern Standard Time
     range dynamic-bootp 192.168.88.100 192.168.88.200;
@@ -778,10 +790,9 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
     # the next is bonding the mac to static ip address
     # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
-    #    fixed-address 192.168.1.30;             # host&#39;s ip address
-}
-&lt;/code&gt;&lt;/pre&gt;
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&amp;#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&amp;#39;s ip address
+}&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -805,25 +816,24 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
     
     <summary type="html">
     
-      &lt;h1 id=&quot;安装好二台 -postgresql&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装好二台 -postgresql&quot;&gt;&lt;/a&gt; 安装好二台 postgresql&lt;/h1&gt;
+      &lt;h1 id=&quot;安装好二台 -postgresql&quot;&gt; 安装好二台 postgresql&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt; 参见：&lt;a href=&quot;http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/&quot;&gt;http://blog.dongcj.com/database/Postgresql 安装 /&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 主服务器上 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; PGDATA=/pgdata&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 从服务器上 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; PGDATA=/pgdata_backup&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; /etc/profile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 主服务器上 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; PGDATA=/pgdata&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 从服务器上 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /etc/profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  &lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; PGDATA=/pgdata_backup&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt; /etc/profile&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;配置主服务器 -1921681011&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 配置主服务器 -1921681011&quot;&gt;&lt;/a&gt; 配置主服务器 192.168.10.11&lt;/h1&gt;
+&lt;h1 id=&quot;配置主服务器 -192.168.10.11&quot;&gt; 配置主服务器 192.168.10.11&lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 使用 root 帐户 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mkdir /pgdata&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chown -R postgres:postgres /pgdata/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 配置一个账号进行主从同步 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;su - postgres&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;psql [-p  54321]     &lt;span class=&quot;comment&quot;&gt;# 如果修改过端口，需要指定端口 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;psql$ CREATE ROLE replica login replication encrypted password &lt;span class=&quot;string&quot;&gt;&#39;replica&#39;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 增加 replica 用户 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /pgdata&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi pg_hba.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  host    replication     replica       192.168.10.12/32               md5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 配置复制参数 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi postgresql.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  wal_level = hot_standby     &lt;span class=&quot;comment&quot;&gt;# 主为 wal 的主机 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  max_wal_senders = 32        &lt;span class=&quot;comment&quot;&gt;# 最多几个流复制 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  wal_keep_segments = 256     &lt;span class=&quot;comment&quot;&gt;# 设置流复制保留最多的 log 数目，每个 log 16M&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  wal_sender_timeout = 60s    &lt;span class=&quot;comment&quot;&gt;# 流复制主机发送数据的超时时间 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  max_connections = 100       &lt;span class=&quot;comment&quot;&gt;# 注意：从库的 max_connections 必须要大于主库的 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 修改权限 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chmod -R 700 /pgdata/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 重启 pg&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pg_ctl restart&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;配置从服务器 -1921681012&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 配置从服务器 -1921681012&quot;&gt;&lt;/a&gt; 配置从服务器 192.168.10.12&lt;/h1&gt;
+&lt;h1 id=&quot;配置从服务器 -192.168.10.12&quot;&gt; 配置从服务器 192.168.10.12&lt;/h1&gt;
 &lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 使用 root 帐户 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;mkdir /pgdata_backup&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chown -R postgres:postgres /pgdata_backup/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;su - postgres&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# password is: replica&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;cd&lt;/span&gt; /pgdata_backup&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 编辑配置 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi recovery.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 如果找不到 recovery.conf，可以新建，只需要下面三行即可 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;recovery_target_timeline = &lt;span class=&quot;string&quot;&gt;&#39;latest&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;standby_mode = on&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;primary_conninfo = &lt;span class=&quot;string&quot;&gt;&#39;host=192.168.10.11 port=5432 user=replica password=replica&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 编辑配置 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi postgresql.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;max_connections = 1000  &lt;span class=&quot;comment&quot;&gt;# (要大于主库的)&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hot_standby = on        &lt;span class=&quot;comment&quot;&gt;# 说明这台机器不仅仅是用于数据归档，也用于数据查询 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;max_standby_streaming_delay = 30s   &lt;span class=&quot;comment&quot;&gt;# 多久向主报告一次从的状态，最长的间隔时间 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;wal_receiver_status_interval = 5s   &lt;span class=&quot;comment&quot;&gt;# 间隔多久将状态信息发送给主 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;hot_standby_feedback = on           &lt;span class=&quot;comment&quot;&gt;# 如果有错误的数据复制，是否向主进行反馈 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;chmod -R 700 /pgdata_backup/&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 启动从 pg&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pg_ctl start&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h1 id=&quot;检测配置是否成功&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 检测配置是否成功&quot;&gt;&lt;/a&gt; 检测配置是否成功 &lt;/h1&gt;
+&lt;h1 id=&quot;检测配置是否成功&quot;&gt; 检测配置是否成功 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# 使用 ps -ef 在主从二台上检测进程状态
 # 在主上应该有 sender 进程，在从上有 receiver 进程
 
 # 在主上查看复制状态
 $ psql$ select * from pg_stat_replication;
 
-# 可以看到 sender 的进程信息
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;主从切换命令&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 主从切换命令&quot;&gt;&lt;/a&gt; 主从切换命令 &lt;/h1&gt;
+# 可以看到 sender 的进程信息 &lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;主从切换命令&quot;&gt; 主从切换命令 &lt;/h1&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# node1 上模拟主库故障 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node1 ~]$ pg_ctl stop -m f&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# node2 提升备库状态 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ pg_ctl promote&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# node2 更新备数据 &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ createdb pgbench&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ pgbench -i -s 10 pgbench&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# node1 将以前 master 恢复为 standby&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;pg_rewind -D /opt/pgsql/data/ --&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;-server=&lt;span class=&quot;string&quot;&gt;&#39;host=node2 user=postgres port=5432&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /opt/pgsql/data/recovery.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;standby_mode = &lt;span class=&quot;string&quot;&gt;&#39;on&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;primary_conninfo = &lt;span class=&quot;string&quot;&gt;&#39;host=node2 user=postgres port=5432&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;recovery_target_timeline = &lt;span class=&quot;string&quot;&gt;&#39;latest&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 启动 node1 上的数据库：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node1 ~]$ pg_ctl start&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 将 node1 恢复为 master&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ pg_ctl stop -m f&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node1 ~]$ pg_ctl promote&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 恢复 node2 为 standby：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --&lt;span class=&quot;built_in&quot;&gt;source&lt;/span&gt;-server=&lt;span class=&quot;string&quot;&gt;&#39;host=node1 user=postgres port=5432&#39;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 修改 node2 为 node1&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;vi /opt/pgsql/data/recovery.conf &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# 启动 node2 上的数据库：&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;[postgres@node2 ~]$ pg_ctl start&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -837,33 +847,63 @@ $ psql$ select * from pg_stat_replication;
   </entry>
   
   <entry>
-    <title>斐讯 K2 路由器刷机</title>
-    <link href="http://blog.dongcj.com/linux/%E6%96%90%E8%AE%AFK2%E8%B7%AF%E7%94%B1%E5%99%A8%E5%88%B7%E6%9C%BA/"/>
-    <id>http://blog.dongcj.com/linux/斐讯K2路由器刷机/</id>
+    <title>DHCP 高级配置</title>
+    <link href="http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/"/>
+    <id>http://blog.dongcj.com/linux/DHCP高级配置/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
     <summary type="html">
     
-      &lt;h1 id=&quot;买个 -ss- 帐号&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 买个 -ss- 帐号&quot;&gt;&lt;/a&gt; 买个 SS 帐号 &lt;/h1&gt;
-&lt;p&gt; 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。&lt;/p&gt;
-&lt;h1 id=&quot;路由刷机&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 路由刷机&quot;&gt;&lt;/a&gt; 路由刷机 &lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt; 路由器通电，网线一端连接 &amp;quot; 自己电脑的网口 &amp;quot;，一头连接路由器的 “LAN” 口，&lt;code&gt; 注意：不是 WAN 口 &lt;/code&gt;&lt;/li&gt;
-&lt;li&gt; 查看自己电脑的 &amp;quot; 网络连接 &amp;quot;，选中 &amp;quot; 本地连接 &amp;quot;，点击右键，选择 &amp;quot; 状态 &amp;quot; -&amp;gt; &amp;quot; 详细信息 &amp;quot; 查看自己的 IP 地址 &lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;http://i.imgur.com/qlfwJ9j.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt; 自己电脑中打开浏览器：&lt;a href=&quot;http://192.168.1.1&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://192.168.1.1&lt;/a&gt; (一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &amp;quot; 本地连接 &amp;quot; 中看到的 IP 一致，但最后一位修改为 1)&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt; 用户名和密码默认 “admin/admin”&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt; 登陆 WEB 后，点击菜单 &amp;quot; 系统 &amp;quot; -&amp;gt; &amp;quot; 升级 &amp;quot;(其实我们是先降级，因为斐讯的默认系统是不让刷机的)。然后浏览本地 “breed_k2_163_v17_breed.bin” 文件 &lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+      &lt;h2 id=&quot;一 dhcp- 中继代理配置&quot;&gt;# 一、DHCP 中继代理配置 &lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;# (在其它服务上安装 dhcpd 软件)：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&amp;quot;eth1 eth2&amp;quot;
+  DHCPSERVERS=&amp;quot;192.168.1.1&amp;quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;二 dhcp- 超网配置&quot;&gt;# 二、DHCP 超网配置 &lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &amp;quot;koumm.net&amp;quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
+
+}&lt;/code&gt;&lt;/pre&gt;
 
     
     </summary>
@@ -871,11 +911,55 @@ $ psql$ select * from pg_stat_replication;
       <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="刷机" scheme="http://blog.dongcj.com/tags/%E5%88%B7%E6%9C%BA/"/>
+      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
     
-      <category term="斐讯 K2" scheme="http://blog.dongcj.com/tags/%E6%96%90%E8%AE%AF-K2/"/>
+      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
     
-      <category term="翻墙" scheme="http://blog.dongcj.com/tags/%E7%BF%BB%E5%A2%99/"/>
+  </entry>
+  
+  <entry>
+    <title>Curl、resty、httpie、httpstat、wuzz 使用介绍</title>
+    <link href="http://blog.dongcj.com/linux/Curl%E3%80%81resty%E3%80%81httpie%E3%80%81httpstat%E3%80%81wuzz%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;curl&quot;&gt;1. curl&lt;/h1&gt;
+&lt;h2 id=&quot;下载文件&quot;&gt;1.1. 下载文件 &lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; DOCKERIZE_ARCH=dockerize-linux-amd64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/&lt;span class=&quot;variable&quot;&gt;$&amp;#123;DOCKERIZE_VERION&amp;#125;&lt;/span&gt; | jq -r &lt;span class=&quot;string&quot;&gt;&quot;.assets[] | select(.name | test(\&quot;&lt;span class=&quot;variable&quot;&gt;$&amp;#123;DOCKERIZE_ARCH&amp;#125;&lt;/span&gt;\&quot;)) | .browser_download_url&quot;&lt;/span&gt;)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl -sSOL http://&lt;span class=&quot;variable&quot;&gt;$DOCKERIZE_DOWNLOADURL&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;# or &lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;curl -sSL &lt;span class=&quot;variable&quot;&gt;$&amp;#123;DOCKERIZE_DOWNLOADURL&amp;#125;&lt;/span&gt; | tar zxvf - -C &lt;span class=&quot;variable&quot;&gt;$&amp;#123;MODULE_HOME&amp;#125;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;https- 跳转地址调试&quot;&gt;1.2. https 跳转地址调试 &lt;/h2&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;curl  -iL --head  www.svi-tech.com.cn 2&amp;gt;/dev/null  | grep Location&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h2 id=&quot;详细信息&quot;&gt; 详细信息 &lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;curl -v www.sina.com
+curl --trace output.txt www.sina.com
+curl --trace-ascii output.txt www.sina.com
+curl  -s  --head  www.sina.com&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;上传文件&quot;&gt;1.3. 上传文件 &lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;curl --form upload=@localfilename --form press=OK [URL]
+curl -T file.txt
+
+curl --cookie &amp;quot;name=xxx&amp;quot; www.example.com
+curl --user name@DOMAIN:password http://example.com
+
+curl -fsSL ...&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;下载网页保存为文件名&quot;&gt;1.4. 下载网页保存为文件名 &lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
+    
+    
+      <category term="curl" scheme="http://blog.dongcj.com/tags/curl/"/>
+    
+      <category term="resty" scheme="http://blog.dongcj.com/tags/resty/"/>
+    
+      <category term="httpie" scheme="http://blog.dongcj.com/tags/httpie/"/>
+    
+      <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
+    
+      <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
     
   </entry>
   
@@ -888,8 +972,8 @@ $ psql$ select * from pg_stat_replication;
     
     <summary type="html">
     
-      &lt;h3 id=&quot;etchosts- 可以 -ping- 通对方域名&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#etchosts- 可以 -ping- 通对方域名&quot;&gt;&lt;/a&gt; /etc/hosts 可以 ping 通对方域名 &lt;/h3&gt;
-&lt;h3 id=&quot;安装 -puppet&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装 -puppet&quot;&gt;&lt;/a&gt; 安装 puppet&lt;/h3&gt;
+      &lt;h3 id=&quot;etchosts- 可以 -ping- 通对方域名&quot;&gt;/etc/hosts 可以 ping 通对方域名 &lt;/h3&gt;
+&lt;h3 id=&quot;安装 -puppet&quot;&gt; 安装 puppet&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;$ yum install ruby ruby-libs ruby-rdoc
 $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
 $ yum update
@@ -901,9 +985,8 @@ $ yum install puppet-server
 $ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
 
 # 客户端安装 puppet
-$ yum install puppet
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;service-puppetmaster-start&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#service-puppetmaster-start&quot;&gt;&lt;/a&gt; service puppetmaster start&lt;/h3&gt;
+$ yum install puppet&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;service-puppetmaster-start&quot;&gt;service puppetmaster start&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;$ puppet master --verbose --no-daemonize --cert_name &amp;quot;Puppet CA: `hostname -f`&amp;quot;
 
 $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
@@ -913,15 +996,14 @@ $ cat &amp;gt; /etc/puppet/autosign.conf &amp;lt;&amp;lt;EOF
 EOF
 
 $ service puppetmaster restart
-$ puppet cert list --all	--&amp;gt; 查看下证书，此时是没有客户机的，只有自己
+$ puppet cert list --all    --&amp;gt; 查看下证书，此时是没有客户机的，只有自己
 
 在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
 
 $ puppetd --server bigdata.xxxx.com --test
 或者
-$ puppet agent --no-daemonize --onetime --verbose --debug
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;安装 -dashboard&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装 -dashboard&quot;&gt;&lt;/a&gt; 安装 dashboard&lt;/h3&gt;
+$ puppet agent --no-daemonize --onetime --verbose --debug&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;安装 -dashboard&quot;&gt; 安装 dashboard&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;$ vi /usr/share/puppet-dashboard/config/database.yml
 production:
 database: puppet
@@ -931,13 +1013,11 @@ encoding: utf8
 adapter: mysql
 
 $ vi /usr/share/puppet-dashboard/config/environment.rb
-config.time_zone = &#39;Beijing&#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;初始化数据库&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 初始化数据库&quot;&gt;&lt;/a&gt; 初始化数据库 &lt;/h3&gt;
+config.time_zone = &amp;#39;Beijing&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;初始化数据库&quot;&gt; 初始化数据库 &lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;$ cd /usr/share/puppet-dashboard/
-rake RAILS_ENV=production db:migrate
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3 id=&quot;整合 -passenger- 和 -apache&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 整合 -passenger- 和 -apache&quot;&gt;&lt;/a&gt; 整合 Passenger 和 apache&lt;/h3&gt;
+rake RAILS_ENV=production db:migrate&lt;/code&gt;&lt;/pre&gt;
+&lt;h3 id=&quot;整合 -passenger- 和 -apache&quot;&gt; 整合 Passenger 和 apache&lt;/h3&gt;
     
     </summary>
     
@@ -960,25 +1040,18 @@ rake RAILS_ENV=production db:migrate
     <summary type="html">
     
       &lt;blockquote&gt;
-&lt;p&gt; 参考： &lt;a href=&quot;https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt; 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;安装软件&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装软件&quot;&gt;&lt;/a&gt; 安装软件 &lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;安装软件&quot;&gt; 安装软件 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64
-&lt;/code&gt;&lt;/pre&gt;
+yum install glusterfs-geo-replication.x86_64&lt;/code&gt;&lt;/pre&gt;
 &lt;blockquote&gt;
-&lt;p&gt; 如遇到以下错误：&lt;br&gt;
-Transaction check error:&lt;br&gt;
-file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package  lvm2-7:2.02.105-14.el7.x86_64&lt;br&gt;
-file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64&lt;br&gt;
-file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64&lt;/p&gt;
+&lt;p&gt; 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;pre&gt;&lt;code&gt;# 删除 lvm2
-$ rpm -e lvm2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;挂载分区及配置防火墙&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 挂载分区及配置防火墙&quot;&gt;&lt;/a&gt; 挂载分区及配置防火墙 &lt;/h1&gt;
+$ rpm -e lvm2&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;挂载分区及配置防火墙&quot;&gt; 挂载分区及配置防火墙 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;# mkdir
 $ mkdir /export/brick1
 
@@ -991,9 +1064,8 @@ $ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
 $ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
 $ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
 --add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;启动 -glusterd- 服务&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 启动 -glusterd- 服务&quot;&gt;&lt;/a&gt; 启动 glusterd 服务 &lt;/h1&gt;
+$ firewall-cmd --reload&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;启动 -glusterd- 服务&quot;&gt; 启动 glusterd 服务 &lt;/h1&gt;
 &lt;pre&gt;&lt;code&gt;$ service glusterd start
 
 # if centos7:
@@ -1023,8 +1095,7 @@ $ gluster volume stop gv0
 # delete Volume
 $ gluster volume delete gv0
 
-$ gluster peer detach NAME_OF_PEERNODE
-&lt;/code&gt;&lt;/pre&gt;
+$ gluster peer detach NAME_OF_PEERNODE&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
@@ -1034,61 +1105,6 @@ $ gluster peer detach NAME_OF_PEERNODE
       <category term="gluster" scheme="http://blog.dongcj.com/tags/gluster/"/>
     
       <category term="dfs" scheme="http://blog.dongcj.com/tags/dfs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Graphite 安装</title>
-    <link href="http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/monitor/Graphite安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt; 参考：&lt;br&gt;
-&lt;a href=&quot;http://www.jsxubar.info/category/system-administration/graphite/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.jsxubar.info/category/system-administration/graphite/&lt;/a&gt;&lt;br&gt;
-&lt;a href=&quot;http://www.jsxubar.info/category/system-administration/page/3/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.jsxubar.info/category/system-administration/page/3/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt; 更多集成 grafana 及 Diamond 请看：&lt;br&gt;
-&lt;a href=&quot;http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;使用 -yum- 安装环境&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 使用 -yum- 安装环境&quot;&gt;&lt;/a&gt; 使用 yum 安装环境 &lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
-
-# 其它的使得 pip 安装就可以
-$ pip install whisper
-$ pip install carbon
-$ pip install graphite-web
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;安装并升级为最新的 -zopeinterface- 及 -twisted&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 安装并升级为最新的 -zopeinterface- 及 -twisted&quot;&gt;&lt;/a&gt; 安装并升级为最新的 zope.interface 及 twisted&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;# (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
-$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
-$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
-
-# test twisted
-[root@bigdata twisted]# python
-Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; from twisted.python.compat import _PY3
-&amp;gt;&amp;gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;check-for-missing-dependencies&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;#check-for-missing-dependencies&quot;&gt;&lt;/a&gt; Check for missing dependencies&lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h1 id=&quot;设置权限&quot;&gt;&lt;a class=&quot;markdownIt-Anchor&quot; href=&quot;# 设置权限&quot;&gt;&lt;/a&gt; 设置权限 &lt;/h1&gt;
-&lt;pre&gt;&lt;code&gt;$ chown -R apache:apache /opt/graphite/storage/
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="monitor" scheme="http://blog.dongcj.com/categories/monitor/"/>
-    
-    
-      <category term="graphite" scheme="http://blog.dongcj.com/tags/graphite/"/>
     
   </entry>
   
