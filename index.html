@@ -645,16 +645,14 @@
 <p> 弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：<a href="http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/">Linux 升级 kernel 及 tcp_BBR</a></p>
 </blockquote>
 <h1 id="ubuntu- 安装 -docker">1. Ubuntu 安装 Docker</h1>
-<h2 id="install-dockerlatest">1.1. install docker(latest)</h2>
+<h2 id="prepare">1.1. Prepare</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">apt-get update</span><br><span class="line"></span><br><span class="line">apt-get install \</span><br><span class="line">    apt-transport-https \</span><br><span class="line">    ca-certificates \</span><br><span class="line">    curl \</span><br><span class="line">    software-properties-common</span><br><span class="line">    </span><br><span class="line">curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line">add-apt-repository \</span><br><span class="line">   <span class="string">"deb [arch=amd64] https://download.docker.com/linux/ubuntu \</span></span><br><span class="line"><span class="string">   <span class="variable">$(lsb_release -cs)</span> \</span></span><br><span class="line"><span class="string">   stable"</span></span><br></pre></td></tr></table></figure>
+<h2 id="install-docker 下载安装">1.2. install docker(下载安装)</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget  https://download.docker.com/linux/ubuntu/dists/yakkety/pool/stable/amd64/docker-ce_17.03.2~ce-0~ubuntu-yakkety_amd64.deb</span><br></pre></td></tr></table></figure>
+<h2 id="install-docker 脚本安装">1.3. install docker(脚本安装)</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clone 后直接脚本安装 , CentOS 没有测试过 </span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/rancher/install-docker.git</span><br><span class="line"><span class="built_in">cd</span> ./install-docker</span><br></pre></td></tr></table></figure>
-<h2 id="install-dockerprevious-release">1.2. install docker(previous release)</h2>
+<h2 id="install-dockerapt- 安装">1.4. install docker(apt 安装)</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># if you want install pre version</span></span><br><span class="line"><span class="comment"># add the repo to the apt</span></span><br><span class="line">deb [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable</span><br><span class="line">deb-src [arch=amd64] https://download.docker.com/linux/ubuntu zesty stable</span><br><span class="line"></span><br><span class="line"><span class="comment"># show the version avaiable</span></span><br><span class="line">apt update</span><br><span class="line">apt-cache madison docker-ce</span><br><span class="line"></span><br><span class="line"><span class="comment"># install the specify docker release</span></span><br><span class="line">apt install docker-ce=17.06.2~ce-0~ubuntu</span><br></pre></td></tr></table></figure>
-<h1 id="配置 -docker- 加速器用于国内加速可选">2. 配置 Docker 加速器（用于国内加速，可选）</h1>
-<blockquote>
-<p> 以下操作需 <code> 重启 </code> Docker 服务生效 </p>
-</blockquote>
-<p>vi /etc/docker/daemon.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"registry-mirrors"</span>: [</span><br><span class="line">     <span class="string">"https://2lqq34jg.mirror.aliyuncs.com"</span>,</span><br><span class="line">     <span class="string">"https://pee6w651.mirror.aliyuncs.com"</span>,</span><br><span class="line">     <span class="string">"https://registry.docker-cn.com"</span>,</span><br><span class="line">     <span class="string">"http://hub-mirror.c.163.com"</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/m/Docker安装及命令/#more" rel="contents">
@@ -952,16 +950,14 @@
 <pre><code>1. less xxx.log
 2. 搜索你要高亮的关键字
 3. SHIFT+F，进入 follow 模式</code></pre>
-<h1 id="windows">2. Windows</h1>
-<h2 id="windows-mount- 网络共享为一个文件夹">2.1. Windows mount 网络共享为一个文件夹</h2>
+<h1 id="pkill">2. pkill</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f -SIGUSR1 /app/letsencrypt_service || pkill -USR1 -f /app/letsencrypt_service</span><br></pre></td></tr></table></figure>
+<h1 id="windows">3. Windows</h1>
+<h2 id="windows-mount- 网络共享为一个文件夹">3.1. Windows mount 网络共享为一个文件夹</h2>
 <pre><code>net use \\192.168.11.111\public\data
 mklink /d d:\ccc \\192.168.11.111\public\data</code></pre>
-<h2 id="windows- 网络设置">2.2. Windows 网络设置</h2>
+<h2 id="windows- 网络设置">3.2. Windows 网络设置</h2>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipconfig | findstr /c:&quot;IPv4&quot;</span><br><span class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</span><br><span class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</span><br></pre></td></tr></table></figure>
-<h2 id="windows- 如何删除隐藏设备">2.3. windows 如何删除隐藏设备</h2>
-<pre><code>set devmgr_show_nonpresent_devices=1
-devmgmt.msc
-打开隐藏设备</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/常用命令/#more" rel="contents">

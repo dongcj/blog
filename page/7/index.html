@@ -785,7 +785,7 @@ slurm                   # yet another network load monitor
 
 tcpdump         # 抓取网络数据包，详细分析
 wireshark       # 抓取网络数据包，详细分析
-Tcptrace        # 数据包分析工具 (windows 下有)
+tcptrace        # 数据包分析工具 (windows 下有，不在 linux 默认，需要安装)
 tcptrack        # monitor your server network connections and bandwidth 
 tshark
 ngrep           ngrep -qd any -W byline . tcp dst port 2003    ## any 匹配所有接口，. 匹配所有内容 目标端口为 2003 的包
@@ -799,7 +799,7 @@ iperf       # 测试 TCP 和 UDP 带宽质量
 
 speed-test          # 网速测试工具 npm install --global speed-test
 traceroute/mtr/dig  # trace 工具
-tcptrace            # 不在 linux 默认，需要安装
+
 ss -l/-s            # Socket Statistics
 pstree -alpha       # ps 树形列表
 pstree -al pid      # 单个进程的树形列表
