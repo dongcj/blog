@@ -474,7 +474,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Mdadm_raid10_raid5/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -493,7 +493,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Mdadm_raid10_raid5/" itemprop="url">Mdadm_raid10_raid5</a></h2>
+                <a class="post-title-link" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
         
 
         <div class="post-meta">
@@ -563,95 +563,521 @@
 
       
         
-          <blockquote>
-<p> 建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
-</blockquote>
-<h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+          <h1 id="linux- 根分区修改为 -lvm">1. linux 根分区修改为 lvm</h1>
+<ol type="1">
+<li><p>First Create an LVM partition: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb1</span><br><span class="line">vgcreate vg01  /dev/sdb1</span><br><span class="line">lvcreate -L 100%VG -n lv01 vg01</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Format this new LVM partition with ext3 or ext4 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/vg01/lv01</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Create a new mount point and then mount the LVM Partition on it <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Copy all contents of “/” to the newly mounted folder <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x</span><br><span class="line">cp -aux /dev /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
+<li><p>edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg01/lv01      /       ext4    defaults     1 1</span><br></pre></td></tr></table></figure></p></li>
+<li><p>chroot to new filesystem and create initrd with raid and lvm support <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /dev /mnt/NEW_ROOT_PARTITION/dev</span><br><span class="line">chroot /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount -t proc /proc /proc</span><br><span class="line">mount -t sysfs /sys /sys</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgscan</span><br><span class="line">vgchange -ay</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">umount /sys</span><br><span class="line">umount /proc</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">mv /mnt/lv0/boot/initrd-`uname -r`.lvm.img /boot</span><br></pre></td></tr></table></figure>
+<ol start="7" type="1">
+<li><p>Edit /boot/grub/grub.conf to point to new root /dev/vg_new_root/lv0 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br><span class="line">grub-set-default</span><br></pre></td></tr></table></figure></p></li>
+<li><p>Reboot <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></p></li>
+</ol>
+<h1 id="虚拟机增加系统盘根分区大小">2. 虚拟机增加系统盘根分区大小 </h1>
+<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
 
-$ fdisk /dev/sda
+# 先增加实例文件大小，可以使用 dd 命令
+$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
+$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+# 挂载文件至系统，以便找出是否有 swap device
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-  Command (m for help): n
-  Command action
-     e   extended
-     p   primary partition (1-4)
-  p
-  Partition number (1-4): 1
-  First cylinder (1-91201, default 1):
-  Using default value 1
-  Last cylinder, +cylinders or +size{K,M,G} (1-91201, default 91201):
-  Using default value 91201
+# If has swap device, del the swap device
+$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
 
-  Command (m for help): p
+# Del swap
+$ parted -s ${loop} rm ${swap_part_num}
 
-  Disk /dev/sda: 750.2 GB, 750156374016 bytes
-  255 heads, 63 sectors/track, 91201 cylinders
-  Units = cylinders of 16065 * 512 = 8225280 bytes
-  Sector size (logical/physical): 512 bytes / 512 bytes
-  I/O size (minimum/optimal): 512 bytes / 512 bytes
-  Disk identifier: 0x0005c259
+# If does&#39;t have, add the new swap device
+$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
 
-     Device Boot      Start         End      Blocks   Id  System
-  /dev/sda1               1       91201   732572001   83  Linux
+# 或者先只划分空间，再用 mkswap 进行操作
+# 可选的：
+$ mkswap -v1 /dev/mapper/loop1p3
 
-  Command (m for help): t
-  Selected partition 1
-  Hex code (type L to list codes): fd
-  Changed system type of partition 1 to fd (Linux raid autodetect)
+# 重新刷新新增加的 swap 设备
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-  Command (m for help): w
-  The partition table has been altered!
+# 将新的 lo 设备分区进行打印
+$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
 
-  Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
-$ fdisk /dev/sdc
-...
-$ fdisk /dev/sdd
-...
-$ fdisk /dev/sde
-...
-$ fdisk /dev/sdf
-...
-$ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
-$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
-mdadm: layout defaults to n2
-mdadm: layout defaults to n2
-mdadm: chunk size defaults to 512K
-mdadm: size set to 732440576K
-mdadm: Defaulting to version 1.2 metadata
-mdadm: array /dev/md0 started.
+# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
+  new_root=401625,14227239      (样例，要修改)
+  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
+$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
 
+# 重新刷新新变更的分区
+$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
+$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
 
-# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
-# watch cat /proc/mdstat
-Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+# fs resize
+$ e2fsck -pv /dev/mapper/loop0p1
+$ resize2fs -f /dev/mapper/loop0p1</code></pre>
+<h1 id="parted- 使用">3. parted 使用 </h1>
+<pre><code># create all 100% space to one part
+$ parted -s /dev/sdb mklabel gpt
+$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
 
-Personalities : [raid10]
-md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
-      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
-      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
-0948K/sec
+# create other part
+parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
+parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
 
-unused devices:</code></pre>
-<h1 id="给 -md0- 设备创建分区和文件系统"> 给 md0 设备创建分区和文件系统 </h1>
-<pre><code>$ fdisk /dev/md0
-$ mkfs.ext4 /dev/md0p1
-
-$ mkdir /raid10
-$ mount /dev/md0p1 /raid10</code></pre>
-<h1 id="修改 -etcfstab- 启动时自动挂载"> 修改 /etc/fstab 启动时自动挂载 </h1>
+# remove part
+parted -s /dev/sdb rm 2
+parted -s /dev/sdb rm 3</code></pre>
+<h1 id="分区对齐">4. 分区对齐 </h1>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
+            <a class="btn" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE 安装与设定</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="安装软件"> 安装软件 </h1>
+<pre><code># 安装的软件：
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
+xinetd-2.3.14-10.el5.x86_64.rpm
+tftp-server-0.42-3.1.x86_64.rpm
+pykickstart-0.43.3-1.el5.noarch.rpm
+system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
+syslinux
+
+# 关闭 selinux &amp; iptables</code></pre>
+<h1 id="dhcp- 配置">dhcp 配置 </h1>
+<pre><code>ddns-update-style interim;
+ignore client-updates;
+allow booting;
+allow bootp;
+class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
+filename &quot;/pxelinux.0&quot;;
+next-server 10.85.138.9;
+}
+subnet 10.85.138.0 netmask 255.255.254.0 {
+option routers 10.85.138.1;
+option subnet-mask 255.255.254.0;
+option domain-name &quot;gwcloud.com&quot;;
+option domain-name-servers 10.85.138.1;
+option time-offset -18000; # Eastern Standard Time
+range dynamic-bootp 10.85.138.100 10.85.138.249;
+default-lease-time 21600;
+max-lease-time 43200;
+}</code></pre>
+<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
+<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
+$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
+$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
+
+
+$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
+<h1 id="配置 -kickstart"> 配置 kickstart</h1>
+<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
+  label linux
+    menu label ^Install or upgrade an existing system
+    menu default
+    kernel vmlinuz
+    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
+
+# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
+<blockquote>
+<p> 附录：完整 DHCP 样例 </p>
+</blockquote>
+<pre><code>ddns-update-style interim;
+ddns-updates on;
+ignore client-updates;
+allow booting;  # for pxe only
+allow bootp;    # for pxe only
+authoritative;  # Do not know what is meaning??
+
+class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
+    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
+    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+    filename &quot;/pxelinux.0&quot;;     # for pxe only
+    next-server 192.168.88.1;   # for pxe only
+}
+
+
+class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
+    option host-name = config-option server.ddns-hostname;
+    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+}
+
+
+option host-name = config-option server.ddns-hostname;
+ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+));
+set vendor-string = option vendor-class-identifier;
+
+
+subnet 192.168.88.0 netmask 255.255.255.0 {
+    option routers 192.168.88.1;
+    option subnet-mask 255.255.255.0;
+    option domain-name &quot;gwcloud.cn&quot;;
+    option domain-name-servers 192.168.88.1;
+    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
+    # option ntp-servers 192.168.88.1   # set the ntp server
+    option time-offset -18000;          # Eastern Standard Time
+    range dynamic-bootp 192.168.88.100 192.168.88.200;
+    default-lease-time 21600;
+    max-lease-time 43200;
+
+    # the next is bonding the mac to static ip address
+    # host pc1 {
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&#39;s ip address
+}</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
+<pre><code># (在其它服务上安装 dhcpd 软件)：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
+<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &quot;koumm.net&quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
+
+}</code></pre>
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -835,360 +1261,6 @@ rake RAILS_ENV=production db:migrate</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Puppet安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="curl">1. curl</h1>
-<h2 id="下载文件">1.1. 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
-<h2 id="上传文件">1.3. 上传文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
-<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/" itemprop="url">Parted,kpartx,losetup,sfdisk,e2fsck,resize2fs</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="linux- 根分区修改为 -lvm">1. linux 根分区修改为 lvm</h1>
-<ol type="1">
-<li><p>First Create an LVM partition: <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pvcreate /dev/sdb1</span><br><span class="line">vgcreate vg01  /dev/sdb1</span><br><span class="line">lvcreate -L 100%VG -n lv01 vg01</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Format this new LVM partition with ext3 or ext4 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkfs.ext4 /dev/vg01/lv01</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Create a new mount point and then mount the LVM Partition on it <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount /dev/vg01/lv01  /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Copy all contents of “/” to the newly mounted folder <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -cvpf - --one-file-system --acls --xattrs --selinux / | tar -C /mnt/NEW_ROOT_PARTITION -x</span><br><span class="line">cp -aux /dev /mnt/NEW_ROOT_PARTITION</span><br></pre></td></tr></table></figure></p></li>
-<li><p>edit the file – /mnt/NEW_ROOT_PARTITION/etc/fstab to reflect the new root <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/vg01/lv01      /       ext4    defaults     1 1</span><br></pre></td></tr></table></figure></p></li>
-<li><p>chroot to new filesystem and create initrd with raid and lvm support <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mount --<span class="built_in">bind</span> /dev /mnt/NEW_ROOT_PARTITION/dev</span><br><span class="line">chroot /mnt/NEW_ROOT_PARTITION</span><br><span class="line">mount -t proc /proc /proc</span><br><span class="line">mount -t sysfs /sys /sys</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vgscan</span><br><span class="line">vgchange -ay</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">umount /sys</span><br><span class="line">umount /proc</span><br><span class="line"><span class="built_in">exit</span></span><br><span class="line">mv /mnt/lv0/boot/initrd-`uname -r`.lvm.img /boot</span><br></pre></td></tr></table></figure>
-<ol start="7" type="1">
-<li><p>Edit /boot/grub/grub.conf to point to new root /dev/vg_new_root/lv0 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update-grub</span><br><span class="line">grub-set-default</span><br></pre></td></tr></table></figure></p></li>
-<li><p>Reboot <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">reboot</span><br></pre></td></tr></table></figure></p></li>
-</ol>
-<h1 id="虚拟机增加系统盘根分区大小">2. 虚拟机增加系统盘根分区大小 </h1>
-<pre><code># 此方法适用于分区后连接的空间 , 如果是 swap, 将其删除，并在最末尾建 swap )
-
-# 先增加实例文件大小，可以使用 dd 命令
-$ dd if=/dev/zero of=/tmp/temp_expand bs=1M count=4096（增加 4 GB）
-$ cat /tmp/temp_expand &gt;&gt;/var/lib/libvirt/images/my_vm.img
-
-# 挂载文件至系统，以便找出是否有 swap device
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
-
-# If has swap device, del the swap device
-$ swapDevice=`sfdisk -s -l /dev/loop0 | grep -e &#39;Linux swap&#39; |awk &#39;{print $1}&#39;`
-
-# Del swap
-$ parted -s ${loop} rm ${swap_part_num}
-
-# If does&#39;t have, add the new swap device
-$ parted -s /dev/loop1 &quot;unit mb mkpart primary linux-swap -2048MB -0&quot;
-
-# 或者先只划分空间，再用 mkswap 进行操作
-# 可选的：
-$ mkswap -v1 /dev/mapper/loop1p3
-
-# 重新刷新新增加的 swap 设备
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
-
-# 将新的 lo 设备分区进行打印
-$ sfdisk -d /dev/loop0 &gt;/tmp/sfdisk_dump
-
-# 如果有 swap 分区，则 root 分区为 (root start), (swap start - root start)；如果没有 , 则为 (root start),
-  new_root=401625,14227239      (样例，要修改)
-  converted_root_device=`echo &quot;/dev/loop0p1&quot; | sed -e &#39;s/\//\\\\\//g&#39;`
-$ sed -e &quot;s/^${converted_root_device}.*$/$new_root/&quot; /tmp/sfdisk_dump | sfdisk --no-reread --force /dev/loop1
-
-# 重新刷新新变更的分区
-$ kpartx -d -p p /var/lib/libvirt/images/my_vm.img
-$ kpartx -a -p p /var/lib/libvirt/images/my_vm.img
-
-# fs resize
-$ e2fsck -pv /dev/mapper/loop0p1
-$ resize2fs -f /dev/mapper/loop0p1</code></pre>
-<h1 id="parted- 使用">3. parted 使用 </h1>
-<pre><code># create all 100% space to one part
-$ parted -s /dev/sdb mklabel gpt
-$ parted -a optimal -s /dev/sdb &quot;mkpart primary 0% 100%&quot;
-
-# create other part
-parted -a optimal -s /dev/sdb &quot;mkpart logical 59G 459G&quot;
-parted -a optimal -s /dev/sdb &quot;mkpart logical 459G 859G&quot;
-
-# remove part
-parted -s /dev/sdb rm 2
-parted -s /dev/sdb rm 3</code></pre>
-<h1 id="分区对齐">4. 分区对齐 </h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Parted、kpartx、losetup、sfdisk、e2fsck、resize2fs分区扩盘/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
