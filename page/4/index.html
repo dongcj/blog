@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
         
 
         <div class="post-meta">
@@ -379,8 +379,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -414,25 +414,35 @@
 
       
         
-          <h1 id="买个 -ss- 帐号"> 买个 SS 帐号 </h1>
-<p> 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
-<h1 id="路由刷机"> 路由刷机 </h1>
-<ul>
-<li> 路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code> 注意：不是 WAN 口 </code></li>
-<li> 查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址 </li>
-</ul>
-<figure>
-<img src="http://i.imgur.com/qlfwJ9j.jpg">
-</figure>
-<ul>
-<li> 自己电脑中打开浏览器：http://192.168.1.1 (一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1)</li>
-<li><p> 用户名和密码默认 “admin/admin”</p></li>
-<li><p> 登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “(其实我们是先降级，因为斐讯的默认系统是不让刷机的)。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件 </p></li>
-</ul>
+          <blockquote>
+<p> 参考：<br><a href="http://www.jsxubar.info/category/system-administration/graphite/" target="_blank" rel="noopener">http://www.jsxubar.info/category/system-administration/graphite/</a><br><a href="http://www.jsxubar.info/category/system-administration/page/3/" target="_blank" rel="noopener">http://www.jsxubar.info/category/system-administration/page/3/</a></p>
+</blockquote>
+<blockquote>
+<p> 更多集成 grafana 及 Diamond 请看：<br><a href="http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/" target="_blank" rel="noopener">http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</a></p>
+</blockquote>
+<h1 id="使用 -yum- 安装环境"><a href="# 使用 -yum- 安装环境" class="headerlink" title="使用 yum 安装环境"></a> 使用 yum 安装环境 </h1><pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web
+</code></pre><h1 id="安装并升级为最新的 -zope-interface- 及 -twisted"><a href="# 安装并升级为最新的 -zope-interface- 及 -twisted" class="headerlink" title="安装并升级为最新的 zope.interface 及 twisted"></a> 安装并升级为最新的 zope.interface 及 twisted</h1><pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;
+</code></pre><h1 id="Check-for-missing-dependencies"><a href="#Check-for-missing-dependencies" class="headerlink" title="Check for missing dependencies"></a>Check for missing dependencies</h1><pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
+</code></pre><h1 id="设置权限"><a href="# 设置权限" class="headerlink" title="设置权限"></a> 设置权限 </h1><pre><code>$ chown -R apache:apache /opt/graphite/storage/
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/斐讯K2路由器刷机/#more" rel="contents">
+            <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -567,19 +577,165 @@
 
       
         
-          <h1 id="curl">1. curl</h1>
-<h2 id="下载文件">1.1. 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
-<h2 id="上传文件">1.3. 上传文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
-<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
+          <h1 id="1-curl"><a href="#1-curl" class="headerlink" title="1. curl"></a>1. curl</h1><h2 id="1-1- 下载文件"><a href="#1-1- 下载文件" class="headerlink" title="1.1. 下载文件"></a>1.1. 下载文件 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-2-https- 跳转地址调试"><a href="#1-2-https- 跳转地址调试" class="headerlink" title="1.2. https 跳转地址调试"></a>1.2. https 跳转地址调试 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
+<h2 id="详细信息"><a href="# 详细信息" class="headerlink" title="详细信息"></a> 详细信息 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
+<h2 id="1-3- 上传文件"><a href="#1-3- 上传文件" class="headerlink" title="1.3. 上传文件"></a>1.3. 上传文件 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
+<h2 id="1-4- 下载网页保存为文件名"><a href="#1-4- 下载网页保存为文件名" class="headerlink" title="1.4. 下载网页保存为文件名"></a>1.4. 下载网页保存为文件名 </h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="买个 -SS- 帐号"><a href="# 买个 -SS- 帐号" class="headerlink" title="买个 SS 帐号"></a>买个 SS 帐号 </h1><p> 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机"><a href="# 路由刷机" class="headerlink" title="路由刷机"></a>路由刷机</h1><ul>
+<li>路由器通电，网线一端连接 “ 自己电脑的网口 “，一头连接路由器的 “LAN” 口，<code>注意：不是 WAN 口</code></li>
+<li>查看自己电脑的 “ 网络连接 “，选中 “ 本地连接 “，点击右键，选择 “ 状态 “ -&gt; “ 详细信息 “ 查看自己的 IP 地址</li>
+</ul>
+<p><img src="http://i.imgur.com/qlfwJ9j.jpg" alt=""></p>
+<ul>
+<li>自己电脑中打开浏览器：<a href="http://192.168.1.1" target="_blank" rel="noopener">http://192.168.1.1</a> (一般是 192.168.1.1 这个 IP 地址，IP 前三位和 “ 本地连接 “ 中看到的 IP 一致，但最后一位修改为 1)</li>
+<li><p>用户名和密码默认 “admin/admin”</p>
+</li>
+<li><p>登陆 WEB 后，点击菜单 “ 系统 “ -&gt; “ 升级 “(其实我们是先降级，因为斐讯的默认系统是不让刷机的)。然后浏览本地 “breed_k2_163_v17_breed.bin” 文件</p>
+</li>
+</ul>
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/斐讯K2路由器刷机/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -715,271 +871,54 @@
       
         
           <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: <?php
-$worker = new GearmanWorker();
-$worker->addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = <span class="math inline">\(worker-&gt;work(); if(\)</span>worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; <span class="math inline">\(result = strrev(\)</span>workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: <?php
-$client = new GearmanClient();
-$client->addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;</p>
+<p> 参考 <br>    <a href="http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html" target="_blank" rel="noopener">http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</a><br>    python gearman library home page<br>    <a href="http://samuelks.com/python-gearman/docs/" target="_blank" rel="noopener">http://samuelks.com/python-gearman/docs/</a><br>    Tim Yang：利用 Gearman 来实现远程监控与管理 <br>    <a href="http://timyang.net/linux/gearman-monitor/" target="_blank" rel="noopener">http://timyang.net/linux/gearman-monitor/</a></p>
 </blockquote>
-
+<h1 id="一、安装 -grarmand- 及 -libgearman-devel"><a href="# 一、安装 -grarmand- 及 -libgearman-devel" class="headerlink" title="一、安装 grarmand 及 libgearman-devel"></a> 一、安装 grarmand 及 libgearman-devel</h1><pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)
+</code></pre><h1 id="二、安装 -PHP- 的 -API"><a href="# 二、安装 -PHP- 的 -API" class="headerlink" title="二、安装 PHP 的 API"></a> 二、安装 PHP 的 API</h1><pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install   // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so
+</code></pre><h1 id="三、启动 -gearmand"><a href="# 三、启动 -gearmand" class="headerlink" title="三、启动 gearmand"></a> 三、启动 gearmand</h1><pre><code># (如果使用默认参数，需要开启 IPV6)
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;  --&gt; 根据自己需求设置 --verbose
+$ service gearmand start
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...
+</code></pre><h2 id="1-Worker"><a href="#1-Worker" class="headerlink" title="1. Worker:"></a>1. Worker:</h2><pre><code>&lt;?php
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
+}
+function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
+?&gt;
+</code></pre><h2 id="2-client"><a href="#2-client" class="headerlink" title="2. client:"></a>2. client:</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE 安装与设定</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装软件"> 安装软件 </h1>
-<pre><code># 安装的软件：
-dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
-xinetd-2.3.14-10.el5.x86_64.rpm
-tftp-server-0.42-3.1.x86_64.rpm
-pykickstart-0.43.3-1.el5.noarch.rpm
-system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
-syslinux
-
-# 关闭 selinux &amp; iptables</code></pre>
-<h1 id="dhcp- 配置">dhcp 配置 </h1>
-<pre><code>ddns-update-style interim;
-ignore client-updates;
-allow booting;
-allow bootp;
-class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
-filename &quot;/pxelinux.0&quot;;
-next-server 10.85.138.9;
-}
-subnet 10.85.138.0 netmask 255.255.254.0 {
-option routers 10.85.138.1;
-option subnet-mask 255.255.254.0;
-option domain-name &quot;gwcloud.com&quot;;
-option domain-name-servers 10.85.138.1;
-option time-offset -18000; # Eastern Standard Time
-range dynamic-bootp 10.85.138.100 10.85.138.249;
-default-lease-time 21600;
-max-lease-time 43200;
-}</code></pre>
-<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
-<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
-$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
-$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
-
-
-$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
-<h1 id="配置 -kickstart"> 配置 kickstart</h1>
-<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
-  label linux
-    menu label ^Install or upgrade an existing system
-    menu default
-    kernel vmlinuz
-    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
-
-# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
-<blockquote>
-<p> 附录：完整 DHCP 样例 </p>
-</blockquote>
-<pre><code>ddns-update-style interim;
-ddns-updates on;
-ignore client-updates;
-allow booting;  # for pxe only
-allow bootp;    # for pxe only
-authoritative;  # Do not know what is meaning??
-
-class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
-    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-    filename &quot;/pxelinux.0&quot;;     # for pxe only
-    next-server 192.168.88.1;   # for pxe only
-}
-
-
-class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
-    option host-name = config-option server.ddns-hostname;
-    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-}
-
-
-option host-name = config-option server.ddns-hostname;
-ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-));
-set vendor-string = option vendor-class-identifier;
-
-
-subnet 192.168.88.0 netmask 255.255.255.0 {
-    option routers 192.168.88.1;
-    option subnet-mask 255.255.255.0;
-    option domain-name &quot;gwcloud.cn&quot;;
-    option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
-    # option ntp-servers 192.168.88.1   # set the ntp server
-    option time-offset -18000;          # Eastern Standard Time
-    range dynamic-bootp 192.168.88.100 192.168.88.200;
-    default-lease-time 21600;
-    max-lease-time 43200;
-
-    # the next is bonding the mac to static ip address
-    # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
-    #    fixed-address 192.168.1.30;             # host&#39;s ip address
-}</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1115,16 +1054,15 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
       
         
           <blockquote>
-<p> 建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+<p>建议：<br>如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
 </blockquote>
-<h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+<h3 id="每块硬盘分一个区"><a href="# 每块硬盘分一个区" class="headerlink" title="每块硬盘分一个区"></a>每块硬盘分一个区</h3><pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+  WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+           switch off the mode (command &apos;c&apos;) and change display units to
+           sectors (command &apos;u&apos;).
 
   Command (m for help): n
   Command action
@@ -1158,9 +1096,8 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+  Syncing disks.
+</code></pre><h1 id="更改分区格式"><a href="# 更改分区格式" class="headerlink" title="更改分区格式"></a>更改分区格式</h1><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
 $ fdisk /dev/sdd
@@ -1170,9 +1107,8 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+...
+</code></pre><h1 id="创建 -RAID"><a href="# 创建 -RAID" class="headerlink" title="创建 RAID"></a>创建 RAID</h1><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
 mdadm: layout defaults to n2
@@ -1192,14 +1128,13 @@ md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
       [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
 0948K/sec
 
-unused devices:</code></pre>
-<h1 id="给 -md0- 设备创建分区和文件系统"> 给 md0 设备创建分区和文件系统 </h1>
-<pre><code>$ fdisk /dev/md0
+unused devices:
+</code></pre><h1 id="给 -md0- 设备创建分区和文件系统"><a href="# 给 -md0- 设备创建分区和文件系统" class="headerlink" title="给 md0 设备创建分区和文件系统"></a>给 md0 设备创建分区和文件系统</h1><pre><code>$ fdisk /dev/md0
 $ mkfs.ext4 /dev/md0p1
 
 $ mkdir /raid10
-$ mount /dev/md0p1 /raid10</code></pre>
-<h1 id="修改 -etcfstab- 启动时自动挂载"> 修改 /etc/fstab 启动时自动挂载 </h1>
+$ mount /dev/md0p1 /raid10
+</code></pre><h1 id="修改 -etc-fstab- 启动时自动挂载"><a href="# 修改 -etc-fstab- 启动时自动挂载" class="headerlink" title="修改 /etc/fstab 启动时自动挂载"></a>修改 /etc/fstab 启动时自动挂载</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
