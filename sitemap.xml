@@ -149,14 +149,7 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/</loc>
+    <loc>http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -170,7 +163,7 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -178,6 +171,13 @@
   
   <url>
     <loc>http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -205,14 +205,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Bind%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.dongcj.com/linux/Bind%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
