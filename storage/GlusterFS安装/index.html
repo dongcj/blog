@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS  $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo  安装软件 yum install glust">
+<meta name="description" content="参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS  $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo  安装软件  yum install">
 <meta name="keywords" content="gluster,dfs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GlusterFS 安装">
 <meta property="og:url" content="http://blog.dongcj.com/storage/GlusterFS安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS  $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo  安装软件 yum install glust">
+<meta property="og:description" content="参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS  $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo  安装软件  yum install">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GlusterFS 安装">
-<meta name="twitter:description" content="参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS  $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo  安装软件 yum install glust">
+<meta name="twitter:description" content="参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS  $ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo  安装软件  yum install">
 
 
 
@@ -412,17 +412,19 @@
 
       
         <blockquote>
-<p> 参考： <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="noopener">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
+<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
 </blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo
-</code></pre><h1 id="安装软件"><a href="# 安装软件" class="headerlink" title="安装软件"></a> 安装软件 </h1><pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64
-</code></pre><blockquote>
-<p> 如遇到以下错误：<br>    Transaction check error:<br>    file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package  lvm2-7:2.02.105-14.el7.x86_64<br>    file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64<br>    file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
+<h1 id="安装软件"> 安装软件 </h1>
+<pre><code>yum install glusterfs{,-fuse,-server}
+yum install glusterfs-geo-replication.x86_64</code></pre>
+<blockquote>
+<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
 </blockquote>
 <pre><code># 删除 lvm2
-$ rpm -e lvm2
-</code></pre><h1 id="挂载分区及配置防火墙"><a href="# 挂载分区及配置防火墙" class="headerlink" title="挂载分区及配置防火墙"></a> 挂载分区及配置防火墙 </h1><pre><code># mkdir
+$ rpm -e lvm2</code></pre>
+<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
+<pre><code># mkdir
 $ mkdir /export/brick1
 
 # 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
@@ -434,8 +436,9 @@ $ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
 $ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
 $ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
 --add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload
-</code></pre><h1 id="启动 -glusterd- 服务"><a href="# 启动 -glusterd- 服务" class="headerlink" title="启动 glusterd 服务"></a> 启动 glusterd 服务 </h1><pre><code>$ service glusterd start
+$ firewall-cmd --reload</code></pre>
+<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
+<pre><code>$ service glusterd start
 
 # if centos7:
 $ systemctl enable glusterd
@@ -464,8 +467,9 @@ $ gluster volume stop gv0
 # delete Volume
 $ gluster volume delete gv0
 
-$ gluster peer detach NAME_OF_PEERNODE
-</code></pre><h1 id="Test-Gluster-volume"><a href="#Test-Gluster-volume" class="headerlink" title="Test Gluster volume"></a>Test Gluster volume</h1><pre><code># mount to /mnt
+$ gluster peer detach NAME_OF_PEERNODE</code></pre>
+<h1 id="test-gluster-volume">Test Gluster volume</h1>
+<pre><code># mount to /mnt
 $ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt
 
 $ vi /etc/fstab
@@ -482,10 +486,11 @@ $ systemctl restart glusterd.service
 $ gluster volume set gv0 nfs.disable off
 $ gluster volume start gv0 force
 
-$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
-</code></pre><h1 id="配置 -Quorum"><a href="# 配置 -Quorum" class="headerlink" title="配置 Quorum()"></a> 配置 Quorum()</h1><pre><code>......
-</code></pre><blockquote>
-<p> 参考 : <a href="https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS" target="_blank" rel="noopener">https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</a></p>
+$ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs</code></pre>
+<h1 id="配置 -quorum"> 配置 Quorum()</h1>
+<pre><code>......</code></pre>
+<blockquote>
+<p> 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
 </blockquote>
 
       
@@ -541,8 +546,8 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/monitor/Graphite安装/" rel="next" title="Graphite 安装">
-                <i class="fa fa-chevron-left"></i> Graphite 安装
+              <a href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" rel="next" title="Curl、resty、httpie、httpstat、wuzz 使用介绍">
+                <i class="fa fa-chevron-left"></i> Curl、resty、httpie、httpstat、wuzz 使用介绍
               </a>
             
           </div>
@@ -551,8 +556,8 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/DHCP高级配置/" rel="prev" title="DHCP 高级配置">
-                DHCP 高级配置 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Puppet安装/" rel="prev" title="Puppet 安装">
+                Puppet 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -718,7 +723,7 @@ $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装软件"><span class="nav-text"> 安装软件 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载分区及配置防火墙"><span class="nav-text"> 挂载分区及配置防火墙 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动 -glusterd- 服务"><span class="nav-text"> 启动 glusterd 服务 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Test-Gluster-volume"><span class="nav-text">Test Gluster volume</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置 -Quorum"><span class="nav-text"> 配置 Quorum()</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装软件"><span class="nav-text"> 安装软件 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#挂载分区及配置防火墙"><span class="nav-text"> 挂载分区及配置防火墙 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动 -glusterd- 服务"><span class="nav-text"> 启动 glusterd 服务 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#test-gluster-volume"><span class="nav-text">Test Gluster volume</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置 -quorum"><span class="nav-text"> 配置 Quorum()</span></a></li></ol></div>
             
 
           </div>

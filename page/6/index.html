@@ -414,12 +414,15 @@
 
       
         
-          <h1 id="yum- 更新"><a href="#yum- 更新" class="headerlink" title="yum 更新"></a>yum 更新 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
+          <h1 id="yum- 更新">yum 更新 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
 <pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
 rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm
-</code></pre><h2 id="epel- 源 -elrepo-org"><a href="#epel- 源 -elrepo-org" class="headerlink" title="epel 源 (elrepo.org)"></a>epel 源 (elrepo.org)</h2><pre><code>yum install epel-release
-</code></pre><h2 id="elrepo-update-kernel"><a href="#elrepo-update-kernel" class="headerlink" title="elrepo(update kernel)"></a>elrepo(update kernel)</h2><pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
+rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
+<h2 id="epel- 源 -elrepo.org">epel 源 (elrepo.org)</h2>
+<pre><code>yum install epel-release</code></pre>
+<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
+<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
 
 # (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
 rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
@@ -427,9 +430,12 @@ rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 # redhat/centos 6
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
 rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm
-</code></pre><h1 id="redhat-centos-7-only-have-x86-64-packages"><a href="#redhat-centos-7-only-have-x86-64-packages" class="headerlink" title="redhat/centos 7 only have x86_64 packages"></a>redhat/centos 7 only have x86_64 packages</h1><pre><code>rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
-</code></pre><h2 id="CentOS- 中国科学技术大学 -USTC-mirror- 每小时更新一次"><a href="#CentOS- 中国科学技术大学 -USTC-mirror- 每小时更新一次" class="headerlink" title="CentOS 中国科学技术大学 USTC mirror( 每小时更新一次)"></a>CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
+rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
+<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
+<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次">CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
+<blockquote>
+<p> 地址：http://centos.ustc.edu.cn/</p>
+</blockquote>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
@@ -568,18 +574,16 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
       
         
           <blockquote>
-<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="noopener">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
+<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
 </blockquote>
-<h1 id="1- 用 -autossh- 保证 -ssh- 隧道稳定性"><a href="#1- 用 -autossh- 保证 -ssh- 隧道稳定性" class="headerlink" title="1. 用 autossh 保证 ssh 隧道稳定性 :"></a>1. 用 autossh 保证 ssh 隧道稳定性 :</h1><pre><code>autossh -M 5122 -N -v -D localhost:8527 root@remote_ssh_server -p remote_ssh_port  
-</code></pre><h1 id="2-autossh- 代理"><a href="#2-autossh- 代理" class="headerlink" title="2. autossh 代理"></a>2. autossh 代理 </h1><pre><code>export AUTOSSH_PIDFILE=/var/run/autossh.pid
-export AUTOSSH_POLL=60
-export AUTOSSH_FIRST_POLL=30
-export AUTOSSH_GATETIME=0
-export AUTOSSH_DEBUG=1
-autossh -M 0 -4 -fN -R 8366:127.0.0.1:22 -o &quot;ServerAliveInterval 60&quot; \
-    -o &quot;ServerAliveCountMax 3&quot; -o BatchMode=yes \
-    -o StrictHostKeyChecking=no -p 46178  root@HOSTNAME
-</code></pre>
+<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性">1. 用 autossh 保证 ssh 隧道稳定性</h1>
+<h2 id="设置到 -etcrc.local">1.1. 设置到 /etc/rc.local</h2>
+<blockquote>
+<p>注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h2 id="设置运行权限别忘记了">1.2. 设置运行权限，别 <code> 忘记 </code> 了</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
+
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Autossh/#more" rel="contents">
@@ -717,7 +721,8 @@ autossh -M 0 -4 -fN -R 8366:127.0.0.1:22 -o &quot;ServerAliveInterval 60&quot; \
 
       
         
-          <h1 id="screen- 后台"><a href="#screen- 后台" class="headerlink" title="screen 后台"></a>screen 后台 </h1><pre><code>screen -ls -&gt; 列出当前所有的 session
+          <h1 id="screen- 后台">screen 后台 </h1>
+<pre><code>screen -ls -&gt; 列出当前所有的 session
 screen -r yourname -&gt; 回到 yourname 这个 session
 screen -d yourname -&gt; 远程 detach 某个 session
 screen -d -r yourname -&gt; 结束当前 session 并回到 yourname 这个 session
@@ -727,12 +732,15 @@ screen -x &lt;SESSION_NAME&gt;
 
 screen -X -S [session_you_want_to_kill] quit
 
-screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
-</code></pre><h1 id="nohup- 后台"><a href="#nohup- 后台" class="headerlink" title="nohup 后台"></a>nohup 后台 </h1><pre><code>nohup ping www.ibm.com &amp;
-</code></pre><h1 id="setsid- 后台"><a href="#setsid- 后台" class="headerlink" title="setsid 后台"></a>setsid 后台 </h1><pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)
-</code></pre><h1 id="subshell- 后台"><a href="#subshell- 后台" class="headerlink" title="subshell 后台"></a>subshell 后台 </h1><pre><code>(ping www.ibm.com &amp;)
-</code></pre><h1 id="disown- 后台"><a href="#disown- 后台" class="headerlink" title="disown 后台"></a>disown 后台 </h1><pre><code>disown -h JOBID
-</code></pre>
+screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;</code></pre>
+<h1 id="nohup- 后台">nohup 后台 </h1>
+<pre><code>nohup ping www.ibm.com &amp;</code></pre>
+<h1 id="setsid- 后台">setsid 后台 </h1>
+<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)</code></pre>
+<h1 id="subshell- 后台">subshell 后台 </h1>
+<pre><code>(ping www.ibm.com &amp;)</code></pre>
+<h1 id="disown- 后台">disown 后台 </h1>
+<pre><code>disown -h JOBID</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Screen、nohup、setsid、disown后台运行/#more" rel="contents">
@@ -873,10 +881,12 @@ screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;
           <blockquote>
 <p> 参考：</p>
 </blockquote>
-<p><a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="noopener">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a></p>
-<p>DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="noopener">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
-<h1 id="1- 安装"><a href="#1- 安装" class="headerlink" title="1. 安装"></a>1. 安装 </h1><pre><code>$ rpm -ivh bind bind-chroot
-</code></pre><h1 id="2- 配置"><a href="#2- 配置" class="headerlink" title="2. 配置"></a>2. 配置 </h1><pre><code>1. 生成 rndc key
+<p>http://linux.vbird.org/linux_server/0350dns.php#server_settings</p>
+<p>DDNS 的安装见：http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
+<h1 id="安装">1. 安装 </h1>
+<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
+<h1 id="配置">2. 配置 </h1>
+<pre><code>1. 生成 rndc key
 
 $ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
 
@@ -1004,8 +1014,9 @@ logging {                               // 防止外部服务器错误导致 log
 
         category lame-servers {null;};
 
-};
-</code></pre><h1 id="3-zone- 配置"><a href="#3-zone- 配置" class="headerlink" title="3. zone 配置"></a>3. zone 配置 </h1><pre><code>1. 正向 zone 内网配置
+};</code></pre>
+<h1 id="zone- 配置">3. zone 配置 </h1>
+<pre><code>1. 正向 zone 内网配置
 
 $ vi /var/named/named.xdol.vicp.net
 
@@ -1093,8 +1104,8 @@ $TTL    600
 
 109     IN      PTR     www.xdol.vicp.net.
 
-246     IN      PTR     client.xdol.vicp.net.
-</code></pre><h1 id="4- 启动服务"><a href="#4- 启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务 </h1>
+246     IN      PTR     client.xdol.vicp.net.</code></pre>
+<h1 id="启动服务">4. 启动服务 </h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
@@ -1232,18 +1243,22 @@ $TTL    600
 
       
         
-          <h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-<h1 id="配置"><a href="# 配置" class="headerlink" title="配置"></a> 配置 </h1><blockquote>
+          <h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<h1 id="配置"> 配置 </h1>
+<blockquote>
 <p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 id="启动"><a href="# 启动" class="headerlink" title="启动"></a> 启动 </h1><pre><code>$ service supervisord start
+<h1 id="启动"> 启动 </h1>
+<pre><code>$ service supervisord start
 
-&gt; 如果使用 pip 安装，需要自已写启动脚本
-</code></pre><h1 id="检查安装"><a href="# 检查安装" class="headerlink" title="检查安装"></a> 检查安装 </h1><pre><code># 如下即表示正常
+&gt; 如果使用 pip 安装，需要自已写启动脚本 </code></pre>
+<h1 id="检查安装"> 检查安装 </h1>
+<pre><code># 如下即表示正常
 supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
-</code></pre>
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
