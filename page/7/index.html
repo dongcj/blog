@@ -655,155 +655,6 @@ dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --addr
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/常用监控工具/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/monitor/常用监控工具/" itemprop="url">常用监控工具</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-05-04T08:50:10+08:00">
-                2016-05-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/monitor/" itemprop="url" rel="index">
-                    <span itemprop="name">monitor</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="sysdig">1. Sysdig</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 网络</span></span><br><span class="line">sysdig -c topprocs_net      <span class="comment"># 查看网络带宽占用最多的进程</span></span><br><span class="line">sysdig -c fdcount_by fd.sport <span class="string">"evt.type=accept"</span>         <span class="comment"># 查看连接最多的服务端口</span></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">sysdig -c fdcount_by fd.cip <span class="string">"evt.type=accept"</span>           <span class="comment"># 查看客户端连接最多的 IP_ADDR_OF_SERVER</span></span><br><span class="line">sysdig -p <span class="string">"%proc.name %fd.name"</span> <span class="string">"evt.type=accept and proc.name != httpd"</span>    <span class="comment"># 列出不是访问 apache 服务的访问连接</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># IO</span></span><br><span class="line">sysdig -c topprocs_file     <span class="comment"># 查看使用硬盘带宽最多的进程</span></span><br><span class="line">sysdig -c fdcount_by proc.name <span class="string">"fd.type=file"</span>           <span class="comment"># 列出使用大量文件描述符的进程</span></span><br><span class="line">sysdig -c fdbytes_by fd.directory <span class="string">"fd.type=file"</span>        <span class="comment"># 读写磁盘最多的目录</span></span><br><span class="line">sysdig -c fdbytes_by fd.filename <span class="string">"fd.directory=/tmp/"</span>   <span class="comment"># /tmp 中读写最多的文件</span></span><br><span class="line">sysdig -c fdbytes_by fd.type                            <span class="comment"># 动态根据 FD 的类型显示 I/O</span></span><br><span class="line">sysdig -A -c echo_fds <span class="string">"fd.filename=passwd"</span>              <span class="comment"># 动态跟踪所有名为 passwd 的文件的 I/O</span></span><br><span class="line">sysdig -c topfiles_bytes    <span class="comment"># 读写字节最多的文件</span></span><br><span class="line">sysdig -c topfiles_bytes proc.name=httpd    <span class="comment"># 读写字节最多的 APACHE 文件</span></span><br><span class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open   <span class="comment"># 侦测文件被打开</span></span><br><span class="line"></span><br><span class="line">sysdig -c topprocs_cpu                          <span class="comment"># 观察 CPU 占用最高的进程</span></span><br><span class="line">sysdig -c topprocs_cpu evt.cpu=0                <span class="comment"># 观察 CPU0 的最高占用</span></span><br><span class="line">sysdig -s4096 -A -c stdout proc.name=nginx        <span class="comment"># 观察 cat 进程的输出</span></span><br><span class="line"></span><br><span class="line">sysdig -c topfiles_time</span><br><span class="line">sysdig -c topfiles_time proc.name=httpd</span><br><span class="line">sysdig -c topprocs_errors</span><br><span class="line">sysdig -c topfiles_errors</span><br><span class="line">sysdig fd.type=file and evt.failed=<span class="literal">true</span></span><br><span class="line">sysdig <span class="string">"proc.name=httpd and evt.type=open and evt.failed=true"</span></span><br><span class="line">sysdig -c topscalls_time</span><br><span class="line">sysdig -c topscalls <span class="string">"evt.failed=true"</span></span><br><span class="line">sysdig -p <span class="string">"%12user.name %6proc.pid %12proc.name %3fd.num %fd.typechar %fd.name"</span> evt.type=open and evt.failed=<span class="literal">true</span></span><br><span class="line">sysdig -c fileslower 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安全</span></span><br><span class="line">sysdig -p<span class="string">"%evt.arg.path"</span> <span class="string">"evt.type=chdir and user.name=root"</span></span><br><span class="line">sysdig -A -c echo_fds fd.name=/dev/ptmx and proc.name=sshd</span><br><span class="line">sysdig evt.type=open and fd.name contains /etc</span><br><span class="line">sysdig -r file.scap -c list_login_shells tar</span><br><span class="line">sysdig -r trace.scap.gz -c spy_users proc.loginshellid=5459</span><br><span class="line"></span><br><span class="line"><span class="comment"># 容器</span></span><br><span class="line">sysdig -vcontainers         <span class="comment"># 容器列表及资源使用情况</span></span><br><span class="line">sysdig -pc                  <span class="comment"># 容器上下文列表</span></span><br><span class="line">sysdig -pc -c topprocs_cpu container.name=wordpress     <span class="comment"># 查看 wordpress 容器 CPU 占用率最高的进程</span></span><br><span class="line">sysdig -pc -c topprocs_net container.name=wordpress     <span class="comment"># 查看 wordpress 容器 net 占用率最高的进程</span></span><br><span class="line">sysdig -pc -c topconns container.name=wordpress         <span class="comment"># 查看 wordpress 容器 net 连接的排名情况</span></span><br><span class="line">sysdig -pc -c topfiles_bytes container.name=wordpress   <span class="comment"># 查看 wordpress 容器 I/O 字节最多的文件</span></span><br><span class="line">sysdig -pc -c spy_users container.name=wordpress        <span class="comment"># 查看 wordpress 容器所有命令的执行情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 应用</span></span><br><span class="line">sysdig -s2000 -X -c echo_fds fd.cip=192.168.1.20                        <span class="comment"># 显示主机 192.168.1.20 的网络传输数据</span></span><br><span class="line">sysdig -s 2000 -A -c echo_fds fd.port=80 and evt.buffer contains GET    <span class="comment"># 查看机器所有的 HTTP 请求</span></span><br><span class="line">sysdig -s 2000 -A -c echo_fds evt.buffer contains SELECT                <span class="comment"># 查看机器所有的 SQL 查询</span></span><br><span class="line">sysdig -s 2000 -A -c echo_fds fd.sip=192.168.30.5 and \</span><br><span class="line">  proc.name=apache2 and evt.buffer contains SELECT                      <span class="comment"># 查看来自 APACHE 的 SQL 查询</span></span><br></pre></td></tr></table></figure>
-<h1 id="bcc">2. BCC</h1>
-<blockquote>
-<p><a href="https://github.com/iovisor/bcc" class="uri" target="_blank" rel="noopener">https://github.com/iovisor/bcc</a></p>
-</blockquote>
-<h1 id="常用工具">3. 常用工具</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">uptime          <span class="comment"># CPU + Disks 的测量，1，5，15 分钟</span></span><br><span class="line">ps -eLf         <span class="comment"># 打印线程</span></span><br><span class="line">ps -ef f        <span class="comment"># 打印进程树</span></span><br><span class="line">pstree -alpha &lt;PID&gt;    <span class="comment"># 查看某进程的详细情况</span></span><br><span class="line"></span><br><span class="line">free                  <span class="comment"># 查看内存占用情况（下面有详细的说明）</span></span><br><span class="line">top/atop/htop/gtop    <span class="comment"># 查看进程活动状态以及一些系统状况 , 常用 htop</span></span><br><span class="line">rtop        <span class="comment"># 远程通过 ssh 查看其它服务器的信息</span></span><br><span class="line">vtop        <span class="comment"># node.js 的 console 查看服务器状态</span></span><br><span class="line">iotop       <span class="comment"># 查看硬盘状况排序  （通常使用 iotop -Pao -d 2 )</span></span><br><span class="line"></span><br><span class="line">vmstat   <span class="comment"># 综合工具  （通常使用   vmstat 1 50     注：每秒显示 1 次，共显示 50 次）</span></span><br><span class="line">dstat    <span class="comment"># 综合工具  （通常使用   dstat -cmdnlpsy     注：显示所有）</span></span><br><span class="line">nmon     <span class="comment"># 综合工具  （可以使用 nmon -F OnlyForTest -s 5 -c 100 来 每 5 秒记录一次，共记录 100 次并存储文件，然后使用 `nmon analyzer` 进行分析）     </span></span><br><span class="line">                          </span><br><span class="line">glances  <span class="comment"># 综合工具</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># xxx 表示进程 id 或 pid</span></span><br><span class="line">/proc/cpuinfo，/proc/meminfo，/proc/cmdline，/proc/xxx/cwd，/proc/xxx/exe，/proc/xxx/fd/，/proc/xxx/smaps</span><br></pre></td></tr></table></figure>
-<h1 id="sysstat- 包含工具">4. sysstat 包含工具</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sar         <span class="comment"># 综合工具 , 查看历史 iowait 值 (Collect, report, or save system activity information)</span></span><br><span class="line">sadf        <span class="comment"># -x 可以使用 xml 格式打印信息</span></span><br><span class="line">pidstat     <span class="comment"># 打印进程信息 (Report statistics for Linux tasks, 有占用信息)</span></span><br><span class="line">cifsiostat  <span class="comment"># 查看 windows 共享的 io 状况</span></span><br><span class="line">mpstat      <span class="comment"># 查看多处理器状况    （通常使用   mpstat -P ALL 5 2   注：对所有 CPU，每次花费 5 秒收集 5 个，共收集 2 次的）</span></span><br><span class="line">iostat      <span class="comment"># 查看 CPU 负载，硬盘状况   （通常使用   iostat -xnz 1）</span></span><br></pre></td></tr></table></figure>
-<h1 id="网络监测工具">5. 网络监测工具</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">ifstat/bwm/nethogs      <span class="comment"># 查看网络 in/out 状况  ifstat  -i eno1  5 (5 指秒显示 一次）</span></span><br><span class="line">iftop/iptraf            <span class="comment"># 实时网络状况监测 (常用 -pn)，查找正在使用带宽的套接字连接或进程</span></span><br><span class="line">netstat                 <span class="comment"># 查看网络状况 (常用 -tupnl)</span></span><br><span class="line">       netstat -p &lt;PID&gt; <span class="comment"># 可以查看该进程的所有调用文件</span></span><br><span class="line">slurm                   <span class="comment"># yet another network load monitor</span></span><br><span class="line"></span><br><span class="line">tcpdump         <span class="comment"># 抓取网络数据包，详细分析</span></span><br><span class="line">wireshark       <span class="comment"># 抓取网络数据包，详细分析</span></span><br><span class="line">tcptrace        <span class="comment"># 数据包分析工具 (windows 下有，不在 linux 默认，需要安装)</span></span><br><span class="line">tcptrack        <span class="comment"># monitor your server network connections and bandwidth </span></span><br><span class="line">tshark</span><br><span class="line">ngrep           ngrep -qd any -W byline . tcp dst port 2003    <span class="comment">## any 匹配所有接口，. 匹配所有内容 目标端口为 2003 的包</span></span><br><span class="line">                ngrep  -qd any -W byline <span class="string">"^(GET|POST)"</span>  port not 22</span><br><span class="line">                <span class="comment"># 相当于：</span></span><br><span class="line">                tcpdump <span class="string">'port 5901 and (host 192.168.109.1)'</span></span><br><span class="line"></span><br><span class="line">iperf       <span class="comment"># 测试 TCP 和 UDP 带宽质量</span></span><br><span class="line">            <span class="comment"># 服务端 : iperf [-u] -s    客户端 : iperf [-u] -c IP_ADDR_OF_SERVER  -f M   -t 60    -P 30   -b  100M</span></span><br><span class="line">                                              (-u UDP 测试 ;  -f 单位 , 可以是 kmKM;  -t 测试时间 ;  -P 线程数 ;  -b 测试数据包大小)</span><br><span class="line"></span><br><span class="line">speed-test          <span class="comment"># 网速测试工具 npm install --global speed-test</span></span><br><span class="line">traceroute/mtr/dig  <span class="comment"># trace 工具</span></span><br><span class="line"></span><br><span class="line">ss -l/-s            <span class="comment"># Socket Statistics</span></span><br><span class="line">pstree -alpha       <span class="comment"># ps 树形列表</span></span><br><span class="line">pstree -al pid      <span class="comment"># 单个进程的树形列表</span></span><br><span class="line"></span><br><span class="line">lsof -iTCP -sTCP:ESTABLISHED    <span class="comment"># tcp/udp 网络服务</span></span><br><span class="line">lsof -i :22                     <span class="comment"># 知道 22 端口现在运行什么程序</span></span><br><span class="line">lsof -c abc                     <span class="comment"># 显示 abc 进程现在打开的文件</span></span><br><span class="line">lsof -p 12                      <span class="comment"># 看进程号为 12 的进程打开了哪些文件 , 等同于 pmap 12 和 netstat -p 12</span></span><br><span class="line">lsof -U                         <span class="comment"># 列出所有的 socket, 等同于 ss -l</span></span><br><span class="line">lsof | grep FILEorDir           <span class="comment"># 查看文件被哪个进程打个</span></span><br><span class="line">lsof | grep deleted | grep <span class="string">"filename-of-my-big-file"</span>    <span class="comment"># 文件删除了，但是还占用空间</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/monitor/常用监控工具/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/web/Nginx配置location总结及rewrite规则写法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1203,7 +1054,7 @@ location / {proxy_pass http://tomcat:8080/}</code></pre>
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1225,7 +1076,7 @@ location / {proxy_pass http://tomcat:8080/}</code></pre>
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-count">67</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
