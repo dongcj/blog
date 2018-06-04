@@ -484,10 +484,7 @@ openssl x509 -req -days 3650 -in server.csr -signkey server.key -out server.crt<
 <pre><code>arping -U 10.85.138.111 -A -I br0 -c 1（需要 10.85.138.111 这个 IP 在本机上）</code></pre>
 <h1 id="snip">8. snip</h1>
 <h2 id="find- 按时间查找文件">8.1. find 按时间查找文件</h2>
-<pre><code># touch 来新建一个合适的参照文件
-$ touch -t 201205280000 reference_file
-$ find . -newer reference_file
-$ find . ! -newer reference_file</code></pre>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># touch 来新建一个合适的参照文件</span></span><br><span class="line">$ touch -t 201205280000 reference_file</span><br><span class="line">$ find . -newer reference_file</span><br><span class="line">$ find . ! -newer reference_file</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 分钟内变更过的 php 文件</span></span><br><span class="line">find / -name <span class="string">'*.php'</span> -<span class="built_in">type</span> f -mmin -3</span><br></pre></td></tr></table></figure>
 <h2 id="查看父进程与子进程树">8.2. 查看父进程与子进程树</h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ps axf  显示关系</span><br><span class="line">ps aux  显示 CPU/MEM</span><br><span class="line">ps aux | cat -   可以显示完整的命令行参数</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> iso</span><br><span class="line">rm -f md5sums; find -<span class="built_in">type</span> f -not -name md5sums -not -name boot.cat -<span class="built_in">exec</span> md5sum &#123;&#125; \; &gt;&gt; md5sums.txt</span><br></pre></td></tr></table></figure>
 <h1 id="rpm-usage">9. rpm usage</h1>
