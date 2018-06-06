@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  1. 用 autossh 保证 ssh 隧道稳定性1.1. 设置到 /etc/rc.local 注意：使用 -f 参数需要先设置 ssh 信任关系123#!/bin/shautossh -M 5678 -o &quot;StrictHostKeyChecking no&quot; -o">
+<meta name="description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  1. 用 autossh 保证 ssh 隧道稳定性 1.1. 设置到 /etc/rc.local  注意：使用 -f 参数需要先设置 ssh 信任关系 123#!/bin/shautossh -M 5678 -o &quot;StrictHostKeyCheckin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Autossh">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Autossh/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  1. 用 autossh 保证 ssh 隧道稳定性1.1. 设置到 /etc/rc.local 注意：使用 -f 参数需要先设置 ssh 信任关系123#!/bin/shautossh -M 5678 -o &quot;StrictHostKeyChecking no&quot; -o">
+<meta property="og:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  1. 用 autossh 保证 ssh 隧道稳定性 1.1. 设置到 /etc/rc.local  注意：使用 -f 参数需要先设置 ssh 信任关系 123#!/bin/shautossh -M 5678 -o &quot;StrictHostKeyCheckin">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-04T08:32:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Autossh">
-<meta name="twitter:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  1. 用 autossh 保证 ssh 隧道稳定性1.1. 设置到 /etc/rc.local 注意：使用 -f 参数需要先设置 ssh 信任关系123#!/bin/shautossh -M 5678 -o &quot;StrictHostKeyChecking no&quot; -o">
+<meta name="twitter:description" content="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html  1. 用 autossh 保证 ssh 隧道稳定性 1.1. 设置到 /etc/rc.local  注意：使用 -f 参数需要先设置 ssh 信任关系 123#!/bin/shautossh -M 5678 -o &quot;StrictHostKeyCheckin">
 
 
 
@@ -411,12 +411,15 @@
 
       
         <blockquote>
-<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="noopener">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
+<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
 </blockquote>
-<h1 id="1- 用 -autossh- 保证 -ssh- 隧道稳定性"><a href="#1- 用 -autossh- 保证 -ssh- 隧道稳定性" class="headerlink" title="1. 用 autossh 保证 ssh 隧道稳定性"></a>1. 用 autossh 保证 ssh 隧道稳定性</h1><h2 id="1-1- 设置到 -etc-rc-local"><a href="#1-1- 设置到 -etc-rc-local" class="headerlink" title="1.1. 设置到 /etc/rc.local"></a>1.1. 设置到 /etc/rc.local</h2><blockquote>
-<p>注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
+<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性">1. 用 autossh 保证 ssh 隧道稳定性</h1>
+<h2 id="设置到 -etcrc.local">1.1. 设置到 /etc/rc.local</h2>
+<blockquote>
+<p>注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<h2 id="1-2- 设置运行权限，别忘记了"><a href="#1-2- 设置运行权限，别忘记了" class="headerlink" title="1.2. 设置运行权限，别忘记了"></a>1.2. 设置运行权限，别 <code> 忘记 </code> 了</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
+<h2 id="设置运行权限别忘记了">1.2. 设置运行权限，别 <code> 忘记 </code> 了</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -473,8 +476,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/dns/Dnsmasq使用本地host为DNS/" rel="prev" title="Dnsmasq 使用本地 Hosts 配置提供 DNS 服务">
-                Dnsmasq 使用本地 Hosts 配置提供 DNS 服务 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/RedHat、CentOS国内备用安装源/" rel="prev" title="安装源_RedHat,CentOS 备用源">
+                安装源_RedHat,CentOS 备用源 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -640,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1- 用 -autossh- 保证 -ssh- 隧道稳定性"><span class="nav-text">1. 用 autossh 保证 ssh 隧道稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1- 设置到 -etc-rc-local"><span class="nav-text">1.1. 设置到 /etc/rc.local</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2- 设置运行权限，别忘记了"><span class="nav-text">1.2. 设置运行权限，别  忘记  了</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用 -autossh- 保证 -ssh- 隧道稳定性"><span class="nav-text">1. 用 autossh 保证 ssh 隧道稳定性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置到 -etcrc.local"><span class="nav-text">1.1. 设置到 /etc/rc.local</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置运行权限别忘记了"><span class="nav-text">1.2. 设置运行权限，别  忘记  了</span></a></li></ol></li></ol></div>
             
 
           </div>
