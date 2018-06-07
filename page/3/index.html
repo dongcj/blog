@@ -657,308 +657,6 @@ rake RAILS_ENV=production db:migrate</code></pre>
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/database/Postgresql主从配置/" itemprop="url">Postgresql 主从配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装好二台 -postgresql"> 安装好二台 postgresql</h1>
-<blockquote>
-<p> 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主服务器上 </span></span><br><span class="line">vi /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PGDATA=/pgdata</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从服务器上 </span></span><br><span class="line">vi /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h1 id="配置主服务器 -192.168.10.11"> 配置主服务器 192.168.10.11</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 root 帐户 </span></span><br><span class="line">mkdir /pgdata</span><br><span class="line">chown -R postgres:postgres /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置一个账号进行主从同步 </span></span><br><span class="line">su - postgres</span><br><span class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></span><br><span class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加 replica 用户 </span></span><br><span class="line"><span class="built_in">cd</span> /pgdata</span><br><span class="line">vi pg_hba.conf</span><br><span class="line">  host    replication     replica       192.168.10.12/32               md5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置复制参数 </span></span><br><span class="line">vi postgresql.conf</span><br><span class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></span><br><span class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></span><br><span class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></span><br><span class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></span><br><span class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改权限 </span></span><br><span class="line">chmod -R 700 /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 pg</span></span><br><span class="line">pg_ctl restart</span><br></pre></td></tr></table></figure>
-<h1 id="配置从服务器 -192.168.10.12"> 配置从服务器 192.168.10.12</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 root 帐户 </span></span><br><span class="line">mkdir /pgdata_backup</span><br><span class="line">chown -R postgres:postgres /pgdata_backup/</span><br><span class="line"></span><br><span class="line">su - postgres</span><br><span class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</span><br><span class="line"><span class="comment"># password is: replica</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /pgdata_backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置 </span></span><br><span class="line">vi recovery.conf</span><br><span class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></span><br><span class="line">recovery_target_timeline = <span class="string">'latest'</span></span><br><span class="line">standby_mode = on</span><br><span class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置 </span></span><br><span class="line">vi postgresql.conf</span><br><span class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></span><br><span class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></span><br><span class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></span><br><span class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></span><br><span class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></span><br><span class="line"></span><br><span class="line">chmod -R 700 /pgdata_backup/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动从 pg</span></span><br><span class="line">pg_ctl start</span><br></pre></td></tr></table></figure>
-<h1 id="检测配置是否成功"> 检测配置是否成功 </h1>
-<pre><code># 使用 ps -ef 在主从二台上检测进程状态
-# 在主上应该有 sender 进程，在从上有 receiver 进程
-
-# 在主上查看复制状态
-$ psql$ select * from pg_stat_replication;
-
-# 可以看到 sender 的进程信息 </code></pre>
-<h1 id="主从切换命令"> 主从切换命令 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># node1 上模拟主库故障 </span></span><br><span class="line">[postgres@node1 ~]$ pg_ctl stop -m f</span><br><span class="line"></span><br><span class="line"><span class="comment"># node2 提升备库状态 </span></span><br><span class="line">[postgres@node2 ~]$ pg_ctl promote</span><br><span class="line"></span><br><span class="line"><span class="comment"># node2 更新备数据 </span></span><br><span class="line">[postgres@node2 ~]$ createdb pgbench</span><br><span class="line">[postgres@node2 ~]$ pgbench -i -s 10 pgbench</span><br><span class="line"></span><br><span class="line"><span class="comment"># node1 将以前 master 恢复为 standby</span></span><br><span class="line">pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node2 user=postgres port=5432'</span></span><br><span class="line"></span><br><span class="line">vi /opt/pgsql/data/recovery.conf</span><br><span class="line">standby_mode = <span class="string">'on'</span></span><br><span class="line">primary_conninfo = <span class="string">'host=node2 user=postgres port=5432'</span></span><br><span class="line">recovery_target_timeline = <span class="string">'latest'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 node1 上的数据库：</span></span><br><span class="line">[postgres@node1 ~]$ pg_ctl start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 node1 恢复为 master</span></span><br><span class="line">[postgres@node2 ~]$ pg_ctl stop -m f</span><br><span class="line">[postgres@node1 ~]$ pg_ctl promote</span><br><span class="line">[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复 node2 为 standby：</span></span><br><span class="line">[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node1 user=postgres port=5432'</span></span><br><span class="line">[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 node2 为 node1</span></span><br><span class="line">vi /opt/pgsql/data/recovery.conf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 node2 上的数据库：</span></span><br><span class="line">[postgres@node2 ~]$ pg_ctl start</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="curl">1. curl</h1>
-<h2 id="下载文件">1.1. 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
-<h2 id="上传文件">1.3. 上传文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
-<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1108,6 +806,359 @@ $ gluster peer detach NAME_OF_PEERNODE</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
+<pre><code># (在其它服务上安装 dhcpd 软件)：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
+<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &quot;koumm.net&quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
+
+}</code></pre>
+
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p> 参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+</blockquote>
+<blockquote>
+<p> 更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+</blockquote>
+<h1 id="使用 -yum- 安装环境"> 使用 yum 安装环境 </h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的 -zope.interface- 及 -twisted"> 安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限"> 设置权限 </h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
