@@ -69,18 +69,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[使用 Printf 进行格式化]]></title>
-    <url>%2Flinux%2F%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[表格输出 123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader="\n %-10s %8s %10s %11s\n"format="%-10s %08d %10s %11.2f\n"width=43printf "$header" "ITEM NAME" "ITEM ID" "COLOR" "PRICE"printf "%$width.$&#123;width&#125;s\n" "$divider"printf "$format" \Triangle 13 red 20 \Oval 204449 "dark blue" 65.656 \Square 3145 orange .7 格式化 123456789101112131415161718192021222324252627282930313233343536printf "%s\n" "1" "2" "\n3"12\n3printf "%b\n" "1" "2" "\n3"123$printf "%d\n" 255 0xff 0377 3.5255255255bash: printf: 3.5: invalid number3printf "%f\n" 255 0xff 0377 3.5255.000000255.000000377.0000003.500000printf "%.1f\n" 255 0xff 0377 3.5255.0255.0377.03.5 格式化 12for i in $(seq 1 10); do printf "%03d\t" "$i"; done001 002 003 004 005 006 007 008 009 010]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>shell</tag>
-        <tag>printf</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[SMATE、XFCE、VNC 配置]]></title>
     <url>%2Flinux%2FSMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release yum grouplist yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境） yum groupinstall [xfce | &quot;MATE Desktop&quot;]（CentOS 安装 xfce 桌面环境，可选） # runlevel 5 systemctl isolate graphical.target # Start the GUI on boot systemctl set-default graphical.target # 切换 display manager # 查看 ls -l /etc/systemd/system/display-manager.service # 切换 systemctl disable gdm &amp;&amp; systemctl enable lightdm # 刷新 systemctl isolate graphical.target 安装 vnc server # 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可 yum install vnc-server vnc* （CentOS 5.x 里） yum install tigervnc-server tigervnc （CentOS 6.x 里） /etc/init.d/vncserver restart # 关闭具体的 vncserver 命令 : vncserver -kill :1 http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7]]></content>
@@ -92,6 +80,18 @@
         <tag>smate</tag>
         <tag>xfce</tag>
         <tag>vnc</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用 Printf 进行格式化]]></title>
+    <url>%2Flinux%2F%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[表格输出 123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader="\n %-10s %8s %10s %11s\n"format="%-10s %08d %10s %11.2f\n"width=43printf "$header" "ITEM NAME" "ITEM ID" "COLOR" "PRICE"printf "%$width.$&#123;width&#125;s\n" "$divider"printf "$format" \Triangle 13 red 20 \Oval 204449 "dark blue" 65.656 \Square 3145 orange .7 格式化 123456789101112131415161718192021222324252627282930313233343536printf "%s\n" "1" "2" "\n3"12\n3printf "%b\n" "1" "2" "\n3"123$printf "%d\n" 255 0xff 0377 3.5255255255bash: printf: 3.5: invalid number3printf "%f\n" 255 0xff 0377 3.5255.000000255.000000377.0000003.500000printf "%.1f\n" 255 0xff 0377 3.5255.0255.0377.03.5 格式化 12for i in $(seq 1 10); do printf "%03d\t" "$i"; done001 002 003 004 005 006 007 008 009 010]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+        <tag>printf</tag>
       </tags>
   </entry>
   <entry>
