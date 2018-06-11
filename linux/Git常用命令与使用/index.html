@@ -105,7 +105,7 @@
 <meta property="og:site_name" content="Krrish">
 <meta property="og:description" content="参考：http://www.jianshu.com/p/f7b5431418d2 猴子都能懂的 git 入门：https://backlog.com/git-tutorial/cn/intro/intro5_2.html  1. 常见问题  1.1. 使用 key 方式认证  123456# start the ssh-agent in the backgroundeval &quot;$(s">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-19T07:42:54.631Z">
+<meta property="og:updated_time" content="2018-06-11T02:20:42.948Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git 常用命令与使用">
 <meta name="twitter:description" content="参考：http://www.jianshu.com/p/f7b5431418d2 猴子都能懂的 git 入门：https://backlog.com/git-tutorial/cn/intro/intro5_2.html  1. 常见问题  1.1. 使用 key 方式认证  123456# start the ssh-agent in the backgroundeval &quot;$(s">
@@ -418,7 +418,7 @@
 <h2 id="使用 -key- 方式认证">1.1. 使用 key 方式认证 </h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start the ssh-agent in the background</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></span><br><span class="line">    Agent pid 59566</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br><span class="line"><span class="comment"># 测试 </span></span><br><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure>
 <h2 id="windows- 下 -tortisegit- 不弹出密码输入">1.2. Windows 下 tortiseGit 不弹出密码输入 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 2. 删除以下文件夹中的文件：</span></span><br><span class="line">%appdata%\..\Local\Microsoft\Credentials</span><br><span class="line"><span class="comment"># 3. 但是还是好麻烦，请看下面 </span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除以下文件夹中的文件：</span></span><br><span class="line">%appdata%\..\Local\Microsoft\Credentials</span><br></pre></td></tr></table></figure>
 <h2 id="同一网站多个不同的帐号使用 -git-key- 切换">1.3. 同一网站，多个不同的帐号使用 git key 切换 </h2>
 <ul>
 <li> 安装 Git</li>
