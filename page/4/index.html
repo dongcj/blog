@@ -415,13 +415,51 @@
       
         
           <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: <?php
-$worker = new GearmanWorker();
-$worker->addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = <span class="math inline">\(worker-&gt;work(); if(\)</span>worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; <span class="math inline">\(result = strrev(\)</span>workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: <?php
-$client = new GearmanClient();
-$client->addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;</p>
+<p> 参考 <br>    <a href="http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html" target="_blank" rel="noopener">http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html</a><br>    python gearman library home page<br>    <a href="http://samuelks.com/python-gearman/docs/" target="_blank" rel="noopener">http://samuelks.com/python-gearman/docs/</a><br>    Tim Yang：利用 Gearman 来实现远程监控与管理 <br>    <a href="http://timyang.net/linux/gearman-monitor/" target="_blank" rel="noopener">http://timyang.net/linux/gearman-monitor/</a></p>
 </blockquote>
-
+<h1 id="一、安装 -grarmand- 及 -libgearman-devel"><a href="# 一、安装 -grarmand- 及 -libgearman-devel" class="headerlink" title="一、安装 grarmand 及 libgearman-devel"></a> 一、安装 grarmand 及 libgearman-devel</h1><pre><code>$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)
+</code></pre><h1 id="二、安装 -PHP- 的 -API"><a href="# 二、安装 -PHP- 的 -API" class="headerlink" title="二、安装 PHP 的 API"></a> 二、安装 PHP 的 API</h1><pre><code>$ yum install php php-devel boost boost-devel libuuid libuuid-devel
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install   // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so
+</code></pre><h1 id="三、启动 -gearmand"><a href="# 三、启动 -gearmand" class="headerlink" title="三、启动 gearmand"></a> 三、启动 gearmand</h1><pre><code># (如果使用默认参数，需要开启 IPV6)
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&quot;-L 0.0.0.0 --verbose=DEBUG&quot;  --&gt; 根据自己需求设置 --verbose
+$ service gearmand start
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &lt; /etc/passwd
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...
+</code></pre><h2 id="1-Worker"><a href="#1-Worker" class="headerlink" title="1. Worker:"></a>1. Worker:</h2><pre><code>&lt;?php
+$worker = new GearmanWorker();
+$worker-&gt;addServer();
+$worker-&gt;addFunction(&quot;reverse&quot;, &quot;reverse_fn&quot;);
+while (1) {
+    print &quot;Waiting for job...\n&quot;;
+    $ret = $worker-&gt;work();
+    if($worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;}
+}
+function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload();
+    echo &quot;Received job: &quot;. $job-&gt;handle(). &quot;\n&quot;;
+    echo &quot;Workload: $workload\n&quot;;
+    $result = strrev($workload);
+    echo &quot;Result: $result\n&quot;;
+    return $result;
+}
+?&gt;
+</code></pre><h2 id="2-client"><a href="#2-client" class="headerlink" title="2. client:"></a>2. client:</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
@@ -470,7 +508,7 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -489,7 +527,7 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
+                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
         
 
         <div class="post-meta">
@@ -559,19 +597,59 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
 
       
         
-          <h1 id="curl">1. curl</h1>
-<h2 id="下载文件">1.1. 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
-<h2 id="上传文件">1.3. 上传文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
-<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
+          <h1 id="一、DHCP- 中继代理配置"><a href="# 一、DHCP- 中继代理配置" class="headerlink" title="一、DHCP 中继代理配置"></a> 一、DHCP 中继代理配置 </h1><hr>
+<pre><code># (在其它服务上安装 dhcpd 软件)：
+
+$ vi /etc/sysconfig/dhcrelay
+  # Command line options here
+  INTERFACES=&quot;eth1 eth2&quot;
+  DHCPSERVERS=&quot;192.168.1.1&quot;
+
+# 也可以通过以下命令方式来实现：
+$ dhcrelay -i eth1 -i eth2 192.168.1.1
+
+# Linux DHCP 配置完成后，重新启动 DHCP 服务。
+</code></pre><h1 id="二、DHCP- 超网配置"><a href="# 二、DHCP- 超网配置" class="headerlink" title="二、DHCP 超网配置"></a> 二、DHCP 超网配置 </h1><hr>
+<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
+ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
+shared-network mynet {          /* 超网作用域选项，共同部分 */
+    option subnet-mask 255.255.255.0;            /* 子网掩码 */
+    option domain-name &quot;koumm.net&quot;;              /* 域名 */
+    option domain-name-servers 192.168.1.2;      /*dns IP*/
+    option broadcast-address 192.168.1.255;      /* 广播地址 */
+    default-lease-time 86400;                    /* 租期 1 天，秒数 */
+    max-lease-time 172800;                       /* 最长租期 2 天 */
+
+    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
+        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
+        option routers 192.168.1.1;               /* 网关地址 */
+        /* 绑定 pc1 主机 ip 地址配置 */
+        host pc1 {
+            hardware ethernet 00:a0:cc:cf:9C:14;
+            fixed-address 192.168.1.20;
+        }
+        /* 绑定 pc2 主机 ip 地址配置 */
+        host pc2 {
+            hardware ethernet 04:20:c1:f8:37:11;
+            fixed-address 192.168.1.30;
+        }
+    }
+
+    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
+        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
+        option routers 192.168.2.1;                /* 网关地址 */
+    }
+
+    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
+        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
+        option routers 192.168.3.1;                /* 网关地址 */
+    }
+
+}
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
+            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -707,16 +785,15 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
       
         
           <blockquote>
-<p> 建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+<p>建议：<br>如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
 </blockquote>
-<h3 id="每块硬盘分一个区"> 每块硬盘分一个区 </h3>
-<pre><code># 分区格式为 Linux software raid：
+<h3 id="每块硬盘分一个区"><a href="# 每块硬盘分一个区" class="headerlink" title="每块硬盘分一个区"></a>每块硬盘分一个区</h3><pre><code># 分区格式为 Linux software raid：
 
 $ fdisk /dev/sda
 
-  WARNING: DOS-compatible mode is deprecated. It&#39;s strongly recommended to
-           switch off the mode (command &#39;c&#39;) and change display units to
-           sectors (command &#39;u&#39;).
+  WARNING: DOS-compatible mode is deprecated. It&apos;s strongly recommended to
+           switch off the mode (command &apos;c&apos;) and change display units to
+           sectors (command &apos;u&apos;).
 
   Command (m for help): n
   Command action
@@ -750,9 +827,8 @@ $ fdisk /dev/sda
   The partition table has been altered!
 
   Calling ioctl() to re-read partition table.
-  Syncing disks.</code></pre>
-<h1 id="更改分区格式"> 更改分区格式 </h1>
-<pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+  Syncing disks.
+</code></pre><h1 id="更改分区格式"><a href="# 更改分区格式" class="headerlink" title="更改分区格式"></a>更改分区格式</h1><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
 $ fdisk /dev/sdc
 ...
 $ fdisk /dev/sdd
@@ -762,9 +838,8 @@ $ fdisk /dev/sde
 $ fdisk /dev/sdf
 ...
 $ fdisk /dev/sdg
-...</code></pre>
-<h1 id="创建 -raid"> 创建 RAID</h1>
-<pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+...
+</code></pre><h1 id="创建 -RAID"><a href="# 创建 -RAID" class="headerlink" title="创建 RAID"></a>创建 RAID</h1><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
 $ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
 mdadm: layout defaults to n2
 mdadm: layout defaults to n2
@@ -784,14 +859,13 @@ md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
       [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
 0948K/sec
 
-unused devices:</code></pre>
-<h1 id="给 -md0- 设备创建分区和文件系统"> 给 md0 设备创建分区和文件系统 </h1>
-<pre><code>$ fdisk /dev/md0
+unused devices:
+</code></pre><h1 id="给 -md0- 设备创建分区和文件系统"><a href="# 给 -md0- 设备创建分区和文件系统" class="headerlink" title="给 md0 设备创建分区和文件系统"></a>给 md0 设备创建分区和文件系统</h1><pre><code>$ fdisk /dev/md0
 $ mkfs.ext4 /dev/md0p1
 
 $ mkdir /raid10
-$ mount /dev/md0p1 /raid10</code></pre>
-<h1 id="修改 -etcfstab- 启动时自动挂载"> 修改 /etc/fstab 启动时自动挂载 </h1>
+$ mount /dev/md0p1 /raid10
+</code></pre><h1 id="修改 -etc-fstab- 启动时自动挂载"><a href="# 修改 -etc-fstab- 启动时自动挂载" class="headerlink" title="修改 /etc/fstab 启动时自动挂载"></a>修改 /etc/fstab 启动时自动挂载</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Mdadm_raid10_raid5/#more" rel="contents">
@@ -929,8 +1003,7 @@ $ mount /dev/md0p1 /raid10</code></pre>
 
       
         
-          <h1 id="安装软件"> 安装软件 </h1>
-<pre><code># 安装的软件：
+          <h1 id="安装软件"><a href="# 安装软件" class="headerlink" title="安装软件"></a>安装软件</h1><pre><code># 安装的软件：
 dhcp-3.0.5-7.el5.x86_64.rpm
 vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
 xinetd-2.3.14-10.el5.x86_64.rpm
@@ -939,9 +1012,8 @@ pykickstart-0.43.3-1.el5.noarch.rpm
 system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
 syslinux
 
-# 关闭 selinux &amp; iptables</code></pre>
-<h1 id="dhcp- 配置">dhcp 配置 </h1>
-<pre><code>ddns-update-style interim;
+# 关闭 selinux &amp; iptables
+</code></pre><h1 id="dhcp- 配置"><a href="#dhcp- 配置" class="headerlink" title="dhcp 配置"></a>dhcp 配置</h1><pre><code>ddns-update-style interim;
 ignore client-updates;
 allow booting;
 allow bootp;
@@ -958,38 +1030,36 @@ option time-offset -18000; # Eastern Standard Time
 range dynamic-bootp 10.85.138.100 10.85.138.249;
 default-lease-time 21600;
 max-lease-time 43200;
-}</code></pre>
-<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
-<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
+}
+</code></pre><h1 id="增加 -tftp- 文件"><a href="# 增加 -tftp- 文件" class="headerlink" title="增加 tftp 文件"></a>增加 tftp 文件 </h1><pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
 $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
 $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
 
 $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
 $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
-<h1 id="配置 -kickstart"> 配置 kickstart</h1>
-<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改
+</code></pre><h1 id="配置 -kickstart"><a href="# 配置 -kickstart" class="headerlink" title="配置 kickstart"></a>配置 kickstart</h1><pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
   label linux
     menu label ^Install or upgrade an existing system
     menu default
     kernel vmlinuz
     append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
 
-# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
-<blockquote>
-<p> 附录：完整 DHCP 样例 </p>
+# 修改 kickstart 自动安装 linux(见安装文件)
+</code></pre><blockquote>
+<p>附录：完整 DHCP 样例</p>
 </blockquote>
 <pre><code>ddns-update-style interim;
 ddns-updates on;
 ignore client-updates;
 allow booting;  # for pxe only
 allow bootp;    # for pxe only
-authoritative;  # Do not know what is meaning??
+authoritative;    # Do not know what is meaning??
 
 class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
     # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
+    # option host-name = config-option server.ddns-hostname;    # set the server&apos;s hostname, only for linux???
     ddns-hostname = concat(&quot;v&quot;,
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
@@ -1006,7 +1076,7 @@ class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0
 class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
     option host-name = config-option server.ddns-hostname;
     #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,     # Windows instances will apply for a hostname by default
     ddns-hostname = concat(&quot;v&quot;,
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
         suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
@@ -1035,7 +1105,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
     option subnet-mask 255.255.255.0;
     option domain-name &quot;gwcloud.cn&quot;;
     option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
+    # option host-name &quot;Server001&quot;      # set the server&apos;s hostname, only for linux???
     # option ntp-servers 192.168.88.1   # set the ntp server
     option time-offset -18000;          # Eastern Standard Time
     range dynamic-bootp 192.168.88.100 192.168.88.200;
@@ -1044,9 +1114,10 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
     # the next is bonding the mac to static ip address
     # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
-    #    fixed-address 192.168.1.30;             # host&#39;s ip address
-}</code></pre>
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&apos;s mac address
+    #    fixed-address 192.168.1.30;             # host&apos;s ip address
+}
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
@@ -1095,7 +1166,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1114,7 +1185,7 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
+                <a class="post-title-link" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/" itemprop="url">Curl、resty、httpie、httpstat、wuzz 使用介绍</a></h2>
         
 
         <div class="post-meta">
@@ -1149,8 +1220,8 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/storage/" itemprop="url" rel="index">
-                    <span itemprop="name">storage</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -1184,66 +1255,14 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
 
       
         
-          <blockquote>
-<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
-</blockquote>
-<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
-<h1 id="安装软件"> 安装软件 </h1>
-<pre><code>yum install glusterfs{,-fuse,-server}
-yum install glusterfs-geo-replication.x86_64</code></pre>
-<blockquote>
-<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
-</blockquote>
-<pre><code># 删除 lvm2
-$ rpm -e lvm2</code></pre>
-<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
-<pre><code># mkdir
-$ mkdir /export/brick1
-
-# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
-$ chmod 777 /export/brick1
-
-# firewall
-$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
-
-$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
-$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
---add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
-$ firewall-cmd --reload</code></pre>
-<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
-<pre><code>$ service glusterd start
-
-# if centos7:
-$ systemctl enable glusterd
-$ systemctl start glusterd
-$ systemctl status glusterd
-
-# from server1
-$ gluster peer probe SERVER2
-
-# from server2
-$ gluster peer probe SERVER1
-
-# check peer
-$ gluster peer status
-
-$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
-$ gluster volume start gv0
-
-$ gluster volume info
-$ gluster volume status
-
-# How to remove a volume or peer
-# stop Volume
-$ gluster volume stop gv0
-
-# delete Volume
-$ gluster volume delete gv0
-
-$ gluster peer detach NAME_OF_PEERNODE</code></pre>
+          <h1 id="1-curl"><a href="#1-curl" class="headerlink" title="1. curl"></a>1. curl</h1><h2 id="1-1- 下载文件"><a href="#1-1- 下载文件" class="headerlink" title="1.1. 下载文件"></a>1.1. 下载文件 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-2-https- 跳转地址调试"><a href="#1-2-https- 跳转地址调试" class="headerlink" title="1.2. https 跳转地址调试"></a>1.2. https 跳转地址调试 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
+<h2 id="详细信息"><a href="# 详细信息" class="headerlink" title="详细信息"></a> 详细信息 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
+<h2 id="1-3- 上传文件"><a href="#1-3- 上传文件" class="headerlink" title="1.3. 上传文件"></a>1.3. 上传文件 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
+<h2 id="1-4- 下载网页保存为文件名"><a href="#1-4- 下载网页保存为文件名" class="headerlink" title="1.4. 下载网页保存为文件名"></a>1.4. 下载网页保存为文件名 </h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
+            <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
