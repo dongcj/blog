@@ -414,17 +414,25 @@
 
       
         
-          <pre><code>[+]新增
-[-]删除
-[^]升级
-[#]修复
-</code></pre><h1 id="1- 高亮 -tail-f- 搜索"><a href="#1- 高亮 -tail-f- 搜索" class="headerlink" title="1. 高亮 tail -f 搜索"></a>1. 高亮 tail -f 搜索</h1><pre><code>1. less xxx.log
+          <pre><code>[+] 新增
+[-] 删除
+[^] 升级
+[#] 修复
+</code></pre>
+<h1 id="1- 高亮 -tail-f- 搜索"><a class="markdownIt-Anchor" href="#1- 高亮 -tail-f- 搜索"></a> 1. 高亮 tail -f 搜索 </h1>
+<pre><code>1. less xxx.log
 2. 搜索你要高亮的关键字
 3. SHIFT+F，进入 follow 模式
-</code></pre><h1 id="2-pkill"><a href="#2-pkill" class="headerlink" title="2. pkill"></a>2. pkill</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f -SIGUSR1 /app/letsencrypt_service || pkill -USR1 -f /app/letsencrypt_service</span><br></pre></td></tr></table></figure>
-<h1 id="3-Windows"><a href="#3-Windows" class="headerlink" title="3. Windows"></a>3. Windows</h1><h2 id="3-1-Windows-mount- 网络共享为一个文件夹"><a href="#3-1-Windows-mount- 网络共享为一个文件夹" class="headerlink" title="3.1. Windows mount 网络共享为一个文件夹"></a>3.1. Windows mount 网络共享为一个文件夹</h2><pre><code>net use \\192.168.11.111\public\data
+</code></pre>
+<h1 id="2-pkill"><a class="markdownIt-Anchor" href="#2-pkill"></a> 2. pkill</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f -SIGUSR1 /app/letsencrypt_service || pkill -USR1 -f /app/letsencrypt_service</span><br></pre></td></tr></table></figure>
+<h1 id="3-windows"><a class="markdownIt-Anchor" href="#3-windows"></a> 3. Windows</h1>
+<h2 id="31-windows-mount- 网络共享为一个文件夹"><a class="markdownIt-Anchor" href="#31-windows-mount- 网络共享为一个文件夹"></a> 3.1. Windows mount 网络共享为一个文件夹 </h2>
+<pre><code>net use \\192.168.11.111\public\data
 mklink /d d:\ccc \\192.168.11.111\public\data
-</code></pre><h2 id="3-2-Windows- 网络设置"><a href="#3-2-Windows- 网络设置" class="headerlink" title="3.2. Windows 网络设置"></a>3.2. Windows 网络设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipconfig | findstr /c:&quot;IPv4&quot;</span><br><span class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</span><br><span class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</span><br></pre></td></tr></table></figure>
+</code></pre>
+<h2 id="32-windows- 网络设置"><a class="markdownIt-Anchor" href="#32-windows- 网络设置"></a> 3.2. Windows 网络设置 </h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipconfig | findstr /c:&quot;IPv4&quot;</span><br><span class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</span><br><span class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/常用命令/#more" rel="contents">
@@ -540,18 +548,20 @@ mklink /d d:\ccc \\192.168.11.111\public\data
 
       
         
-          <ol>
+          <ol start="2">
 <li> 新建仓库目录 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/svicloud/tools/harbor/data/cert/</span><br></pre></td></tr></table></figure>
-<ol>
-<li> 将证书的 <code>server.crt</code> 和 <code>server.key</code> 放置于上述目录 </li>
-</ol>
-<ol>
-<li> 生成一个 <code>secretkey</code> 文件，也放置于以上目录 </li>
+<ol start="3">
+<li>
+<p> 将证书的 <code>server.crt</code> 和 <code>server.key</code> 放置于上述目录 </p>
+</li>
+<li>
+<p> 生成一个 <code>secretkey</code> 文件，也放置于以上目录 </p>
+</li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> -n <span class="string">"svicloud85509336"</span> &gt;/opt/svicloud/tools/harbor/data/cert/secretkey</span><br></pre></td></tr></table></figure>
-<ol>
+<ol start="5">
 <li> 使用 docker-compose 安装 harbor</li>
 </ol>
 <blockquote>
@@ -559,12 +569,15 @@ mklink /d d:\ccc \\192.168.11.111\public\data
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv harbor-docker-compose-v1.2.2.yml docker-compose.yml </span><br><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
-<ol>
-<li><p> 测试下，应该可以成功，如无法成功，运行步骤 7</p>
+<ol start="6">
+<li>
+<p> 测试下，应该可以成功，如无法成功，运行步骤 7</p>
 </li>
-<li><p>（<code> 可选 </code>）修改 <code>registry</code> 中的证书 <code>root.crt</code> 和 <code>ui</code> 的 <code>private_key.pem</code></p>
+<li>
+<p>（<code> 可选 </code>）修改 <code>registry</code> 中的证书 <code>root.crt</code> 和 <code>ui</code> 的 <code>private_key.pem</code></p>
 </li>
 </ol>
+<h1 id="2- 通过 -curl- 请求测试"><a class="markdownIt-Anchor" href="#2- 通过 -curl- 请求测试"></a> 2. 通过 curl 请求测试 </h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/m/Harbor安装/#more" rel="contents">
@@ -713,11 +726,16 @@ mklink /d d:\ccc \\192.168.11.111\public\data
 
       
         
-          <h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><pre><code>&gt; client: curl client (eg: 116.23.45.8)
+          <h1 id="install"><a class="markdownIt-Anchor" href="#install"></a> install</h1>
+<pre><code>&gt; client: curl client (eg: 116.23.45.8)
 &gt; server: rfw servers (default port: 7393)
-</code></pre><h2 id="install-rfw-on-ALL-server-on-client-amp-server"><a href="#install-rfw-on-ALL-server-on-client-amp-server" class="headerlink" title="install rfw on ALL server(on client &amp; server)"></a>install rfw on ALL server(on client &amp; server)</h2><pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
+</code></pre>
+<h2 id="install-rfw-on-all-serveron-client-server"><a class="markdownIt-Anchor" href="#install-rfw-on-all-serveron-client-server"></a> install rfw on ALL server(on client &amp; server)</h2>
+<pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
 $ cd rfw &amp;&amp; python setup.py install
-</code></pre><h2 id="generate-remote-crt-on-client"><a href="#generate-remote-crt-on-client" class="headerlink" title="generate remote crt(on client)"></a>generate remote crt(on client)</h2><pre><code>$ cd /etc/rfw/deploy/
+</code></pre>
+<h2 id="generate-remote-crton-client"><a class="markdownIt-Anchor" href="#generate-remote-crton-client"></a> generate remote crt(on client)</h2>
+<pre><code>$ cd /etc/rfw/deploy/
 $ rfwgen  11.11.11.11
 $ rfwgen  22.22.22.22
 
@@ -733,8 +751,11 @@ $ rfwgen  22.22.22.22
 └── server_22.22.22.22
   ├── server.crt
   └── server.key
-</code></pre><h2 id="copy-key-to-server"><a href="#copy-key-to-server" class="headerlink" title="copy key to server"></a>copy key to server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># on master server</span></span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</span><br></pre></td></tr></table></figure>
-<h2 id="edit-the-server-config"><a href="#edit-the-server-config" class="headerlink" title="edit the server config"></a>edit the server config</h2><pre><code>$ vi /etc/rfw/rfw.conf
+</code></pre>
+<h2 id="copy-key-to-server"><a class="markdownIt-Anchor" href="#copy-key-to-server"></a> copy key to server</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># on master server</span></span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</span><br></pre></td></tr></table></figure>
+<h2 id="edit-the-server-config"><a class="markdownIt-Anchor" href="#edit-the-server-config"></a> edit the server config</h2>
+<pre><code>$ vi /etc/rfw/rfw.conf
 outward.server.certfile = /etc/rfw/ssl/server.crt
 outward.server.keyfile = /etc/rfw/ssl/server.key
 auth.username = your_username_here
@@ -880,11 +901,19 @@ $ vi /etc/rfw/white.list
 
       
         
-          <h1 id="升级 -python"><a href="# 升级 -python" class="headerlink" title="升级 python"></a> 升级 python</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
+          <h1 id="升级 -python"><a class="markdownIt-Anchor" href="# 升级 -python"></a> 升级 python</h1>
+<h2 id="install"><a class="markdownIt-Anchor" href="#install"></a> install</h2>
+<pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
 $ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
-</code></pre><h2 id="如果要安装 -MySQL-python，需要安装以下软件"><a href="# 如果要安装 -MySQL-python，需要安装以下软件" class="headerlink" title="如果要安装 MySQL-python，需要安装以下软件"></a> 如果要安装 MySQL-python，需要安装以下软件 </h2><pre><code>$ yum -y install mysql mysql-devel
-</code></pre><h2 id="如果要安装 -lxml，需要安装以下软件"><a href="# 如果要安装 -lxml，需要安装以下软件" class="headerlink" title="如果要安装 lxml，需要安装以下软件"></a> 如果要安装 lxml，需要安装以下软件 </h2><pre><code>$ yum -y install libxml2-devel  libxslt-devel
-</code></pre><h2 id="编译安装 -python- 新版"><a href="# 编译安装 -python- 新版" class="headerlink" title="编译安装 python 新版"></a> 编译安装 python 新版 </h2><pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
+</code></pre>
+<h2 id="如果要安装 -mysql-python 需要安装以下软件"><a class="markdownIt-Anchor" href="# 如果要安装 -mysql-python 需要安装以下软件"></a> 如果要安装 MySQL-python，需要安装以下软件 </h2>
+<pre><code>$ yum -y install mysql mysql-devel
+</code></pre>
+<h2 id="如果要安装 -lxml 需要安装以下软件"><a class="markdownIt-Anchor" href="# 如果要安装 -lxml 需要安装以下软件"></a> 如果要安装 lxml，需要安装以下软件 </h2>
+<pre><code>$ yum -y install libxml2-devel  libxslt-devel
+</code></pre>
+<h2 id="编译安装 -python- 新版"><a class="markdownIt-Anchor" href="# 编译安装 -python- 新版"></a> 编译安装 python 新版 </h2>
+<pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
 
 # 加上 --enable-shared 解决 &quot;Cannot build PL/Python because libpython is not a shared library&quot;
 $ tar -xzf Python-2.7.13.tgz &amp;&amp; cd Python-2.7.13 &amp;&amp; ./configure  --enable-shared
@@ -898,7 +927,8 @@ $ ln -s /usr/local/bin/python /usr/bin/python
 # copy bz2 module
 $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
 $ python -V
-</code></pre><h1 id="安装 -easy-install- 和 -pip"><a href="# 安装 -easy-install- 和 -pip" class="headerlink" title="安装 easy_install 和 pip"></a> 安装 easy_install 和 pip</h1>
+</code></pre>
+<h1 id="安装 -easy_install- 和 -pip"><a class="markdownIt-Anchor" href="# 安装 -easy_install- 和 -pip"></a> 安装 easy_install 和 pip</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Python2.6升级至python2.7/#more" rel="contents">
@@ -1036,7 +1066,8 @@ $ python -V
 
       
         
-          <h1 id="YUM- 安装图像界面及 -VNC"><a href="#YUM- 安装图像界面及 -VNC" class="headerlink" title="YUM 安装图像界面及 VNC"></a>YUM 安装图像界面及 VNC</h1><p>(参考：<a href="http://www.ha97.com/4634.html" target="_blank" rel="noopener">http://www.ha97.com/4634.html</a> )</p>
+          <h1 id="yum- 安装图像界面及 -vnc"><a class="markdownIt-Anchor" href="#yum- 安装图像界面及 -vnc"></a> YUM 安装图像界面及 VNC</h1>
+<p>(参考：<a href="http://www.ha97.com/4634.html" target="_blank" rel="noopener">http://www.ha97.com/4634.html</a> )</p>
 <pre><code>yum install epel-release
 
 yum grouplist
@@ -1060,14 +1091,17 @@ systemctl disable gdm &amp;&amp; systemctl enable lightdm
 
 # 刷新
 systemctl isolate graphical.target
-</code></pre><h1 id="安装 -vnc-server"><a href="# 安装 -vnc-server" class="headerlink" title="安装 vnc server"></a> 安装 vnc server</h1><pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
+</code></pre>
+<h1 id="安装 -vnc-server"><a class="markdownIt-Anchor" href="# 安装 -vnc-server"></a> 安装 vnc server</h1>
+<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
 yum install vnc-server vnc* （CentOS 5.x 里）
 yum install tigervnc-server tigervnc （CentOS 6.x 里）
 /etc/init.d/vncserver restart
 
 # 关闭具体的 vncserver 命令 :
 vncserver -kill :1
-</code></pre><blockquote>
+</code></pre>
+<blockquote>
 <p><a href="http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7" target="_blank" rel="noopener">http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</a></p>
 </blockquote>
 
