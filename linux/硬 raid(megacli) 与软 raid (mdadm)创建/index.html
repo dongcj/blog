@@ -1,0 +1,1247 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next mist" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" media="all" href="/lib/Han/dist/han.min.css?v=3.3">
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="soft raid,mdadm," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Krrish" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！  1. mega 管理硬 raid1.1. 查看磁盘状态123456789101112131415161718192021222324# 简略信息megasasctl   a0       PERC H710 Mini           encl:1 ldrv:1  batt">
+<meta name="keywords" content="soft raid,mdadm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="硬 Raid(megacli) 与软 Raid (Mdadm) 创建">
+<meta property="og:url" content="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/index.html">
+<meta property="og:site_name" content="Krrish">
+<meta property="og:description" content="建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！  1. mega 管理硬 raid1.1. 查看磁盘状态123456789101112131415161718192021222324# 简略信息megasasctl   a0       PERC H710 Mini           encl:1 ldrv:1  batt">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="硬 Raid(megacli) 与软 Raid (Mdadm) 创建">
+<meta name="twitter:description" content="建议： 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！  1. mega 管理硬 raid1.1. 查看磁盘状态123456789101112131415161718192021222324# 简略信息megasasctl   a0       PERC H710 Mini           encl:1 ldrv:1  batt">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '9SMCM8XVIH',
+      apiKey: '0cbea7007c7943495a93da42ecc3c6ca',
+      indexName: 'dongcj.com',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/"/>
+
+
+
+
+
+  <title>硬 Raid(megacli) 与软 Raid (Mdadm) 创建 | Krrish</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Krrish</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Premature optimization is the root of all evil.</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">硬 Raid(megacli) 与软 Raid (Mdadm) 创建</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p> <strong>建议：</strong> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+</blockquote>
+<h1 id="1-mega- 管理硬 -raid"><a href="#1-mega- 管理硬 -raid" class="headerlink" title="1. mega 管理硬 raid"></a>1. mega 管理硬 raid</h1><h2 id="1-1- 查看磁盘状态"><a href="#1-1- 查看磁盘状态" class="headerlink" title="1.1. 查看磁盘状态"></a>1.1. 查看磁盘状态</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略信息</span></span><br><span class="line">megasasctl </span><br><span class="line"></span><br><span class="line">  a0       PERC H710 Mini           encl:1 ldrv:1  batt:FAULT, low voltage</span><br><span class="line">  a0d0      1862GiB RAID 0   1x1  optimal</span><br><span class="line">  unconfigured:  a0e32s1   a0e32s2   a0e32s3 </span><br><span class="line">  a0e32s0    1863GiB  a0d0  online  </span><br><span class="line">  a0e32s1    1863GiB        ready   </span><br><span class="line">  a0e32s2    1863GiB        ready   </span><br><span class="line">  a0e32s3    1863GiB        ready   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">megaraidsas-status</span><br><span class="line"></span><br><span class="line">  -- Arrays informations --</span><br><span class="line">  -- ID | Type | Size | Status</span><br><span class="line">  a0d0 | RAID 0 | 1862GiB | optimal</span><br><span class="line"></span><br><span class="line">  -- Disks informations</span><br><span class="line">  -- ID | Model | Status | Warnings</span><br><span class="line">  a0e32s0 | SEAGATE ST2000NM0023 1863GiB | online</span><br><span class="line">  a0e32s1 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s2 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s3 | SEAGATE ST2000NM0023 | ready</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细物理磁盘 (pd) 信息，主要是看 ` 框 ID` 与 ` 插槽 ID`</span></span><br><span class="line">megacli -PDlist -a0 | grep -e <span class="string">'^Enclosure Device ID:'</span> -e <span class="string">'^Slot Number:'</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 1</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 2</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 3</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"><span class="comment"># 其它输出详细信息可以看看，平时可以通过这个来检查磁盘型号、状态等信息</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Drive s position: DiskGroup: 0, Span: 0, Arm: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line">  Device Id: 0</span><br><span class="line">  WWN: 5000C500627EE690</span><br><span class="line">  Sequence Number: 2</span><br><span class="line">  Media Error Count: 0</span><br><span class="line">  Other Error Count: 0</span><br><span class="line">  Predictive Failure Count: 0</span><br><span class="line">  Last Predictive Failure Event Seq Number: 0</span><br><span class="line">  PD Type: SAS</span><br><span class="line"></span><br><span class="line">  Raw Size: 1.819 TB [0xe8e088b0 Sectors]</span><br><span class="line">  Non Coerced Size: 1.818 TB [0xe8d088b0 Sectors]</span><br><span class="line">  Coerced Size: 1.818 TB [0xe8d00000 Sectors]</span><br><span class="line">  Sector Size:  0</span><br><span class="line">  Firmware state: Online, Spun Up                <span class="comment"># &lt;----- 如果重建，这里显示为：rebuilding</span></span><br><span class="line">  Device Firmware Level: GS0F</span><br><span class="line">  Shield Counter: 0</span><br><span class="line">  Successful diagnostics completion on :  N/A</span><br><span class="line">  SAS Address(0): 0x5000c500627ee691</span><br><span class="line">  SAS Address(1): 0x0</span><br><span class="line">  Connected Port Number: 0(path0) </span><br><span class="line">  Inquiry Data: SEAGATE ST2000NM0023    GS0FZ1X39XH6            </span><br><span class="line">  FDE Capable: Not Capable</span><br><span class="line">  FDE Enable: Disable</span><br><span class="line">  Secured: Unsecured</span><br><span class="line">  Locked: Unlocked</span><br><span class="line">  Needs EKM Attention: No</span><br><span class="line">  Foreign State: None </span><br><span class="line">  Device Speed: 6.0Gb/s </span><br><span class="line">  Link Speed: 6.0Gb/s </span><br><span class="line">  Media Type: Hard Disk Device</span><br><span class="line">  Drive Temperature :37C (98.60 F)</span><br><span class="line">  PI Eligibility:  No </span><br><span class="line">  Drive is formatted <span class="keyword">for</span> PI information:  No</span><br><span class="line">  PI: No PI</span><br><span class="line">  Port-0 :</span><br><span class="line">  Port status: Active</span><br><span class="line">  Port<span class="string">'s Linkspeed: 6.0Gb/s </span></span><br><span class="line"><span class="string">  Port-1 :</span></span><br><span class="line"><span class="string">  Port status: Active</span></span><br><span class="line"><span class="string">  Port'</span>s Linkspeed: Unknown </span><br><span class="line">  Drive has flagged a S.M.A.R.T alert : No</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">------------------------------------------------------------</span><br><span class="line"><span class="comment"># 如果状态为重建中，可以查看重建信息</span></span><br><span class="line">megacli -PDRbld -ShowProg -PhysDrv [32:1] -aALL</span><br><span class="line"></span><br><span class="line">  Rebuild Progress on Device at Enclosure 32, Slot 1 Completed 51% <span class="keyword">in</span> 10 Minutes.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"># 逻辑磁盘 (LD) 信息</span><br><span class="line">megacli  -LDInfo -Lall -aALL</span><br><span class="line">                                     </span><br><span class="line">  Adapter 0 -- Virtual Drive Information:</span><br><span class="line">  Virtual Drive: 0 (Target Id: 0)</span><br><span class="line">  Name                :</span><br><span class="line">  RAID Level          : Primary-0, Secondary-0, RAID Level Qualifier-0</span><br><span class="line">  Size                : 1.818 TB</span><br><span class="line">  Sector Size         : 512</span><br><span class="line">  Parity Size         : 0</span><br><span class="line">  State               : Optimal</span><br><span class="line">  Strip Size          : 64 KB</span><br><span class="line">  Number Of Drives    : 1</span><br><span class="line">  Span Depth          : 1</span><br><span class="line">  Default Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU</span><br><span class="line">  Current Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU</span><br><span class="line">  Default Access Policy: Read/Write</span><br><span class="line">  Current Access Policy: Read/Write</span><br><span class="line">  Disk Cache Policy   : Disk&apos;s Default</span><br><span class="line">  Encryption Type     : None</span><br><span class="line">  Default Power Savings Policy: Controller Defined</span><br><span class="line">  Current Power Savings Policy: None</span><br><span class="line">  Can spin up in 1 minute: Yes</span><br><span class="line">  LD has drives that support T10 power conditions: Yes</span><br><span class="line">  LD&apos;s IO profile supports MAX power savings with cached writes: No</span><br><span class="line">  Bad Blocks Exist: No</span><br><span class="line">  Is VD Cached: Yes</span><br><span class="line">  Cache Cade Type : Read Only</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"># Display, disable or enable automatic rebuild on adapter 0:</span><br><span class="line"></span><br><span class="line"># Display</span><br><span class="line">megacli -AdpAutoRbld -Dsply -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># disable</span><br><span class="line">megacli -AdpAutoRbld -Dsbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Disabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># enable</span><br><span class="line">megacli -AdpAutoRbld -Enbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"># Get and modify rebuild rate:</span><br><span class="line"></span><br><span class="line"># get</span><br><span class="line">megacli -AdpGetProp RebuildRate -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Rebuild Rate = 30%</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># set</span><br><span class="line">megacli -AdpSetProp RebuildRate 60 -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Set rebuild rate to 60% success.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-Create-a-RAID0-1-5-6-array-with-MegaCli"><a href="#1-2-Create-a-RAID0-1-5-6-array-with-MegaCli" class="headerlink" title="1.2. Create a RAID0,1,5,6 array with MegaCli"></a>1.2. Create a RAID0,1,5,6 array with MegaCli</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将后面三块盘创建 raid0</span></span><br><span class="line">megacli -CfgLdAdd -r0[32:1,32:2,32:3] -a0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Created VD 0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Configured the Adapter!!</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note:    to make RAID0, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID1, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID5, minimal 3 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID6, minimal 4 drives are required.</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-3-Create-a-RAID50-raid60-array-with-MegaCli"><a href="#1-3-Create-a-RAID50-raid60-array-with-MegaCli" class="headerlink" title="1.3. Create a RAID50,raid60 array with MegaCli"></a>1.3. Create a RAID50,raid60 array with MegaCli</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">megactl -CfgLdAdd -r50 raid0[252:2,252:3,252:4] raid1[252:5,252:6,252:7] -a0</span><br><span class="line">megactl -CfgLdAdd -r60 raid0[252:2,252:3,252:4,252:5] raid1[252:6,252:7,252:8,252,9] -a0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: to make RAID50, minimal 6 drives are required.</span></span><br><span class="line"><span class="comment">#       to make RAID60, minimal 8 drives are required.</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-4-Performance-tunning"><a href="#1-4-Performance-tunning" class="headerlink" title="1.4. Performance tunning"></a>1.4. Performance tunning</h2><h3 id="1-4-1-Read-Cache"><a href="#1-4-1-Read-Cache" class="headerlink" title="1.4.1. Read Cache"></a>1.4.1. Read Cache</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># info</span></span><br><span class="line">megacli -LDSetProp -Cached -LAll -aAll</span><br><span class="line"></span><br><span class="line">Set Cache Policy to Cached on Adapter 0, VD 0 (target id: 0) success</span><br><span class="line">Set Cache Policy to Cached on Adapter 1, VD 0 (target id: 0) success</span><br><span class="line"></span><br><span class="line"><span class="comment"># enable</span></span><br><span class="line">megacli -LDSetProp EnDskCache -LAll -aAll</span><br><span class="line">  Set Disk Cache Policy to Enabled on Adapter 0, VD 0 (target id: 0) success</span><br><span class="line">  Set Disk Cache Policy to Enabled on Adapter 1, VD 0 (target id: 0) success</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-2-ReadAhead"><a href="#1-4-2-ReadAhead" class="headerlink" title="1.4.2. ReadAhead"></a>1.4.2. ReadAhead</h3><blockquote>
+<p>About ReadAhead: this feature will read more stuff and store in the cache, guessing the system may access it soon.<br>We’re going to enable an enhanced version of readahead: the adaptative one.<br>With this option, readahead will only be enabled if the controller receive several access to sequencial sectors. If not, it won’t be used to avoid filling cache with randon useless data (in case of randomly accessed sector).</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># enable an enhanced version of readahead: the adaptative one</span></span><br><span class="line">megacli -LDSetProp ADRA -LALL -aALL</span><br><span class="line"></span><br><span class="line">  Set Read Policy to Adaptive ReadAhead on Adapter 0, VD 0 (target id: 0) success</span><br><span class="line">  Set Read Policy to Adaptive ReadAhead on Adapter 1, VD 0 (target id: 0) success</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果上面失败，可以使用下面的普通『ReadAhead』功能</span></span><br><span class="line">megacli -LDSetProp RA -LALL -aALL</span><br><span class="line"></span><br><span class="line">  Set Read Policy to Adaptive ReadAhead on Adapter 0, VD 0 (target id: 0) success</span><br><span class="line">  Set Read Policy to Adaptive ReadAhead on Adapter 1, VD 0 (target id: 0) success</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-3-write-cache"><a href="#1-4-3-write-cache" class="headerlink" title="1.4.3. write cache"></a>1.4.3. write cache</h3><blockquote>
+<p>Enable write cache，data will be lost!<br>Write cache should be enabled ONLY if you have a battery pack on your controller！</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Let's check if we have one and if it's working fine:</span></span><br><span class="line">megacli -AdpBbuCmd -GetBbuStatus -a0 | grep -e <span class="string">'^isSOHGood'</span> -e <span class="string">'^Charger Status'</span> -e <span class="string">'^Remaining Capacity'</span></span><br><span class="line">  Charger Status: Complete</span><br><span class="line">  Remaining Capacity: 1445 mAh</span><br><span class="line">  isSOHGood: Yes</span><br><span class="line"></span><br><span class="line">megacli -AdpBbuCmd -GetBbuStatus -a1 | grep -e <span class="string">'^isSOHGood'</span> -e <span class="string">'^Charger Status'</span> -e <span class="string">'^Remaining Capacity'</span></span><br><span class="line">  Charger Status: Complete</span><br><span class="line">  Remaining Capacity: 1353 mAh</span><br><span class="line">  isSOHGood: Yes</span><br><span class="line"></span><br><span class="line"><span class="comment"># enable write cache</span></span><br><span class="line">megacli -LDSetProp WB -LALL -aALL</span><br><span class="line"></span><br><span class="line">  Set Write Policy to WriteBack on Adapter 0, VD 0 (target id: 0) success</span><br><span class="line">  Set Write Policy to WriteBack on Adapter 1, VD 0 (target id: 0) success</span><br><span class="line"></span><br><span class="line"><span class="comment"># But disable it if the battery went broken or discharged</span></span><br><span class="line">megacli -LDSetProp NoCachedBadBBU -LALL -aALL</span><br><span class="line"></span><br><span class="line">  Set No Write Cache <span class="keyword">if</span> bad BBU on Adapter 0, VD 0 (target id: 0) success</span><br><span class="line">  Set No Write Cache <span class="keyword">if</span> bad BBU on Adapter 1, VD 0 (target id: 0) success</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-Show-system-summary"><a href="#1-5-Show-system-summary" class="headerlink" title="1.5. Show system summary"></a>1.5. Show system summary</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">megactl -ShowSummary -aALL</span><br></pre></td></tr></table></figure>
+<h1 id="2-mdadm- 管理软 -raid"><a href="#2-mdadm- 管理软 -raid" class="headerlink" title="2. mdadm 管理软 raid"></a>2. mdadm 管理软 raid</h1><h2 id="2-1- 硬盘分区"><a href="#2-1- 硬盘分区" class="headerlink" title="2.1. 硬盘分区"></a>2.1. 硬盘分区</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分区格式为 Linux software raid：</span></span><br><span class="line"></span><br><span class="line">$ fdisk /dev/sda</span><br><span class="line"></span><br><span class="line">WARNING: DOS-compatible mode is deprecated. It<span class="string">'s strongly recommended to</span></span><br><span class="line"><span class="string">         switch off the mode (command'</span>c<span class="string">') and change display units to</span></span><br><span class="line"><span class="string">         sectors (command'</span>u<span class="string">').</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Command (m for help): n</span></span><br><span class="line"><span class="string">Command action</span></span><br><span class="line"><span class="string">   e   extended</span></span><br><span class="line"><span class="string">   p   primary partition (1-4)</span></span><br><span class="line"><span class="string">p</span></span><br><span class="line"><span class="string">Partition number (1-4): 1</span></span><br><span class="line"><span class="string">First cylinder (1-91201, default 1):</span></span><br><span class="line"><span class="string">Using default value 1</span></span><br><span class="line"><span class="string">Last cylinder, +cylinders or +size&#123;K,M,G&#125; (1-91201, default 91201):</span></span><br><span class="line"><span class="string">Using default value 91201</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Command (m for help): p</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Disk /dev/sda: 750.2 GB, 750156374016 bytes</span></span><br><span class="line"><span class="string">255 heads, 63 sectors/track, 91201 cylinders</span></span><br><span class="line"><span class="string">Units = cylinders of 16065 * 512 = 8225280 bytes</span></span><br><span class="line"><span class="string">Sector size (logical/physical): 512 bytes / 512 bytes</span></span><br><span class="line"><span class="string">I/O size (minimum/optimal): 512 bytes / 512 bytes</span></span><br><span class="line"><span class="string">Disk identifier: 0x0005c259</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">   Device Boot      Start         End      Blocks   Id  System</span></span><br><span class="line"><span class="string">/dev/sda1               1       91201   732572001   83  Linux</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Command (m for help): t</span></span><br><span class="line"><span class="string">Selected partition 1</span></span><br><span class="line"><span class="string">Hex code (type L to list codes): fd</span></span><br><span class="line"><span class="string">Changed system type of partition 1 to fd (Linux raid autodetect)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Command (m for help): w</span></span><br><span class="line"><span class="string">The partition table has been altered!</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Calling ioctl() to re-read partition table.</span></span><br><span class="line"><span class="string">Syncing disks.</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-2- 更改分区格式"><a href="#2-2- 更改分区格式" class="headerlink" title="2.2. 更改分区格式"></a>2.2. 更改分区格式</h2><pre><code># 按照上面的 /dev/sda 的分区例子依次给剩下的 5 块硬盘 sdc, sdd, sde, sdf, sdg 分区
+$ fdisk /dev/sdc
+...
+$ fdisk /dev/sdd
+...
+$ fdisk /dev/sde
+...
+$ fdisk /dev/sdf
+...
+$ fdisk /dev/sdg
+...
+</code></pre><h2 id="2-3- 创建 -RAID"><a href="#2-3- 创建 -RAID" class="headerlink" title="2.3. 创建 RAID"></a>2.3. 创建 RAID</h2><pre><code># 在上面的 6 个相同大小的分区上创建 raid10
+$ mdadm --create /dev/md0 -v --raid-devices=6 --level=raid10 /dev/sda1 /dev/sdc1 /dev/sdd1 /dev/sde1 /dev/sdf1 /dev/sdg1
+mdadm: layout defaults to n2
+mdadm: layout defaults to n2
+mdadm: chunk size defaults to 512K
+mdadm: size set to 732440576K
+mdadm: Defaulting to version 1.2 metadata
+mdadm: array /dev/md0 started.
+
+
+# 查看磁盘阵列的初始化过程（build），根据磁盘大小和速度，整个过程大概需要几个小时：
+# watch cat /proc/mdstat
+Every 2.0s: cat /proc/mdstat                                       Tue Feb 11 12:51:25 2014
+
+Personalities : [raid10]
+md0 : active raid10 sdg1[5] sdf1[4] sde1[3] sdd1[2] sdc1[1] sda1[0]
+      2197321728 blocks super 1.2 512K chunks 2 near-copies [6/6] [UUUUUU]
+      [&gt;....................]  resync =  0.2% (5826816/2197321728) finish=278.9min speed=13
+0948K/sec
+
+unused devices:
+</code></pre><h2 id="2-4- 给 -md0- 设备创建分区和文件系统"><a href="#2-4- 给 -md0- 设备创建分区和文件系统" class="headerlink" title="2.4. 给 md0 设备创建分区和文件系统"></a>2.4. 给 md0 设备创建分区和文件系统</h2><pre><code>$ fdisk /dev/md0
+$ mkfs.ext4 /dev/md0p1
+
+$ mkdir /raid10
+$ mount /dev/md0p1 /raid10
+</code></pre><h2 id="2-5- 修改 -etc-fstab- 启动时自动挂载"><a href="#2-5- 修改 -etc-fstab- 启动时自动挂载" class="headerlink" title="2.5. 修改 /etc/fstab 启动时自动挂载"></a>2.5. 修改 /etc/fstab 启动时自动挂载</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ vi /etc/fstab</span><br><span class="line">  ...</span><br><span class="line">  /dev/md0p1 /raid10 ext4 noatime,rw 0 0</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在上面的 /etc/fstab 文件里使用 /dev/md0p1 设备名不是一个好办法，因为 udev 的缘故，这个设备名常在重启系统后变化，所以最好用 UUID，使用 blkid 命令找到相应分区的 UUID</p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ blkid</span><br><span class="line">...</span><br><span class="line">/dev/md0p1: UUID=<span class="string">"093e0605-1fa2-4279-99b2-746c70b78f1b"</span> TYPE=<span class="string">"ext4"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改相应的 fstab，使用 UUID 挂载：</span></span><br><span class="line">$ vi /etc/fstab</span><br><span class="line">...</span><br><span class="line">/dev/md0p1 /raid10 ext4 noatime,rw 0 0</span><br><span class="line">**UUID=093e0605-1fa2-4279-99b2-746c70b78f1b /raid10 ext4 noatime,rw 0 0**</span><br></pre></td></tr></table></figure>
+<h2 id="2-6- 查看 -RAID- 的状态"><a href="#2-6- 查看 -RAID- 的状态" class="headerlink" title="2.6. 查看 RAID 的状态"></a>2.6. 查看 RAID 的状态</h2><pre><code>$ mdadm --query --detail /dev/md0
+/dev/md0:
+        Version : 1.2
+  Creation Time : Tue Feb 11 12:50:38 2014
+     Raid Level : raid10
+     Array Size : 2197321728 (2095.53 GiB 2250.06 GB)
+  Used Dev Size : 732440576 (698.51 GiB 750.02 GB)
+   Raid Devices : 6
+  Total Devices : 6
+    Persistence : Superblock is persistent
+
+    Update Time : Tue Feb 11 18:48:10 2014
+          State : clean
+ Active Devices : 6
+Working Devices : 6
+ Failed Devices : 0
+  Spare Devices : 0
+
+         Layout : near=2
+     Chunk Size : 512K
+
+           Name : local:0  (local to host local)
+           UUID : e3044b6c:5ab972ea:8e742b70:3f766a11
+         Events : 70
+
+    Number   Major   Minor   RaidDevice State
+       0       8        1        0      active sync   /dev/sda1
+       1       8       33        1      active sync   /dev/sdc1
+       2       8       49        2      active sync   /dev/sdd1
+       3       8       65        3      active sync   /dev/sde1
+       4       8       81        4      active sync   /dev/sdf1
+       5       8       97        5      active sync   /dev/sdg1
+</code></pre><h2 id="2-7- 配置 -raid- 的配置文件"><a href="#2-7- 配置 -raid- 的配置文件" class="headerlink" title="2.7. 配置 raid 的配置文件"></a>2.7. 配置 raid 的配置文件</h2><pre><code>$ echo device /dev/sdb1 /dev/sdc1 /dev/sdd1 &gt; /etc/mdadm.conf
+$ mdadm --detail --scan &gt;&gt; /etc/mdadm.conf
+</code></pre><h2 id="2-8-RAID- 维护命令"><a href="#2-8-RAID- 维护命令" class="headerlink" title="2.8. RAID 维护命令"></a>2.8. RAID 维护命令</h2><h3 id="2-8-1- 删除故障盘"><a href="#2-8-1- 删除故障盘" class="headerlink" title="2.8.1. 删除故障盘"></a>2.8.1. 删除故障盘</h3><pre><code>$ mdadm /dev/md0 -r /dev/sdb1
+</code></pre><h3 id="2-8-2- 增加新盘"><a href="#2-8-2- 增加新盘" class="headerlink" title="2.8.2. 增加新盘"></a>2.8.2. 增加新盘</h3><pre><code>$ mdadm /dev/md0 -a /dev/sde1
+</code></pre><h3 id="2-8-3- 停止并移除阵列"><a href="#2-8-3- 停止并移除阵列" class="headerlink" title="2.8.3. 停止并移除阵列"></a>2.8.3. 停止并移除阵列</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mdadm --stop /dev/md99    <span class="comment"># // 停止</span></span><br><span class="line">$ mdadm -As /dev/md0        <span class="comment"># // 启动</span></span><br><span class="line">$ mdadm --remove /dev/md99</span><br></pre></td></tr></table></figure>
+<h3 id="2-8-4- 销毁系统中的阵列"><a href="#2-8-4- 销毁系统中的阵列" class="headerlink" title="2.8.4. 销毁系统中的阵列"></a>2.8.4. 销毁系统中的阵列</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mdadm --manage /dev/md99 --fail /dev/sd[cde]1</span><br><span class="line">mdadm --manage /dev/md99 --remove /dev/sd[cde]1</span><br><span class="line">mdadm --manage /dev/md99 --stop</span><br><span class="line">mdadm --zero-superblock /dev/sd[cde]1</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/soft-raid/" rel="tag"># soft raid</a>
+          
+            <a href="/tags/mdadm/" rel="tag"># mdadm</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/linux/DHCP高级配置/" rel="next" title="DHCP 高级配置">
+                <i class="fa fa-chevron-left"></i> DHCP 高级配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="prev" title="Linux 升级 Kernel 及 tcp_BBR">
+                Linux 升级 Kernel 及 tcp_BBR <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Krrish" />
+          <p class="site-author-name" itemprop="name">Krrish</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">61</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dongcj" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/krrishdo" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://facebook.com/krrishdo" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-mega- 管理硬 -raid"><span class="nav-text">1. mega 管理硬 raid</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1- 查看磁盘状态"><span class="nav-text">1.1. 查看磁盘状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-Create-a-RAID0-1-5-6-array-with-MegaCli"><span class="nav-text">1.2. Create a RAID0,1,5,6 array with MegaCli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-Create-a-RAID50-raid60-array-with-MegaCli"><span class="nav-text">1.3. Create a RAID50,raid60 array with MegaCli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-Performance-tunning"><span class="nav-text">1.4. Performance tunning</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-Read-Cache"><span class="nav-text">1.4.1. Read Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-ReadAhead"><span class="nav-text">1.4.2. ReadAhead</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-write-cache"><span class="nav-text">1.4.3. write cache</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-Show-system-summary"><span class="nav-text">1.5. Show system summary</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-mdadm- 管理软 -raid"><span class="nav-text">2. mdadm 管理软 raid</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1- 硬盘分区"><span class="nav-text">2.1. 硬盘分区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2- 更改分区格式"><span class="nav-text">2.2. 更改分区格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3- 创建 -RAID"><span class="nav-text">2.3. 创建 RAID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4- 给 -md0- 设备创建分区和文件系统"><span class="nav-text">2.4. 给 md0 设备创建分区和文件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5- 修改 -etc-fstab- 启动时自动挂载"><span class="nav-text">2.5. 修改 /etc/fstab 启动时自动挂载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6- 查看 -RAID- 的状态"><span class="nav-text">2.6. 查看 RAID 的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7- 配置 -raid- 的配置文件"><span class="nav-text">2.7. 配置 raid 的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-8-RAID- 维护命令"><span class="nav-text">2.8. RAID 维护命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-1- 删除故障盘"><span class="nav-text">2.8.1. 删除故障盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-2- 增加新盘"><span class="nav-text">2.8.2. 增加新盘</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-3- 停止并移除阵列"><span class="nav-text">2.8.3. 停止并移除阵列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-8-4- 销毁系统中的阵列"><span class="nav-text">2.8.4. 销毁系统中的阵列</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Krrish</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 6234,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
