@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot">
+<meta name="description" content="1. CentOS yum 安装图像界面  (参考：http://www.ha97.com/4634.html) 1234567891011121314151617181920212223yum install epel-releaseyum grouplistyum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面">
 <meta name="keywords" content="xorg,smate,xfce,vnc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SMATE、XFCE、VNC 配置">
 <meta property="og:url" content="http://blog.dongcj.com/linux/SMATE、XFCE、VNC配置/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot">
+<meta property="og:description" content="1. CentOS yum 安装图像界面  (参考：http://www.ha97.com/4634.html) 1234567891011121314151617181920212223yum install epel-releaseyum grouplistyum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-30T09:48:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SMATE、XFCE、VNC 配置">
-<meta name="twitter:description" content="YUM 安装图像界面及 VNC (参考：http://www.ha97.com/4634.html) yum install epel-release  yum grouplist yum groupinstall &amp;quot;GNOME Desktop Environment&amp;quot;（CentOS 5.x 安装 GNOME 桌面环境） yum groupinstall &amp;quot">
+<meta name="twitter:description" content="1. CentOS yum 安装图像界面  (参考：http://www.ha97.com/4634.html) 1234567891011121314151617181920212223yum install epel-releaseyum grouplistyum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面">
 
 
 
@@ -411,39 +411,13 @@
       
 
       
-        <h1 id="yum- 安装图像界面及 -vnc">YUM 安装图像界面及 VNC</h1>
+        <h1 id="centos-yum- 安装图像界面">1. CentOS yum 安装图像界面 </h1>
 <p>(参考：http://www.ha97.com/4634.html)</p>
-<pre><code>yum install epel-release
-
-yum grouplist
-yum groupinstall &quot;GNOME Desktop Environment&quot;（CentOS 5.x 安装 GNOME 桌面环境）
-yum groupinstall &quot;X Window System&quot; &quot;Desktop&quot;（CentOS 6.x 安装 GNOME 桌面环境）
-
-yum groupinstall [xfce | &quot;MATE Desktop&quot;]（CentOS 安装 xfce 桌面环境，可选）
-
-# runlevel 5
-systemctl isolate graphical.target
-
-# Start the GUI on boot
-systemctl set-default graphical.target
-
-# 切换 display manager
-# 查看
-ls -l /etc/systemd/system/display-manager.service
-
-# 切换
-systemctl disable gdm &amp;&amp; systemctl enable lightdm
-
-# 刷新
-systemctl isolate graphical.target</code></pre>
-<h1 id="安装 -vnc-server"> 安装 vnc server</h1>
-<pre><code># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可
-yum install vnc-server vnc* （CentOS 5.x 里）
-yum install tigervnc-server tigervnc （CentOS 6.x 里）
-/etc/init.d/vncserver restart
-
-# 关闭具体的 vncserver 命令 :
-vncserver -kill :1</code></pre>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">yum install epel-release</span><br><span class="line"></span><br><span class="line">yum grouplist</span><br><span class="line">yum groupinstall <span class="string">"GNOME Desktop Environment"</span>（CentOS 5.x 安装 GNOME 桌面环境）</span><br><span class="line">yum groupinstall <span class="string">"X Window System"</span> <span class="string">"Desktop"</span>（CentOS 6.x 安装 GNOME 桌面环境）</span><br><span class="line"></span><br><span class="line">yum groupinstall [xfce | <span class="string">"MATE Desktop"</span> ]（CentOS 安装 xfce 桌面环境，可选）</span><br><span class="line"></span><br><span class="line"><span class="comment"># runlevel 5</span></span><br><span class="line">systemctl isolate graphical.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start the GUI on boot</span></span><br><span class="line">systemctl <span class="built_in">set</span>-default graphical.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换 display manager</span></span><br><span class="line"><span class="comment"># 查看 </span></span><br><span class="line">ls -l /etc/systemd/system/display-manager.service</span><br><span class="line"></span><br><span class="line"><span class="comment"># 切换 </span></span><br><span class="line">systemctl <span class="built_in">disable</span> gdm &amp;&amp; systemctl <span class="built_in">enable</span> lightdm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刷新 </span></span><br><span class="line">systemctl isolate graphical.target</span><br></pre></td></tr></table></figure>
+<h1 id="ubuntu- 安装 -xfce">2. Ubuntu 安装 Xfce</h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install xfce4</span><br></pre></td></tr></table></figure>
+<h1 id="安装 -vnc-server">3. 安装 vnc server</h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可 </span></span><br><span class="line">yum install vnc-server vnc* （CentOS 5.x 里）</span><br><span class="line">yum install tigervnc-server tigervnc （CentOS 6.x 里）</span><br><span class="line"></span><br><span class="line">/etc/init.d/vncserver restart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭具体的 vncserver 命令 :</span></span><br><span class="line">vncserver -<span class="built_in">kill</span> :1</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7</p>
 </blockquote>
@@ -505,7 +479,7 @@ vncserver -kill :1</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/Linux升级kernel及tcp_BBR/" rel="next" title="Linux 升级 Kernel 及 tcp_BBR">
+              <a href="/linux/Linux升级kernel及配置tcp_BBR、TFO/" rel="next" title="Linux 升级 Kernel 及 tcp_BBR">
                 <i class="fa fa-chevron-left"></i> Linux 升级 Kernel 及 tcp_BBR
               </a>
             
@@ -682,7 +656,7 @@ vncserver -kill :1</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#yum- 安装图像界面及 -vnc"><span class="nav-text">YUM 安装图像界面及 VNC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装 -vnc-server"><span class="nav-text"> 安装 vnc server</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#centos-yum- 安装图像界面"><span class="nav-text">1. CentOS yum 安装图像界面 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ubuntu- 安装 -xfce"><span class="nav-text">2. Ubuntu 安装 Xfce</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装 -vnc-server"><span class="nav-text">3. 安装 vnc server</span></a></li></ol></div>
             
 
           </div>

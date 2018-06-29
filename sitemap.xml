@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.dongcj.com/m/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/</loc>
+    <loc>http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/</loc>
     
-    <lastmod>2018-06-24T15:59:10.982Z</lastmod>
+    <lastmod>2018-06-27T10:14:53.795Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/m/Docker%E5%AE%89%E8%A3%85%E5%8F%8A%E5%91%BD%E4%BB%A4/</loc>
+    <loc>http://blog.dongcj.com/m/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/</loc>
     
-    <lastmod>2018-06-22T09:09:35.700Z</lastmod>
+    <lastmod>2018-06-24T15:59:10.982Z</lastmod>
     
   </url>
   
@@ -135,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
+    <loc>http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2016-08-30T09:48:08.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
     
     <lastmod>2016-08-30T09:48:08.000Z</lastmod>
     
@@ -156,13 +156,6 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
@@ -170,7 +163,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -191,7 +191,7 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.dongcj.com/database/Postgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -199,13 +199,6 @@
   
   <url>
     <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -226,6 +219,13 @@
   </url>
   
   <url>
+    <loc>http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.dongcj.com/linux/%E7%A1%AC%20raid(megacli)%20%E4%B8%8E%E8%BD%AF%20raid%20(mdadm)%E5%88%9B%E5%BB%BA/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
@@ -240,14 +240,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Supervisor%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-04T09:26:08.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.dongcj.com/linux/Supervisor%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2016-08-04T09:26:08.000Z</lastmod>
     
@@ -261,7 +261,7 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8Atcp_BBR/</loc>
+    <loc>http://blog.dongcj.com/linux/Linux%E5%8D%87%E7%BA%A7kernel%E5%8F%8A%E9%85%8D%E7%BD%AEtcp_BBR%E3%80%81TFO/</loc>
     
     <lastmod>2016-06-07T06:25:00.000Z</lastmod>
     

@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="curl,resty,httpie,httpstat,wizz," />
+  <meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr," />
 
 
 
@@ -97,21 +97,18 @@
 
 
 
-<meta name="description" content="1. curl 1.1. 下载文件  123456export DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases">
-<meta name="keywords" content="curl,resty,httpie,httpstat,wizz">
+<meta name="description" content="12345678910111213# 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 # 如果不是，则需先按下方升级内核 echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开">
+<meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Curl、resty、httpie、httpstat、wuzz 使用介绍">
-<meta property="og:url" content="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/index.html">
+<meta property="og:title" content="Linux 升级 Kernel 及 tcp_BBR">
+<meta property="og:url" content="http://blog.dongcj.com/linux/Linux升级kernel及配置tcp_BBR、TFO/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="1. curl 1.1. 下载文件  123456export DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases">
+<meta property="og:description" content="12345678910111213# 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 # 如果不是，则需先按下方升级内核 echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i.imgur.com/xR2OHZ4.png">
-<meta property="og:image" content="http://i.imgur.com/fdWQco8.gif">
-<meta property="og:updated_time" content="2016-08-11T07:44:39.000Z">
+<meta property="og:updated_time" content="2016-06-07T06:25:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Curl、resty、httpie、httpstat、wuzz 使用介绍">
-<meta name="twitter:description" content="1. curl 1.1. 下载文件  123456export DOCKERIZE_VERION=latest &amp;amp;&amp;amp; \export DOCKERIZE_ARCH=dockerize-linux-amd64DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases">
-<meta name="twitter:image" content="http://i.imgur.com/xR2OHZ4.png">
+<meta name="twitter:title" content="Linux 升级 Kernel 及 tcp_BBR">
+<meta name="twitter:description" content="12345678910111213# 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 # 如果不是，则需先按下方升级内核 echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开">
 
 
 
@@ -139,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/"/>
+  <link rel="canonical" href="http://blog.dongcj.com/linux/Linux升级kernel及配置tcp_BBR、TFO/"/>
 
 
 
 
 
-  <title>Curl、resty、httpie、httpstat、wuzz 使用介绍 | Krrish</title>
+  <title>Linux 升级 Kernel 及 tcp_BBR | Krrish</title>
   
 
 
@@ -328,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux升级kernel及配置tcp_BBR、TFO/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -345,7 +342,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Curl、resty、httpie、httpstat、wuzz 使用介绍</h2>
+          <h2 class="post-title" itemprop="name headline">Linux 升级 Kernel 及 tcp_BBR</h2>
         
 
         <div class="post-meta">
@@ -357,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-28T17:44:33+08:00">
+                2016-08-28
               </time>
             
 
@@ -414,113 +411,29 @@
       
 
       
-        <h1 id="curl">1. curl</h1>
-<h2 id="下载文件">1.1. 下载文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> DOCKERIZE_VERION=latest &amp;&amp; \</span><br><span class="line"><span class="built_in">export</span> DOCKERIZE_ARCH=dockerize-linux-amd64</span><br><span class="line">DOCKERIZE_DOWNLOADURL=$(curl -s https://api.github.com/repos/jwilder/dockerize/releases/<span class="variable">$&#123;DOCKERIZE_VERION&#125;</span> | jq -r <span class="string">".assets[] | select(.name | test(\"<span class="variable">$&#123;DOCKERIZE_ARCH&#125;</span>\")) | .browser_download_url"</span>)</span><br><span class="line">curl -sSOL http://<span class="variable">$DOCKERIZE_DOWNLOADURL</span></span><br><span class="line"><span class="comment"># or </span></span><br><span class="line">curl -sSL <span class="variable">$&#123;DOCKERIZE_DOWNLOADURL&#125;</span> | tar zxvf - -C <span class="variable">$&#123;MODULE_HOME&#125;</span></span><br></pre></td></tr></table></figure>
-<h2 id="https- 跳转地址调试">1.2. https 跳转地址调试 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl  -iL --head  www.svi-tech.com.cn 2&gt;/dev/null  | grep Location</span><br></pre></td></tr></table></figure>
-<h2 id="详细信息"> 详细信息 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -v www.sina.com</span><br><span class="line">curl --trace output.txt www.sina.com</span><br><span class="line">curl --trace-ascii output.txt www.sina.com</span><br><span class="line">curl  -s  --head  www.sina.com</span><br></pre></td></tr></table></figure>
-<h2 id="上传文件">1.3. 上传文件 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --form upload=@localfilename --form press=OK [URL]</span><br><span class="line">curl -iL --user admin:mogK+vXX --form upload=@proxy.conf http://69.172.89.60:8090/uploader</span><br><span class="line"></span><br><span class="line">curl --cookie <span class="string">"name=xxx"</span> www.example.com</span><br><span class="line">curl --user username:password http://example.com</span><br><span class="line"></span><br><span class="line">curl -fsSL ...</span><br></pre></td></tr></table></figure>
-<h2 id="下载网页保存为文件名">1.4. 下载网页保存为文件名 </h2>
-<pre><code>curl -o [文件名] www.sina.com
+        <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9，直接使用以下命令即可 </span></span><br><span class="line"><span class="comment"># 如果不是，则需先按下方升级内核 </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 TFO(tcp fast open), 服务端为 3，客户端为 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_fastopen = 3"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存生效 </span></span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 bbr 是否生效 </span></span><br><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>
+<h1 id="debianubuntu- 升级内核">1. Debian、Ubuntu 升级内核 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></span><br><span class="line">apt-get update</span><br><span class="line">apt-cache search linux-image-extra</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装最新的内核 </span></span><br><span class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</span><br><span class="line"></span><br><span class="line">dpkg -l | grep linux-image</span><br><span class="line"></span><br><span class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</span><br><span class="line"></span><br><span class="line">update-grub</span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一下目前的内核版本 </span></span><br><span class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="rhelcentos- 升级内核">2. RHEL、CentOS 升级内核 </h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是 el7</span></span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是 el6</span></span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装内核 </span></span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前已安装的内核 </span></span><br><span class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定默认内核 (centos7)</span></span><br><span class="line"><span class="string">grub2-set-default 0</span></span><br><span class="line"><span class="string">reboot</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定默认内核 (centos6)</span></span><br><span class="line"><span class="string">vi /etc/grub.conf</span></span><br><span class="line"><span class="string"># 修改 default=&lt;ID 号 &gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定 /etc/sysctl.conf</span></span><br><span class="line"><span class="string">net.core.default_qdisc = fq</span></span><br><span class="line"><span class="string">net.ipv4.tcp_congestion_control = bbr</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 生效 </span></span><br><span class="line"><span class="string">sysctl -p</span></span><br></pre></td></tr></table></figure>
+<h1 id="手动安装">3. 手动安装 </h1>
+<h2 id="下载内核二进制包">3.1. 下载内核二进制包 </h2>
+<blockquote>
+<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
+</blockquote>
+<h2 id="解压安装">3.2. 解压安装 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb</span><br><span class="line">bzip2 -d data.tar.bz2</span><br><span class="line">tar -xf data.tar</span><br><span class="line">install -m644 boot/vmlinuz-4.9.0-11-generic /boot/vmlinuz-4.9.0-11-generic</span><br><span class="line">cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/</span><br><span class="line">depmod -a 4.9.0-11-generic</span><br></pre></td></tr></table></figure>
+<h2 id="加入引导">3.3. 加入引导 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dracut -f -v --hostonly -k <span class="string">'/lib/modules/4.9.0-11-generic'</span>  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic</span><br><span class="line"><span class="comment"># 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># centos7 是 grub2 可以用下面命令 :</span></span><br><span class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</span><br></pre></td></tr></table></figure>
+<h2 id="修改引导顺序">3.4. 修改引导顺序 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看引导内有哪些内核 </span></span><br><span class="line">cat /boot/grub2/grub.cfg |grep menuentry</span><br><span class="line"></span><br><span class="line">cat /boot/grub2/grub.cfg |grep menuentry</span><br><span class="line"><span class="keyword">if</span> [x<span class="string">"<span class="variable">$&#123;feature_menuentry_id&#125;</span>"</span> = xy ]; <span class="keyword">then</span></span><br><span class="line">  menuentry_id_option=<span class="string">"--id"</span></span><br><span class="line">  menuentry_id_option=<span class="string">""</span></span><br><span class="line">  <span class="built_in">export</span> menuentry_id_option</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-4.9.0-rc8-amd64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (3.10.0-327.36.3.el7.x86_64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-3.10.0-327.36.3.el7.x86_64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br></pre></td></tr></table></figure>
+<pre><code># 下面命令的内核名称根据系统内部查到的实际名称来替换：
+grub2-set-default &#39;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&#39;
 
-curl -L www.sina.com
+grub2-editenv list
 
-curl --limit-rate 1000B -O http://www.gnu.org/software/gettext/manual/gettext.html</code></pre>
-<h2 id="对于 -https- 的方法添加 -insecure">1.5. 对于 https 的方法，添加 –insecure</h2>
-<pre><code>curl --insecure -LJO https://packages.gitlab.com/gitlab
-
-curl example.com/form.cgi?data=xxx</code></pre>
-<h2 id="增加头信息 --h">1.6. 增加头信息 (-H)</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl -i -X GET --header <span class="string">"Content-Type:application/json"</span> http://example.com</span><br><span class="line"><span class="comment"># 2. 模拟服务地址（例如有些网站只能用域名访问的）</span></span><br><span class="line">curl – H Host:web-test.proxy-test.local http://192.168.1.2:8080</span><br><span class="line"></span><br><span class="line">POST：(-d)</span><br><span class="line">curl -i -X POST --data <span class="string">"data=xxx"</span>           example.com/form.cgi</span><br><span class="line">curl -i -X POST --data-urlencode <span class="string">"date=April 1"</span>     example.com/form.cgi</span><br></pre></td></tr></table></figure>
-<h2 id="referer-e">1.7. Referer(-e)</h2>
-<pre><code>curl --referer http://www.example.com http://www.example.com</code></pre>
-<h2 id="user-agent- 字段 --a">1.8. User Agent 字段 (-A)</h2>
-<pre><code>curl --user-agent &quot;[User Agent]&quot; http://www.example.com</code></pre>
-<h2 id="配置压缩 --i-means-fetch-the-http-header-only">1.9. 配置压缩 (-I means “Fetch the HTTP-header only”)</h2>
-<pre><code>curl -I http://www.111cn.net/ -H Accept-Encoding:gzip,defaltefrom</code></pre>
-<h2 id="超时设置">1.10. 超时设置 </h2>
-<pre><code>--connect-timeout 3     # 3 秒连接时间
--m | --max-time   5     # 连接 5 秒后自动断开 </code></pre>
-<h2 id="本地 -socket">1.11. 本地 socket</h2>
-<pre><code>curl --unix-socket /var/run/docker.sock http:/images/json
-or
-curl --unix-socket /var/run/docker.sock http://localhost/images/json</code></pre>
-<h2 id="curl-examples">1.12. curl examples</h2>
-<pre><code># zabbix 使用 API 进行认证
-# curl -i -X POST -H &#39;Content-Type:application/json&#39; -d &#39;{&quot;jsonrpc&quot;: &quot;2.0&quot;,&quot;method&quot;:&quot;user.authenticate&quot;,&quot;params&quot;:{&quot;user&quot;:&quot;admin&quot;,&quot;password&quot;:&quot;passw0rd&quot;},&quot;auth&quot;: null,&quot;id&quot;:0}&#39; http://192.168.0.54/api_jsonrpc.php
-
-HTTP/1.1 200 OK
-Date: Mon, 12 Aug 2013 05:53:05 GMT
-Server: Apache/2.2.21 (Linux/SUSE)
-X-Powered-By: PHP/5.3.8
-Content-Length: 68
-Content-Type: application/json
-
-{&quot;jsonrpc&quot;:&quot;2.0&quot;,&quot;result&quot;:&quot;c12f74265ea3cfb772b5e1d56957645b&quot;,&quot;id&quot;:0}
-
-# zabbix 利用 tokern 和 id 进行注册主机
-
-2. echo `cat /tmp/123.txt` --- 这样也可以 ...
-
-3. curl -i -X POST -H &#39;Content-Type: application/json&#39; -d &#39; 格式化后的内容 &#39; http://192.168.0.54/api_jsonrpc.php
-
--i|--include :  在输出中包含 HTTP 头 (如服务器名，日期，HTTP 版本等)
--s|--silent  :  静默模式
--X|--request :  请求 HTTP 服务，默认为 GET</code></pre>
-<hr>
-<h1 id="resty- 模拟请求">2. resty 模拟请求 </h1>
-<pre><code># install resty
-curl -L http://github.com/micha/resty/raw/master/resty &gt; resty
-# 导入变量
-. resty
-$ resty http://127.0.0.1:8080/data
-  http://127.0.0.1:8080/data*
-
-$ GET /blogs.json
-[{&quot;id&quot; : 1, &quot;title&quot; : &quot;first post&quot;, &quot;body&quot; : &quot;This is the first post&quot;}, ... ]
-
-$ PUT /blogs/2.json &#39;{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}&#39;
-{&quot;id&quot; : 2, &quot;title&quot; : &quot;updated post&quot;, &quot;body&quot; : &quot;This is the new.&quot;}
-
-$ DELETE /blogs/2
-
-$ POST /blogs.json &#39;{&quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}&#39;
-{&quot;id&quot; : 204, &quot;title&quot; : &quot;new post&quot;, &quot;body&quot; : &quot;This is the new new.&quot;}</code></pre>
-<hr>
-<h1 id="使用 -httpie">3. 使用 httpie</h1>
-<pre><code># install
-$ apt-get install httpie
-
-# usage
-$http httpie.org
-$ http PUT example.org X-API-Token:123 name=John
-
-$ http -f POST example.org hello=World
-$ http -v example.org
-$ http -a USERNAME POST https://api.github.com/repos/jakubroztocil/httpie/issues/83/comments body=&#39;HTTPie is awesome! :heart:&#39;
-
-$ http example.org &lt; file.json
-$ http example.org/file &gt; file
-
-$ http --download example.org/file
-
-$ http --session=logged-in -a username:password httpbin.org/get API-Key:123
-$ http --session=logged-in httpbin.org/headers
-$ http localhost:8000 Host:example.com
-$ http DELETE example.org/todos/7</code></pre>
-<hr>
-<h1 id="httpstat">4. httpstat</h1>
-<figure>
-<img src="http://i.imgur.com/xR2OHZ4.png" alt="httpstat"><figcaption>httpstat</figcaption>
-</figure>
-<hr>
-<h1 id="wuzz">5. wuzz</h1>
-<figure>
-<img src="http://i.imgur.com/fdWQco8.gif" alt="wuzz"><figcaption>wuzz</figcaption>
-</figure>
+saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
 
       
     </div>
@@ -550,15 +463,13 @@ $ http DELETE example.org/todos/7</code></pre>
       
         <div class="post-tags">
           
-            <a href="/tags/curl/" rel="tag"># curl</a>
+            <a href="/tags/升级内核/" rel="tag"># 升级内核</a>
           
-            <a href="/tags/resty/" rel="tag"># resty</a>
+            <a href="/tags/kernel/" rel="tag"># kernel</a>
           
-            <a href="/tags/httpie/" rel="tag"># httpie</a>
+            <a href="/tags/bbr/" rel="tag"># bbr</a>
           
-            <a href="/tags/httpstat/" rel="tag"># httpstat</a>
-          
-            <a href="/tags/wizz/" rel="tag"># wizz</a>
+            <a href="/tags/tcp-bbr/" rel="tag"># tcp_bbr</a>
           
         </div>
       
@@ -581,8 +492,8 @@ $ http DELETE example.org/todos/7</code></pre>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/monitor/Graphite安装/" rel="next" title="Graphite 安装">
-                <i class="fa fa-chevron-left"></i> Graphite 安装
+              <a href="/linux/Puppet安装/" rel="next" title="Puppet 安装">
+                <i class="fa fa-chevron-left"></i> Puppet 安装
               </a>
             
           </div>
@@ -591,8 +502,8 @@ $ http DELETE example.org/todos/7</code></pre>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/storage/GlusterFS安装/" rel="prev" title="GlusterFS 安装">
-                GlusterFS 安装 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/SMATE、XFCE、VNC配置/" rel="prev" title="SMATE、XFCE、VNC 配置">
+                SMATE、XFCE、VNC 配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -758,7 +669,7 @@ $ http DELETE example.org/todos/7</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#curl"><span class="nav-text">1. curl</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载文件"><span class="nav-text">1.1. 下载文件 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#https- 跳转地址调试"><span class="nav-text">1.2. https 跳转地址调试 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#详细信息"><span class="nav-text"> 详细信息 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传文件"><span class="nav-text">1.3. 上传文件 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载网页保存为文件名"><span class="nav-text">1.4. 下载网页保存为文件名 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对于 -https- 的方法添加 -insecure"><span class="nav-text">1.5. 对于 https 的方法，添加 –insecure</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加头信息 --h"><span class="nav-text">1.6. 增加头信息 (-H)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referer-e"><span class="nav-text">1.7. Referer(-e)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#user-agent- 字段 --a"><span class="nav-text">1.8. User Agent 字段 (-A)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置压缩 --i-means-fetch-the-http-header-only"><span class="nav-text">1.9. 配置压缩 (-I means “Fetch the HTTP-header only”)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#超时设置"><span class="nav-text">1.10. 超时设置 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地 -socket"><span class="nav-text">1.11. 本地 socket</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#curl-examples"><span class="nav-text">1.12. curl examples</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#resty- 模拟请求"><span class="nav-text">2. resty 模拟请求 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用 -httpie"><span class="nav-text">3. 使用 httpie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#httpstat"><span class="nav-text">4. httpstat</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#wuzz"><span class="nav-text">5. wuzz</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#debianubuntu- 升级内核"><span class="nav-text">1. Debian、Ubuntu 升级内核 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rhelcentos- 升级内核"><span class="nav-text">2. RHEL、CentOS 升级内核 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手动安装"><span class="nav-text">3. 手动安装 </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载内核二进制包"><span class="nav-text">3.1. 下载内核二进制包 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压安装"><span class="nav-text">3.2. 解压安装 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入引导"><span class="nav-text">3.3. 加入引导 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改引导顺序"><span class="nav-text">3.4. 修改引导顺序 </span></a></li></ol></li></ol></div>
             
 
           </div>
