@@ -618,7 +618,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -637,7 +637,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/" itemprop="url">硬 Raid(megacli) 与软 Raid (Mdadm) 创建</a></h2>
+                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet 安装</a></h2>
         
 
         <div class="post-meta">
@@ -707,21 +707,55 @@
 
       
         
-          <blockquote>
-<p><strong>建议：</strong> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
-</blockquote>
-<h1 id="mega- 管理硬 -raid">1. mega 管理硬 raid</h1>
-<h2 id="查看磁盘状态">1.1. 查看磁盘状态</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略信息</span></span><br><span class="line">megasasctl </span><br><span class="line"></span><br><span class="line">  a0       PERC H710 Mini           encl:1 ldrv:1  batt:FAULT, low voltage</span><br><span class="line">  a0d0      1862GiB RAID 0   1x1  optimal</span><br><span class="line">  unconfigured:  a0e32s1   a0e32s2   a0e32s3 </span><br><span class="line">  a0e32s0    1863GiB  a0d0  online  </span><br><span class="line">  a0e32s1    1863GiB        ready   </span><br><span class="line">  a0e32s2    1863GiB        ready   </span><br><span class="line">  a0e32s3    1863GiB        ready   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">megaraidsas-status</span><br><span class="line"></span><br><span class="line">  -- Arrays informations --</span><br><span class="line">  -- ID | Type | Size | Status</span><br><span class="line">  a0d0 | RAID 0 | 1862GiB | optimal</span><br><span class="line"></span><br><span class="line">  -- Disks informations</span><br><span class="line">  -- ID | Model | Status | Warnings</span><br><span class="line">  a0e32s0 | SEAGATE ST2000NM0023 1863GiB | online</span><br><span class="line">  a0e32s1 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s2 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s3 | SEAGATE ST2000NM0023 | ready</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细物理磁盘 (pd) 信息，主要是看 ` 框 ID` 与 ` 插槽 ID`</span></span><br><span class="line">megacli -PDlist -a0 | grep -e <span class="string">'^Enclosure Device ID:'</span> -e <span class="string">'^Slot Number:'</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 1</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 2</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 3</span><br><span class="line">  Enclosure position: 1</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"><span class="comment"># 其它输出详细信息可以看看，平时可以通过这个来检查磁盘型号、状态等信息</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Drive s position: DiskGroup: 0, Span: 0, Arm: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line">  Device Id: 0</span><br><span class="line">  WWN: 5000C500627EE690</span><br><span class="line">  Sequence Number: 2</span><br><span class="line">  Media Error Count: 0</span><br><span class="line">  Other Error Count: 0</span><br><span class="line">  Predictive Failure Count: 0</span><br><span class="line">  Last Predictive Failure Event Seq Number: 0</span><br><span class="line">  PD Type: SAS</span><br><span class="line"></span><br><span class="line">  Raw Size: 1.819 TB [0xe8e088b0 Sectors]</span><br><span class="line">  Non Coerced Size: 1.818 TB [0xe8d088b0 Sectors]</span><br><span class="line">  Coerced Size: 1.818 TB [0xe8d00000 Sectors]</span><br><span class="line">  Sector Size:  0</span><br><span class="line">  Firmware state: Online, Spun Up                <span class="comment"># &lt;----- 如果重建，这里显示为：rebuilding</span></span><br><span class="line">  Device Firmware Level: GS0F</span><br><span class="line">  Shield Counter: 0</span><br><span class="line">  Successful diagnostics completion on :  N/A</span><br><span class="line">  SAS Address(0): 0x5000c500627ee691</span><br><span class="line">  SAS Address(1): 0x0</span><br><span class="line">  Connected Port Number: 0(path0) </span><br><span class="line">  Inquiry Data: SEAGATE ST2000NM0023    GS0FZ1X39XH6            </span><br><span class="line">  FDE Capable: Not Capable</span><br><span class="line">  FDE Enable: Disable</span><br><span class="line">  Secured: Unsecured</span><br><span class="line">  Locked: Unlocked</span><br><span class="line">  Needs EKM Attention: No</span><br><span class="line">  Foreign State: None </span><br><span class="line">  Device Speed: 6.0Gb/s </span><br><span class="line">  Link Speed: 6.0Gb/s </span><br><span class="line">  Media Type: Hard Disk Device</span><br><span class="line">  Drive Temperature :37C (98.60 F)</span><br><span class="line">  PI Eligibility:  No </span><br><span class="line">  Drive is formatted <span class="keyword">for</span> PI information:  No</span><br><span class="line">  PI: No PI</span><br><span class="line">  Port-0 :</span><br><span class="line">  Port status: Active</span><br><span class="line">  Port<span class="string">'s Linkspeed: 6.0Gb/s </span></span><br><span class="line"><span class="string">  Port-1 :</span></span><br><span class="line"><span class="string">  Port status: Active</span></span><br><span class="line"><span class="string">  Port'</span>s Linkspeed: Unknown </span><br><span class="line">  Drive has flagged a S.M.A.R.T alert : No</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line">------------------------------------------------------------</span><br><span class="line"><span class="comment"># 如果状态为重建中，可以查看重建信息</span></span><br><span class="line">megacli -PDRbld -ShowProg -PhysDrv [32:1] -aALL</span><br><span class="line"></span><br><span class="line">  Rebuild Progress on Device at Enclosure 32, Slot 1 Completed 51% <span class="keyword">in</span> 10 Minutes.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"># 逻辑磁盘 (LD) 信息</span><br><span class="line">megacli  -LDInfo -Lall -aALL</span><br><span class="line">                                     </span><br><span class="line">  Adapter 0 -- Virtual Drive Information:</span><br><span class="line">  Virtual Drive: 0 (Target Id: 0)</span><br><span class="line">  Name                :</span><br><span class="line">  RAID Level          : Primary-0, Secondary-0, RAID Level Qualifier-0</span><br><span class="line">  Size                : 1.818 TB</span><br><span class="line">  Sector Size         : 512</span><br><span class="line">  Parity Size         : 0</span><br><span class="line">  State               : Optimal</span><br><span class="line">  Strip Size          : 64 KB</span><br><span class="line">  Number Of Drives    : 1</span><br><span class="line">  Span Depth          : 1</span><br><span class="line">  Default Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU</span><br><span class="line">  Current Cache Policy: WriteBack, ReadAdaptive, Direct, No Write Cache if Bad BBU</span><br><span class="line">  Default Access Policy: Read/Write</span><br><span class="line">  Current Access Policy: Read/Write</span><br><span class="line">  Disk Cache Policy   : Disk&apos;s Default</span><br><span class="line">  Encryption Type     : None</span><br><span class="line">  Default Power Savings Policy: Controller Defined</span><br><span class="line">  Current Power Savings Policy: None</span><br><span class="line">  Can spin up in 1 minute: Yes</span><br><span class="line">  LD has drives that support T10 power conditions: Yes</span><br><span class="line">  LD&apos;s IO profile supports MAX power savings with cached writes: No</span><br><span class="line">  Bad Blocks Exist: No</span><br><span class="line">  Is VD Cached: Yes</span><br><span class="line">  Cache Cade Type : Read Only</span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"># Display, disable or enable automatic rebuild on adapter 0:</span><br><span class="line"></span><br><span class="line"># Display</span><br><span class="line">megacli -AdpAutoRbld -Dsply -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># disable</span><br><span class="line">megacli -AdpAutoRbld -Dsbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Disabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># enable</span><br><span class="line">megacli -AdpAutoRbld -Enbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">------------------------------------------------------------</span><br><span class="line"># Get and modify rebuild rate:</span><br><span class="line"></span><br><span class="line"># get</span><br><span class="line">megacli -AdpGetProp RebuildRate -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Rebuild Rate = 30%</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># set</span><br><span class="line">megacli -AdpSetProp RebuildRate 60 -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Set rebuild rate to 60% success.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br></pre></td></tr></table></figure>
-<h2 id="create-a-raid0156-array-with-megacli">1.2. Create a RAID0,1,5,6 array with MegaCli</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将后面三块盘创建 raid0</span></span><br><span class="line">megacli -CfgLdAdd -r0[32:1,32:2,32:3] -a0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Created VD 0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Configured the Adapter!!</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note:    to make RAID0, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID1, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID5, minimal 3 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID6, minimal 4 drives are required.</span></span><br></pre></td></tr></table></figure>
-<h2 id="create-a-raid50raid60-array-with-megacli">1.3. Create a RAID50,raid60 array with MegaCli</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">megactl -CfgLdAdd -r50 raid0[252:2,252:3,252:4] raid1[252:5,252:6,252:7] -a0</span><br><span class="line">megactl -CfgLdAdd -r60 raid0[252:2,252:3,252:4,252:5] raid1[252:6,252:7,252:8,252,9] -a0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: to make RAID50, minimal 6 drives are required.</span></span><br><span class="line"><span class="comment">#       to make RAID60, minimal 8 drives are required.</span></span><br></pre></td></tr></table></figure>
+          <h3 id="etchosts- 可以 -ping- 通对方域名">/etc/hosts 可以 ping 通对方域名 </h3>
+<h3 id="安装 -puppet"> 安装 puppet</h3>
+<pre><code>$ yum install ruby ruby-libs ruby-rdoc
+$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
+$ yum update
+
+# 服务端安装 puppet-server
+$ yum install puppet-server
+
+# 服务端安装 puppet 图形界面（可选）
+$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
+
+# 客户端安装 puppet
+$ yum install puppet</code></pre>
+<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
+<pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
+
+$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
+
+$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
+*.xxx.com
+EOF
+
+$ service puppetmaster restart
+$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
+
+在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
+
+$ puppetd --server bigdata.xxxx.com --test
+或者
+$ puppet agent --no-daemonize --onetime --verbose --debug</code></pre>
+<h3 id="安装 -dashboard"> 安装 dashboard</h3>
+<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
+production:
+database: puppet
+username: root
+password: passw0rd
+encoding: utf8
+adapter: mysql
+
+$ vi /usr/share/puppet-dashboard/config/environment.rb
+config.time_zone = &#39;Beijing&#39;</code></pre>
+<h3 id="初始化数据库"> 初始化数据库 </h3>
+<pre><code>$ cd /usr/share/puppet-dashboard/
+rake RAILS_ENV=production db:migrate</code></pre>
+<h3 id="整合 -passenger- 和 -apache"> 整合 Passenger 和 apache</h3>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/#more" rel="contents">
+            <a class="btn" href="/linux/Puppet安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -954,7 +988,7 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/斐讯K2路由器刷机/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -973,7 +1007,7 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE 安装与设定</a></h2>
+                <a class="post-title-link" href="/linux/斐讯K2路由器刷机/" itemprop="url">斐讯 K2 路由器刷机</a></h2>
         
 
         <div class="post-meta">
@@ -1043,127 +1077,25 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
 
       
         
-          <h1 id="安装软件"> 安装软件 </h1>
-<pre><code># 安装的软件：
-dhcp-3.0.5-7.el5.x86_64.rpm
-vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
-xinetd-2.3.14-10.el5.x86_64.rpm
-tftp-server-0.42-3.1.x86_64.rpm
-pykickstart-0.43.3-1.el5.noarch.rpm
-system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
-syslinux
+          <h1 id="买个 -ss- 帐号"> 买个 SS 帐号 </h1>
+<p> 不要问我 SS 是什么，我只能告诉你它是现在最好的 fun 墙工具！一般 400 左右一年，但每个商家质量千差万别，买前最好问清楚有没有流量限制，可以用几台客户端等，最好有老司机带路。</p>
+<h1 id="路由刷机"> 路由刷机 </h1>
+<ul>
+<li> 路由器通电，网线一端连接 &quot; 自己电脑的网口 “，一头连接路由器的”LAN&quot; 口，<code> 注意：不是 WAN 口 </code></li>
+<li> 查看自己电脑的 &quot; 网络连接 “，选中” 本地连接 “，点击右键，选择” 状态 &quot; -&gt; &quot; 详细信息 &quot; 查看自己的 IP 地址 </li>
+</ul>
+<figure>
+<img src="http://i.imgur.com/qlfwJ9j.jpg">
+</figure>
+<ul>
+<li> 自己电脑中打开浏览器：http://192.168.1.1 (一般是 192.168.1.1 这个 IP 地址，IP 前三位和 &quot; 本地连接 &quot; 中看到的 IP 一致，但最后一位修改为 1)</li>
+<li><p> 用户名和密码默认 “admin/admin”</p></li>
+<li><p> 登陆 WEB 后，点击菜单 &quot; 系统 &quot; -&gt; &quot; 升级 “(其实我们是先降级，因为斐讯的默认系统是不让刷机的)。然后浏览本地”breed_k2_163_v17_breed.bin&quot; 文件 </p></li>
+</ul>
 
-# 关闭 selinux &amp; iptables</code></pre>
-<h1 id="dhcp- 配置">dhcp 配置 </h1>
-<pre><code>ddns-update-style interim;
-ignore client-updates;
-allow booting;
-allow bootp;
-class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
-filename &quot;/pxelinux.0&quot;;
-next-server 10.85.138.9;
-}
-subnet 10.85.138.0 netmask 255.255.254.0 {
-option routers 10.85.138.1;
-option subnet-mask 255.255.254.0;
-option domain-name &quot;gwcloud.com&quot;;
-option domain-name-servers 10.85.138.1;
-option time-offset -18000; # Eastern Standard Time
-range dynamic-bootp 10.85.138.100 10.85.138.249;
-default-lease-time 21600;
-max-lease-time 43200;
-}</code></pre>
-<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
-<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
-$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
-$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
-
-
-$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
-$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
-<h1 id="配置 -kickstart"> 配置 kickstart</h1>
-<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
-  label linux
-    menu label ^Install or upgrade an existing system
-    menu default
-    kernel vmlinuz
-    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
-
-# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
-<blockquote>
-<p> 附录：完整 DHCP 样例 </p>
-</blockquote>
-<pre><code>ddns-update-style interim;
-ddns-updates on;
-ignore client-updates;
-allow booting;  # for pxe only
-allow bootp;    # for pxe only
-authoritative;  # Do not know what is meaning??
-
-class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
-    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
-    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-    filename &quot;/pxelinux.0&quot;;     # for pxe only
-    next-server 192.168.88.1;   # for pxe only
-}
-
-
-class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
-    option host-name = config-option server.ddns-hostname;
-    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
-    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
-    ddns-hostname = concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-    );
-}
-
-
-option host-name = config-option server.ddns-hostname;
-ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
-        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
-));
-set vendor-string = option vendor-class-identifier;
-
-
-subnet 192.168.88.0 netmask 255.255.255.0 {
-    option routers 192.168.88.1;
-    option subnet-mask 255.255.255.0;
-    option domain-name &quot;gwcloud.cn&quot;;
-    option domain-name-servers 192.168.88.1;
-    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
-    # option ntp-servers 192.168.88.1   # set the ntp server
-    option time-offset -18000;          # Eastern Standard Time
-    range dynamic-bootp 192.168.88.100 192.168.88.200;
-    default-lease-time 21600;
-    max-lease-time 43200;
-
-    # the next is bonding the mac to static ip address
-    # host pc1 {
-    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
-    #    fixed-address 192.168.1.30;             # host&#39;s ip address
-}</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
+            <a class="btn" href="/linux/斐讯K2路由器刷机/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
