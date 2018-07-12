@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.dongcj.com/linux/dns/Dnsmasq%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0host%E4%B8%BADNS/</loc>
+    <loc>http://blog.dongcj.com/m/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/</loc>
     
-    <lastmod>2018-07-07T12:56:51.516Z</lastmod>
+    <lastmod>2018-07-11T06:42:47.522Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/m/Parted%E3%80%81kpartx%E3%80%81losetup%E3%80%81sfdisk%E3%80%81e2fsck%E3%80%81resize2fs%E5%88%86%E5%8C%BA%E6%89%A9%E7%9B%98/</loc>
+    <loc>http://blog.dongcj.com/linux/dns/Dnsmasq%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0host%E4%B8%BADNS/</loc>
     
-    <lastmod>2018-07-02T12:20:56.323Z</lastmod>
+    <lastmod>2018-07-07T12:56:51.516Z</lastmod>
     
   </url>
   
@@ -135,14 +135,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
     
     <lastmod>2016-08-30T09:48:08.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96/</loc>
+    <loc>http://blog.dongcj.com/linux/SMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE/</loc>
     
     <lastmod>2016-08-30T09:48:08.000Z</lastmod>
     
@@ -156,13 +156,6 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/</loc>
-    
-    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
@@ -170,7 +163,14 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</loc>
+    
+    <lastmod>2016-08-11T07:44:39.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.dongcj.com/linux/Puppet%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -205,7 +205,7 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/</loc>
+    <loc>http://blog.dongcj.com/storage/GlusterFS%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
@@ -219,7 +219,7 @@
   </url>
   
   <url>
-    <loc>http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/</loc>
+    <loc>http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2016-08-11T07:44:39.000Z</lastmod>
     
