@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/dns/Dnsmasq使用本地host为DNS/" itemprop="url">Dnsmasq 使用本地 Hosts 配置提供 DNS 服务</a></h2>
+                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
         
 
         <div class="post-meta">
@@ -386,17 +386,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/dns/" itemprop="url" rel="index">
-                    <span itemprop="name">dns</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -425,19 +414,31 @@
 
       
         
-          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务">1. 使用 dnsmasq 提供外网 dns 服务 </h1>
-<pre><code>$ apt-get install dnsmasq</code></pre>
-<h2 id="修改 -dnsmasq- 主配置文件">1.1. 修改 dnsmasq 主配置文件 </h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：</span></span><br><span class="line">listen-address=127.0.0.1,OUTER_IP      <span class="comment"># 这里如果使用 0.0.0.0 会失败 </span></span><br><span class="line">addn-hosts=/etc/hosts                   <span class="comment"># 直接解析本地的 hosts</span></span><br><span class="line">resolv-file=/etc/resolv.dnsmasq.conf    <span class="comment"># 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)</span></span><br><span class="line">conf-dir=/etc/dnsmasq.d                 <span class="comment"># 该目录下的所有文件都会解析 </span></span><br></pre></td></tr></table></figure>
-<h2 id="生成域名映射">1.2. 生成域名映射 </h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字 </span></span><br><span class="line">vi /etc/dnsmasq.d/dns.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件 </span></span><br><span class="line">address=<span class="string">"/google.com/172.17.0.4"</span></span><br></pre></td></tr></table></figure>
-<h2 id="启动服务">1.3. 启动服务 </h2>
-<pre><code>/etc/init.d/dnsmasq start</code></pre>
-<h2 id="测试">1.4. 测试 </h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+          <h1 id="yum- 更新">yum 更新 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
+<pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
+rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
+<h2 id="epel- 源 -elrepo.org">epel 源 (elrepo.org)</h2>
+<pre><code>yum install epel-release</code></pre>
+<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
+<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
+
+# (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+# redhat/centos 6
+rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
+rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
+rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
+<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
+<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次">CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
+<blockquote>
+<p> 地址：http://centos.ustc.edu.cn/</p>
+</blockquote>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/dns/Dnsmasq使用本地host为DNS/#more" rel="contents">
+            <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
