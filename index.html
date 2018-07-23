@@ -591,6 +591,135 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/常用监控工具/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/m/常用监控工具/" itemprop="url">未命名</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-06T09:54:39+08:00">
+                2018-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="常用工具">1. 常用工具</h1>
+<h2 id="basic">1.1. Basic</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Process </span></span><br><span class="line">ps -eLf               <span class="comment"># 打印线程</span></span><br><span class="line">ps -ef f              <span class="comment"># 打印进程树</span></span><br><span class="line">pstree -al[pha] [PID] <span class="comment"># 查看某进程的详细情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Load</span></span><br><span class="line">top | uptime | sar -q 2 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># CPU</span></span><br><span class="line">sar -u -P 0 1 20 </span><br><span class="line">mpstat -P 0 1 20</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mem</span></span><br><span class="line">sar -r 2 10 </span><br><span class="line">vmstat 1 20</span><br><span class="line">free </span><br><span class="line">vmtouch</span><br><span class="line">lsmem</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disk</span></span><br><span class="line">iostat -m  1 20</span><br><span class="line">sar -d 1 20 </span><br><span class="line"></span><br><span class="line"><span class="comment"># FS Inode</span></span><br><span class="line">sar -F 2 10</span><br><span class="line">sar -v 2 10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Swap</span></span><br><span class="line">sar -W 2 10</span><br></pre></td></tr></table></figure>
+<p><details> <summary>ps 字段说明</summary></details></p>
+<p>可以用 <code>ps -a -uroot -o pid,ppid,stat,command</code> 根据 Flag 来判断</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">F(Flag)：一系列数字的和，表示进程的当前状态。这些数字的含义为： </span><br><span class="line">00：若单独显示，表示此进程已被终止。 </span><br><span class="line">01：进程是核心进程的一部分，常驻于系统主存。如：　　　 sched、 vhand 、bdflush 等。 </span><br><span class="line">02：Parent is tracing process. </span><br><span class="line">04 ：Tracing parent&apos;s signal has stopped the process; the parent　is waiting (ptrace(S)). </span><br><span class="line">10：进程在优先级低于或等于 25 时，进入休眠状态，而且不能用信号唤醒，例如在等待一个 inode 被创建时　　　 </span><br><span class="line">20：进程被装入主存（primary memory） </span><br><span class="line">40：进程被锁在主存，在事务完成前不能被置换　　　e </span><br><span class="line">S(state of? the process) </span><br><span class="line">O：进程正在处理器运行　 ms 这个状态从来木见过， 倒是 R 常见 </span><br><span class="line">S：休眠状态（sleeping） </span><br><span class="line">R：等待运行（runable）　　　 R Running or runnable (on run queue) 进程处于运行或就绪状态</span><br><span class="line">I：空闲状态（idle） </span><br><span class="line">Z：僵尸状态（zombie）　　　 </span><br><span class="line">T：跟踪状态（Traced） </span><br><span class="line">B：进程正在等待更多的内存页 </span><br><span class="line">D: 不可中断的深度睡眠，一般由 IO 引起，同步 IO 在做读或写操作时，cpu 不能做其它事情，只能等待，这时进程处于这种状态，如果程序采用异步 IO，这种状态应该就很少见到了</span><br><span class="line">C(cpu usage)：cpu 利用率的估算值</span><br><span class="line"></span><br><span class="line">&lt;high-priority (not nice to other users)</span><br><span class="line">N    low-priority (nice to other users)</span><br><span class="line">L    has pages locked into memory (for real-time and custom IO)</span><br><span class="line">s    is a session leader</span><br><span class="line">l    is multi-threaded (using CLONE_THREAD, like NPTL pthreads do)</span><br><span class="line">+    is in the foreground process group</span><br><span class="line"></span><br><span class="line"># 2. 清除 ZOMBIE（僵尸）进程可以使用如下方法：</span><br><span class="line">1&gt; kill – 18 PPID （PPID 是其父进程）</span><br><span class="line"> 这个信号是告诉父进程，该子进程已经死亡了，请收回分配给他的资源。</span><br><span class="line">2 &gt; 如果不行则看能否终止其父进程（如果其父进程不需要的话）。先看其父进程又无其他子进程，如果有，可能需要先 kill 其他子进程，也就是兄弟进程。方法是：</span><br><span class="line">kill – 15 PID1 PID2(PID1,PID2 是僵尸进程的父进程的其它子进程)。</span><br><span class="line">然后再 kill 父进程：kill – 15 PPID  这样僵尸进程就可能被完全杀掉了。</span><br></pre></td></tr></table></figure>
+<p></p>
+<p><details> <summary>free 字段说明</summary></details></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ free</span><br><span class="line"></span><br><span class="line">total       used    free    shared  buffers     cached</span><br><span class="line">Mem:    255268      238332  16936   0       85540       126384</span><br><span class="line">-/+ buffers/cache:  26408   228860</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>free2：未被使用的 buffers 与 cache 和未被分配的内存之和，这就是系统当前实际可用内存。 total1 = used1 + free1 total1 = used2 + free2 used1 = buffers1 + cached1 + used2 free2 = buffers1 + cached1 + free1</p></li>
+<li><p>buffer: 缓冲区 缓冲区，一个用于存储速度不同步的设备或优先级不同的设备之间传输数据的区域。通过缓冲区，可以使进程之间的相互等待变少，从而使从速度慢的设备读入数据时，速度快的设备的操作进程不发生间断。</p></li>
+<li><p>cache: 高速缓存 高速缓存，是位于 CPU 与主内存间的一种容量较小但速度很高的存储器。由于 CPU 的速度远高于主内存，CPU 直接从内存中存取数据要等待一定时间周期，Cache 中保存着 CPU 刚用过或循环使用的一部分数据，当 CPU 再次使用该部分数据时可从 Cache 中直接调用 , 这样就减少了 CPU 的等待时间 , 提高了系统的效率。Cache 又分为一级 Cache(L1 Cache) 和二级 Cache(L2 Cache)，L1 Cache 集成在 CPU 内部，L2 Cache 早期一般是焊在主板上 , 现在也都集成在 CPU 内部，常见的容量有 256KB 或 512KB L2 Cache。</p></li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/m/常用监控工具/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/SSH_config_proxycommand/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -843,156 +972,6 @@ rm -rf /etc/localtime
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/docker/Rancher安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/docker/Rancher安装/" itemprop="url">Rancher 安装</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T15:43:19+08:00">
-                2017-12-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装 -rancher">1. 安装 Rancher</h1>
-<h2 id="单机安装 -v.16">1.1. 单机安装 v.16</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 rancher/server 镜像 </span></span><br><span class="line">docker pull rancher/server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单实例启动 (使用默认自带的数据库)</span></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">-v /opt/svicloud/rancher/server_db:/var/lib/mysql \</span><br><span class="line">--name rancher-server \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line">rancher/server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单独数据库启动 </span></span><br><span class="line">docker run -d --restart=always -p 8080:8080 -p 9345:9345 \</span><br><span class="line">--name rancher-server \</span><br><span class="line">rancher/server  \</span><br><span class="line">--db-host  mysql-lb.mysql.dongcj.krrish.top  \</span><br><span class="line">--db-port 3306  \</span><br><span class="line">--db-user root  \</span><br><span class="line">--db-pass mogK****  \</span><br><span class="line">--db-name cattle</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，浏览器打开 http://&lt;SERVER_IP&gt;:8080 即可 </span></span><br></pre></td></tr></table></figure>
-<h2 id="单机安装 -v.2.x">1.2. 单机安装 v.2.x</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 rancher/rancher 镜像 </span></span><br><span class="line">docker pull rancher/rancher</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单实例启动 (使用默认自带的数据库)</span></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">--name rancher-server \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-p 443:443 \</span><br><span class="line">rancher/rancher</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，浏览器打开 http://&lt;SERVER_IP&gt; 即可 </span></span><br></pre></td></tr></table></figure>
-<h1 id="其它安装选项">2. 其它安装选项 </h1>
-<h2 id="ha- 模式安装可选">2.1. HA 模式安装（可选）</h2>
-<ol type="1">
-<li> 安装一个外部 <strong> 主从模式 </strong> 的 MySQL</li>
-<li> 在主备两边执行 </li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -p 8080:8080 -p 9345:9345 \</span><br><span class="line">  --name rancher-server rancher/server \</span><br><span class="line">  --db-host myhost.example.com \</span><br><span class="line">  --db-port 3306 \</span><br><span class="line">  --db-user username \</span><br><span class="line">  --db-pass password \</span><br><span class="line">  --db-name cattle \</span><br><span class="line">  --advertise-address &lt;IP_of_the_Node&gt;  </span><br><span class="line"></span><br><span class="line">db.cattle.database=mysql</span><br><span class="line">db.cattle.username=cattle</span><br><span class="line">db.cattle.password=cattle</span><br><span class="line">db.cattle.mysql.host=localhost</span><br><span class="line">db.cattle.mysql.port=3306</span><br><span class="line">db.cattle.mysql.name=cattle</span><br><span class="line"><span class="comment"># All values above are the defaults except db.cattle.database. If the defaults are fine, then all you need to set is db.cattle.database=mysql.</span></span><br></pre></td></tr></table></figure>
-<h2 id="启动集群模式可选">2.2. 启动集群模式（可选）</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/docker/Rancher安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1042,7 +1021,7 @@ rm -rf /etc/localtime
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">34</span>
+                <span class="site-state-item-count">35</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
