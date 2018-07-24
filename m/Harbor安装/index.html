@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="1. 安装    根据实际情况修改 harbor.cfg  新建目录并将证书 server.crt 和 server.key 放置于目录   1mkdir -p /data/cert/   运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本 vim /etc/sc">
+<meta name="description" content="1. Install   根据实际情况修改 harbor.cfg  新建目录并将证书 server.crt 和 server.key 放置于目录   1mkdir -p /data/cert/   运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本 vim /et">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Harbor 支持 Https">
 <meta property="og:url" content="http://blog.dongcj.com/m/Harbor安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="1. 安装    根据实际情况修改 harbor.cfg  新建目录并将证书 server.crt 和 server.key 放置于目录   1mkdir -p /data/cert/   运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本 vim /etc/sc">
+<meta property="og:description" content="1. Install   根据实际情况修改 harbor.cfg  新建目录并将证书 server.crt 和 server.key 放置于目录   1mkdir -p /data/cert/   运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本 vim /et">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-22T08:12:00.111Z">
+<meta property="og:updated_time" content="2018-07-24T02:26:00.942Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Harbor 支持 Https">
-<meta name="twitter:description" content="1. 安装    根据实际情况修改 harbor.cfg  新建目录并将证书 server.crt 和 server.key 放置于目录   1mkdir -p /data/cert/   运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本 vim /etc/sc">
+<meta name="twitter:description" content="1. Install   根据实际情况修改 harbor.cfg  新建目录并将证书 server.crt 和 server.key 放置于目录   1mkdir -p /data/cert/   运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本 vim /et">
 
 
 
@@ -388,7 +388,7 @@
       
 
       
-        <h1 id="安装">1. 安装 </h1>
+        <h1 id="install">1. Install</h1>
 <ul>
 <li> 根据实际情况修改 harbor.cfg</li>
 <li> 新建目录并将证书 <code>server.crt</code> 和 <code>server.key</code> 放置于目录 </li>
@@ -400,10 +400,8 @@
 <h1 id="watchdog">2. watchdog</h1>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/scripts/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 见 harbor_watchdog.sh 脚本 </span></span><br><span class="line">vim /etc/scripts/harbor_watchdog.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可执行权限 </span></span><br><span class="line">chmod a+x /etc/scripts/harbor_watchdog.sh</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line">*/45 * * * * /etc/scripts/harbor_watchdog.sh &gt;&gt; /var/<span class="built_in">log</span>/harbor_watchdog.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<h1 id="请求测试">3. 请求测试 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">curl -i  https://&lt;HARBOR.DOMAIN.COM&gt;/v2/_catalog</span><br><span class="line"></span><br><span class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></span><br><span class="line">&#123;<span class="string">"errors"</span>:[&#123;<span class="string">"code"</span>:<span class="string">"UNAUTHORIZED"</span>,<span class="string">"message"</span>:<span class="string">"authentication required"</span>,<span class="string">"detail"</span>:[&#123;<span class="string">"Type"</span>:<span class="string">"registry"</span>,<span class="string">"Name"</span>:<span class="string">"catalog"</span>,<span class="string">"Action"</span>:<span class="string">"*"</span>&#125;]&#125;]&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备注：请求格式 </span></span><br><span class="line">/service/token?account=<span class="built_in">test</span>&amp;scope=repository:<span class="built_in">test</span>/repo:push,pull&amp;service=token-service</span><br><span class="line"></span><br><span class="line"><span class="comment"># scope：指定类型（repository），repo（test/repo），请求的操作权限（pull &amp;&amp; push）</span></span><br><span class="line"><span class="comment"># service：即 JWT 验证中的 Audience，Token 接收方（即 registry）</span></span><br></pre></td></tr></table></figure>
-<h1 id="附 jwt- 的 -claim- 格式">4. 附：jwt 的 claim 格式 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">claim = &#123;</span><br><span class="line">    <span class="string">"iss"</span>: self.issuer,</span><br><span class="line">    <span class="string">"sub"</span>: self.account,</span><br><span class="line">    <span class="string">"aud"</span>: self.service,</span><br><span class="line">    <span class="string">"exp"</span>: now + self.token_expires,</span><br><span class="line">    <span class="string">"nbf"</span>: now,</span><br><span class="line">    <span class="string">"iat"</span>: now,</span><br><span class="line">    <span class="string">"jti"</span>: base64.b64encode(os.urandom(1024)), <span class="comment"># TODO</span></span><br><span class="line">    <span class="string">"access"</span>: self.access</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># iss 前期通过 registry.yaml 配置文件里的 issuser</span></span><br><span class="line"><span class="comment"># sub 当前操作的帐号或者说用户名 </span></span><br><span class="line"><span class="comment"># aud 前期通过 registry.yaml 配置文件里的 service</span></span><br><span class="line"><span class="comment"># exp 、 iat 和 nbf 表示的是 token 时间相关的 </span></span><br><span class="line"><span class="comment"># jti 是一段随机字符串 </span></span><br><span class="line"><span class="comment"># access 就是上述解析过后的 scope</span></span><br></pre></td></tr></table></figure>
+<h1 id="api">3. API</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></span><br><span class="line">curl -i  https://registry.svicloud.com/v2/_catalog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 备注：请求格式 </span></span><br><span class="line">curl -i -k -u admin:Changeme_123 \</span><br><span class="line">  https://registry.svicloud.com/service/token?account=admin\&amp;service=harbor-registry\&amp;scope=repository:os/svi-centos7:pull,push</span><br><span class="line"></span><br><span class="line">curl -k -v -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"Authorization: Bearer THIS_IS_LONG_TOKEN"</span> \</span><br><span class="line">  -X GET https://registry.svicloud.com/v2/os/svi-centos7/manifests/latest</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -627,7 +625,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装"><span class="nav-text">1. 安装 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#watchdog"><span class="nav-text">2. watchdog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#请求测试"><span class="nav-text">3. 请求测试 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#附 jwt- 的 -claim- 格式"><span class="nav-text">4. 附：jwt 的 claim 格式 </span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#install"><span class="nav-text">1. Install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#watchdog"><span class="nav-text">2. watchdog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#api"><span class="nav-text">3. API</span></a></li></ol></div>
             
 
           </div>
