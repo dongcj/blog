@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="dongcj" />
+  <meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr," />
 
 
 
@@ -97,16 +97,18 @@
 
 
 
-<meta name="description" content="关注云计算、大数据、容器、自动化运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Krrish">
-<meta property="og:url" content="http://blog.dongcj.com/page/6/index.html">
+<meta name="description" content="1. 开启 BBR 123456789101112# 先查看内核是否大于 4.9，如大于 4.9echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开 TFO(tcp fast open),">
+<meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 升级 Kernel 及 tcp_BBR">
+<meta property="og:url" content="http://blog.dongcj.com/linux/Linux升级kernel及配置tcp_BBR、TFO、Hybla/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="关注云计算、大数据、容器、自动化运维">
+<meta property="og:description" content="1. 开启 BBR 123456789101112# 先查看内核是否大于 4.9，如大于 4.9echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开 TFO(tcp fast open),">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2016-06-07T06:25:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Krrish">
-<meta name="twitter:description" content="关注云计算、大数据、容器、自动化运维">
+<meta name="twitter:title" content="Linux 升级 Kernel 及 tcp_BBR">
+<meta name="twitter:description" content="1. 开启 BBR 123456789101112# 先查看内核是否大于 4.9，如大于 4.9echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开 TFO(tcp fast open),">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.dongcj.com/page/6/"/>
+  <link rel="canonical" href="http://blog.dongcj.com/linux/Linux升级kernel及配置tcp_BBR、TFO、Hybla/"/>
 
 
 
 
 
-  <title>Krrish - Premature optimization is the root of all evil.</title>
+  <title>Linux 升级 Kernel 及 tcp_BBR | Krrish</title>
   
 
 
@@ -165,9 +167,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-   page-home 
- ">
+  <div class="container sidebar-position-right page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -314,9 +314,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/linux安装easy_install及pip/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux升级kernel及配置tcp_BBR、TFO、Hybla/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -342,9 +342,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
+          <h2 class="post-title" itemprop="name headline">Linux 升级 Kernel 及 tcp_BBR</h2>
         
 
         <div class="post-meta">
@@ -356,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
-                2016-08-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-28T17:44:33+08:00">
+                2016-08-28
               </time>
             
 
@@ -413,940 +411,122 @@
       
 
       
-        
-          <blockquote>
-<p> 需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
-</blockquote>
-<h1 id="安装 -easy_install"> 安装 easy_install</h1>
-<pre><code># 获取软件包
-$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
-# 解压 :
-$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
-# 使用 Python 2.7.x 安装 setuptools
-/usr/local/bin/python2.7 setup.py install
-
-更多 easy_install 用法见： easy_install 用法 </code></pre>
-<h1 id="安装 -pip"> 安装 PIP</h1>
-<pre><code># 下载方法 1
-$ curl https://bootstrap.pypa.io/get-pip.py | python -
-# 下载方法 2
-$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
-
-# 安装方法 1
-$ yum install python-pip
-
-# 安装方法 2
-$ /usr/local/bin/easy_install pip  (建议 , 如果升级使用此方法！)
-
-# 升级 pip
-$ /usr/local/bin/easy_install --upgrade pip
-
-# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案)
-$ pip install -U distribute
-
-# 升级 ez_setup
-$ curl https://bootstrap.pypa.io/ez_setup.py | python -
-
-&gt; PIP 使用指定源，且不缓存到目录
-$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
-
-&gt; 安装墙内 PIP
-http://realfavicongenerator.net/</code></pre>
-<h1 id="easy_install- 用法">easy_install 用法 </h1>
-<pre><code># 1 直接安装：
-  easy_install SQLObject
-# 2 使用下载页面地址安装
-  easy_install -f http://pythonpaste.org/package_index.html SQLObject
-# 3 直接给出下载 url 安装
-  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
-# 4 .egg 文件的安装
-  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
-# 5 跟新安装过的包
-  easy_install --upgrade PyProtocols
-# 6 安装已经下载和提取在当前目录下的包
-  easy_install .
-# 7 安装特定特定版本的库
-  easy_install &quot;SomePackage==2.0&quot;
-# 8 大于某个版本
-  easy_install &quot;SomePackage&gt;2.0
-# 9 卸载库
-easy_install -m PackageName</code></pre>
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/linux安装easy_install及pip/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="yum- 更新">yum 更新 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
-<pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
-<h2 id="epel- 源 -elrepo.org">epel 源 (elrepo.org)</h2>
-<pre><code>yum install epel-release</code></pre>
-<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
-<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
-
-# (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-# redhat/centos 6
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
-<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
-<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次">CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
+        <h1 id="开启 -bbr">1. 开启 BBR</h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 TFO(tcp fast open), 服务端为 3，客户端为 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_fastopen = 3"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存生效 </span></span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 bbr 是否生效 </span></span><br><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>
+<h1 id="开启高级算法 -hybla">2. 开启高级算法 hybla</h1>
 <blockquote>
-<p> 地址：http://centos.ustc.edu.cn/</p>
+<p> 注意：此步骤不适用于 OpenVZ 或低版本内核，否则在执行最后一个步骤 sysctl -p 的时候会大量报错，如果没报错说明内核支持高级算法 hybla 等参数调整。 注意：该算法和 BBR 同属于集成于内核中的模块，当两者同时开启后，<code>BBR 优先级最高 </code>。所以开启 BBR 后再开这个没用。</p>
 </blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Autossh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Autossh/" itemprop="url">Autossh</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T16:32:12+08:00">
-                2016-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
-</blockquote>
-<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性">1. 用 autossh 保证 ssh 隧道稳定性</h1>
-<h2 id="设置到 -etcrc.local">1.1. 设置到 /etc/rc.local</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'fs.file-max = 51200</span></span><br><span class="line"><span class="string">net.core.rmem_max = 67108864</span></span><br><span class="line"><span class="string">net.core.wmem_max = 67108864</span></span><br><span class="line"><span class="string">net.core.netdev_max_backlog = 250000</span></span><br><span class="line"><span class="string">net.core.somaxconn = 4096</span></span><br><span class="line"><span class="string">net.ipv4.tcp_syncookies = 1</span></span><br><span class="line"><span class="string">net.ipv4.tcp_tw_reuse = 1</span></span><br><span class="line"><span class="string">net.ipv4.tcp_tw_recycle = 0</span></span><br><span class="line"><span class="string">net.ipv4.tcp_fin_timeout = 30</span></span><br><span class="line"><span class="string">net.ipv4.tcp_keepalive_time = 1200</span></span><br><span class="line"><span class="string">net.ipv4.ip_local_port_range = 10000 65000</span></span><br><span class="line"><span class="string">net.ipv4.tcp_max_syn_backlog = 8192</span></span><br><span class="line"><span class="string">net.ipv4.tcp_max_tw_buckets = 5000</span></span><br><span class="line"><span class="string">net.ipv4.tcp_fastopen = 3</span></span><br><span class="line"><span class="string">net.ipv4.tcp_mem = 25600 51200 102400</span></span><br><span class="line"><span class="string">net.ipv4.tcp_rmem = 4096 87380 67108864</span></span><br><span class="line"><span class="string">net.ipv4.tcp_wmem = 4096 65536 67108864</span></span><br><span class="line"><span class="string">net.ipv4.tcp_mtu_probing = 1</span></span><br><span class="line"><span class="string">net.ipv4.tcp_congestion_control = hybla'</span> &gt;&gt; /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<h1 id="debianubuntu- 升级内核">3. Debian、Ubuntu 升级内核 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></span><br><span class="line">apt-get update</span><br><span class="line">apt-cache search linux-image-extra</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装最新的内核 </span></span><br><span class="line">apt-get install linux-image-extra-&lt;NEWEST_KERNEL_RELEASE&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 </span></span><br><span class="line">dpkg -l | grep linux-image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除旧内核 </span></span><br><span class="line">apt-get remove &lt;OLD_KERNEL_RELEASE&gt;</span><br><span class="line"></span><br><span class="line">update-grub</span><br><span class="line">apt autoremove</span><br><span class="line"></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一下目前的内核版本 </span></span><br><span class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="rhelcentos- 升级内核">4. RHEL、CentOS 升级内核 </h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是 el7</span></span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是 el6</span></span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装内核 </span></span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前已安装的内核 </span></span><br><span class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定默认内核 (centos7)</span></span><br><span class="line"><span class="string">grub2-set-default 0</span></span><br><span class="line"><span class="string">reboot</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定默认内核 (centos6)</span></span><br><span class="line"><span class="string">vi /etc/grub.conf</span></span><br><span class="line"><span class="string"># 修改 default=&lt;ID 号 &gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定 /etc/sysctl.conf</span></span><br><span class="line"><span class="string">net.core.default_qdisc = fq</span></span><br><span class="line"><span class="string">net.ipv4.tcp_congestion_control = bbr</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 生效 </span></span><br><span class="line"><span class="string">sysctl -p</span></span><br></pre></td></tr></table></figure>
+<h1 id="手动安装">5. 手动安装 </h1>
+<h2 id="下载内核二进制包">5.1. 下载内核二进制包 </h2>
 <blockquote>
-<p>注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
+<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
 </blockquote>
-<h2 id="设置运行权限别忘记了">1.2. 设置运行权限，别 <code> 忘记 </code> 了</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
+<h2 id="解压安装">5.2. 解压安装 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb</span><br><span class="line">bzip2 -d data.tar.bz2</span><br><span class="line">tar -xf data.tar</span><br><span class="line">install -m644 boot/vmlinuz-4.9.0-11-generic /boot/vmlinuz-4.9.0-11-generic</span><br><span class="line">cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/</span><br><span class="line">depmod -a 4.9.0-11-generic</span><br></pre></td></tr></table></figure>
+<h2 id="加入引导">5.3. 加入引导 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dracut -f -v --hostonly -k <span class="string">'/lib/modules/4.9.0-11-generic'</span>  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic</span><br><span class="line"><span class="comment"># 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># centos7 是 grub2 可以用下面命令 :</span></span><br><span class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</span><br></pre></td></tr></table></figure>
+<h2 id="修改引导顺序">5.4. 修改引导顺序 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看引导内有哪些内核 </span></span><br><span class="line">cat /boot/grub2/grub.cfg |grep menuentry</span><br><span class="line"></span><br><span class="line">cat /boot/grub2/grub.cfg |grep menuentry</span><br><span class="line"><span class="keyword">if</span> [x<span class="string">"<span class="variable">$&#123;feature_menuentry_id&#125;</span>"</span> = xy ]; <span class="keyword">then</span></span><br><span class="line">  menuentry_id_option=<span class="string">"--id"</span></span><br><span class="line">  menuentry_id_option=<span class="string">""</span></span><br><span class="line">  <span class="built_in">export</span> menuentry_id_option</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-4.9.0-rc8-amd64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (3.10.0-327.36.3.el7.x86_64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-3.10.0-327.36.3.el7.x86_64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br></pre></td></tr></table></figure>
+<pre><code># 下面命令的内核名称根据系统内部查到的实际名称来替换：
+grub2-set-default &#39;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&#39;
 
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Autossh/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+grub2-editenv list
+
+saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Screen、nohup、setsid、disown后台运行/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Screen、nohup、setsid、disown后台运行/" itemprop="url">Screen、nohup、setsid、disown 后台运行</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-04T16:20:35+08:00">
-                2016-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/升级内核/" rel="tag"># 升级内核</a>
           
-
+            <a href="/tags/kernel/" rel="tag"># kernel</a>
           
-            
+            <a href="/tags/bbr/" rel="tag"># bbr</a>
           
-
+            <a href="/tags/tcp-bbr/" rel="tag"># tcp_bbr</a>
           
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
       
 
       
+      
+        <div class="post-widgets">
         
-          <h1 id="screen- 后台">screen 后台 </h1>
-<pre><code>screen -ls -&gt; 列出当前所有的 session
-screen -r yourname -&gt; 回到 yourname 这个 session
-screen -d yourname -&gt; 远程 detach 某个 session
-screen -d -r yourname -&gt; 结束当前 session 并回到 yourname 这个 session
-
-# 有用的命令，可以做为同步演示用 , 比 script 强大
-screen -x &lt;SESSION_NAME&gt;
-
-screen -X -S [session_you_want_to_kill] quit
-
-screen -Sdm   &lt;SCREEN_NAME&gt;   &lt;DO_SOME_COMMAND&gt;</code></pre>
-<h1 id="nohup- 后台">nohup 后台 </h1>
-<pre><code>nohup ping www.ibm.com &amp;</code></pre>
-<h1 id="setsid- 后台">setsid 后台 </h1>
-<pre><code>setsid ping www.ibm.com (ctrl+c 后就跑后台去了)</code></pre>
-<h1 id="subshell- 后台">subshell 后台 </h1>
-<pre><code>(ping www.ibm.com &amp;)</code></pre>
-<h1 id="disown- 后台">disown 后台 </h1>
-<pre><code>disown -h JOBID</code></pre>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Screen、nohup、setsid、disown后台运行/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Bind安装配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Bind安装配置/" itemprop="url">Bind 安装配置</a></h2>
         
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-11T15:40:19+08:00">
-                2016-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+        
         </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
       
       
 
       
-        
-          <blockquote>
-<p> 参考：</p>
-</blockquote>
-<p>http://linux.vbird.org/linux_server/0350dns.php#server_settings</p>
-<p>DDNS 的安装见：http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
-<h1 id="安装">1. 安装 </h1>
-<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
-<h1 id="配置">2. 配置 </h1>
-<pre><code>1. 生成 rndc key
-
-$ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
-
-$ chown root:named /etc/rndc.conf
-
-
-
-2. 配置 named.conf
-
-$ vi /etc/named.conf
-
-options
-
-{
-
-        // Put files that named is allowed to write in the data/ directory:
-
-        directory               &quot;/var/named&quot;;           // &quot;Working&quot; directory
-
-        dump-file               &quot;data/cache_dump.db&quot;;
-
-        statistics-file         &quot;data/named_stats.txt&quot;;
-
-        memstatistics-file      &quot;data/named_mem_stats.txt&quot;;
-
-        allow-query             {any;};
-
-        recursion               yes;
-
-        listen-on port 53       {any;};
-
-        allow-transfer          {none;}; // 不允许别人进行 zone 转移 , 如果有 slave DNS，则可以开启
-
-};
-
-
-
-acl intranet {192.168.1.0/24;}; // 本地来源 IP
-
-acl internet {! 192.168.1.0/24; any;}; // 外部来源 IP. 惊叹号表示反向选择
-
-
-
-view &quot;lan&quot; {                    // lan 只是一个名字而已，代表的是内网
-
-        match-clients {&quot;intranet&quot;;};  // 吻合的才使用底下的 zone
-
-        zone &quot;.&quot; IN {
-
-                type hint;
-
-                file &quot;named.ca&quot;;
-
-        };
-
-
-
-        zone &quot;xdol.vicp.net&quot; IN {
-
-                type master;
-
-                file &quot;named.xdol.vicp.net&quot;;
-
-        };
-
-
-
-        zone &quot;1.168.192.in-addr.arpa&quot; IN {
-
-                type master;
-
-                file &quot;named.192.168.1&quot;;
-
-        };
-
-};
-
-
-
-view &quot;wan&quot; {match-clients { &quot;internet&quot;;};  // 吻合的才使用底下的 zone
-
-        zone &quot;.&quot; IN {
-
-                type hint;
-
-                file &quot;named.ca&quot;;
-
-        };
-
-
-
-        zone &quot;xdol.vicp.net&quot; IN {
-
-                type master;
-
-                file &quot;named.xdol.vicp.net.inter&quot;;
-
-        };
-
-};
-
-
-
-key &quot;rndc-key&quot; {      // 这里是 rndc 的密钥，需要修改为 /etc/rndc.conf 中一样的 secret
-
-      algorithm hmac-md5;
-
-      secret &quot;wFLLOzcaq3T2CFNvbT3d7g==&quot;;
-
-};
-
-
-
-controls {
-
-      inet 127.0.0.1 port 953
-
-              allow {127.0.0.1;} keys {&quot;rndc-key&quot;;};
-
-};
-
-
-
-logging {                               // 防止外部服务器错误导致 log 记录
-
-        category lame-servers {null;};
-
-};</code></pre>
-<h1 id="zone- 配置">3. zone 配置 </h1>
-<pre><code>1. 正向 zone 内网配置
-
-$ vi /var/named/named.xdol.vicp.net
-
-
-
-$TTL    600
-
-@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
-
-@                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
-
-master.xdol.vicp.net.   IN      A       192.168.1.109           ;DNS 服务器 IP
-
-@                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
-
-
-
-; 关于 192.168.1.109 这部主机的正解设定
-
-www.xdol.vicp.net.      IN      A       192.168.1.109   ; 内部网卡的 IP
-
-ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-
-ssh.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-
-
-
-; 其它主机的正确设定
-
-client.xdol.vicp.net.   IN      A       192.168.1.246
-
-
-
-
-
-2. 正向 zone 外网配置
-
-$ vi /var/named/named.xdol.vicp.net.inter
-
-
-
-$TTL    600
-
-@                       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D);
-
-@                       IN      NS      master.xdol.vicp.net.   ;DNS 服务器名称
-
-master.xdol.vicp.net.   IN      A       11.11.11.11   ;DNS 服务器 IP
-
-@                       IN      MX      10 www.xdol.vicp.net.   ; 邮件服务器
-
-
-
-; 关于 192.168.1.109 这部主机的正解设定
-
-www.xdol.vicp.net.      IN      A       11.11.11.11   ; 外部网卡的 IP
-
-ftp.xdol.vicp.net.      IN      CNAME   www.xdol.vicp.net.
-
-ssh.xdol.vicp.net       IN      CNAME   www.xdol.vicp.net.
-
-
-
-; 其它主机的正确设定
-
-client.xdol.vicp.net.   IN      A       192.168.1.246
-
-
-
-3. 反向 zone 内、外网设置 (外网不需要反向 zone)
-
-$ vi /var/named/named.192.168.1
-
-
-
-$TTL    600
-
-@       IN      SOA     master.xdol.vicp.net.   dongchaojun.gmail.com. (2012040702 3H 15M 1W 1D)
-
-@       IN      NS      master.xdol.vicp.net.
-
-109     IN      PTR     master.xdol.vicp.net. ; 将原来的 A 改为 PTR 标志而已
-
-
-
-109     IN      PTR     www.xdol.vicp.net.
-
-246     IN      PTR     client.xdol.vicp.net.</code></pre>
-<h1 id="启动服务">4. 启动服务 </h1>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/database/Postgresql主从配置/" rel="next" title="Postgresql 主从配置">
+                <i class="fa fa-chevron-left"></i> Postgresql 主从配置
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/linux/使用printf进行格式化/" rel="prev" title="使用 Printf 进行格式化">
+                使用 Printf 进行格式化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1354,6 +534,10 @@ $TTL    600
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1373,8 +557,17 @@ $TTL    600
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -1472,6 +665,22 @@ $TTL    600
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开启 -bbr"><span class="nav-text">1. 开启 BBR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启高级算法 -hybla"><span class="nav-text">2. 开启高级算法 hybla</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#debianubuntu- 升级内核"><span class="nav-text">3. Debian、Ubuntu 升级内核 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rhelcentos- 升级内核"><span class="nav-text">4. RHEL、CentOS 升级内核 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手动安装"><span class="nav-text">5. 手动安装 </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载内核二进制包"><span class="nav-text">5.1. 下载内核二进制包 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压安装"><span class="nav-text">5.2. 解压安装 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入引导"><span class="nav-text">5.3. 加入引导 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改引导顺序"><span class="nav-text">5.4. 修改引导顺序 </span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1576,10 +785,10 @@ $TTL    600
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
@@ -1943,6 +1152,23 @@ $TTL    600
   
 
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 6234,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
 
