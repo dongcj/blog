@@ -98,7 +98,7 @@
     <link href="http://blog.dongcj.com/m/%E5%B8%B8%E7%94%A8%E7%9B%91%E6%8E%A7%E5%B7%A5%E5%85%B7/"/>
     <id>http://blog.dongcj.com/m/常用监控工具/</id>
     <published>2018-03-06T01:54:39.893Z</published>
-    <updated>2018-07-23T07:10:36.294Z</updated>
+    <updated>2018-07-26T11:51:29.908Z</updated>
     
     <summary type="html">
     
@@ -513,51 +513,6 @@ rake RAILS_ENV=production db:migrate
   </entry>
   
   <entry>
-    <title>Graphite 安装</title>
-    <link href="http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/monitor/Graphite安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt; 参考：&lt;br&gt;&lt;a href=&quot;http://www.jsxubar.info/category/system-administration/graphite/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.jsxubar.info/category/system-administration/graphite/&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.jsxubar.info/category/system-administration/page/3/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.jsxubar.info/category/system-administration/page/3/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt; 更多集成 grafana 及 Diamond 请看：&lt;br&gt;&lt;a href=&quot;http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;使用 -yum- 安装环境&quot;&gt;&lt;a href=&quot;# 使用 -yum- 安装环境&quot; class=&quot;headerlink&quot; title=&quot;使用 yum 安装环境&quot;&gt;&lt;/a&gt; 使用 yum 安装环境 &lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
-
-# 其它的使得 pip 安装就可以
-$ pip install whisper
-$ pip install carbon
-$ pip install graphite-web
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;安装并升级为最新的 -zope-interface- 及 -twisted&quot;&gt;&lt;a href=&quot;# 安装并升级为最新的 -zope-interface- 及 -twisted&quot; class=&quot;headerlink&quot; title=&quot;安装并升级为最新的 zope.interface 及 twisted&quot;&gt;&lt;/a&gt; 安装并升级为最新的 zope.interface 及 twisted&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
-$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
-$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
-
-# test twisted
-[root@bigdata twisted]# python
-Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
-[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
-Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
-&amp;gt;&amp;gt;&amp;gt; from twisted.python.compat import _PY3
-&amp;gt;&amp;gt;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Check-for-missing-dependencies&quot;&gt;&lt;a href=&quot;#Check-for-missing-dependencies&quot; class=&quot;headerlink&quot; title=&quot;Check for missing dependencies&quot;&gt;&lt;/a&gt;Check for missing dependencies&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;设置权限&quot;&gt;&lt;a href=&quot;# 设置权限&quot; class=&quot;headerlink&quot; title=&quot;设置权限&quot;&gt;&lt;/a&gt; 设置权限 &lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ chown -R apache:apache /opt/graphite/storage/
-&lt;/code&gt;&lt;/pre&gt;
-    
-    </summary>
-    
-      <category term="monitor" scheme="http://blog.dongcj.com/categories/monitor/"/>
-    
-    
-      <category term="graphite" scheme="http://blog.dongcj.com/tags/graphite/"/>
-    
-  </entry>
-  
-  <entry>
     <title>DHCP 高级配置</title>
     <link href="http://blog.dongcj.com/linux/DHCP%E9%AB%98%E7%BA%A7%E9%85%8D%E7%BD%AE/"/>
     <id>http://blog.dongcj.com/linux/DHCP高级配置/</id>
@@ -629,6 +584,51 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
   </entry>
   
   <entry>
+    <title>Graphite 安装</title>
+    <link href="http://blog.dongcj.com/monitor/Graphite%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/monitor/Graphite安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt; 参考：&lt;br&gt;&lt;a href=&quot;http://www.jsxubar.info/category/system-administration/graphite/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.jsxubar.info/category/system-administration/graphite/&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.jsxubar.info/category/system-administration/page/3/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.jsxubar.info/category/system-administration/page/3/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 更多集成 grafana 及 Diamond 请看：&lt;br&gt;&lt;a href=&quot;http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;使用 -yum- 安装环境&quot;&gt;&lt;a href=&quot;# 使用 -yum- 安装环境&quot; class=&quot;headerlink&quot; title=&quot;使用 yum 安装环境&quot;&gt;&lt;/a&gt; 使用 yum 安装环境 &lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
+
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;安装并升级为最新的 -zope-interface- 及 -twisted&quot;&gt;&lt;a href=&quot;# 安装并升级为最新的 -zope-interface- 及 -twisted&quot; class=&quot;headerlink&quot; title=&quot;安装并升级为最新的 zope.interface 及 twisted&quot;&gt;&lt;/a&gt; 安装并升级为最新的 zope.interface 及 twisted&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &amp;quot;help&amp;quot;, &amp;quot;copyright&amp;quot;, &amp;quot;credits&amp;quot; or &amp;quot;license&amp;quot; for more information.
+&amp;gt;&amp;gt;&amp;gt; from twisted.python.compat import _PY3
+&amp;gt;&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;Check-for-missing-dependencies&quot;&gt;&lt;a href=&quot;#Check-for-missing-dependencies&quot; class=&quot;headerlink&quot; title=&quot;Check for missing dependencies&quot;&gt;&lt;/a&gt;Check for missing dependencies&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ python /tmp/pip-build-me/graphite-web/check-dependencies.py
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;设置权限&quot;&gt;&lt;a href=&quot;# 设置权限&quot; class=&quot;headerlink&quot; title=&quot;设置权限&quot;&gt;&lt;/a&gt; 设置权限 &lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ chown -R apache:apache /opt/graphite/storage/
+&lt;/code&gt;&lt;/pre&gt;
+    
+    </summary>
+    
+      <category term="monitor" scheme="http://blog.dongcj.com/categories/monitor/"/>
+    
+    
+      <category term="graphite" scheme="http://blog.dongcj.com/tags/graphite/"/>
+    
+  </entry>
+  
+  <entry>
     <title>硬 Raid(megacli) 与软 Raid (Mdadm) 创建</title>
     <link href="http://blog.dongcj.com/linux/%E7%A1%AC%20raid(megacli)%20%E4%B8%8E%E8%BD%AF%20raid%20(mdadm)%E5%88%9B%E5%BB%BA/"/>
     <id>http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/</id>
@@ -686,6 +686,71 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
       <category term="httpstat" scheme="http://blog.dongcj.com/tags/httpstat/"/>
     
       <category term="wizz" scheme="http://blog.dongcj.com/tags/wizz/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Gearman 安装</title>
+    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
+    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
+    <published>2016-08-11T07:43:19.000Z</published>
+    <updated>2016-08-11T07:44:39.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt; 参考 &lt;br&gt;    &lt;a href=&quot;http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/a&gt;&lt;br&gt;    python gearman library home page&lt;br&gt;    &lt;a href=&quot;http://samuelks.com/python-gearman/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://samuelks.com/python-gearman/docs/&lt;/a&gt;&lt;br&gt;    Tim Yang：利用 Gearman 来实现远程监控与管理 &lt;br&gt;    &lt;a href=&quot;http://timyang.net/linux/gearman-monitor/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://timyang.net/linux/gearman-monitor/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&quot;一、安装 -grarmand- 及 -libgearman-devel&quot;&gt;&lt;a href=&quot;# 一、安装 -grarmand- 及 -libgearman-devel&quot; class=&quot;headerlink&quot; title=&quot;一、安装 grarmand 及 libgearman-devel&quot;&gt;&lt;/a&gt; 一、安装 grarmand 及 libgearman-devel&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;二、安装 -PHP- 的 -API&quot;&gt;&lt;a href=&quot;# 二、安装 -PHP- 的 -API&quot; class=&quot;headerlink&quot; title=&quot;二、安装 PHP 的 API&quot;&gt;&lt;/a&gt; 二、安装 PHP 的 API&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ yum install php php-devel boost boost-devel libuuid libuuid-devel
+$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
+$ cd gearman-1.1.2
+$ phpize
+$ ./configure; make; make install   // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
+# 增加 php 扩展
+$ vi /etc/php.d/gearman.ini
+; Enable gearman extension module
+extension=gearman.so
+&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;三、启动 -gearmand&quot;&gt;&lt;a href=&quot;# 三、启动 -gearmand&quot; class=&quot;headerlink&quot; title=&quot;三、启动 gearmand&quot;&gt;&lt;/a&gt; 三、启动 gearmand&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# (如果使用默认参数，需要开启 IPV6)
+# 可以设置成服务启动：
+$ vi /etc/sysconfig/gearmand
+    OPTIONS=&amp;quot;-L 0.0.0.0 --verbose=DEBUG&amp;quot;  --&amp;gt; 根据自己需求设置 --verbose
+$ service gearmand start
+$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
+# 如果需要使用数据库
+gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
+$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
+# 将 /etc/passwd 文件给函数 wc 进行处理
+$ gearman -f wc &amp;lt; /etc/passwd
+$ gearadmin --show-jobs
+      --status
+      --workers
+      -- ...
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;1-Worker&quot;&gt;&lt;a href=&quot;#1-Worker&quot; class=&quot;headerlink&quot; title=&quot;1. Worker:&quot;&gt;&lt;/a&gt;1. Worker:&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;?php
+$worker = new GearmanWorker();
+$worker-&amp;gt;addServer();
+$worker-&amp;gt;addFunction(&amp;quot;reverse&amp;quot;, &amp;quot;reverse_fn&amp;quot;);
+while (1) {
+    print &amp;quot;Waiting for job...\n&amp;quot;;
+    $ret = $worker-&amp;gt;work();
+    if($worker-&amp;gt;returnCode() != GEARMAN_SUCCESS) {break;}
+}
+function reverse_fn(GearmanJob $job) {$workload = $job-&amp;gt;workload();
+    echo &amp;quot;Received job: &amp;quot;. $job-&amp;gt;handle(). &amp;quot;\n&amp;quot;;
+    echo &amp;quot;Workload: $workload\n&amp;quot;;
+    $result = strrev($workload);
+    echo &amp;quot;Result: $result\n&amp;quot;;
+    return $result;
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;2-client&quot;&gt;&lt;a href=&quot;#2-client&quot; class=&quot;headerlink&quot; title=&quot;2. client:&quot;&gt;&lt;/a&gt;2. client:&lt;/h2&gt;
+    
+    </summary>
+    
+      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
+    
+    
+      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
@@ -824,71 +889,6 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
       <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
     
       <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
-    <published>2016-08-11T07:43:19.000Z</published>
-    <updated>2016-08-11T07:44:39.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt; 参考 &lt;br&gt;    &lt;a href=&quot;http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html&lt;/a&gt;&lt;br&gt;    python gearman library home page&lt;br&gt;    &lt;a href=&quot;http://samuelks.com/python-gearman/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://samuelks.com/python-gearman/docs/&lt;/a&gt;&lt;br&gt;    Tim Yang：利用 Gearman 来实现远程监控与管理 &lt;br&gt;    &lt;a href=&quot;http://timyang.net/linux/gearman-monitor/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://timyang.net/linux/gearman-monitor/&lt;/a&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h1 id=&quot;一、安装 -grarmand- 及 -libgearman-devel&quot;&gt;&lt;a href=&quot;# 一、安装 -grarmand- 及 -libgearman-devel&quot; class=&quot;headerlink&quot; title=&quot;一、安装 grarmand 及 libgearman-devel&quot;&gt;&lt;/a&gt; 一、安装 grarmand 及 libgearman-devel&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ yum install gearmand libgearman-devel  php-pecl-gearman  (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了)
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;二、安装 -PHP- 的 -API&quot;&gt;&lt;a href=&quot;# 二、安装 -PHP- 的 -API&quot; class=&quot;headerlink&quot; title=&quot;二、安装 PHP 的 API&quot;&gt;&lt;/a&gt; 二、安装 PHP 的 API&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;$ yum install php php-devel boost boost-devel libuuid libuuid-devel
-$ tar -xzf gearman-1.1.2.tgz   # 下载地址：https://pecl.php.net/package/gearman
-$ cd gearman-1.1.2
-$ phpize
-$ ./configure; make; make install   // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so
-# 增加 php 扩展
-$ vi /etc/php.d/gearman.ini
-; Enable gearman extension module
-extension=gearman.so
-&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&quot;三、启动 -gearmand&quot;&gt;&lt;a href=&quot;# 三、启动 -gearmand&quot; class=&quot;headerlink&quot; title=&quot;三、启动 gearmand&quot;&gt;&lt;/a&gt; 三、启动 gearmand&lt;/h1&gt;&lt;pre&gt;&lt;code&gt;# (如果使用默认参数，需要开启 IPV6)
-# 可以设置成服务启动：
-$ vi /etc/sysconfig/gearmand
-    OPTIONS=&amp;quot;-L 0.0.0.0 --verbose=DEBUG&amp;quot;  --&amp;gt; 根据自己需求设置 --verbose
-$ service gearmand start
-$ gearmand -d --http-port 8090 -L 0.0.0.0 -p 4730
-# 如果需要使用数据库
-gearmand -d --http-port=8080 -L 0.0.0.0 -p 4730 --mysql-user=root --mysql-password=YOUR_PASS --mysql-db gearman
-$ gearman -w -f wc -- wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l
-# 将 /etc/passwd 文件给函数 wc 进行处理
-$ gearman -f wc &amp;lt; /etc/passwd
-$ gearadmin --show-jobs
-      --status
-      --workers
-      -- ...
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;1-Worker&quot;&gt;&lt;a href=&quot;#1-Worker&quot; class=&quot;headerlink&quot; title=&quot;1. Worker:&quot;&gt;&lt;/a&gt;1. Worker:&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;&amp;lt;?php
-$worker = new GearmanWorker();
-$worker-&amp;gt;addServer();
-$worker-&amp;gt;addFunction(&amp;quot;reverse&amp;quot;, &amp;quot;reverse_fn&amp;quot;);
-while (1) {
-    print &amp;quot;Waiting for job...\n&amp;quot;;
-    $ret = $worker-&amp;gt;work();
-    if($worker-&amp;gt;returnCode() != GEARMAN_SUCCESS) {break;}
-}
-function reverse_fn(GearmanJob $job) {$workload = $job-&amp;gt;workload();
-    echo &amp;quot;Received job: &amp;quot;. $job-&amp;gt;handle(). &amp;quot;\n&amp;quot;;
-    echo &amp;quot;Workload: $workload\n&amp;quot;;
-    $result = strrev($workload);
-    echo &amp;quot;Result: $result\n&amp;quot;;
-    return $result;
-}
-?&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&quot;2-client&quot;&gt;&lt;a href=&quot;#2-client&quot; class=&quot;headerlink&quot; title=&quot;2. client:&quot;&gt;&lt;/a&gt;2. client:&lt;/h2&gt;
-    
-    </summary>
-    
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
-    
-    
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
     
   </entry>
   
