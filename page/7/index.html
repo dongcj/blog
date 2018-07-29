@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/systemd、systemctl命令/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/systemd、systemctl命令/" itemprop="url">Systemd,systemctl 命令</a></h2>
+                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
         
 
         <div class="post-meta">
@@ -414,23 +414,25 @@
 
       
         
-          <h1 id="systemd 和 systemctl 基础命令">1. Systemd 和 Systemctl 基础命令</h1>
-<h2 id="几个常用的服务控制">1.1. 几个常用的服务控制</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类似查 chkconfig:    </span></span><br><span class="line">systemctl list-unit-files | grep &lt;SERVICE_NAME&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统级的 systemd 在 /etc/systemd/system</span></span><br><span class="line"><span class="comment"># 用户级的 systemd 在 /usr/lib/systemd/system/ （main）</span></span><br><span class="line"><span class="comment"># 运行级的 systemd 在 /run/systemd/system</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如删除服务，需要：</span></span><br><span class="line">systemctl stop &lt;SERVICE_NAME&gt;</span><br><span class="line">systemctl <span class="built_in">disable</span> &lt;SERVICE_NAME&gt;</span><br><span class="line">rm -rf /[etc|run]/systemd/system/&lt;SERVICE_NAME&gt;</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl reset-failed   <span class="comment"># 只有运行这样才可以看到服务消失</span></span><br></pre></td></tr></table></figure>
-<h2 id="控制服务启动环境">1.2. 控制服务启动环境</h2>
-<ul>
-<li>使用 <code> 指定 </code> 的 EnvironmentFile： <font style="color: red">vi /lib/systemd/system/docker.service</font></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line">NotifyAccess=all</span><br><span class="line">EnvironmentFile=-/run/containers/registries.conf</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/docker</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/docker-storage</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/docker-network</span><br><span class="line">Environment=GOTRACEBACK=crash</span><br><span class="line">Environment=DOCKER_HTTP_HOST_COMPAT=1</span><br><span class="line">Environment=PATH=/usr/libexec/docker:/usr/bin:/usr/sbin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用 <code> 默认 </code> 目录中的 EnvironmentFile： <font style="color: red">vi /lib/systemd/system/docker.service.d/docker-options.conf</font> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">"DOCKER_OPTS=--insecure-registry=10.254.0.0/16 --graph=/opt/docker --registry-mirror=http://b438f72b.m.daocloud.io --iptables=false"</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="systemd- 版本">1.3. systemd 版本</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">systemctl --version</span><br><span class="line"></span><br><span class="line">systemd 215</span><br><span class="line">+PAM +AUDIT +SELINUX +IMA +SYSVINIT +LIBCRYPTSETUP +GCRYPT +ACL +XZ -SECCOMP -APPARMOR</span><br><span class="line"><span class="comment"># 上例中很清楚地表明，我们安装了 215 版本的 systemd。</span></span><br><span class="line"></span><br><span class="line">ps -eaf | grep [s]ystemd</span><br><span class="line"></span><br><span class="line">root         1     0  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 23</span><br><span class="line">root       444     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-journald</span><br><span class="line">root       469     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-udevd</span><br><span class="line">root       555     1  0 16:27 ?        00:00:00 /usr/lib/systemd/systemd-logind</span><br><span class="line">dbus       556     1  0 16:27 ?        00:00:00 /bin/dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activation</span><br><span class="line"><span class="comment"># 注意：systemd 是作为父进程（PID=1）运行的。在上面带（-e）参数的 ps 命令输出中，选择所有进程，（-a）选择除会话前导外的所有进程，并使用（-f）参数输出完整格式列表（即 -eaf）。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 也请注意上例中后随的方括号和例子中剩余部分。方括号表达式是 grep 的字符类表达式的一部分。</span></span><br></pre></td></tr></table></figure>
-<h2 id="分析 systemd 启动进程">1.4. 分析 systemd 启动进程</h2>
+          <h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<h1 id="配置"> 配置 </h1>
+<blockquote>
+<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动"> 启动 </h1>
+<pre><code>$ service supervisord start
+
+&gt; 如果使用 pip 安装，需要自已写启动脚本 </code></pre>
+<h1 id="检查安装"> 检查安装 </h1>
+<pre><code># 如下即表示正常
+supervisorctl status
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/systemd、systemctl命令/#more" rel="contents">
+            <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
