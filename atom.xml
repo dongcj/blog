@@ -733,29 +733,143 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
   </entry>
   
   <entry>
-    <title>Gearman 安装</title>
-    <link href="http://blog.dongcj.com/cluster/Gearman%E5%AE%89%E8%A3%85/"/>
-    <id>http://blog.dongcj.com/cluster/Gearman安装/</id>
+    <title>PXE 安装与设定</title>
+    <link href="http://blog.dongcj.com/linux/PXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A/"/>
+    <id>http://blog.dongcj.com/linux/PXE安装与设定/</id>
     <published>2016-08-11T07:43:19.000Z</published>
     <updated>2016-08-11T07:44:39.000Z</updated>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt; 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&amp;gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &amp;lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: &lt;?php
-$worker = new GearmanWorker();
-$worker-&gt;addServer(); $worker-&amp;gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = &lt;span class=&quot;math inline&quot;&gt;\(worker-&amp;gt;work(); if(\)&lt;/span&gt;worker-&amp;gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&amp;gt;workload(); echo “Received job:”. $job-&amp;gt;handle(). “”; echo “Workload: $workload”; &lt;span class=&quot;math inline&quot;&gt;\(result = strrev(\)&lt;/span&gt;workload); echo “Result: $result”; return $result; } ?&amp;gt; ## 2. client: &lt;?php
-$client = new GearmanClient();
-$client-&gt;addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&amp;gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      &lt;h1 id=&quot;安装软件&quot;&gt; 安装软件 &lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# 安装的软件：
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
+xinetd-2.3.14-10.el5.x86_64.rpm
+tftp-server-0.42-3.1.x86_64.rpm
+pykickstart-0.43.3-1.el5.noarch.rpm
+system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
+syslinux
 
+# 关闭 selinux &amp;amp; iptables&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;dhcp- 配置&quot;&gt;dhcp 配置 &lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;ddns-update-style interim;
+ignore client-updates;
+allow booting;
+allow bootp;
+class &amp;quot;pxeclients&amp;quot;{match if substring(option vendor-class-identifier,0,9) = &amp;quot;PXEClient&amp;quot;;
+filename &amp;quot;/pxelinux.0&amp;quot;;
+next-server 10.85.138.9;
+}
+subnet 10.85.138.0 netmask 255.255.254.0 {
+option routers 10.85.138.1;
+option subnet-mask 255.255.254.0;
+option domain-name &amp;quot;gwcloud.com&amp;quot;;
+option domain-name-servers 10.85.138.1;
+option time-offset -18000; # Eastern Standard Time
+range dynamic-bootp 10.85.138.100 10.85.138.249;
+default-lease-time 21600;
+max-lease-time 43200;
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;增加 -tftp- 文件&quot;&gt; 增加 tftp 文件 &lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt; 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
+$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
+$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
+
+
+$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 &lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&quot;配置 -kickstart&quot;&gt; 配置 kickstart&lt;/h1&gt;
+&lt;pre&gt;&lt;code&gt;# 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
+  label linux
+    menu label ^Install or upgrade an existing system
+    menu default
+    kernel vmlinuz
+    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
+
+# 修改 kickstart 自动安装 linux(见安装文件)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt; 附录：完整 DHCP 样例 &lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;ddns-update-style interim;
+ddns-updates on;
+ignore client-updates;
+allow booting;  # for pxe only
+allow bootp;    # for pxe only
+authoritative;  # Do not know what is meaning??
+
+class &amp;quot;pxeclients&amp;quot;{match if substring(option vendor-class-identifier,0,9) = &amp;quot;PXEClient&amp;quot;;   # for pxe
+    # match if substring(option vendor-class-identifier, 0, 4) = &amp;quot;MSFT&amp;quot;;    # for normal dhcp
+    # option host-name = config-option server.ddns-hostname;    # set the server&amp;#39;s hostname, only for linux???
+    ddns-hostname = concat(&amp;quot;v&amp;quot;,
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 6, 1))), 2)
+    );
+    filename &amp;quot;/pxelinux.0&amp;quot;;     # for pxe only
+    next-server 192.168.88.1;   # for pxe only
+}
+
+
+class &amp;quot;MSFT&amp;quot; {match if substring(option vendor-class-identifier, 0, 4) = &amp;quot;MSFT&amp;quot;;
+    option host-name = config-option server.ddns-hostname;
+    #ddns-hostname = concat(&amp;quot;v&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 6)));
+    #ddns-hostname = pick (option host-name, concat(&amp;quot;v&amp;quot;,    # Windows instances will apply for a hostname by default
+    ddns-hostname = concat(&amp;quot;v&amp;quot;,
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 6, 1))), 2)
+    );
+}
+
+
+option host-name = config-option server.ddns-hostname;
+ddns-hostname = pick (option host-name, concat(&amp;quot;v&amp;quot;,
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&amp;quot;0&amp;quot;, binary-to-ascii(16, 8, &amp;quot;&amp;quot;, substring (hardware, 6, 1))), 2)
+));
+set vendor-string = option vendor-class-identifier;
+
+
+subnet 192.168.88.0 netmask 255.255.255.0 {
+    option routers 192.168.88.1;
+    option subnet-mask 255.255.255.0;
+    option domain-name &amp;quot;gwcloud.cn&amp;quot;;
+    option domain-name-servers 192.168.88.1;
+    # option host-name &amp;quot;Server001&amp;quot;      # set the server&amp;#39;s hostname, only for linux???
+    # option ntp-servers 192.168.88.1   # set the ntp server
+    option time-offset -18000;          # Eastern Standard Time
+    range dynamic-bootp 192.168.88.100 192.168.88.200;
+    default-lease-time 21600;
+    max-lease-time 43200;
+
+    # the next is bonding the mac to static ip address
+    # host pc1 {
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&amp;#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&amp;#39;s ip address
+}&lt;/code&gt;&lt;/pre&gt;
     
     </summary>
     
-      <category term="cluster" scheme="http://blog.dongcj.com/categories/cluster/"/>
+      <category term="linux" scheme="http://blog.dongcj.com/categories/linux/"/>
     
     
-      <category term="gearman" scheme="http://blog.dongcj.com/tags/gearman/"/>
+      <category term="dhcp" scheme="http://blog.dongcj.com/tags/dhcp/"/>
+    
+      <category term="pxe" scheme="http://blog.dongcj.com/tags/pxe/"/>
+    
+      <category term="kickstart" scheme="http://blog.dongcj.com/tags/kickstart/"/>
     
   </entry>
   
