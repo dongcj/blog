@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html  1. Systemd 和 Systemctl 基础命令 1.1. 几个常用的服务控制 12345678910111213141516171819# 类似 chkconfig# type = [service  | target  |  mo">
+<meta name="description" content="参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html   本地电脑中有一份模板： frpc.service 可参考  1. Systemd 和 Systemctl 基础命令 1.1. 几个常用的服务控制 12345678910111213141516171819# 类似 chkconfig">
 <meta name="keywords" content="systemd,systemctl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Systemd,systemctl 命令">
 <meta property="og:url" content="http://blog.dongcj.com/linux/systemd、systemctl命令/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html  1. Systemd 和 Systemctl 基础命令 1.1. 几个常用的服务控制 12345678910111213141516171819# 类似 chkconfig# type = [service  | target  |  mo">
+<meta property="og:description" content="参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html   本地电脑中有一份模板： frpc.service 可参考  1. Systemd 和 Systemctl 基础命令 1.1. 几个常用的服务控制 12345678910111213141516171819# 类似 chkconfig">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-04T09:26:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Systemd,systemctl 命令">
-<meta name="twitter:description" content="参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html  1. Systemd 和 Systemctl 基础命令 1.1. 几个常用的服务控制 12345678910111213141516171819# 类似 chkconfig# type = [service  | target  |  mo">
+<meta name="twitter:description" content="参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html   本地电脑中有一份模板： frpc.service 可参考  1. Systemd 和 Systemctl 基础命令 1.1. 几个常用的服务控制 12345678910111213141516171819# 类似 chkconfig">
 
 
 
@@ -414,6 +414,9 @@
         <blockquote>
 <p>参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html</p>
 </blockquote>
+<blockquote>
+<p>本地电脑中有一份模板： frpc.service 可参考</p>
+</blockquote>
 <h1 id="systemd- 和 -systemctl- 基础命令">1. Systemd 和 Systemctl 基础命令</h1>
 <h2 id="几个常用的服务控制">1.1. 几个常用的服务控制</h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类似 chkconfig</span></span><br><span class="line"><span class="comment"># type = [service  | target  |  mount  | socket | slice | scope | timer | path]</span></span><br><span class="line">systemctl list-unit-files  [--<span class="built_in">type</span>=TYPE ] [--state=STATE] | grep <span class="string">"SERVICE_NAME"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出启动失败单元</span></span><br><span class="line">systemctl --failed</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看配置 | 环境</span></span><br><span class="line">systemctl &lt;cat | show&gt; SERVICE_NAME</span><br><span class="line"></span><br><span class="line"><span class="comment"># Systemd 几个目录</span></span><br><span class="line">find /&#123;etc,usr/lib,run&#125;/systemd/  -name <span class="string">"*SERVICE_NAME*"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除服务</span></span><br><span class="line">systemctl stop SERVICE_NAME</span><br><span class="line">systemctl <span class="built_in">disable</span> SERVICE_NAME</span><br><span class="line">rm -rf /&#123;etc,usr/lib,run&#125;/systemd/system/SERVICE_NAME</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl reset-failed</span><br></pre></td></tr></table></figure>
@@ -484,8 +487,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/database/Postgresql安装/" rel="next" title="Postgresql 安装">
-                <i class="fa fa-chevron-left"></i> Postgresql 安装
+              <a href="/linux/Supervisor安装与配置/" rel="next" title="Supervisor 安装与配置">
+                <i class="fa fa-chevron-left"></i> Supervisor 安装与配置
               </a>
             
           </div>
@@ -494,8 +497,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/Supervisor安装与配置/" rel="prev" title="Supervisor 安装与配置">
-                Supervisor 安装与配置 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/Bind安装配置/" rel="prev" title="Bind 安装配置">
+                Bind 安装配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
