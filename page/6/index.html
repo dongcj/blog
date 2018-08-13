@@ -734,12 +734,11 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
           <blockquote>
 <p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
 </blockquote>
-<h1 id="用 -autossh- 保证 -ssh- 隧道稳定性">1. 用 autossh 保证 ssh 隧道稳定性</h1>
 <h2 id="设置到 -etcrc.local">1.1. 设置到 /etc/rc.local</h2>
 <blockquote>
-<p>注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
+<p> 注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<h2 id="设置运行权限别忘记了">1.2. 设置运行权限，别 <code> 忘记 </code> 了</h2>
+<h2 id="设置运行权限别 - 忘记 - 了">1.2. 设置运行权限，别 <code> 忘记 </code> 了 </h2>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
 
           <!--noindex-->
