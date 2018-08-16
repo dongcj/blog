@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/storage/GlusterFS安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/" itemprop="url">硬 Raid(megacli) 与软 Raid (Mdadm) 创建</a></h2>
+                <a class="post-title-link" href="/storage/GlusterFS安装/" itemprop="url">GlusterFS 安装</a></h2>
         
 
         <div class="post-meta">
@@ -379,8 +379,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/storage/" itemprop="url" rel="index">
+                    <span itemprop="name">storage</span>
                   </a>
                 </span>
 
@@ -415,20 +415,65 @@
       
         
           <blockquote>
-<p><strong>建议：</strong> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+<p> 参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS</p>
 </blockquote>
-<h1 id="mega- 管理硬 -raid">1. mega 管理硬 raid</h1>
-<h2 id="查看磁盘状态">1.1. 查看磁盘状态</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略信息</span></span><br><span class="line">megasasctl </span><br><span class="line"></span><br><span class="line">  a0       PERC H710 Mini           encl:1 ldrv:1  batt:FAULT, low voltage</span><br><span class="line">  a0d0      1862GiB RAID 0   1x1  optimal</span><br><span class="line">  unconfigured:  a0e32s1   a0e32s2   a0e32s3 </span><br><span class="line">  a0e32s0    1863GiB  a0d0  online  </span><br><span class="line">  a0e32s1    1863GiB        ready   </span><br><span class="line">  a0e32s2    1863GiB        ready   </span><br><span class="line">  a0e32s3    1863GiB        ready   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">megaraidsas-status</span><br><span class="line"></span><br><span class="line">  -- Arrays informations --</span><br><span class="line">  -- ID | Type | Size | Status</span><br><span class="line">  a0d0 | RAID 0 | 1862GiB | optimal</span><br><span class="line"></span><br><span class="line">  -- Disks informations</span><br><span class="line">  -- ID | Model | Status | Warnings</span><br><span class="line">  a0e32s0 | SEAGATE ST2000NM0023 1863GiB | online</span><br><span class="line">  a0e32s1 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s2 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s3 | SEAGATE ST2000NM0023 | ready</span><br></pre></td></tr></table></figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细物理磁盘 (pd) 信息，主要是看 ` 框 ID` 与 ` 插槽 ID`</span></span><br><span class="line">megacli -PDlist -a0 | grep -e <span class="string">'^Enclosure Device ID:'</span> -e <span class="string">'^Slot Number:'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 其它输出详细信息可以看看，平时可以通过这个来检查磁盘型号、状态等信息</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Drive s position: DiskGroup: 0, Span: 0, Arm: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line">  Device Id: 0</span><br><span class="line">  WWN: 5000C500627EE690</span><br><span class="line">  Sequence Number: 2</span><br><span class="line">  Media Error Count: 0</span><br><span class="line">  Other Error Count: 0</span><br><span class="line">  Predictive Failure Count: 0</span><br><span class="line">  Last Predictive Failure Event Seq Number: 0</span><br><span class="line">  PD Type: SAS</span><br><span class="line"></span><br><span class="line">  Raw Size: 1.819 TB [0xe8e088b0 Sectors]</span><br><span class="line">  Non Coerced Size: 1.818 TB [0xe8d088b0 Sectors]</span><br><span class="line">  Coerced Size: 1.818 TB [0xe8d00000 Sectors]</span><br><span class="line">  Sector Size:  0</span><br><span class="line">  Firmware state: Online, Spun Up                <span class="comment"># &lt;----- 如果重建，这里显示为：rebuilding</span></span><br><span class="line">  Device Firmware Level: GS0F</span><br><span class="line">  Shield Counter: 0</span><br><span class="line">  Successful diagnostics completion on :  N/A</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 如果状态为重建中，可以查看重建信息</span></span><br><span class="line">megacli -PDRbld -ShowProg -PhysDrv [32:1] -aALL</span><br><span class="line"></span><br><span class="line">  Rebuild Progress on Device at Enclosure 32, Slot 1 Completed 51% <span class="keyword">in</span> 10 Minutes.</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># 逻辑磁盘 (LD) 信息 </span><br><span class="line">megacli  -LDInfo -Lall -aALL</span><br><span class="line"></span><br><span class="line"># 物理磁盘(PD) 信息</span><br><span class="line">megacli -PDList -aALL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Display, disable or enable automatic rebuild on adapter 0:</span><br><span class="line"></span><br><span class="line"># Display</span><br><span class="line">megacli -AdpAutoRbld -Dsply -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># disable</span><br><span class="line">megacli -AdpAutoRbld -Dsbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Disabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># enable</span><br><span class="line">megacli -AdpAutoRbld -Enbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Get and modify rebuild rate:</span><br><span class="line"></span><br><span class="line"># get</span><br><span class="line">megacli -AdpGetProp RebuildRate -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Rebuild Rate = 30%</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># set</span><br><span class="line">megacli -AdpSetProp RebuildRate 60 -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Set rebuild rate to 60% success.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br></pre></td></tr></table></figure>
-<h2 id="create-a-raid0156-array-with-megacli">1.2. Create a RAID0,1,5,6 array with MegaCli</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将后面三块盘创建 raid0</span></span><br><span class="line">megacli -CfgLdAdd -r0[32:1,32:2,32:3] -a0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Created VD 0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Configured the Adapter!!</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note:    to make RAID0, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID1, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID5, minimal 3 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID6, minimal 4 drives are required.</span></span><br></pre></td></tr></table></figure>
-<h2 id="create-a-raid50raid60-array-with-megacli">1.3. Create a RAID50,raid60 array with MegaCli</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">megactl -CfgLdAdd -r50 raid0[252:2,252:3,252:4] raid1[252:5,252:6,252:7] -a0</span><br><span class="line">megactl -CfgLdAdd -r60 raid0[252:2,252:3,252:4,252:5] raid1[252:6,252:7,252:8,252,9] -a0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: to make RAID50, minimal 6 drives are required.</span></span><br><span class="line"><span class="comment">#       to make RAID60, minimal 8 drives are required.</span></span><br></pre></td></tr></table></figure>
+<pre><code>$ wget -P /etc/yum.repos.d     http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo</code></pre>
+<h1 id="安装软件"> 安装软件 </h1>
+<pre><code>yum install glusterfs{,-fuse,-server}
+yum install glusterfs-geo-replication.x86_64</code></pre>
+<blockquote>
+<p> 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64</p>
+</blockquote>
+<pre><code># 删除 lvm2
+$ rpm -e lvm2</code></pre>
+<h1 id="挂载分区及配置防火墙"> 挂载分区及配置防火墙 </h1>
+<pre><code># mkdir
+$ mkdir /export/brick1
+
+# 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！
+$ chmod 777 /export/brick1
+
+# firewall
+$ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent
+
+$ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent
+$ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \
+--add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp  --permanent
+$ firewall-cmd --reload</code></pre>
+<h1 id="启动 -glusterd- 服务"> 启动 glusterd 服务 </h1>
+<pre><code>$ service glusterd start
+
+# if centos7:
+$ systemctl enable glusterd
+$ systemctl start glusterd
+$ systemctl status glusterd
+
+# from server1
+$ gluster peer probe SERVER2
+
+# from server2
+$ gluster peer probe SERVER1
+
+# check peer
+$ gluster peer status
+
+$ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0
+$ gluster volume start gv0
+
+$ gluster volume info
+$ gluster volume status
+
+# How to remove a volume or peer
+# stop Volume
+$ gluster volume stop gv0
+
+# delete Volume
+$ gluster volume delete gv0
+
+$ gluster peer detach NAME_OF_PEERNODE</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/#more" rel="contents">
+            <a class="btn" href="/storage/GlusterFS安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -474,7 +519,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -493,7 +538,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
         
 
         <div class="post-meta">
@@ -528,8 +573,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -563,59 +608,38 @@
 
       
         
-          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
-<pre><code># (在其它服务上安装 dhcpd 软件)：
+          <blockquote>
+<p> 参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
+</blockquote>
+<blockquote>
+<p> 更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+</blockquote>
+<h1 id="使用 -yum- 安装环境"> 使用 yum 安装环境 </h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的 -zope.interface- 及 -twisted"> 安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
 
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1
-
-# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
-<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
-ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
-shared-network mynet {          /* 超网作用域选项，共同部分 */
-    option subnet-mask 255.255.255.0;            /* 子网掩码 */
-    option domain-name &quot;koumm.net&quot;;              /* 域名 */
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /* 广播地址 */
-    default-lease-time 86400;                    /* 租期 1 天，秒数 */
-    max-lease-time 172800;                       /* 最长租期 2 天 */
-
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
-        option routers 192.168.1.1;               /* 网关地址 */
-        /* 绑定 pc1 主机 ip 地址配置 */
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /* 绑定 pc2 主机 ip 地址配置 */
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
-
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
-        option routers 192.168.2.1;                /* 网关地址 */
-    }
-
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
-        option routers 192.168.3.1;                /* 网关地址 */
-    }
-
-}</code></pre>
-
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限"> 设置权限 </h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
+            <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -763,151 +787,6 @@ shared-network mynet {          /* 超网作用域选项，共同部分 */
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Curl、resty、httpie、httpstat、wuzz使用介绍/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cluster/" itemprop="url" rel="index">
-                    <span itemprop="name">cluster</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: <?php
-$worker = new GearmanWorker();
-$worker->addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = <span class="math inline">\(worker-&gt;work(); if(\)</span>worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; <span class="math inline">\(result = strrev(\)</span>workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: <?php
-$client = new GearmanClient();
-$client->addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;</p>
-</blockquote>
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1163,6 +1042,155 @@ subnet 192.168.88.0 netmask 255.255.255.0 {
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/" itemprop="url">硬 Raid(megacli) 与软 Raid (Mdadm) 创建</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p><strong>建议：</strong> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+</blockquote>
+<h1 id="mega- 管理硬 -raid">1. mega 管理硬 raid</h1>
+<h2 id="查看磁盘状态">1.1. 查看磁盘状态</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略信息</span></span><br><span class="line">megasasctl </span><br><span class="line"></span><br><span class="line">  a0       PERC H710 Mini           encl:1 ldrv:1  batt:FAULT, low voltage</span><br><span class="line">  a0d0      1862GiB RAID 0   1x1  optimal</span><br><span class="line">  unconfigured:  a0e32s1   a0e32s2   a0e32s3 </span><br><span class="line">  a0e32s0    1863GiB  a0d0  online  </span><br><span class="line">  a0e32s1    1863GiB        ready   </span><br><span class="line">  a0e32s2    1863GiB        ready   </span><br><span class="line">  a0e32s3    1863GiB        ready   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">megaraidsas-status</span><br><span class="line"></span><br><span class="line">  -- Arrays informations --</span><br><span class="line">  -- ID | Type | Size | Status</span><br><span class="line">  a0d0 | RAID 0 | 1862GiB | optimal</span><br><span class="line"></span><br><span class="line">  -- Disks informations</span><br><span class="line">  -- ID | Model | Status | Warnings</span><br><span class="line">  a0e32s0 | SEAGATE ST2000NM0023 1863GiB | online</span><br><span class="line">  a0e32s1 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s2 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s3 | SEAGATE ST2000NM0023 | ready</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细物理磁盘 (pd) 信息，主要是看 ` 框 ID` 与 ` 插槽 ID`</span></span><br><span class="line">megacli -PDlist -a0 | grep -e <span class="string">'^Enclosure Device ID:'</span> -e <span class="string">'^Slot Number:'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 其它输出详细信息可以看看，平时可以通过这个来检查磁盘型号、状态等信息</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Drive s position: DiskGroup: 0, Span: 0, Arm: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line">  Device Id: 0</span><br><span class="line">  WWN: 5000C500627EE690</span><br><span class="line">  Sequence Number: 2</span><br><span class="line">  Media Error Count: 0</span><br><span class="line">  Other Error Count: 0</span><br><span class="line">  Predictive Failure Count: 0</span><br><span class="line">  Last Predictive Failure Event Seq Number: 0</span><br><span class="line">  PD Type: SAS</span><br><span class="line"></span><br><span class="line">  Raw Size: 1.819 TB [0xe8e088b0 Sectors]</span><br><span class="line">  Non Coerced Size: 1.818 TB [0xe8d088b0 Sectors]</span><br><span class="line">  Coerced Size: 1.818 TB [0xe8d00000 Sectors]</span><br><span class="line">  Sector Size:  0</span><br><span class="line">  Firmware state: Online, Spun Up                <span class="comment"># &lt;----- 如果重建，这里显示为：rebuilding</span></span><br><span class="line">  Device Firmware Level: GS0F</span><br><span class="line">  Shield Counter: 0</span><br><span class="line">  Successful diagnostics completion on :  N/A</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 如果状态为重建中，可以查看重建信息</span></span><br><span class="line">megacli -PDRbld -ShowProg -PhysDrv [32:1] -aALL</span><br><span class="line"></span><br><span class="line">  Rebuild Progress on Device at Enclosure 32, Slot 1 Completed 51% <span class="keyword">in</span> 10 Minutes.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># 逻辑磁盘 (LD) 信息 </span><br><span class="line">megacli  -LDInfo -Lall -aALL</span><br><span class="line"></span><br><span class="line"># 物理磁盘(PD) 信息</span><br><span class="line">megacli -PDList -aALL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Display, disable or enable automatic rebuild on adapter 0:</span><br><span class="line"></span><br><span class="line"># Display</span><br><span class="line">megacli -AdpAutoRbld -Dsply -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># disable</span><br><span class="line">megacli -AdpAutoRbld -Dsbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Disabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># enable</span><br><span class="line">megacli -AdpAutoRbld -Enbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Get and modify rebuild rate:</span><br><span class="line"></span><br><span class="line"># get</span><br><span class="line">megacli -AdpGetProp RebuildRate -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Rebuild Rate = 30%</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># set</span><br><span class="line">megacli -AdpSetProp RebuildRate 60 -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Set rebuild rate to 60% success.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br></pre></td></tr></table></figure>
+<h2 id="create-a-raid0156-array-with-megacli">1.2. Create a RAID0,1,5,6 array with MegaCli</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将后面三块盘创建 raid0</span></span><br><span class="line">megacli -CfgLdAdd -r0[32:1,32:2,32:3] -a0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Created VD 0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Configured the Adapter!!</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note:    to make RAID0, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID1, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID5, minimal 3 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID6, minimal 4 drives are required.</span></span><br></pre></td></tr></table></figure>
+<h2 id="create-a-raid50raid60-array-with-megacli">1.3. Create a RAID50,raid60 array with MegaCli</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">megactl -CfgLdAdd -r50 raid0[252:2,252:3,252:4] raid1[252:5,252:6,252:7] -a0</span><br><span class="line">megactl -CfgLdAdd -r60 raid0[252:2,252:3,252:4,252:5] raid1[252:6,252:7,252:8,252,9] -a0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: to make RAID50, minimal 6 drives are required.</span></span><br><span class="line"><span class="comment">#       to make RAID60, minimal 8 drives are required.</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
