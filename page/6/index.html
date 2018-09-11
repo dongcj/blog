@@ -325,6 +325,159 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="yum- 更新"><a href="#yum- 更新" class="headerlink" title="yum 更新"></a>yum 更新 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
+<pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
+rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm
+</code></pre><h2 id="epel- 源 -elrepo-org"><a href="#epel- 源 -elrepo-org" class="headerlink" title="epel 源 (elrepo.org)"></a>epel 源 (elrepo.org)</h2><pre><code>yum install epel-release
+</code></pre><h2 id="elrepo-update-kernel"><a href="#elrepo-update-kernel" class="headerlink" title="elrepo(update kernel)"></a>elrepo(update kernel)</h2><pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
+
+# (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
+rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+
+# redhat/centos 6
+rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
+rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
+rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm
+</code></pre><h1 id="redhat-centos-7-only-have-x86-64-packages"><a href="#redhat-centos-7-only-have-x86-64-packages" class="headerlink" title="redhat/centos 7 only have x86_64 packages"></a>redhat/centos 7 only have x86_64 packages</h1><pre><code>rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm
+</code></pre><h2 id="CentOS- 中国科学技术大学 -USTC-mirror- 每小时更新一次"><a href="#CentOS- 中国科学技术大学 -USTC-mirror- 每小时更新一次" class="headerlink" title="CentOS 中国科学技术大学 USTC mirror( 每小时更新一次)"></a>CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/dns/Dnsmasq使用本地host为DNS/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -425,178 +578,15 @@
 
       
         
-          <h1 id="使用 -dnsmasq- 提供外网 -dns- 服务">1. 使用 dnsmasq 提供外网 dns 服务 </h1>
-<pre><code>$ apt-get install dnsmasq</code></pre>
-<h2 id="修改 -dnsmasq- 主配置文件">1.1. 修改 dnsmasq 主配置文件 </h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：</span></span><br><span class="line">listen-address=127.0.0.1,OUTER_IP      <span class="comment"># 这里如果使用 0.0.0.0 会失败 </span></span><br><span class="line">addn-hosts=/etc/hosts                   <span class="comment"># 直接解析本地的 hosts</span></span><br><span class="line">resolv-file=/etc/resolv.dnsmasq.conf    <span class="comment"># 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)</span></span><br><span class="line">conf-dir=/etc/dnsmasq.d                 <span class="comment"># 该目录下的所有文件都会解析 </span></span><br></pre></td></tr></table></figure>
-<h2 id="生成域名映射">1.2. 生成域名映射 </h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字 </span></span><br><span class="line">vi /etc/dnsmasq.d/dns.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件 </span></span><br><span class="line">address=<span class="string">"/google.com/172.17.0.4"</span></span><br></pre></td></tr></table></figure>
-<h2 id="启动服务">1.3. 启动服务 </h2>
-<pre><code>/etc/init.d/dnsmasq start</code></pre>
-<h2 id="测试">1.4. 测试 </h2>
-<pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4</code></pre>
+          <h1 id="1- 使用 -dnsmasq- 提供外网 -dns- 服务"><a href="#1- 使用 -dnsmasq- 提供外网 -dns- 服务" class="headerlink" title="1. 使用 dnsmasq 提供外网 dns 服务"></a>1. 使用 dnsmasq 提供外网 dns 服务 </h1><pre><code>$ apt-get install dnsmasq
+</code></pre><h2 id="1-1- 修改 -dnsmasq- 主配置文件"><a href="#1-1- 修改 -dnsmasq- 主配置文件" class="headerlink" title="1.1. 修改 dnsmasq 主配置文件"></a>1.1. 修改 dnsmasq 主配置文件 </h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：</span></span><br><span class="line">listen-address=127.0.0.1,OUTER_IP      <span class="comment"># 这里如果使用 0.0.0.0 会失败 </span></span><br><span class="line">addn-hosts=/etc/hosts                   <span class="comment"># 直接解析本地的 hosts</span></span><br><span class="line">resolv-file=/etc/resolv.dnsmasq.conf    <span class="comment"># 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)</span></span><br><span class="line">conf-dir=/etc/dnsmasq.d                 <span class="comment"># 该目录下的所有文件都会解析 </span></span><br></pre></td></tr></table></figure>
+<h2 id="1-2- 生成域名映射"><a href="#1-2- 生成域名映射" class="headerlink" title="1.2. 生成域名映射"></a>1.2. 生成域名映射 </h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字 </span></span><br><span class="line">vi /etc/dnsmasq.d/dns.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件 </span></span><br><span class="line">address=<span class="string">"/google.com/172.17.0.4"</span></span><br></pre></td></tr></table></figure>
+<h2 id="1-3- 启动服务"><a href="#1-3- 启动服务" class="headerlink" title="1.3. 启动服务"></a>1.3. 启动服务 </h2><pre><code>/etc/init.d/dnsmasq start
+</code></pre><h2 id="1-4- 测试"><a href="#1-4- 测试" class="headerlink" title="1.4. 测试"></a>1.4. 测试 </h2><pre><code>dig google.com @OUTER_IP        --&gt;   172.17.0.4
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/dns/Dnsmasq使用本地host为DNS/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:16:45+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="yum- 更新">yum 更新 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
-<pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
-<h2 id="epel- 源 -elrepo.org">epel 源 (elrepo.org)</h2>
-<pre><code>yum install epel-release</code></pre>
-<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
-<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
-
-# (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-# redhat/centos 6
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
-<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
-<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次">CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
-<blockquote>
-<p> 地址：http://centos.ustc.edu.cn/</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,14 +722,12 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
       
         
           <blockquote>
-<p>http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</p>
+<p><a href="http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html" target="_blank" rel="noopener">http://www.cnblogs.com/eshizhan/archive/2012/07/16/2592902.html</a></p>
 </blockquote>
-<h2 id="设置到 -etcrc.local">1.1. 设置到 /etc/rc.local</h2>
-<blockquote>
-<p> 注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
+<h2 id="1-1- 设置到 -etc-rc-local"><a href="#1-1- 设置到 -etc-rc-local" class="headerlink" title="1.1. 设置到 /etc/rc.local"></a>1.1. 设置到 /etc/rc.local</h2><blockquote>
+<p> 注意：使用 <code>-f</code> 参数需要先设置 ssh 信任关系 <br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">autossh -M 5678 -o <span class="string">"StrictHostKeyChecking no"</span> -o <span class="string">"ServerAliveInterval 30"</span> -o <span class="string">"ServerAliveCountMax 3"</span> \</span><br><span class="line">  -fNR  8377:localhost:2018 root@console.svicloud.com -p46178</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<h2 id="设置运行权限别 - 忘记 - 了">1.2. 设置运行权限，别 <code> 忘记 </code> 了 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
+<h2 id="1-2- 设置运行权限，别 - 忘记 - 了"><a href="#1-2- 设置运行权限，别 - 忘记 - 了" class="headerlink" title="1.2. 设置运行权限，别 忘记 了"></a>1.2. 设置运行权限，别 <code> 忘记 </code> 了 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a+x /etc/rc.local</span><br></pre></td></tr></table></figure>
 
           <!--noindex-->
           <div class="post-button text-center">
@@ -881,12 +869,10 @@ rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonf
           <blockquote>
 <p> 参考：</p>
 </blockquote>
-<p>http://linux.vbird.org/linux_server/0350dns.php#server_settings</p>
-<p>DDNS 的安装见：http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</p>
-<h1 id="安装">1. 安装 </h1>
-<pre><code>$ rpm -ivh bind bind-chroot</code></pre>
-<h1 id="配置">2. 配置 </h1>
-<pre><code>1. 生成 rndc key
+<p><a href="http://linux.vbird.org/linux_server/0350dns.php#server_settings" target="_blank" rel="noopener">http://linux.vbird.org/linux_server/0350dns.php#server_settings</a></p>
+<p>DDNS 的安装见：<a href="http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html" target="_blank" rel="noopener">http://wenku.baidu.com/view/31f263d233d4b14e8524687e.html</a></p>
+<h1 id="1- 安装"><a href="#1- 安装" class="headerlink" title="1. 安装"></a>1. 安装 </h1><pre><code>$ rpm -ivh bind bind-chroot
+</code></pre><h1 id="2- 配置"><a href="#2- 配置" class="headerlink" title="2. 配置"></a>2. 配置 </h1><pre><code>1. 生成 rndc key
 
 $ rndc-confgen -r /dev/random &gt;/etc/rndc.conf
 
@@ -1014,9 +1000,8 @@ logging {                               // 防止外部服务器错误导致 log
 
         category lame-servers {null;};
 
-};</code></pre>
-<h1 id="zone- 配置">3. zone 配置 </h1>
-<pre><code>1. 正向 zone 内网配置
+};
+</code></pre><h1 id="3-zone- 配置"><a href="#3-zone- 配置" class="headerlink" title="3. zone 配置"></a>3. zone 配置 </h1><pre><code>1. 正向 zone 内网配置
 
 $ vi /var/named/named.xdol.vicp.net
 
@@ -1104,8 +1089,8 @@ $TTL    600
 
 109     IN      PTR     www.xdol.vicp.net.
 
-246     IN      PTR     client.xdol.vicp.net.</code></pre>
-<h1 id="启动服务">4. 启动服务 </h1>
+246     IN      PTR     client.xdol.vicp.net.
+</code></pre><h1 id="4- 启动服务"><a href="#4- 启动服务" class="headerlink" title="4. 启动服务"></a>4. 启动服务 </h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Bind安装配置/#more" rel="contents">
@@ -1154,7 +1139,7 @@ $TTL    600
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/systemd、systemctl命令/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -1173,7 +1158,7 @@ $TTL    600
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/systemd、systemctl命令/" itemprop="url">Systemd,systemctl 命令</a></h2>
+                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
         
 
         <div class="post-meta">
@@ -1243,27 +1228,21 @@ $TTL    600
 
       
         
-          <blockquote>
-<p>参考：http://www.ruanyifeng.com/blog/2016/03/systemd-tutorial-part-two.html</p>
+          <h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="# 配置" class="headerlink" title="配置"></a> 配置 </h1><blockquote>
+<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
 </blockquote>
-<blockquote>
-<p>本地电脑中有一份模板： frpc.service 可参考</p>
-</blockquote>
-<h1 id="systemd- 和 -systemctl- 基础命令">1. Systemd 和 Systemctl 基础命令</h1>
-<h2 id="几个常用的服务控制">1.1. 几个常用的服务控制</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 类似 chkconfig</span></span><br><span class="line"><span class="comment"># type = [service  | target  |  mount  | socket | slice | scope | timer | path]</span></span><br><span class="line">systemctl list-unit-files  [--<span class="built_in">type</span>=TYPE ] [--state=STATE] | grep <span class="string">"SERVICE_NAME"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出启动失败单元</span></span><br><span class="line">systemctl --failed</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看配置 | 环境</span></span><br><span class="line">systemctl &lt;cat | show&gt; SERVICE_NAME</span><br><span class="line"></span><br><span class="line"><span class="comment"># Systemd 几个目录</span></span><br><span class="line">find /&#123;etc,usr/lib,run&#125;/systemd/  -name <span class="string">"*SERVICE_NAME*"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除服务</span></span><br><span class="line">systemctl stop SERVICE_NAME</span><br><span class="line">systemctl <span class="built_in">disable</span> SERVICE_NAME</span><br><span class="line">rm -rf /&#123;etc,usr/lib,run&#125;/systemd/system/SERVICE_NAME</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl reset-failed</span><br></pre></td></tr></table></figure>
-<h2 id="控制服务启动环境">1.2. 控制服务启动环境</h2>
-<ul>
-<li>使用 <code> 指定 </code> 的 EnvironmentFile： <font style="color: red">vi /lib/systemd/system/docker.service</font></li>
-</ul>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line">NotifyAccess=all</span><br><span class="line">EnvironmentFile=-/run/containers/registries.conf</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/docker</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/docker-storage</span><br><span class="line">EnvironmentFile=-/etc/sysconfig/docker-network</span><br><span class="line">Environment=GOTRACEBACK=crash</span><br><span class="line">Environment=DOCKER_HTTP_HOST_COMPAT=1</span><br><span class="line">Environment=PATH=/usr/libexec/docker:/usr/bin:/usr/sbin</span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用 <code> 默认 </code> 目录中的 EnvironmentFile： <font style="color: red">vi /lib/systemd/system/docker.service.d/docker-options.conf</font> <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">"DOCKER_OPTS=--insecure-registry=10.254.0.0/16 --graph=/opt/docker --registry-mirror=http://b438f72b.m.daocloud.io --iptables=false"</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h2 id="如何屏蔽让它不能启动或显示服务如 -httpd.service">1.3. 如何屏蔽（让它不能启动）或显示服务（如 httpd.service）</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动"><a href="# 启动" class="headerlink" title="启动"></a> 启动 </h1><pre><code>$ service supervisord start
+
+&gt; 如果使用 pip 安装，需要自已写启动脚本
+</code></pre><h1 id="检查安装"><a href="# 检查安装" class="headerlink" title="检查安装"></a> 检查安装 </h1><pre><code># 如下即表示正常
+supervisorctl status
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
+</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/systemd、systemctl命令/#more" rel="contents">
+            <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
