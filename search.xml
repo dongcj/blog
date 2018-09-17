@@ -79,6 +79,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[使用 Printf 进行格式化]]></title>
+    <url>%2Flinux%2F%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%2F</url>
+    <content type="text"><![CDATA[1. 表格输出 123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader="\n %-10s %8s %10s %11s\n"format="%-10s %08d %10s %11.2f\n"width=43printf "$header" "ITEM NAME" "ITEM ID" "COLOR" "PRICE"printf "%$width.$&#123;width&#125;s\n" "$divider"printf "$format" \Triangle 13 red 20 \Oval 204449 "dark blue" 65.656 \Square 3145 orange .7 2. 格式化 123456789101112131415161718192021222324252627282930313233343536printf "%s\n" "1" "2" "\n3"12\n3printf "%b\n" "1" "2" "\n3"123$printf "%d\n" 255 0xff 0377 3.5255255255bash: printf: 3.5: invalid number3printf "%f\n" 255 0xff 0377 3.5255.000000255.000000377.0000003.500000printf "%.1f\n" 255 0xff 0377 3.5255.0255.0377.03.5 3. 格式化 12for i in $(seq 1 10); do printf "%03d\t" "$i"; done001 002 003 004 005 006 007 008 009 010]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>shell</tag>
+        <tag>printf</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[SMATE、XFCE、VNC 配置]]></title>
     <url>%2Flinux%2FSMATE%E3%80%81XFCE%E3%80%81VNC%E9%85%8D%E7%BD%AE%2F</url>
     <content type="text"><![CDATA[1. CentOS yum 安装图像界面 (参考：http://www.ha97.com/4634.html) 1234567891011121314151617181920212223242526yum install epel-releaseyum grouplistyum groupinstall "GNOME Desktop Environment"（CentOS 5.x 安装 GNOME 桌面环境）yum groupinstall "X Window System" "Desktop"（CentOS 6.x 安装 GNOME 桌面环境）yum groupinstall [xfce | "MATE Desktop" ]（CentOS 安装 xfce 桌面环境，可选）# 查看 runlevelsystemctl get-default || runlevel# to runlevel 5(to change runlevel 3, change to `multi-user.target`)systemctl isolate graphical.target# Start the GUI on bootsystemctl set-default graphical.target# 查看 display managerls -l /etc/systemd/system/display-manager.service# 切换 display managersystemctl disable gdm &amp;&amp; systemctl enable lightdm# 刷新 systemctl isolate graphical.target 2. 设置自动登陆 12345678910# 如果是 gdm，使用 gdmvi /etc/lightdm/lightdm.conf [SeatDefaults]autologin-guest=falseautologin-user=testautologin-user-timeout=0autologin-session=lightdm-autologinuser-session=ubuntugreeter-session=unity-greeter 3. Ubuntu 安装 Xfce 1apt install xfce4 4. 安装 vnc server 12345678# 安装 Xfce 要使用 vncserver，需修改 /root/.vnc/xstartup 里为 exec /bin/sh /etc/xdg/xfce4/xinitrc 即可 yum install vnc-server vnc* （CentOS 5.x 里）yum install tigervnc-server tigervnc （CentOS 6.x 里）/etc/init.d/vncserver restart# 关闭具体的 vncserver 命令 :vncserver -kill :1 http://jensd.be/125/linux/rhel/install-mate-or-xfce-on-centos-7]]></content>
@@ -90,18 +102,6 @@
         <tag>smate</tag>
         <tag>xfce</tag>
         <tag>vnc</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[使用 Printf 进行格式化]]></title>
-    <url>%2Flinux%2F%E4%BD%BF%E7%94%A8printf%E8%BF%9B%E8%A1%8C%E6%A0%BC%E5%BC%8F%E5%8C%96%2F</url>
-    <content type="text"><![CDATA[1. 表格输出 123456789101112131415161718#/bin/bashdivider===============================divider=$divider$dividerheader="\n %-10s %8s %10s %11s\n"format="%-10s %08d %10s %11.2f\n"width=43printf "$header" "ITEM NAME" "ITEM ID" "COLOR" "PRICE"printf "%$width.$&#123;width&#125;s\n" "$divider"printf "$format" \Triangle 13 red 20 \Oval 204449 "dark blue" 65.656 \Square 3145 orange .7 2. 格式化 123456789101112131415161718192021222324252627282930313233343536printf "%s\n" "1" "2" "\n3"12\n3printf "%b\n" "1" "2" "\n3"123$printf "%d\n" 255 0xff 0377 3.5255255255bash: printf: 3.5: invalid number3printf "%f\n" 255 0xff 0377 3.5255.000000255.000000377.0000003.500000printf "%.1f\n" 255 0xff 0377 3.5255.0255.0377.03.5 3. 格式化 12for i in $(seq 1 10); do printf "%03d\t" "$i"; done001 002 003 004 005 006 007 008 009 010]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>shell</tag>
-        <tag>printf</tag>
       </tags>
   </entry>
   <entry>
@@ -119,15 +119,15 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Puppet 安装]]></title>
-    <url>%2Flinux%2FPuppet%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[/etc/hosts 可以 ping 通对方域名 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm ( 这个版本可以修改为最新的） $ yum update # 服务端安装 puppet-server $ yum install puppet-server # 服务端安装 puppet 图形界面（可选） $ yum install ruby-mysql mysql mod_passenger puppet-dashboard # 客户端安装 puppet $ yum install puppet service puppetmaster start $ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot; $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem $ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF *.xxx.com EOF $ service puppetmaster restart $ puppet cert list --all --&gt; 查看下证书，此时是没有客户机的，只有自己 在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com $ puppetd --server bigdata.xxxx.com --test 或者 $ puppet agent --no-daemonize --onetime --verbose --debug 安装 dashboard $ vi /usr/share/puppet-dashboard/config/database.yml production: database: puppet username: root password: passw0rd encoding: utf8 adapter: mysql $ vi /usr/share/puppet-dashboard/config/environment.rb config.time_zone = &#39;Beijing&#39; 初始化数据库 $ cd /usr/share/puppet-dashboard/ rake RAILS_ENV=production db:migrate 整合 Passenger 和 apache $ vi /etc/httpd/conf.d/passenger.conf LoadModule passenger_module modules/mod_passenger.so PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21 PassengerRuby /usr/bin/ruby PassengerHighPerformance on PassengerMaxPoolSize 12 PassengerPoolIdleTime 1500 PassengerStatThrottleRate 120 RailsAutoDetect On &lt;VirtualHost *&gt; ServerName bigdata.xxxx.com DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot; ErrorLog /var/log/httpd/puppet-dashboard_error.log LogLevel warn CustomLog /var/log/httpd/puppet-dashboard_access.log combined &lt;/VirtualHost&gt; 让 Dashboard 使用 Reports $ vi /etc/puppet/puppet.conf [master] reports = store, http reporturl = http://bigdata.xxxx.com:80/reports/upload 重启 puppetmaster 服务 $ /etc/init.d/puppetmaster restart 导入报告 $ cd /usr/share/puppet-dashboard $ rake RAILS_ENV=production reports:import 执行导入的 reports $ rake jobs:work RAILS_ENV=&quot;production&quot; 下载及文档地址 http://code.google.com/p/puppet-manifest-share/downloads/list http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/ http://dongxicheng.org/cluster-managemant/puppet/]]></content>
+    <title><![CDATA[GlusterFS 安装]]></title>
+    <url>%2Fstorage%2FGlusterFS%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS $ wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo 安装软件 yum install glusterfs{,-fuse,-server} yum install glusterfs-geo-replication.x86_64 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 # 删除 lvm2 $ rpm -e lvm2 挂载分区及配置防火墙 # mkdir $ mkdir /export/brick1 # 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！ $ chmod 777 /export/brick1 # firewall $ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent $ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent $ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \ --add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp --permanent $ firewall-cmd --reload 启动 glusterd 服务 $ service glusterd start # if centos7: $ systemctl enable glusterd $ systemctl start glusterd $ systemctl status glusterd # from server1 $ gluster peer probe SERVER2 # from server2 $ gluster peer probe SERVER1 # check peer $ gluster peer status $ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0 $ gluster volume start gv0 $ gluster volume info $ gluster volume status # How to remove a volume or peer # stop Volume $ gluster volume stop gv0 # delete Volume $ gluster volume delete gv0 $ gluster peer detach NAME_OF_PEERNODE Test Gluster volume # mount to /mnt $ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt $ vi /etc/fstab gluster1.example.com:/gv0 /mnt/glusterfs glusterfs defaults,_netdev 0 0 # 如果使用 nfs 协议使用 # GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。 $ vi /etc/nfsmount.conf Defaultvers=3 $ systemctl restart glusterd.service # start force $ gluster volume set gv0 nfs.disable off $ gluster volume start gv0 force $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs 配置 Quorum() ...... 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS]]></content>
       <categories>
-        <category>linux</category>
+        <category>storage</category>
       </categories>
       <tags>
-        <tag>puppet</tag>
-        <tag>devops</tag>
+        <tag>gluster</tag>
+        <tag>dfs</tag>
       </tags>
   </entry>
   <entry>
@@ -139,42 +139,6 @@
       </categories>
       <tags>
         <tag>graphite</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Gearman 安装]]></title>
-    <url>%2Fcluster%2FGearman%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = \(worker-&gt;work(); if(\)worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; \(result = strrev(\)workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;]]></content>
-      <categories>
-        <category>cluster</category>
-      </categories>
-      <tags>
-        <tag>gearman</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[PXE 安装与设定]]></title>
-    <url>%2Flinux%2FPXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A%2F</url>
-    <content type="text"><![CDATA[安装软件 # 安装的软件： dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm(不须装) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config-kickstart-2.6.19.1-1.el5.noarch.rpm syslinux # 关闭 selinux &amp; iptables dhcp 配置 ddns-update-style interim; ignore client-updates; allow booting; allow bootp; class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;; filename &quot;/pxelinux.0&quot;; next-server 10.85.138.9; } subnet 10.85.138.0 netmask 255.255.254.0 { option routers 10.85.138.1; option subnet-mask 255.255.254.0; option domain-name &quot;gwcloud.com&quot;; option domain-name-servers 10.85.138.1; option time-offset -18000; # Eastern Standard Time range dynamic-bootp 10.85.138.100 10.85.138.249; default-lease-time 21600; max-lease-time 43200; } 增加 tftp 文件 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！) $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/ $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/ $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default # default 文件也可以自己修改 配置 kickstart # 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口 label linux menu label ^Install or upgrade an existing system menu default kernel vmlinuz append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg # 修改 kickstart 自动安装 linux(见安装文件) 附录：完整 DHCP 样例 ddns-update-style interim; ddns-updates on; ignore client-updates; allow booting; # for pxe only allow bootp; # for pxe only authoritative; # Do not know what is meaning?? class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;; # for pxe # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;; # for normal dhcp # option host-name = config-option server.ddns-hostname; # set the server&#39;s hostname, only for linux??? ddns-hostname = concat(&quot;v&quot;, suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2) ); filename &quot;/pxelinux.0&quot;; # for pxe only next-server 192.168.88.1; # for pxe only } class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;; option host-name = config-option server.ddns-hostname; #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6))); #ddns-hostname = pick (option host-name, concat(&quot;v&quot;, # Windows instances will apply for a hostname by default ddns-hostname = concat(&quot;v&quot;, suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2) ); } option host-name = config-option server.ddns-hostname; ddns-hostname = pick (option host-name, concat(&quot;v&quot;, suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2) )); set vendor-string = option vendor-class-identifier; subnet 192.168.88.0 netmask 255.255.255.0 { option routers 192.168.88.1; option subnet-mask 255.255.255.0; option domain-name &quot;gwcloud.cn&quot;; option domain-name-servers 192.168.88.1; # option host-name &quot;Server001&quot; # set the server&#39;s hostname, only for linux??? # option ntp-servers 192.168.88.1 # set the ntp server option time-offset -18000; # Eastern Standard Time range dynamic-bootp 192.168.88.100 192.168.88.200; default-lease-time 21600; max-lease-time 43200; # the next is bonding the mac to static ip address # host pc1 { # hardware ethernet 00:a0:cc:cf:9C:14; # host&#39;s mac address # fixed-address 192.168.1.30; # host&#39;s ip address }]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>dhcp</tag>
-        <tag>pxe</tag>
-        <tag>kickstart</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[GlusterFS 安装]]></title>
-    <url>%2Fstorage%2FGlusterFS%E5%AE%89%E8%A3%85%2F</url>
-    <content type="text"><![CDATA[参考： https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS $ wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/LATEST/EPEL.repo/glusterfs-epel.repo 安装软件 yum install glusterfs{,-fuse,-server} yum install glusterfs-geo-replication.x86_64 如遇到以下错误： Transaction check error: file /usr/lib/systemd/system/blk-availability.service from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/sbin/blkdeactivate from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 file /usr/share/man/man8/blkdeactivate.8.gz from install of device-mapper-7:1.02.107-5.el7_2.2.x86_64 conflicts with file from package lvm2-7:2.02.105-14.el7.x86_64 # 删除 lvm2 $ rpm -e lvm2 挂载分区及配置防火墙 # mkdir $ mkdir /export/brick1 # 这里可以修改权限 , 其它程序可以使用， 注意所有服务器上都要修改！！！ $ chmod 777 /export/brick1 # firewall $ firewall-cmd --zone=public --add-port=24007-24008/tcp --permanent $ firewall-cmd --zone=public --add-service=nfs --add-service=samba --add-service=samba-client --permanent $ firewall-cmd --zone=public --add-port=111/tcp --add-port=139/tcp --add-port=445/tcp --add-port=965/tcp --add-port=2049/tcp \ --add-port=38465-38469/tcp --add-port=631/tcp --add-port=111/udp --add-port=963/udp --add-port=49152-49251/tcp --permanent $ firewall-cmd --reload 启动 glusterd 服务 $ service glusterd start # if centos7: $ systemctl enable glusterd $ systemctl start glusterd $ systemctl status glusterd # from server1 $ gluster peer probe SERVER2 # from server2 $ gluster peer probe SERVER1 # check peer $ gluster peer status $ gluster volume create gv0 replica 2 HOSTNAME_OF_SERVER1:/export/brick1/gv0 HOSTNAME_OF_SERVER2:/export/brick1/gv0 $ gluster volume start gv0 $ gluster volume info $ gluster volume status # How to remove a volume or peer # stop Volume $ gluster volume stop gv0 # delete Volume $ gluster volume delete gv0 $ gluster peer detach NAME_OF_PEERNODE Test Gluster volume # mount to /mnt $ mount -t glusterfs node01.yourdomain.net:/gv0 /mnt $ vi /etc/fstab gluster1.example.com:/gv0 /mnt/glusterfs glusterfs defaults,_netdev 0 0 # 如果使用 nfs 协议使用 # GlusterFS NFS 服务器只支持第 3 版的 NFS 沟通协议。 $ vi /etc/nfsmount.conf Defaultvers=3 $ systemctl restart glusterd.service # start force $ gluster volume set gv0 nfs.disable off $ gluster volume start gv0 force $ mount -t nfs PEER_NODE:/gv0 /mnt/glusterfs 配置 Quorum() ...... 参考 : https://wiki.centos.org/zh/HowTos/GlusterFSonCentOS]]></content>
-      <categories>
-        <category>storage</category>
-      </categories>
-      <tags>
-        <tag>gluster</tag>
-        <tag>dfs</tag>
       </tags>
   </entry>
   <entry>
@@ -190,18 +154,6 @@
         <tag>httpie</tag>
         <tag>httpstat</tag>
         <tag>wizz</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Postgresql 主从配置]]></title>
-    <url>%2Fdatabase%2FPostgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[安装好二台 postgresql 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ 1234567891011# 主服务器上 vi /etc/profile export PGDATA=/pgdatasource /etc/profile# 从服务器上 vi /etc/profile export PGDATA=/pgdata_backupsource /etc/profile 配置主服务器 192.168.10.11 123456789101112131415161718192021222324252627# 使用 root 帐户 mkdir /pgdatachown -R postgres:postgres /pgdata/# 配置一个账号进行主从同步 su - postgrespsql [-p 54321] # 如果修改过端口，需要指定端口 psql$ CREATE ROLE replica login replication encrypted password 'replica';# 增加 replica 用户 cd /pgdatavi pg_hba.conf host replication replica 192.168.10.12/32 md5# 配置复制参数 vi postgresql.conf wal_level = hot_standby # 主为 wal 的主机 max_wal_senders = 32 # 最多几个流复制 wal_keep_segments = 256 # 设置流复制保留最多的 log 数目，每个 log 16M wal_sender_timeout = 60s # 流复制主机发送数据的超时时间 max_connections = 100 # 注意：从库的 max_connections 必须要大于主库的 # 修改权限 chmod -R 700 /pgdata/# 重启 pgpg_ctl restart 配置从服务器 192.168.10.12 1234567891011121314151617181920212223242526272829# 使用 root 帐户 mkdir /pgdata_backupchown -R postgres:postgres /pgdata_backup/su - postgrespg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password# password is: replicacd /pgdata_backup# 编辑配置 vi recovery.conf# 如果找不到 recovery.conf，可以新建，只需要下面三行即可 recovery_target_timeline = 'latest'standby_mode = onprimary_conninfo = 'host=192.168.10.11 port=5432 user=replica password=replica'# 编辑配置 vi postgresql.confmax_connections = 1000 # (要大于主库的)hot_standby = on # 说明这台机器不仅仅是用于数据归档，也用于数据查询 max_standby_streaming_delay = 30s # 多久向主报告一次从的状态，最长的间隔时间 wal_receiver_status_interval = 5s # 间隔多久将状态信息发送给主 hot_standby_feedback = on # 如果有错误的数据复制，是否向主进行反馈 chmod -R 700 /pgdata_backup/# 启动从 pgpg_ctl start 检测配置是否成功 # 使用 ps -ef 在主从二台上检测进程状态 # 在主上应该有 sender 进程，在从上有 receiver 进程 # 在主上查看复制状态 $ psql$ select * from pg_stat_replication; # 可以看到 sender 的进程信息 主从切换命令 1234567891011121314151617181920212223242526272829303132333435# node1 上模拟主库故障 [postgres@node1 ~]$ pg_ctl stop -m f# node2 提升备库状态 [postgres@node2 ~]$ pg_ctl promote# node2 更新备数据 [postgres@node2 ~]$ createdb pgbench[postgres@node2 ~]$ pgbench -i -s 10 pgbench# node1 将以前 master 恢复为 standbypg_rewind -D /opt/pgsql/data/ --source-server='host=node2 user=postgres port=5432'vi /opt/pgsql/data/recovery.confstandby_mode = 'on'primary_conninfo = 'host=node2 user=postgres port=5432'recovery_target_timeline = 'latest'# 启动 node1 上的数据库：[postgres@node1 ~]$ pg_ctl start# 将 node1 恢复为 master[postgres@node2 ~]$ pg_ctl stop -m f[postgres@node1 ~]$ pg_ctl promote[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench# 恢复 node2 为 standby：[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server='host=node1 user=postgres port=5432'[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf# 修改 node2 为 node1vi /opt/pgsql/data/recovery.conf # 启动 node2 上的数据库：[postgres@node2 ~]$ pg_ctl start]]></content>
-      <categories>
-        <category>database</category>
-      </categories>
-      <tags>
-        <tag>postgresql</tag>
-        <tag>pg recovery</tag>
       </tags>
   </entry>
   <entry>
@@ -226,6 +178,54 @@
       <tags>
         <tag>dhcp</tag>
         <tag>pxe</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Postgresql 主从配置]]></title>
+    <url>%2Fdatabase%2FPostgresql%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[安装好二台 postgresql 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ 1234567891011# 主服务器上 vi /etc/profile export PGDATA=/pgdatasource /etc/profile# 从服务器上 vi /etc/profile export PGDATA=/pgdata_backupsource /etc/profile 配置主服务器 192.168.10.11 123456789101112131415161718192021222324252627# 使用 root 帐户 mkdir /pgdatachown -R postgres:postgres /pgdata/# 配置一个账号进行主从同步 su - postgrespsql [-p 54321] # 如果修改过端口，需要指定端口 psql$ CREATE ROLE replica login replication encrypted password 'replica';# 增加 replica 用户 cd /pgdatavi pg_hba.conf host replication replica 192.168.10.12/32 md5# 配置复制参数 vi postgresql.conf wal_level = hot_standby # 主为 wal 的主机 max_wal_senders = 32 # 最多几个流复制 wal_keep_segments = 256 # 设置流复制保留最多的 log 数目，每个 log 16M wal_sender_timeout = 60s # 流复制主机发送数据的超时时间 max_connections = 100 # 注意：从库的 max_connections 必须要大于主库的 # 修改权限 chmod -R 700 /pgdata/# 重启 pgpg_ctl restart 配置从服务器 192.168.10.12 1234567891011121314151617181920212223242526272829# 使用 root 帐户 mkdir /pgdata_backupchown -R postgres:postgres /pgdata_backup/su - postgrespg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password# password is: replicacd /pgdata_backup# 编辑配置 vi recovery.conf# 如果找不到 recovery.conf，可以新建，只需要下面三行即可 recovery_target_timeline = 'latest'standby_mode = onprimary_conninfo = 'host=192.168.10.11 port=5432 user=replica password=replica'# 编辑配置 vi postgresql.confmax_connections = 1000 # (要大于主库的)hot_standby = on # 说明这台机器不仅仅是用于数据归档，也用于数据查询 max_standby_streaming_delay = 30s # 多久向主报告一次从的状态，最长的间隔时间 wal_receiver_status_interval = 5s # 间隔多久将状态信息发送给主 hot_standby_feedback = on # 如果有错误的数据复制，是否向主进行反馈 chmod -R 700 /pgdata_backup/# 启动从 pgpg_ctl start 检测配置是否成功 # 使用 ps -ef 在主从二台上检测进程状态 # 在主上应该有 sender 进程，在从上有 receiver 进程 # 在主上查看复制状态 $ psql$ select * from pg_stat_replication; # 可以看到 sender 的进程信息 主从切换命令 1234567891011121314151617181920212223242526272829303132333435# node1 上模拟主库故障 [postgres@node1 ~]$ pg_ctl stop -m f# node2 提升备库状态 [postgres@node2 ~]$ pg_ctl promote# node2 更新备数据 [postgres@node2 ~]$ createdb pgbench[postgres@node2 ~]$ pgbench -i -s 10 pgbench# node1 将以前 master 恢复为 standbypg_rewind -D /opt/pgsql/data/ --source-server='host=node2 user=postgres port=5432'vi /opt/pgsql/data/recovery.confstandby_mode = 'on'primary_conninfo = 'host=node2 user=postgres port=5432'recovery_target_timeline = 'latest'# 启动 node1 上的数据库：[postgres@node1 ~]$ pg_ctl start# 将 node1 恢复为 master[postgres@node2 ~]$ pg_ctl stop -m f[postgres@node1 ~]$ pg_ctl promote[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench# 恢复 node2 为 standby：[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --source-server='host=node1 user=postgres port=5432'[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf# 修改 node2 为 node1vi /opt/pgsql/data/recovery.conf # 启动 node2 上的数据库：[postgres@node2 ~]$ pg_ctl start]]></content>
+      <categories>
+        <category>database</category>
+      </categories>
+      <tags>
+        <tag>postgresql</tag>
+        <tag>pg recovery</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Gearman 安装]]></title>
+    <url>%2Fcluster%2FGearman%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = \(worker-&gt;work(); if(\)worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; \(result = strrev(\)workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;]]></content>
+      <categories>
+        <category>cluster</category>
+      </categories>
+      <tags>
+        <tag>gearman</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Puppet 安装]]></title>
+    <url>%2Flinux%2FPuppet%E5%AE%89%E8%A3%85%2F</url>
+    <content type="text"><![CDATA[/etc/hosts 可以 ping 通对方域名 安装 puppet $ yum install ruby ruby-libs ruby-rdoc $ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm ( 这个版本可以修改为最新的） $ yum update # 服务端安装 puppet-server $ yum install puppet-server # 服务端安装 puppet 图形界面（可选） $ yum install ruby-mysql mysql mod_passenger puppet-dashboard # 客户端安装 puppet $ yum install puppet service puppetmaster start $ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot; $ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem $ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF *.xxx.com EOF $ service puppetmaster restart $ puppet cert list --all --&gt; 查看下证书，此时是没有客户机的，只有自己 在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com $ puppetd --server bigdata.xxxx.com --test 或者 $ puppet agent --no-daemonize --onetime --verbose --debug 安装 dashboard $ vi /usr/share/puppet-dashboard/config/database.yml production: database: puppet username: root password: passw0rd encoding: utf8 adapter: mysql $ vi /usr/share/puppet-dashboard/config/environment.rb config.time_zone = &#39;Beijing&#39; 初始化数据库 $ cd /usr/share/puppet-dashboard/ rake RAILS_ENV=production db:migrate 整合 Passenger 和 apache $ vi /etc/httpd/conf.d/passenger.conf LoadModule passenger_module modules/mod_passenger.so PassengerRoot /usr/lib/ruby/gems/1.8/gems/passenger-3.0.21 PassengerRuby /usr/bin/ruby PassengerHighPerformance on PassengerMaxPoolSize 12 PassengerPoolIdleTime 1500 PassengerStatThrottleRate 120 RailsAutoDetect On &lt;VirtualHost *&gt; ServerName bigdata.xxxx.com DocumentRoot &quot;/usr/share/puppet-dashboard/public/&quot; ErrorLog /var/log/httpd/puppet-dashboard_error.log LogLevel warn CustomLog /var/log/httpd/puppet-dashboard_access.log combined &lt;/VirtualHost&gt; 让 Dashboard 使用 Reports $ vi /etc/puppet/puppet.conf [master] reports = store, http reporturl = http://bigdata.xxxx.com:80/reports/upload 重启 puppetmaster 服务 $ /etc/init.d/puppetmaster restart 导入报告 $ cd /usr/share/puppet-dashboard $ rake RAILS_ENV=production reports:import 执行导入的 reports $ rake jobs:work RAILS_ENV=&quot;production&quot; 下载及文档地址 http://code.google.com/p/puppet-manifest-share/downloads/list http://www.vpsee.com/2012/03/install-puppet-on-centos-6-2/ http://dongxicheng.org/cluster-managemant/puppet/]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>puppet</tag>
+        <tag>devops</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[PXE 安装与设定]]></title>
+    <url>%2Flinux%2FPXE%E5%AE%89%E8%A3%85%E4%B8%8E%E8%AE%BE%E5%AE%9A%2F</url>
+    <content type="text"><![CDATA[安装软件 # 安装的软件： dhcp-3.0.5-7.el5.x86_64.rpm vsftpd-2.0.5-10.el5.x86_64.rpm(不须装) xinetd-2.3.14-10.el5.x86_64.rpm tftp-server-0.42-3.1.x86_64.rpm pykickstart-0.43.3-1.el5.noarch.rpm system-config-kickstart-2.6.19.1-1.el5.noarch.rpm syslinux # 关闭 selinux &amp; iptables dhcp 配置 ddns-update-style interim; ignore client-updates; allow booting; allow bootp; class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;; filename &quot;/pxelinux.0&quot;; next-server 10.85.138.9; } subnet 10.85.138.0 netmask 255.255.254.0 { option routers 10.85.138.1; option subnet-mask 255.255.254.0; option domain-name &quot;gwcloud.com&quot;; option domain-name-servers 10.85.138.1; option time-offset -18000; # Eastern Standard Time range dynamic-bootp 10.85.138.100 10.85.138.249; default-lease-time 21600; max-lease-time 43200; } 增加 tftp 文件 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！) $ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/ $ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/ $ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux $ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux $ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default # default 文件也可以自己修改 配置 kickstart # 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口 label linux menu label ^Install or upgrade an existing system menu default kernel vmlinuz append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg # 修改 kickstart 自动安装 linux(见安装文件) 附录：完整 DHCP 样例 ddns-update-style interim; ddns-updates on; ignore client-updates; allow booting; # for pxe only allow bootp; # for pxe only authoritative; # Do not know what is meaning?? class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;; # for pxe # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;; # for normal dhcp # option host-name = config-option server.ddns-hostname; # set the server&#39;s hostname, only for linux??? ddns-hostname = concat(&quot;v&quot;, suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2) ); filename &quot;/pxelinux.0&quot;; # for pxe only next-server 192.168.88.1; # for pxe only } class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;; option host-name = config-option server.ddns-hostname; #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6))); #ddns-hostname = pick (option host-name, concat(&quot;v&quot;, # Windows instances will apply for a hostname by default ddns-hostname = concat(&quot;v&quot;, suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2) ); } option host-name = config-option server.ddns-hostname; ddns-hostname = pick (option host-name, concat(&quot;v&quot;, suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2), suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2) )); set vendor-string = option vendor-class-identifier; subnet 192.168.88.0 netmask 255.255.255.0 { option routers 192.168.88.1; option subnet-mask 255.255.255.0; option domain-name &quot;gwcloud.cn&quot;; option domain-name-servers 192.168.88.1; # option host-name &quot;Server001&quot; # set the server&#39;s hostname, only for linux??? # option ntp-servers 192.168.88.1 # set the ntp server option time-offset -18000; # Eastern Standard Time range dynamic-bootp 192.168.88.100 192.168.88.200; default-lease-time 21600; max-lease-time 43200; # the next is bonding the mac to static ip address # host pc1 { # hardware ethernet 00:a0:cc:cf:9C:14; # host&#39;s mac address # fixed-address 192.168.1.30; # host&#39;s ip address }]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>dhcp</tag>
+        <tag>pxe</tag>
+        <tag>kickstart</tag>
       </tags>
   </entry>
   <entry>
@@ -267,6 +267,18 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Linux 安装 Easy_install 及 Pip]]></title>
+    <url>%2Flinux%2Flinux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip%2F</url>
+    <content type="text"><![CDATA[需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7 安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6 # 使用 Python 2.7.x 安装 setuptools /usr/local/bin/python2.7 setup.py install 更多 easy_install 用法见： easy_install 用法 安装 PIP # 下载方法 1 $ curl https://bootstrap.pypa.io/get-pip.py | python - # 下载方法 2 $ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python # 安装方法 1 $ yum install python-pip # 安装方法 2 $ /usr/local/bin/easy_install pip (建议 , 如果升级使用此方法！) # 升级 pip $ /usr/local/bin/easy_install --upgrade pip # 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案) $ pip install -U distribute # 升级 ez_setup $ curl https://bootstrap.pypa.io/ez_setup.py | python - &gt; PIP 使用指定源，且不缓存到目录 $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com &gt; 安装墙内 PIP http://realfavicongenerator.net/ easy_install 用法 # 1 直接安装： easy_install SQLObject # 2 使用下载页面地址安装 easy_install -f http://pythonpaste.org/package_index.html SQLObject # 3 直接给出下载 url 安装 easy_install http://example.com/path/to/MyPackage-1.2.3.tgz # 4 .egg 文件的安装 easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg # 5 跟新安装过的包 easy_install --upgrade PyProtocols # 6 安装已经下载和提取在当前目录下的包 easy_install . # 7 安装特定特定版本的库 easy_install &quot;SomePackage==2.0&quot; # 8 大于某个版本 easy_install &quot;SomePackage&gt;2.0 # 9 卸载库 easy_install -m PackageName]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>easy_install</tag>
+        <tag>pip</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Dnsmasq 使用本地 Hosts 配置提供 DNS 服务]]></title>
     <url>%2Flinux%2Fdns%2FDnsmasq%E4%BD%BF%E7%94%A8%E6%9C%AC%E5%9C%B0host%E4%B8%BADNS%2F</url>
     <content type="text"><![CDATA[1. 使用 dnsmasq 提供外网 dns 服务 $ apt-get install dnsmasq 1.1. 修改 dnsmasq 主配置文件 12345# 将以下文本添加到 /etc/dnsmasq.conf 文件的最后：listen-address=127.0.0.1,OUTER_IP # 这里如果使用 0.0.0.0 会失败 addn-hosts=/etc/hosts # 直接解析本地的 hostsresolv-file=/etc/resolv.dnsmasq.conf # 可以增加本机的 dns 服务 (/etc/resolv.conf 里最多只生效三个)conf-dir=/etc/dnsmasq.d # 该目录下的所有文件都会解析 1.2. 生成域名映射 12345# 在 /etc/dnsmasq.d/ 目录下新建一个文件，随意起个名字 vi /etc/dnsmasq.d/dns.conf# 指定你要映射的域名，例如 google.com，则将下面贴进 dns.conf 文件 address="/google.com/172.17.0.4" 1.3. 启动服务 /etc/init.d/dnsmasq start 1.4. 测试 dig google.com @OUTER_IP --&gt; 172.17.0.4 2. 本地 hosts 配合 NetworkManager 方式 12345678910$ cat /etc/NetworkManager/dnsmasq.d/hosts.confaddn-hosts=/etc/hosts$ sudo service networking restart$ sudo /etc/init.d/dns-clean restart# 修改后要求下面的几个命令输出相同的 IP 地址：$ host u1$ nslookup u1$ getent ahosts u1]]></content>
@@ -277,18 +289,6 @@
       <tags>
         <tag>dns dhcp</tag>
         <tag>dnsmasq</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Linux 安装 Easy_install 及 Pip]]></title>
-    <url>%2Flinux%2Flinux%E5%AE%89%E8%A3%85easy_install%E5%8F%8Apip%2F</url>
-    <content type="text"><![CDATA[需要先将 python2.6 升级至 2.7，请参见： python2.6 升级至 python2.7 安装 easy_install # 获取软件包 $ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz # 解压 : $ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6 # 使用 Python 2.7.x 安装 setuptools /usr/local/bin/python2.7 setup.py install 更多 easy_install 用法见： easy_install 用法 安装 PIP # 下载方法 1 $ curl https://bootstrap.pypa.io/get-pip.py | python - # 下载方法 2 $ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python # 安装方法 1 $ yum install python-pip # 安装方法 2 $ /usr/local/bin/easy_install pip (建议 , 如果升级使用此方法！) # 升级 pip $ /usr/local/bin/easy_install --upgrade pip # 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案) $ pip install -U distribute # 升级 ez_setup $ curl https://bootstrap.pypa.io/ez_setup.py | python - &gt; PIP 使用指定源，且不缓存到目录 $ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com &gt; 安装墙内 PIP http://realfavicongenerator.net/ easy_install 用法 # 1 直接安装： easy_install SQLObject # 2 使用下载页面地址安装 easy_install -f http://pythonpaste.org/package_index.html SQLObject # 3 直接给出下载 url 安装 easy_install http://example.com/path/to/MyPackage-1.2.3.tgz # 4 .egg 文件的安装 easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg # 5 跟新安装过的包 easy_install --upgrade PyProtocols # 6 安装已经下载和提取在当前目录下的包 easy_install . # 7 安装特定特定版本的库 easy_install &quot;SomePackage==2.0&quot; # 8 大于某个版本 easy_install &quot;SomePackage&gt;2.0 # 9 卸载库 easy_install -m PackageName]]></content>
-      <categories>
-        <category>linux</category>
-      </categories>
-      <tags>
-        <tag>easy_install</tag>
-        <tag>pip</tag>
       </tags>
   </entry>
   <entry>
