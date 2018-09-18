@@ -325,159 +325,6 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
-                2016-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="安装"> 安装 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-<h1 id="配置"> 配置 </h1>
-<blockquote>
-<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 id="启动"> 启动 </h1>
-<pre><code>$ service supervisord start
-
-&gt; 如果使用 pip 安装，需要自已写启动脚本 </code></pre>
-<h1 id="检查安装"> 检查安装 </h1>
-<pre><code># 如下即表示正常
-supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -567,23 +414,167 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
 
       
         
-          <h1 id="安装相关依赖库"> 安装相关依赖库 </h1>
-<pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
+          <h1 id="安装相关依赖库"><a href="# 安装相关依赖库" class="headerlink" title="安装相关依赖库"></a> 安装相关依赖库 </h1><pre><code>$ yum -y install readline-devel zlib-devel make gcc gcc-c++ openldap openldap-devel \
   openssl openssl-devel  perl perl-devel perl-ExtUtils* python-devel tcl-devel pam-devel libxslt-devel
 $ yum -y install wget gcc systemtap systemtap-sdt-devel \
   sgml-common docbook stylesheets openjade  sgml-tools  xsltproc \
-  libxml2 libxml2-devel bison flex libreadline6-devel</code></pre>
-<h1 id="安装"> 安装 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户、环境变量 </span></span><br><span class="line">$ useradd postgres</span><br><span class="line"></span><br><span class="line">$ vim /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">source</span>  /etc/profile</span><br><span class="line"></span><br><span class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</span><br><span class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</span><br><span class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</span><br><span class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</span><br><span class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</span><br><span class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</span><br><span class="line"></span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
-<h1 id="初始化数据库"> 初始化数据库 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /pgdata</span><br><span class="line">chown postgres /pgdata</span><br><span class="line">su - postgres</span><br><span class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库参数修改 </span></span><br><span class="line">    $ vim /pgdata/pg_hba.conf</span><br><span class="line">      host    all             all             0.0.0.0/0               trust</span><br><span class="line"></span><br><span class="line">    $ vim /pgdata/postgresql.conf</span><br><span class="line">      listen_addresses = <span class="string">'*'</span></span><br><span class="line">      max_connections = 1500</span><br></pre></td></tr></table></figure>
-<h1 id="启动数据库 - 快速"> 启动数据库 [快速]</h1>
-<pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start</code></pre>
-<h1 id="创建并导入库"> 创建并导入库 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su postgres</span><br><span class="line">psql</span><br><span class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></span><br><span class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></span><br><span class="line">\i &lt;DB_FILE&gt;.sql</span><br></pre></td></tr></table></figure>
+  libxml2 libxml2-devel bison flex libreadline6-devel
+</code></pre><h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置用户、环境变量 </span></span><br><span class="line">$ useradd postgres</span><br><span class="line"></span><br><span class="line">$ vim /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span>/bin:/usr/<span class="built_in">local</span>/pgsql/bin</span><br><span class="line"></span><br><span class="line">$ <span class="built_in">source</span>  /etc/profile</span><br><span class="line"></span><br><span class="line">$ wget https://ftp.postgresql.org/pub/<span class="built_in">source</span>/v9.5.1/postgresql-9.5.1.tar.bz2</span><br><span class="line">$ bzcat postgresql-9.5.1.tar.bz2 | tar xBpf -</span><br><span class="line">$ <span class="built_in">cd</span> postgresql-9.5.1</span><br><span class="line">$ ./configure --with-perl --with-python --with-tcl  --with-openssl  --without-ldap \</span><br><span class="line">  --with-libxml --with-libxslt --<span class="built_in">enable</span>-thread-safety  --with-wal-blocksize=64  \</span><br><span class="line">  --with-blocksize=32 --with-wal-segsize=64 -<span class="built_in">enable</span>-dtrace  --with-pam</span><br><span class="line"></span><br><span class="line">$ make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+<h1 id="初始化数据库"><a href="# 初始化数据库" class="headerlink" title="初始化数据库"></a> 初始化数据库 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /pgdata</span><br><span class="line">chown postgres /pgdata</span><br><span class="line">su - postgres</span><br><span class="line">/usr/<span class="built_in">local</span>/pgsql/bin/initdb -D /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数据库参数修改 </span></span><br><span class="line">    $ vim /pgdata/pg_hba.conf</span><br><span class="line">      host    all             all             0.0.0.0/0               trust</span><br><span class="line"></span><br><span class="line">    $ vim /pgdata/postgresql.conf</span><br><span class="line">      listen_addresses = <span class="string">'*'</span></span><br><span class="line">      max_connections = 1500</span><br></pre></td></tr></table></figure>
+<h1 id="启动数据库 - 快速"><a href="# 启动数据库 - 快速" class="headerlink" title="启动数据库 [ 快速]"></a> 启动数据库 [快速]</h1><pre><code>$ /usr/local/pgsql/bin/pg_ctl [-m fast] -D /pgdata/ -l ~/pg_logfile start
+</code></pre><h1 id="创建并导入库"><a href="# 创建并导入库" class="headerlink" title="创建并导入库"></a> 创建并导入库 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">su postgres</span><br><span class="line">psql</span><br><span class="line">postgres=<span class="comment"># create database &lt;DB_NAME&gt;;</span></span><br><span class="line">postgres=<span class="comment"># \c &lt;DB_NAME&gt;;</span></span><br><span class="line">\i &lt;DB_FILE&gt;.sql</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/database/Postgresql安装/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Supervisor安装与配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Supervisor安装与配置/" itemprop="url">Supervisor 安装与配置</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-13T09:25:58+08:00">
+                2016-06-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<h1 id="配置"><a href="# 配置" class="headerlink" title="配置"></a> 配置 </h1><blockquote>
+<p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="启动"><a href="# 启动" class="headerlink" title="启动"></a> 启动 </h1><pre><code>$ service supervisord start
+
+&gt; 如果使用 pip 安装，需要自已写启动脚本
+</code></pre><h1 id="检查安装"><a href="# 检查安装" class="headerlink" title="检查安装"></a> 检查安装 </h1><pre><code># 如下即表示正常
+supervisorctl status
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
+</code></pre>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/Supervisor安装与配置/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -718,8 +709,7 @@ $ yum -y install wget gcc systemtap systemtap-sdt-devel \
 
       
         
-          <h1 id="location- 正则写法">location 正则写法</h1>
-<pre><code># 一个示例：
+          <h1 id="location- 正则写法"><a href="#location- 正则写法" class="headerlink" title="location 正则写法"></a>location 正则写法</h1><pre><code># 一个示例：
 location  = / {
   # 精确匹配 / ，主机名后面不能带任何字符串
   [configuration A]
@@ -761,13 +751,9 @@ location ~ /images/abc/ {
   # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用
     [configuration H]
 }
-location ~* /js/.*/\.js</code></pre>
-<dl>
-<dt>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配</dt>
-<dd>开头表示区分大小写的正则匹配 ; ~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到
-</dd>
-</dl>
-<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg -&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
+location ~* /js/.*/\.js
+</code></pre><p>^~ 开头表示 uri 以某个常规字符串开头，不是正则匹配<br>~ 开头表示区分大小写的正则匹配 ;<br>~* 开头表示不区分大小写的正则匹配 / 通用匹配 , 如果没有其它匹配 , 任何请求都会匹配到</p>
+<p>你可以看到 任何以 /images/ 开头的都会匹配到 D 并停止，FG 写在这里是没有任何意义的，H 是永远轮不到的，这里只是为了说明匹配顺序 /documents/document.html -&gt; config C 匹配到 C，往下没有任何匹配，采用 C /documents/1.jpg -&gt; configuration E 匹配到 C，往下正则匹配到 E /documents/Abc.jpg<br>-&gt; config CC 最长匹配到 C，往下正则顺序匹配到 CC，不会往下到 E 实际使用建议 所以实际使用中，个人觉得至少有三个匹配规则定义，如下：</p>
 <pre><code>    location = / {proxy_pass http://tomcat:8080/index}
 
 # 第二个必选规则是处理静态文件请求，这是 nginx 作为 http 服务器的强项
@@ -775,16 +761,17 @@ location ~* /js/.*/\.js</code></pre>
 
 # 非静态文件请求就默认是动态请求，自己根据实际把握
 # 毕竟目前的一些框架的流行，带 .php,.jsp 后缀的情况很少了
-location / {proxy_pass http://tomcat:8080/}</code></pre>
-<p><strong>引用</strong> &gt; http://tengine.taobao.org/book/chapter_02.html &gt; http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</p>
-<h1 id="rewrite- 规则">Rewrite 规则</h1>
-<p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 http://seanlook.com/a/we/index.php?id=1&amp;u=str 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
+location / {proxy_pass http://tomcat:8080/}
+</code></pre><p><strong>引用</strong></p>
+<blockquote>
+<p><a href="http://tengine.taobao.org/book/chapter_02.html" target="_blank" rel="noopener">http://tengine.taobao.org/book/chapter_02.html</a><br><a href="http://nginx.org/en/docs/http/ngx_http_rewrite_module.html" target="_blank" rel="noopener">http://nginx.org/en/docs/http/ngx_http_rewrite_module.html</a></p>
+</blockquote>
+<h1 id="Rewrite- 规则"><a href="#Rewrite- 规则" class="headerlink" title="Rewrite 规则"></a>Rewrite 规则</h1><p>rewrite 功能就是，使用 nginx 提供的全局变量或自己设置的变量，结合正则表达式和标志位实现 url 重写以及重定向。rewrite 只能放在 server{},location{},if{} 中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如 <a href="http://seanlook.com/a/we/index.php?id=1&amp;u=str" target="_blank" rel="noopener">http://seanlook.com/a/we/index.php?id=1&amp;u=str</a> 只对 /a/we/index.php 重写。语法 rewrite regex replacement [flag];</p>
 <ul>
 <li>执行 server 块的 rewrite 指令</li>
 <li>执行 location 匹配</li>
 <li>执行选定的 location 中的 rewrite 指令</li>
 </ul>
-<p>last : 相当于 Apache 的 [L] 标记，表示完成 rewrite break : 停止执行当前虚拟主机的后续 rewrite 指令集 redirect : 返回 302 临时重定向，地址栏会显示跳转后的地址 permanent : 返回 301 永久重定向，地址栏会显示跳转后的地址</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/web/Nginx配置location总结及rewrite规则写法/#more" rel="contents">
@@ -923,15 +910,11 @@ location / {proxy_pass http://tomcat:8080/}</code></pre>
       
         
           <blockquote>
-<p> 参考：<a href="http://www.jianshu.com/p/f7b5431418d2" class="uri" target="_blank" rel="noopener">http://www.jianshu.com/p/f7b5431418d2</a> 猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" class="uri" target="_blank" rel="noopener">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
+<p> 参考：<a href="http://www.jianshu.com/p/f7b5431418d2" target="_blank" rel="noopener">http://www.jianshu.com/p/f7b5431418d2</a><br> 猴子都能懂的 git 入门：<a href="https://backlog.com/git-tutorial/cn/intro/intro5_2.html" target="_blank" rel="noopener">https://backlog.com/git-tutorial/cn/intro/intro5_2.html</a></p>
 </blockquote>
-<h1 id="常见问题">1. 常见问题 </h1>
-<h2 id="使用 -key- 方式认证">1.1. 使用 key 方式认证 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start the ssh-agent in the background</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></span><br><span class="line">    Agent pid 59566</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br><span class="line"><span class="comment"># 测试 </span></span><br><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure>
-<h2 id="windows- 下 -tortisegit- 不弹出密码输入">1.2. Windows 下 tortiseGit 不弹出密码输入 </h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除以下文件夹中的文件：</span></span><br><span class="line">%appdata%\..\Local\Microsoft\Credentials</span><br></pre></td></tr></table></figure>
-<h2 id="windows- 下使用 -daemon">1.3. Windows 下使用 Daemon</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行简单的 git daemon 服务 </span></span><br><span class="line">git daemon --verbose --<span class="built_in">export</span>-all  --reuseaddr  --base-path=/tmp/catalog-krrish</span><br></pre></td></tr></table></figure>
+<h1 id="1- 常见问题"><a href="#1- 常见问题" class="headerlink" title="1. 常见问题"></a>1. 常见问题 </h1><h2 id="1-1- 使用 -key- 方式认证"><a href="#1-1- 使用 -key- 方式认证" class="headerlink" title="1.1. 使用 key 方式认证"></a>1.1. 使用 key 方式认证 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start the ssh-agent in the background</span></span><br><span class="line"><span class="built_in">eval</span> <span class="string">"<span class="variable">$(ssh-agent -s)</span>"</span></span><br><span class="line">    Agent pid 59566</span><br><span class="line">ssh-add ~/.ssh/id_rsa</span><br><span class="line"><span class="comment"># 测试 </span></span><br><span class="line">ssh git@github.com</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-Windows- 下 -tortiseGit- 不弹出密码输入"><a href="#1-2-Windows- 下 -tortiseGit- 不弹出密码输入" class="headerlink" title="1.2. Windows 下 tortiseGit 不弹出密码输入"></a>1.2. Windows 下 tortiseGit 不弹出密码输入 </h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除以下文件夹中的文件：</span></span><br><span class="line">%appdata%\..\Local\Microsoft\Credentials</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-Windows- 下使用 -Daemon"><a href="#1-3-Windows- 下使用 -Daemon" class="headerlink" title="1.3. Windows 下使用 Daemon"></a>1.3. Windows 下使用 Daemon</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 运行简单的 git daemon 服务 </span></span><br><span class="line">git daemon --verbose --<span class="built_in">export</span>-all  --reuseaddr  --base-path=/tmp/catalog-krrish</span><br></pre></td></tr></table></figure>
 <p> 报错如图 1.3-1：</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SO_KEEPALIVE on socket: No such file or directory</span><br></pre></td></tr></table></figure>
           <!--noindex-->
