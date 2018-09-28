@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="安装 12345678# 建议使用 yum 安装 yum install supervisor# 也可以使用 pip 安装 pip install supervisor# 生成配置文件 echo_supervisord_conf &amp;gt;/etc/supervisord.conf  配置   生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例   1234567891011121314">
+<meta name="description" content="安装  12345678# 建议使用 yum 安装 yum install supervisor# 也可以使用 pip 安装 pip install supervisor# 生成配置文件 echo_supervisord_conf &amp;gt;/etc/supervisord.conf  配置    生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例   12345678910">
 <meta name="keywords" content="supervisor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Supervisor 安装与配置">
 <meta property="og:url" content="http://blog.dongcj.com/linux/Supervisor安装与配置/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="安装 12345678# 建议使用 yum 安装 yum install supervisor# 也可以使用 pip 安装 pip install supervisor# 生成配置文件 echo_supervisord_conf &amp;gt;/etc/supervisord.conf  配置   生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例   1234567891011121314">
+<meta property="og:description" content="安装  12345678# 建议使用 yum 安装 yum install supervisor# 也可以使用 pip 安装 pip install supervisor# 生成配置文件 echo_supervisord_conf &amp;gt;/etc/supervisord.conf  配置    生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例   12345678910">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-08-04T09:26:08.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Supervisor 安装与配置">
-<meta name="twitter:description" content="安装 12345678# 建议使用 yum 安装 yum install supervisor# 也可以使用 pip 安装 pip install supervisor# 生成配置文件 echo_supervisord_conf &amp;gt;/etc/supervisord.conf  配置   生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例   1234567891011121314">
+<meta name="twitter:description" content="安装  12345678# 建议使用 yum 安装 yum install supervisor# 也可以使用 pip 安装 pip install supervisor# 生成配置文件 echo_supervisord_conf &amp;gt;/etc/supervisord.conf  配置    生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例   12345678910">
 
 
 
@@ -411,18 +411,22 @@
       
 
       
-        <h1 id="安装"><a href="# 安装" class="headerlink" title="安装"></a> 安装 </h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
-<h1 id="配置"><a href="# 配置" class="headerlink" title="配置"></a> 配置 </h1><blockquote>
+        <h1 id="安装"> 安装 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 建议使用 yum 安装 </span></span><br><span class="line">yum install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可以使用 pip 安装 </span></span><br><span class="line">pip install supervisor</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成配置文件 </span></span><br><span class="line">echo_supervisord_conf &gt;/etc/supervisord.conf</span><br></pre></td></tr></table></figure>
+<h1 id="配置"> 配置 </h1>
+<blockquote>
 <p> 生成的配置文件不用修改，直接在最后加下自己的配置，以下是样例 </p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[program:mysql]</span><br><span class="line">environment=API_UMBRELLA_CONFIG=<span class="string">"/opt/api-umbrella/var/run/runtime_config.yml"</span>  <span class="comment"># 可选 </span></span><br><span class="line">directory=/opt/api-umbrella/embedded/apps/web/current   <span class="comment"># 可选 </span></span><br><span class="line"><span class="built_in">command</span>=service mysqld start    <span class="comment"># 必选，启动命令 </span></span><br><span class="line">autorestart=<span class="literal">true</span>                <span class="comment"># 必选，自动启动 </span></span><br><span class="line">redirect_stderr=<span class="literal">true</span>            <span class="comment"># 可选 </span></span><br><span class="line">stdout_syslog=<span class="literal">true</span>              <span class="comment"># 可选 </span></span><br><span class="line"></span><br><span class="line">[program:opsview]</span><br><span class="line"><span class="built_in">command</span>=service opsview start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">[program:opsview-web]</span><br><span class="line"><span class="built_in">command</span>=service opsview-web start</span><br><span class="line">autorestart=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
-<h1 id="启动"><a href="# 启动" class="headerlink" title="启动"></a> 启动 </h1><pre><code>$ service supervisord start
+<h1 id="启动"> 启动 </h1>
+<pre><code>$ service supervisord start
 
-&gt; 如果使用 pip 安装，需要自已写启动脚本
-</code></pre><h1 id="检查安装"><a href="# 检查安装" class="headerlink" title="检查安装"></a> 检查安装 </h1><pre><code># 如下即表示正常
+&gt; 如果使用 pip 安装，需要自已写启动脚本 </code></pre>
+<h1 id="检查安装"> 检查安装 </h1>
+<pre><code># 如下即表示正常
 supervisorctl status
-remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
-</code></pre>
+remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14</code></pre>
+
       
     </div>
 
@@ -474,8 +478,8 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/database/Postgresql安装/" rel="next" title="Postgresql 安装">
-                <i class="fa fa-chevron-left"></i> Postgresql 安装
+              <a href="/web/Nginx配置location总结及rewrite规则写法/" rel="next" title="Nginx 配置 Location 总结及 Rewrite 规则写法">
+                <i class="fa fa-chevron-left"></i> Nginx 配置 Location 总结及 Rewrite 规则写法
               </a>
             
           </div>
@@ -484,8 +488,8 @@ remote-launcher `RUNNING`    pid 11087, uptime 9 days, 2:49:14
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/systemd、systemctl命令/" rel="prev" title="Systemd,systemctl 命令">
-                Systemd,systemctl 命令 <i class="fa fa-chevron-right"></i>
+              <a href="/database/Postgresql安装/" rel="prev" title="Postgresql 安装">
+                Postgresql 安装 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
