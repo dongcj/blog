@@ -97,17 +97,17 @@
 
 
 
-<meta name="description" content="1. Install  根据实际情况修改 harbor.cfg 新建目录并将证书 server.crt 和 server.key 放置于目录  1mkdir -p /data/cert/  运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本vim /etc/scr">
+<meta name="description" content="1. Install 根据实际情况修改 harbor.cfg 新建目录并将证书  server.crt 和 server.key 放置于目录  1mkdir -p /data/cert/  运行 ./install.sh  2. watchdog1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本vim /etc/scripts/harbor">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Harbor 支持 Https">
 <meta property="og:url" content="http://blog.dongcj.com/m/Harbor安装/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="1. Install  根据实际情况修改 harbor.cfg 新建目录并将证书 server.crt 和 server.key 放置于目录  1mkdir -p /data/cert/  运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本vim /etc/scr">
+<meta property="og:description" content="1. Install 根据实际情况修改 harbor.cfg 新建目录并将证书  server.crt 和 server.key 放置于目录  1mkdir -p /data/cert/  运行 ./install.sh  2. watchdog1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本vim /etc/scripts/harbor">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-09-27T06:44:47.335Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Harbor 支持 Https">
-<meta name="twitter:description" content="1. Install  根据实际情况修改 harbor.cfg 新建目录并将证书 server.crt 和 server.key 放置于目录  1mkdir -p /data/cert/  运行 ./install.sh  2. watchdog 1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本vim /etc/scr">
+<meta name="twitter:description" content="1. Install 根据实际情况修改 harbor.cfg 新建目录并将证书  server.crt 和 server.key 放置于目录  1mkdir -p /data/cert/  运行 ./install.sh  2. watchdog1234567mkdir -p /etc/scripts/# 见 harbor_watchdog.sh 脚本vim /etc/scripts/harbor">
 
 
 
@@ -388,32 +388,29 @@
       
 
       
-        <h1 id="install">1. Install</h1>
-<ul>
+        <h1 id="1-Install"><a href="#1-Install" class="headerlink" title="1. Install"></a>1. Install</h1><ul>
 <li>根据实际情况修改 harbor.cfg</li>
-<li>新建目录并将证书 <code>server.crt</code> 和 <code>server.key</code> 放置于目录</li>
+<li>新建目录并将证书  <code>server.crt</code> 和 <code>server.key</code> 放置于目录</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/cert/</span><br></pre></td></tr></table></figure>
 <ul>
 <li>运行 ./install.sh</li>
 </ul>
-<h1 id="watchdog">2. watchdog</h1>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/scripts/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 见 harbor_watchdog.sh 脚本</span></span><br><span class="line">vim /etc/scripts/harbor_watchdog.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可执行权限</span></span><br><span class="line">chmod a+x /etc/scripts/harbor_watchdog.sh</span><br></pre></td></tr></table></figure>
+<h1 id="2-watchdog"><a href="#2-watchdog" class="headerlink" title="2. watchdog"></a>2. watchdog</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/scripts/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 见 harbor_watchdog.sh 脚本</span></span><br><span class="line">vim /etc/scripts/harbor_watchdog.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可执行权限</span></span><br><span class="line">chmod a+x /etc/scripts/harbor_watchdog.sh</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line">*/45 * * * * /etc/scripts/harbor_watchdog.sh &gt;&gt; /var/<span class="built_in">log</span>/harbor_watchdog.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<h1 id="harbor- 同步设置">3. harbor 同步设置</h1>
-<h2 id="方案">3.1. 方案</h2>
-<p>CS (registry.svicloud.com) — 全同步 —&gt; SZ (ci.svicloud.com) — 部分同步 —&gt; FR (registry.svicloud.com)</p>
-<h2 id="关于国内外域名相同的方案">3.2. 关于国内外域名相同的方案</h2>
-<p>方法有二种： 1. 在深圳 harbor 服务器上，<code>设置 DNS 为 1.1.1.1</code>。 这样的话，深圳解析到的地址和国外解析到的地址一样，这样同步时就可以从深圳同步向法国了（推荐方法） 2. 在 ui 这个容器中设置 registry.svicloud.com 的 IP 地址（未测试是否完全可用）</p>
-<h2 id="设置">3.3. 设置</h2>
-<blockquote>
+<h1 id="3-harbor- 同步设置"><a href="#3-harbor- 同步设置" class="headerlink" title="3. harbor 同步设置"></a>3. harbor 同步设置</h1><h2 id="3-1- 方案"><a href="#3-1- 方案" class="headerlink" title="3.1. 方案"></a>3.1. 方案</h2><p>CS (registry.svicloud.com) — 全同步 —&gt; SZ (ci.svicloud.com)  — 部分同步 —&gt; FR (registry.svicloud.com) </p>
+<h2 id="3-2- 关于国内外域名相同的方案"><a href="#3-2- 关于国内外域名相同的方案" class="headerlink" title="3.2. 关于国内外域名相同的方案"></a>3.2. 关于国内外域名相同的方案 </h2><p> 方法有二种：</p>
+<ol>
+<li>在深圳 harbor 服务器上，<code>设置 DNS 为 1.1.1.1</code>。<br> 这样的话，深圳解析到的地址和国外解析到的地址一样，这样同步时就可以从深圳同步向法国了（推荐方法）</li>
+<li>在 ui 这个容器中设置 registry.svicloud.com 的 IP 地址（未测试是否完全可用）</li>
+</ol>
+<h2 id="3-3- 设置"><a href="#3-3- 设置" class="headerlink" title="3.3. 设置"></a>3.3. 设置</h2><blockquote>
 <p>镜像的 <code> 标签 </code> 不会同步</p>
 </blockquote>
 <ul>
 <li>CS 中所有 项目，设置为全同步向 SZ</li>
 </ul>
-<h1 id="api">4. API</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></span><br><span class="line">curl -i  https://registry.svicloud.com/v2/_catalog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 请求 Token</span></span><br><span class="line">curl -i -k -u admin:Changeme_123 \</span><br><span class="line">  https://registry.svicloud.com/service/token?account=admin\&amp;service=harbor-registry\&amp;scope=repository:os/svi-centos7:pull,push</span><br><span class="line"></span><br><span class="line"><span class="comment"># Header 中带上 Token</span></span><br><span class="line">curl -k -v -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"Authorization: Bearer THIS_IS_LONG_TOKEN"</span> \</span><br><span class="line">  -X GET https://registry.svicloud.com/v2/os/svi-centos7/manifests/latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查出某镜像的 tag 列表</span></span><br><span class="line">curl https://registry.svicloud.com/v2/dongcj/webserver/tags/list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某镜像的详细信息</span></span><br><span class="line">curl https://registry.svicloud.com/v2/dongcj/webserver/manifests/v0.1</span><br></pre></td></tr></table></figure>
+<h1 id="4-API"><a href="#4-API" class="headerlink" title="4. API"></a>4. API</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 会收到一条没有认证的消息，这个正常，返回一定是 401</span></span><br><span class="line">curl -i  https://registry.svicloud.com/v2/_catalog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 请求 Token</span></span><br><span class="line">curl -i -k -u admin:Changeme_123 \</span><br><span class="line">  https://registry.svicloud.com/service/token?account=admin\&amp;service=harbor-registry\&amp;scope=repository:os/svi-centos7:pull,push</span><br><span class="line"></span><br><span class="line"><span class="comment"># Header 中带上 Token</span></span><br><span class="line">curl -k -v -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"Authorization: Bearer THIS_IS_LONG_TOKEN"</span> \</span><br><span class="line">  -X GET https://registry.svicloud.com/v2/os/svi-centos7/manifests/latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查出某镜像的 tag 列表</span></span><br><span class="line">curl https://registry.svicloud.com/v2/dongcj/webserver/tags/list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看某镜像的详细信息</span></span><br><span class="line">curl https://registry.svicloud.com/v2/dongcj/webserver/manifests/v0.1</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -637,7 +634,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#install"><span class="nav-text">1. Install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#watchdog"><span class="nav-text">2. watchdog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#harbor- 同步设置"><span class="nav-text">3. harbor 同步设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-text">3.1. 方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于国内外域名相同的方案"><span class="nav-text">3.2. 关于国内外域名相同的方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-text">3.3. 设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#api"><span class="nav-text">4. API</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Install"><span class="nav-text">1. Install</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-watchdog"><span class="nav-text">2. watchdog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-harbor- 同步设置"><span class="nav-text">3. harbor 同步设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1- 方案"><span class="nav-text">3.1. 方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2- 关于国内外域名相同的方案"><span class="nav-text">3.2. 关于国内外域名相同的方案 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3- 设置"><span class="nav-text">3.3. 设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-API"><span class="nav-text">4. API</span></a></li></ol></div>
             
 
           </div>
