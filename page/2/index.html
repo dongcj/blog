@@ -414,14 +414,19 @@
 
       
         
-          <h1 id="1- 安装 -Rancher"><a href="#1- 安装 -Rancher" class="headerlink" title="1. 安装 Rancher"></a>1. 安装 Rancher</h1><h2 id="1-1- 单机安装 -v1-6"><a href="#1-1- 单机安装 -v1-6" class="headerlink" title="1.1. 单机安装 v1.6"></a>1.1. 单机安装 v1.6</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 rancher/server 镜像</span></span><br><span class="line">docker pull rancher/server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单实例启动 (使用默认自带的数据库)</span></span><br><span class="line"><span class="comment"># 如果需要开启 Prometheus 的监控，加入下面二行</span></span><br><span class="line"><span class="comment"># -e CATTLE_PROMETHEUS_EXPORTER=true \</span></span><br><span class="line"><span class="comment"># -p 9108:9108 \</span></span><br><span class="line"></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">-v /opt/svicloud/rancher/server_db:/var/lib/mysql \</span><br><span class="line">--name rancher-server \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line">rancher/server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 外置数据库启动</span></span><br><span class="line">docker run -d --restart=always -p 8080:8080 -p 9345:9345 \</span><br><span class="line">--name rancher-server \</span><br><span class="line">rancher/server  \</span><br><span class="line">--db-host  mysql-lb.mysql.dongcj.krrish.top  \</span><br><span class="line">--db-port 3306  \</span><br><span class="line">--db-user root  \</span><br><span class="line">--db-pass mogK****  \</span><br><span class="line">--db-name cattle</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，浏览器打开 http://&lt;SERVER_IP&gt;:8080 即可</span></span><br></pre></td></tr></table></figure>
-<h2 id="1-2- 单机安装 -v-2-x"><a href="#1-2- 单机安装 -v-2-x" class="headerlink" title="1.2. 单机安装 v.2.x"></a>1.2. 单机安装 v.2.x</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 rancher/rancher 镜像</span></span><br><span class="line">docker pull rancher/rancher</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单实例启动 (使用默认自带的数据库)</span></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">--name rancher-server \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-p 443:443 \</span><br><span class="line">rancher/rancher</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，浏览器打开 http://&lt;SERVER_IP&gt; 即可</span></span><br></pre></td></tr></table></figure>
-<h1 id="2- 其它安装选项"><a href="#2- 其它安装选项" class="headerlink" title="2. 其它安装选项"></a>2. 其它安装选项</h1><h2 id="2-1-HA- 模式安装（可选）"><a href="#2-1-HA- 模式安装（可选）" class="headerlink" title="2.1. HA 模式安装（可选）"></a>2.1. HA 模式安装（可选）</h2><ol>
-<li>安装一个外部 <strong>主从模式</strong> 的 MySQL</li>
-<li>在主备两边执行</li>
+          <h1 id="安装 -rancher">1. 安装 Rancher</h1>
+<h2 id="单机安装 -v1.6">1.1. 单机安装 v1.6</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 rancher/server 镜像 </span></span><br><span class="line">docker pull rancher/server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单实例启动 (使用默认自带的数据库)</span></span><br><span class="line"><span class="comment"># 如果需要开启 Prometheus 的监控，加入下面二行 </span></span><br><span class="line"><span class="comment"># -e CATTLE_PROMETHEUS_EXPORTER=true \</span></span><br><span class="line"><span class="comment"># -p 9108:9108 \</span></span><br><span class="line"></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">-v /opt/svicloud/rancher/server_db:/var/lib/mysql \</span><br><span class="line">--name rancher-server \</span><br><span class="line">-p 8080:8080 \</span><br><span class="line">rancher/server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 外置数据库启动 </span></span><br><span class="line">docker run -d --restart=always -p 8080:8080 -p 9345:9345 \</span><br><span class="line">--name rancher-server \</span><br><span class="line">rancher/server  \</span><br><span class="line">--db-host  mysql-lb.mysql.dongcj.krrish.top  \</span><br><span class="line">--db-port 3306  \</span><br><span class="line">--db-user root  \</span><br><span class="line">--db-pass mogK****  \</span><br><span class="line">--db-name cattle</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，浏览器打开 http://&lt;SERVER_IP&gt;:8080 即可 </span></span><br></pre></td></tr></table></figure>
+<h2 id="单机安装 -v.2.x">1.2. 单机安装 v.2.x</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载 rancher/rancher 镜像 </span></span><br><span class="line">docker pull rancher/rancher</span><br><span class="line"></span><br><span class="line"><span class="comment"># 单实例启动 (使用默认自带的数据库)</span></span><br><span class="line">docker run -d --restart=always \</span><br><span class="line">--name rancher-server \</span><br><span class="line">-p 80:80 \</span><br><span class="line">-p 443:443 \</span><br><span class="line">rancher/rancher</span><br><span class="line"></span><br><span class="line"><span class="comment"># 然后，浏览器打开 http://&lt;SERVER_IP&gt; 即可 </span></span><br></pre></td></tr></table></figure>
+<h1 id="其它安装选项">2. 其它安装选项 </h1>
+<h2 id="ha- 模式安装可选">2.1. HA 模式安装（可选）</h2>
+<ol type="1">
+<li> 安装一个外部 <strong> 主从模式 </strong> 的 MySQL</li>
+<li> 在主备两边执行 </li>
 </ol>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --restart=always -p 8080:8080 -p 9345:9345 \</span><br><span class="line">  --name rancher-server rancher/server \</span><br><span class="line">  --db-host myhost.example.com \</span><br><span class="line">  --db-port 3306 \</span><br><span class="line">  --db-user username \</span><br><span class="line">  --db-pass password \</span><br><span class="line">  --db-name cattle \</span><br><span class="line">  --advertise-address &lt;IP_of_the_Node&gt;  </span><br><span class="line"></span><br><span class="line">db.cattle.database=mysql</span><br><span class="line">db.cattle.username=cattle</span><br><span class="line">db.cattle.password=cattle</span><br><span class="line">db.cattle.mysql.host=localhost</span><br><span class="line">db.cattle.mysql.port=3306</span><br><span class="line">db.cattle.mysql.name=cattle</span><br><span class="line"><span class="comment"># All values above are the defaults except db.cattle.database. If the defaults are fine, then all you need to set is db.cattle.database=mysql.</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-2- 启动集群模式（可选）"><a href="#2-2- 启动集群模式（可选）" class="headerlink" title="2.2. 启动集群模式（可选）"></a>2.2. 启动集群模式（可选）</h2>
+<h2 id="启动集群模式可选">2.2. 启动集群模式（可选）</h2>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/docker/Rancher安装/#more" rel="contents">
@@ -559,18 +564,23 @@
 
       
         
-          <pre><code>[+]新增
-[-]删除
-[^]升级
-[#]修复
-</code></pre><h1 id="1- 高亮 -tail-f- 搜索"><a href="#1- 高亮 -tail-f- 搜索" class="headerlink" title="1. 高亮 tail -f 搜索"></a>1. 高亮 tail -f 搜索</h1><ul>
+          <pre><code>[+] 新增
+[-] 删除
+[^] 升级
+[#] 修复 </code></pre>
+<h1 id="高亮 -tail--f- 搜索">1. 高亮 tail -f 搜索 </h1>
+<ul>
 <li>less xxx.log</li>
-<li>搜索你要高亮的关键字</li>
-<li>SHIFT+F，进入 follow 模式</li>
+<li> 搜索你要高亮的关键字 </li>
+<li>SHIFT+F，进入 follow 模式 </li>
 </ul>
-<h1 id="2-pkill"><a href="#2-pkill" class="headerlink" title="2. pkill"></a>2. pkill</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f -SIGUSR1 /app/letsencrypt_service || pkill -USR1 -f /app/letsencrypt_service</span><br></pre></td></tr></table></figure>
-<h1 id="3-Windows"><a href="#3-Windows" class="headerlink" title="3. Windows"></a>3. Windows</h1><h2 id="3-1-Windows-mount- 网络共享为一个文件夹"><a href="#3-1-Windows-mount- 网络共享为一个文件夹" class="headerlink" title="3.1. Windows mount 网络共享为一个文件夹"></a>3.1. Windows mount 网络共享为一个文件夹</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.11.111\public\data</span><br><span class="line">mklink /d d:\ccc \\192.168.11.111\public\data</span><br></pre></td></tr></table></figure>
-<h2 id="3-2-Windows- 网络设置"><a href="#3-2-Windows- 网络设置" class="headerlink" title="3.2. Windows 网络设置"></a>3.2. Windows 网络设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipconfig | findstr /c:&quot;IPv4&quot;</span><br><span class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</span><br><span class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</span><br></pre></td></tr></table></figure>
+<h1 id="pkill">2. pkill</h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f -SIGUSR1 /app/letsencrypt_service || pkill -USR1 -f /app/letsencrypt_service</span><br></pre></td></tr></table></figure>
+<h1 id="windows">3. Windows</h1>
+<h2 id="windows-mount- 网络共享为一个文件夹">3.1. Windows mount 网络共享为一个文件夹 </h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.11.111\public\data</span><br><span class="line">mklink /d d:\ccc \\192.168.11.111\public\data</span><br></pre></td></tr></table></figure>
+<h2 id="windows- 网络设置">3.2. Windows 网络设置 </h2>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipconfig | findstr /c:&quot;IPv4&quot;</span><br><span class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</span><br><span class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/常用命令/#more" rel="contents">
@@ -686,17 +696,21 @@
 
       
         
-          <h1 id="1-Install"><a href="#1-Install" class="headerlink" title="1. Install"></a>1. Install</h1><ul>
+          <h1 id="install">1. Install</h1>
+<ul>
 <li>根据实际情况修改 harbor.cfg</li>
-<li>新建目录并将证书  <code>server.crt</code> 和 <code>server.key</code> 放置于目录</li>
+<li>新建目录并将证书 <code>server.crt</code> 和 <code>server.key</code> 放置于目录</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/cert/</span><br></pre></td></tr></table></figure>
 <ul>
 <li>运行 ./install.sh</li>
 </ul>
-<h1 id="2-watchdog"><a href="#2-watchdog" class="headerlink" title="2. watchdog"></a>2. watchdog</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/scripts/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 见 harbor_watchdog.sh 脚本</span></span><br><span class="line">vim /etc/scripts/harbor_watchdog.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可执行权限</span></span><br><span class="line">chmod a+x /etc/scripts/harbor_watchdog.sh</span><br></pre></td></tr></table></figure>
+<h1 id="watchdog">2. watchdog</h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /etc/scripts/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 见 harbor_watchdog.sh 脚本</span></span><br><span class="line">vim /etc/scripts/harbor_watchdog.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可执行权限</span></span><br><span class="line">chmod a+x /etc/scripts/harbor_watchdog.sh</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br><span class="line"></span><br><span class="line">*/45 * * * * /etc/scripts/harbor_watchdog.sh &gt;&gt; /var/<span class="built_in">log</span>/harbor_watchdog.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
-<h1 id="3-harbor- 同步设置"><a href="#3-harbor- 同步设置" class="headerlink" title="3. harbor 同步设置"></a>3. harbor 同步设置</h1><h2 id="3-1- 方案"><a href="#3-1- 方案" class="headerlink" title="3.1. 方案"></a>3.1. 方案</h2><p>CS (registry.svicloud.com) — 全同步 —&gt; SZ (ci.svicloud.com)  — 部分同步 —&gt; FR (registry.svicloud.com) </p>
+<h1 id="harbor- 同步设置">3. harbor 同步设置</h1>
+<h2 id="方案">3.1. 方案</h2>
+<p>CS (registry.svicloud.com) — 全同步 —&gt; SZ (ci.svicloud.com) — 部分同步 —&gt; FR (registry.svicloud.com)</p>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/m/Harbor安装/#more" rel="contents">
@@ -845,11 +859,14 @@
 
       
         
-          <h1 id="install"><a href="#install" class="headerlink" title="install"></a>install</h1><pre><code>&gt; client: curl client (eg: 116.23.45.8)
-&gt; server: rfw servers (default port: 7393)
-</code></pre><h2 id="install-rfw-on-ALL-server-on-client-amp-server"><a href="#install-rfw-on-ALL-server-on-client-amp-server" class="headerlink" title="install rfw on ALL server(on client &amp; server)"></a>install rfw on ALL server(on client &amp; server)</h2><pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
-$ cd rfw &amp;&amp; python setup.py install
-</code></pre><h2 id="generate-remote-crt-on-client"><a href="#generate-remote-crt-on-client" class="headerlink" title="generate remote crt(on client)"></a>generate remote crt(on client)</h2><pre><code>$ cd /etc/rfw/deploy/
+          <h1 id="install">install</h1>
+<pre><code>&gt; client: curl client (eg: 116.23.45.8)
+&gt; server: rfw servers (default port: 7393)</code></pre>
+<h2 id="install-rfw-on-all-serveron-client-server">install rfw on ALL server(on client &amp; server)</h2>
+<pre><code>$ git clone https://github.com/securitykiss-com/rfw.git
+$ cd rfw &amp;&amp; python setup.py install</code></pre>
+<h2 id="generate-remote-crton-client">generate remote crt(on client)</h2>
+<pre><code>$ cd /etc/rfw/deploy/
 $ rfwgen  11.11.11.11
 $ rfwgen  22.22.22.22
 
@@ -864,17 +881,18 @@ $ rfwgen  22.22.22.22
 │   └── server.key
 └── server_22.22.22.22
   ├── server.crt
-  └── server.key
-</code></pre><h2 id="copy-key-to-server"><a href="#copy-key-to-server" class="headerlink" title="copy key to server"></a>copy key to server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># on master server</span></span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</span><br></pre></td></tr></table></figure>
-<h2 id="edit-the-server-config"><a href="#edit-the-server-config" class="headerlink" title="edit the server config"></a>edit the server config</h2><pre><code>$ vi /etc/rfw/rfw.conf
+  └── server.key</code></pre>
+<h2 id="copy-key-to-server">copy key to server</h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># on master server</span></span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.key root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_11.11.11.11/server.crt root@11.11.11.11:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.key root@22.22.22.22:/etc/rfw/ssl/</span><br><span class="line">scp /etc/rfw/deploy/server_22.22.22.22/server.crt root@22.22.22.22:/etc/rfw/ssl/</span><br></pre></td></tr></table></figure>
+<h2 id="edit-the-server-config">edit the server config</h2>
+<pre><code>$ vi /etc/rfw/rfw.conf
 outward.server.certfile = /etc/rfw/ssl/server.crt
 outward.server.keyfile = /etc/rfw/ssl/server.key
 auth.username = your_username_here
 auth.password = your_password_here
 
 $ vi /etc/rfw/white.list
-116.23.45.8
-</code></pre>
+116.23.45.8</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/security/Rfw-RemoteFirewall远程管理防火墙/#more" rel="contents">
@@ -1012,11 +1030,16 @@ $ vi /etc/rfw/white.list
 
       
         
-          <h1 id="升级 -python"><a href="# 升级 -python" class="headerlink" title="升级 python"></a> 升级 python</h1><h2 id="install"><a href="#install" class="headerlink" title="install"></a>install</h2><pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
-$ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel
-</code></pre><h2 id="如果要安装 -MySQL-python，需要安装以下软件"><a href="# 如果要安装 -MySQL-python，需要安装以下软件" class="headerlink" title="如果要安装 MySQL-python，需要安装以下软件"></a> 如果要安装 MySQL-python，需要安装以下软件 </h2><pre><code>$ yum -y install mysql mysql-devel
-</code></pre><h2 id="如果要安装 -lxml，需要安装以下软件"><a href="# 如果要安装 -lxml，需要安装以下软件" class="headerlink" title="如果要安装 lxml，需要安装以下软件"></a> 如果要安装 lxml，需要安装以下软件 </h2><pre><code>$ yum -y install libxml2-devel  libxslt-devel
-</code></pre><h2 id="编译安装 -python- 新版"><a href="# 编译安装 -python- 新版" class="headerlink" title="编译安装 python 新版"></a> 编译安装 python 新版 </h2><pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
+          <h1 id="升级 -python"> 升级 python</h1>
+<h2 id="install">install</h2>
+<pre><code># 一定要先安装 zlib zlib-devel openssl openssl-devel，ncurses-devel，不然安装好后没有 zlib, 和 HTTPlib
+$ yum -y install zlib-devel openssl-devel ncurses-devel libxml2-devel</code></pre>
+<h2 id="如果要安装 -mysql-python 需要安装以下软件"> 如果要安装 MySQL-python，需要安装以下软件 </h2>
+<pre><code>$ yum -y install mysql mysql-devel</code></pre>
+<h2 id="如果要安装 -lxml 需要安装以下软件"> 如果要安装 lxml，需要安装以下软件 </h2>
+<pre><code>$ yum -y install libxml2-devel  libxslt-devel</code></pre>
+<h2 id="编译安装 -python- 新版"> 编译安装 python 新版 </h2>
+<pre><code>$ wget http://www.python.org/ftp/python/2.7.13/Python-2.7.13.tgz
 
 # 加上 --enable-shared 解决 &quot;Cannot build PL/Python because libpython is not a shared library&quot;
 $ tar -xzf Python-2.7.13.tgz &amp;&amp; cd Python-2.7.13 &amp;&amp; ./configure  --enable-shared
@@ -1029,8 +1052,8 @@ $ ln -s /usr/local/bin/python /usr/bin/python
 
 # copy bz2 module
 $ yes | cp -rLfap /usr/lib64/python2.*/lib-dynload/bz2.so /usr/local/lib/python2.*/
-$ python -V
-</code></pre><h1 id="安装 -easy-install- 和 -pip"><a href="# 安装 -easy-install- 和 -pip" class="headerlink" title="安装 easy_install 和 pip"></a> 安装 easy_install 和 pip</h1>
+$ python -V</code></pre>
+<h1 id="安装 -easy_install- 和 -pip"> 安装 easy_install 和 pip</h1>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/Python2.6升级至python2.7/#more" rel="contents">
