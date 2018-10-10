@@ -574,13 +574,13 @@
 <li> 搜索你要高亮的关键字 </li>
 <li>SHIFT+F，进入 follow 模式 </li>
 </ul>
-<h1 id="pkill">2. pkill</h1>
+<h1 id="timedatectl- 修改时间">2. timedatectl 修改时间 </h1>
+<p>https://www.cnblogs.com/EasonJim/p/8111902.html</p>
+<h1 id="pkill">3. pkill</h1>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill -f -SIGUSR1 /app/letsencrypt_service || pkill -USR1 -f /app/letsencrypt_service</span><br></pre></td></tr></table></figure>
-<h1 id="windows">3. Windows</h1>
-<h2 id="windows-mount- 网络共享为一个文件夹">3.1. Windows mount 网络共享为一个文件夹 </h2>
+<h1 id="windows">4. Windows</h1>
+<h2 id="windows-mount- 网络共享为一个文件夹">4.1. Windows mount 网络共享为一个文件夹 </h2>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">net use \\192.168.11.111\public\data</span><br><span class="line">mklink /d d:\ccc \\192.168.11.111\public\data</span><br></pre></td></tr></table></figure>
-<h2 id="windows- 网络设置">3.2. Windows 网络设置 </h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ipconfig | findstr /c:&quot;IPv4&quot;</span><br><span class="line">sed -i -e &quot;s/$/\x0d/g&quot; $&#123;MountPoint&#125;/temp/postAfter.d/m01.configureNetworkInterfaces.bat</span><br><span class="line">netsh interface ip show interfaces &quot; 本地连接 &quot;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/linux/常用命令/#more" rel="contents">
