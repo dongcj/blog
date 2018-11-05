@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+                <a class="post-title-link" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/" itemprop="url">硬 Raid(megacli) 与软 Raid (Mdadm) 创建</a></h2>
         
 
         <div class="post-meta">
@@ -414,59 +414,21 @@
 
       
         
-          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
-<pre><code># (在其它服务上安装 dhcpd 软件)：
-
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
-
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1
-
-# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
-<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
-ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
-shared-network mynet {          /* 超网作用域选项，共同部分 */
-    option subnet-mask 255.255.255.0;            /* 子网掩码 */
-    option domain-name &quot;koumm.net&quot;;              /* 域名 */
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /* 广播地址 */
-    default-lease-time 86400;                    /* 租期 1 天，秒数 */
-    max-lease-time 172800;                       /* 最长租期 2 天 */
-
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
-        option routers 192.168.1.1;               /* 网关地址 */
-        /* 绑定 pc1 主机 ip 地址配置 */
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /* 绑定 pc2 主机 ip 地址配置 */
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
-
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
-        option routers 192.168.2.1;                /* 网关地址 */
-    }
-
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
-        option routers 192.168.3.1;                /* 网关地址 */
-    }
-
-}</code></pre>
-
+          <blockquote>
+<p><strong>建议：</strong> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
+</blockquote>
+<h1 id="mega- 管理硬 -raid">1. mega 管理硬 raid</h1>
+<h2 id="查看磁盘状态">1.1. 查看磁盘状态</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略信息</span></span><br><span class="line">megasasctl </span><br><span class="line"></span><br><span class="line">  a0       PERC H710 Mini           encl:1 ldrv:1  batt:FAULT, low voltage</span><br><span class="line">  a0d0      1862GiB RAID 0   1x1  optimal</span><br><span class="line">  unconfigured:  a0e32s1   a0e32s2   a0e32s3 </span><br><span class="line">  a0e32s0    1863GiB  a0d0  online  </span><br><span class="line">  a0e32s1    1863GiB        ready   </span><br><span class="line">  a0e32s2    1863GiB        ready   </span><br><span class="line">  a0e32s3    1863GiB        ready   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">megaraidsas-status</span><br><span class="line"></span><br><span class="line">  -- Arrays informations --</span><br><span class="line">  -- ID | Type | Size | Status</span><br><span class="line">  a0d0 | RAID 0 | 1862GiB | optimal</span><br><span class="line"></span><br><span class="line">  -- Disks informations</span><br><span class="line">  -- ID | Model | Status | Warnings</span><br><span class="line">  a0e32s0 | SEAGATE ST2000NM0023 1863GiB | online</span><br><span class="line">  a0e32s1 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s2 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s3 | SEAGATE ST2000NM0023 | ready</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细物理磁盘 (pd) 信息，主要是看 ` 框 ID` 与 ` 插槽 ID`</span></span><br><span class="line">megacli -PDlist -a0 | grep -e <span class="string">'^Enclosure Device ID:'</span> -e <span class="string">'^Slot Number:'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 其它输出详细信息可以看看，平时可以通过这个来检查磁盘型号、状态等信息</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Drive s position: DiskGroup: 0, Span: 0, Arm: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line">  Device Id: 0</span><br><span class="line">  WWN: 5000C500627EE690</span><br><span class="line">  Sequence Number: 2</span><br><span class="line">  Media Error Count: 0</span><br><span class="line">  Other Error Count: 0</span><br><span class="line">  Predictive Failure Count: 0</span><br><span class="line">  Last Predictive Failure Event Seq Number: 0</span><br><span class="line">  PD Type: SAS</span><br><span class="line"></span><br><span class="line">  Raw Size: 1.819 TB [0xe8e088b0 Sectors]</span><br><span class="line">  Non Coerced Size: 1.818 TB [0xe8d088b0 Sectors]</span><br><span class="line">  Coerced Size: 1.818 TB [0xe8d00000 Sectors]</span><br><span class="line">  Sector Size:  0</span><br><span class="line">  Firmware state: Online, Spun Up                <span class="comment"># &lt;----- 如果重建，这里显示为：rebuilding</span></span><br><span class="line">  Device Firmware Level: GS0F</span><br><span class="line">  Shield Counter: 0</span><br><span class="line">  Successful diagnostics completion on :  N/A</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 如果状态为重建中，可以查看重建信息</span></span><br><span class="line">megacli -PDRbld -ShowProg -PhysDrv [32:1] -aALL</span><br><span class="line"></span><br><span class="line">  Rebuild Progress on Device at Enclosure 32, Slot 1 Completed 51% <span class="keyword">in</span> 10 Minutes.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># 逻辑磁盘 (LD) 信息 </span><br><span class="line">megacli  -LDInfo -Lall -aALL</span><br><span class="line"></span><br><span class="line"># 物理磁盘(PD) 信息</span><br><span class="line">megacli -PDList -aALL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Display, disable or enable automatic rebuild on adapter 0:</span><br><span class="line"></span><br><span class="line"># Display</span><br><span class="line">megacli -AdpAutoRbld -Dsply -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># disable</span><br><span class="line">megacli -AdpAutoRbld -Dsbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Disabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># enable</span><br><span class="line">megacli -AdpAutoRbld -Enbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Get and modify rebuild rate:</span><br><span class="line"></span><br><span class="line"># get</span><br><span class="line">megacli -AdpGetProp RebuildRate -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Rebuild Rate = 30%</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># set</span><br><span class="line">megacli -AdpSetProp RebuildRate 60 -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Set rebuild rate to 60% success.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br></pre></td></tr></table></figure>
+<h2 id="create-a-raid0156-array-with-megacli">1.2. Create a RAID0,1,5,6 array with MegaCli</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将后面三块盘创建 raid0</span></span><br><span class="line">megacli -CfgLdAdd -r0[32:1,32:2,32:3] -a0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Created VD 0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Configured the Adapter!!</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note:    to make RAID0, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID1, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID5, minimal 3 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID6, minimal 4 drives are required.</span></span><br></pre></td></tr></table></figure>
+<h2 id="create-a-raid50raid60-array-with-megacli">1.3. Create a RAID50,raid60 array with MegaCli</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">megactl -CfgLdAdd -r50 raid0[252:2,252:3,252:4] raid1[252:5,252:6,252:7] -a0</span><br><span class="line">megactl -CfgLdAdd -r60 raid0[252:2,252:3,252:4,252:5] raid1[252:6,252:7,252:8,252,9] -a0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: to make RAID50, minimal 6 drives are required.</span></span><br><span class="line"><span class="comment">#       to make RAID60, minimal 8 drives are required.</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
+            <a class="btn" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -958,7 +920,7 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/RedHat、CentOS国内备用安装源/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/linux安装easy_install及pip/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -977,7 +939,7 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/RedHat、CentOS国内备用安装源/" itemprop="url">安装源_RedHat,CentOS 备用源</a></h2>
+                <a class="post-title-link" href="/linux/linux安装easy_install及pip/" itemprop="url">Linux 安装 Easy_install 及 Pip</a></h2>
         
 
         <div class="post-meta">
@@ -1047,31 +1009,67 @@ $client->addServer(); echo “sending job”; if($result) {echo “Success: $res
 
       
         
-          <h1 id="yum- 更新">yum 更新 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">yum search fastestmirror</span><br><span class="line">yum install yum-fastestmirror* -y</span><br><span class="line">yum update yum*</span><br><span class="line">yum update kernel*</span><br><span class="line">yum update</span><br></pre></td></tr></table></figure>
-<pre><code># (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -Uhv  http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.x86_64.rpm
-rpm -Uhv http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el&lt;X&gt;.rf.i686.rpm</code></pre>
-<h2 id="epel- 源 -elrepo.org">epel 源 (elrepo.org)</h2>
-<pre><code>yum install epel-release</code></pre>
-<h2 id="elrepoupdate-kernel">elrepo(update kernel)</h2>
-<pre><code>rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm
-
-# (将链接中的 &quot;X&quot; 换为 7/6/5 即可下载不同版本的 repo)
-rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-
-# redhat/centos 6
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/x86_64/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/free/el/updates/6/i386/rpmfusion-free-release-6-1.noarch.rpm
-rpm -Uvh http://download1.rpmfusion.org/nonfree/el/updates/6/i386/rpmfusion-nonfree-release-6-1.noarch.rpm</code></pre>
-<p># redhat/centos 7 only have x86_64 packages rpm -Uvh http://download1.rpmfusion.org/free/el/updates/7/x86_64/r/rpmfusion-free-release-7-1.noarch.rpm</p>
-<h2 id="centos- 中国科学技术大学 -ustc-mirror- 每小时更新一次">CentOS 中国科学技术大学 USTC mirror(每小时更新一次)</h2>
-<blockquote>
-<p> 地址：http://centos.ustc.edu.cn/</p>
+          <blockquote>
+<p> 需要先将 python2.6 升级至 2.7，请参见： <a href="http://blog.dongcj.com/linux/python2.6%E5%8D%87%E7%BA%A7%E8%87%B3python2.7/">python2.6 升级至 python2.7</a></p>
 </blockquote>
+<h1 id="安装 -easy_install"> 安装 easy_install</h1>
+<pre><code># 获取软件包
+$ wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-3.6.tar.gz
+# 解压 :
+$ tar -xvf setuptools-3.6.tar.gz &amp;&amp; cd setuptools-3.6
+# 使用 Python 2.7.x 安装 setuptools
+/usr/local/bin/python2.7 setup.py install
+
+更多 easy_install 用法见： easy_install 用法 </code></pre>
+<h1 id="安装 -pip"> 安装 PIP</h1>
+<pre><code># 下载方法 1
+$ curl https://bootstrap.pypa.io/get-pip.py | python -
+# 下载方法 2
+$ wget https://bootstrap.pypa.io/get-pip.pyy -O - | python
+
+# 安装方法 1
+$ yum install python-pip
+
+# 安装方法 2
+$ /usr/local/bin/easy_install pip  (建议 , 如果升级使用此方法！)
+
+# 升级 pip
+$ /usr/local/bin/easy_install --upgrade pip
+
+# 升级 distribute(distribute 是 setuptools 的替代方案，pip 是 easy_install 的替代方案)
+$ pip install -U distribute
+
+# 升级 ez_setup
+$ curl https://bootstrap.pypa.io/ez_setup.py | python -
+
+&gt; PIP 使用指定源，且不缓存到目录
+$ pip install --no-cache-dir -r requirements.txt -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+&gt; 安装墙内 PIP
+http://realfavicongenerator.net/</code></pre>
+<h1 id="easy_install- 用法">easy_install 用法 </h1>
+<pre><code># 1 直接安装：
+  easy_install SQLObject
+# 2 使用下载页面地址安装
+  easy_install -f http://pythonpaste.org/package_index.html SQLObject
+# 3 直接给出下载 url 安装
+  easy_install http://example.com/path/to/MyPackage-1.2.3.tgz
+# 4 .egg 文件的安装
+  easy_install /my_downloads/OtherPackage-3.2.1-py2.3.egg
+# 5 跟新安装过的包
+  easy_install --upgrade PyProtocols
+# 6 安装已经下载和提取在当前目录下的包
+  easy_install .
+# 7 安装特定特定版本的库
+  easy_install &quot;SomePackage==2.0&quot;
+# 8 大于某个版本
+  easy_install &quot;SomePackage&gt;2.0
+# 9 卸载库
+easy_install -m PackageName</code></pre>
+
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/RedHat、CentOS国内备用安装源/#more" rel="contents">
+            <a class="btn" href="/linux/linux安装easy_install及pip/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
