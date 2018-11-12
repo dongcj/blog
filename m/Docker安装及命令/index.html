@@ -97,18 +97,18 @@
 
 
 
-<meta name="description" content="弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：Linux 升级 kernel 及 tcp_BBR  1. 准备步骤 1.1. 关闭 apparmor（可选） 1 2 3   # 如果有些需要特权应用，需要关闭 systemctl stop apparmor systemctl disable apparmor   1.2. 服务器时间同步 如果不配">
+<meta name="description" content="弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：Linux 升级 kernel 及 tcp_BBR  1. 准备步骤 1.1. 关闭 apparmor（可选） 1 2 3 4 5   # 如果有些需要特权应用，需要关闭 systemctl stop apparmor systemctl disable apparmor update-rc.d -f">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Krrish">
 <meta property="og:url" content="http://blog.dongcj.com/m/Docker安装及命令/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：Linux 升级 kernel 及 tcp_BBR  1. 准备步骤 1.1. 关闭 apparmor（可选） 1 2 3   # 如果有些需要特权应用，需要关闭 systemctl stop apparmor systemctl disable apparmor   1.2. 服务器时间同步 如果不配">
+<meta property="og:description" content="弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：Linux 升级 kernel 及 tcp_BBR  1. 准备步骤 1.1. 关闭 apparmor（可选） 1 2 3 4 5   # 如果有些需要特权应用，需要关闭 systemctl stop apparmor systemctl disable apparmor update-rc.d -f">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.dongcj.com/m/Docker安装及命令/images/_docker%20架构图_1532440849_2418.png">
-<meta property="og:updated_time" content="2018-10-19T06:50:27.458Z">
+<meta property="og:updated_time" content="2018-11-09T10:13:53.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Krrish">
-<meta name="twitter:description" content="弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：Linux 升级 kernel 及 tcp_BBR  1. 准备步骤 1.1. 关闭 apparmor（可选） 1 2 3   # 如果有些需要特权应用，需要关闭 systemctl stop apparmor systemctl disable apparmor   1.2. 服务器时间同步 如果不配">
+<meta name="twitter:description" content="弱网环境为了支持 bbr、aufs，建议安装 linux-image-extra 内核, 参考：Linux 升级 kernel 及 tcp_BBR  1. 准备步骤 1.1. 关闭 apparmor（可选） 1 2 3 4 5   # 如果有些需要特权应用，需要关闭 systemctl stop apparmor systemctl disable apparmor update-rc.d -f">
 <meta name="twitter:image" content="http://blog.dongcj.com/m/Docker安装及命令/images/_docker%20架构图_1532440849_2418.png">
 
 
@@ -395,7 +395,7 @@
 </blockquote>
 <h1 id="准备步骤">1. 准备步骤</h1>
 <h2 id="关闭 -apparmor 可选">1.1. 关闭 apparmor（可选）</h2>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果有些需要特权应用，需要关闭</span></span><br><span class="line">systemctl stop apparmor</span><br><span class="line">systemctl <span class="built_in">disable</span> apparmor</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果有些需要特权应用，需要关闭</span></span><br><span class="line">systemctl stop apparmor</span><br><span class="line">systemctl <span class="built_in">disable</span> apparmor</span><br><span class="line">update-rc.d -f apparmor remove</span><br><span class="line">apt-get remove apparmor</span><br></pre></td></tr></table></figure>
 <h2 id="服务器时间同步">1.2. 服务器时间同步</h2>
 <blockquote>
 <p>如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 <strong>UTC</strong> 时间 建议使用 <code>timedatectl</code> 来进行时间设置 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接删除 /etc/localtime 即可使用 UTC 时间</span></span><br><span class="line">date</span><br><span class="line">rm -rf /etc/localtime</span><br></pre></td></tr></table></figure></p>

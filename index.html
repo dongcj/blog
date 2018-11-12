@@ -914,20 +914,19 @@
 1
 2
 3
+4
+5
 
 
 # 如果有些需要特权应用，需要关闭
 systemctl stop apparmor
 systemctl disable apparmor
+update-rc.d -f apparmor remove
+apt-get remove apparmor
 
 
 1.2. 服务器时间同步
-如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 UTC 时间 建议使用 timedatectl 来进行时间设置 1
-2
-3
-
-
-# 直接删除 /etc/localtime 即可使用 UTC 
+如果不配置时间同步，可能会导致调度服务有可能不正常 , 建议使用 UTC 时间 建议使用 
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/m/Docker安装及命令/#more" rel="contents">
