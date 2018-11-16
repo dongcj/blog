@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="dongcj" />
+  <meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr," />
 
 
 
@@ -97,20 +97,18 @@
 
 
 
-<meta name="description" content="1. Install 1.1. 基础配置  将包下载并解压至 /opt/svicloud/tools/harbor 根据实际情况修改 harbor.cfg  123456hostname = ci.svicloud.comui_url_protocol = httpsharbor_admin_password = Changeme_123db_password = Changeme_1">
+<meta name="description" content="1. 开启 BBR 123456789101112# 先查看内核是否大于 4.9，如大于 4.9echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开 TFO(tcp fast open),">
+<meta name="keywords" content="升级内核,kernel,bbr,tcp_bbr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Harbor 支持 Https">
-<meta property="og:url" content="http://blog.dongcj.com/m/Harbor安装及 API/index.html">
+<meta property="og:title" content="Linux 升级 Kernel 及 tcp_BBR">
+<meta property="og:url" content="http://blog.dongcj.com/linux/Linux 升级 kernel 及配置 tcp_BBR、TFO、Hybla/index.html">
 <meta property="og:site_name" content="Krrish">
-<meta property="og:description" content="1. Install 1.1. 基础配置  将包下载并解压至 /opt/svicloud/tools/harbor 根据实际情况修改 harbor.cfg  123456hostname = ci.svicloud.comui_url_protocol = httpsharbor_admin_password = Changeme_123db_password = Changeme_1">
+<meta property="og:description" content="1. 开启 BBR 123456789101112# 先查看内核是否大于 4.9，如大于 4.9echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开 TFO(tcp fast open),">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://i0.wp.com/www.jiangjiang.space/wp-content/uploads/2017/11/9117a8db80b66dc12b53e52112f28a9b.png?zoom=1.4322917461395264&w=1440">
-<meta property="og:image" content="http://blog.dongcj.com/m/Harbor安装及%20API/images/_notary%20架构_1539239961_17509.png">
-<meta property="og:updated_time" content="2018-10-15T06:27:05.572Z">
+<meta property="og:updated_time" content="2016-06-07T06:25:00.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Harbor 支持 Https">
-<meta name="twitter:description" content="1. Install 1.1. 基础配置  将包下载并解压至 /opt/svicloud/tools/harbor 根据实际情况修改 harbor.cfg  123456hostname = ci.svicloud.comui_url_protocol = httpsharbor_admin_password = Changeme_123db_password = Changeme_1">
-<meta name="twitter:image" content="http://i0.wp.com/www.jiangjiang.space/wp-content/uploads/2017/11/9117a8db80b66dc12b53e52112f28a9b.png?zoom=1.4322917461395264&w=1440">
+<meta name="twitter:title" content="Linux 升级 Kernel 及 tcp_BBR">
+<meta name="twitter:description" content="1. 开启 BBR 123456789101112# 先查看内核是否大于 4.9，如大于 4.9echo &quot;net.core.default_qdisc=fq&quot; &amp;gt;&amp;gt; /etc/sysctl.confecho &quot;net.ipv4.tcp_congestion_control=bbr&quot; &amp;gt;&amp;gt; /etc/sysctl.conf# 打开 TFO(tcp fast open),">
 
 
 
@@ -138,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.dongcj.com/m/Harbor安装及 API/"/>
+  <link rel="canonical" href="http://blog.dongcj.com/linux/Linux 升级 kernel 及配置 tcp_BBR、TFO、Hybla/"/>
 
 
 
 
 
-  <title>Harbor 支持 Https | Krrish</title>
+  <title>Linux 升级 Kernel 及 tcp_BBR | Krrish</title>
   
 
 
@@ -327,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/m/Harbor安装及 API/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Linux 升级 kernel 及配置 tcp_BBR、TFO、Hybla/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +342,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Harbor 支持 Https</h2>
+          <h2 class="post-title" itemprop="name headline">Linux 升级 Kernel 及 tcp_BBR</h2>
         
 
         <div class="post-meta">
@@ -356,8 +354,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-04T13:13:32+08:00">
-                2017-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-28T17:44:33+08:00">
+                2016-08-28
               </time>
             
 
@@ -366,6 +364,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -391,78 +411,35 @@
       
 
       
-        <h1 id="install">1. Install</h1>
-<h2 id="基础配置">1.1. 基础配置</h2>
-<ul>
-<li>将包下载并解压至 /opt/svicloud/tools/harbor</li>
-<li>根据实际情况修改 harbor.cfg</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hostname = ci.svicloud.com</span><br><span class="line">ui_url_protocol = https</span><br><span class="line"></span><br><span class="line">harbor_admin_password = Changeme_123</span><br><span class="line">db_password = Changeme_123</span><br><span class="line">clair_db_password = Changeme_123</span><br></pre></td></tr></table></figure>
-<ul>
-<li>新建目录并将证书 <code>server.crt</code> 和 <code>server.key</code> 放置于目录</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /data/cert/</span><br></pre></td></tr></table></figure>
-<h2 id="高级配置可选">1.2. 高级配置（可选）</h2>
-<h3 id="配置 -clair- 和 -notray">1.2.1. 配置 Clair 和 Notray</h3>
-<p>clair 是 coreos 开源的容器漏洞扫描工具，在容器逐渐普及的今天，容器镜像安全问题日益严重。clair 是目前少数的开源安全扫描工具，主要提供 OS（centos，debian，ubuntu 等）的软件包脆弱性扫描。</p>
-<figure>
-<img src="http://i0.wp.com/www.jiangjiang.space/wp-content/uploads/2017/11/9117a8db80b66dc12b53e52112f28a9b.png?zoom=1.4322917461395264&amp;w=1440" alt="clair 架构"><figcaption>clair 架构</figcaption>
-</figure>
-<p>Notary 是一套 docker 镜像的签名工具， 用来保证镜像在 pull，push 和传输工程中的一致性和完整性。 避免中间人攻击，避免非法的镜像更新和运行。</p>
-<figure>
-<img src="images/_notary 架构_1539239961_17509.png" alt="Notary 架构"><figcaption>Notary 架构</figcaption>
-</figure>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span>  HARBOR_HOME=/opt/svicloud/tools/harbor</span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$HARBOR_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除所有</span></span><br><span class="line">docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml \</span><br><span class="line">  -f ./docker-compose.clair.yml down -v   <span class="comment">## 这里会干掉所有已有容器，包括已经下载了漏洞库的 clair</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新编辑下，可以加一些高级配置</span></span><br><span class="line">vim harbor.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动所有(chartmuseum 从 1.6.0 版本才支持)</span></span><br><span class="line">./prepare --with-notary --with-clair --with-chartmuseum</span><br><span class="line">./install.sh --with-notary --with-clair --with-chartmuseum</span><br><span class="line"></span><br><span class="line"><span class="comment"># restart</span></span><br><span class="line">docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml \</span><br><span class="line">  -f ./docker-compose.clair.yml -f ./docker-compose.chartmuseum.yml down</span><br><span class="line"></span><br><span class="line">docker-compose -f ./docker-compose.yml -f ./docker-compose.notary.yml \</span><br><span class="line">  -f ./docker-compose.clair.yml -f ./docker-compose.chartmuseum.yml up -d</span><br></pre></td></tr></table></figure>
-<h3 id="限制访问的网络">1.2.2. 限制访问的网络</h3>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-compose.yml</span></span><br><span class="line">networks:</span><br><span class="line">    harbor:</span><br><span class="line">        external: <span class="literal">false</span></span><br><span class="line">        ipam:</span><br><span class="line">            config:</span><br><span class="line">                - subnet: xxx.xxx.xxx.xxx/27</span><br></pre></td></tr></table></figure>
-<h3 id="修改 -harbor- 文本显示本地定制化">1.2.3. 修改 harbor 文本显示（本地定制化）</h3>
-<p>修改 docker-compose.yml 找到 ui 部分</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ui:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">vmware/harbor-ui:v1.2.2</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">    env_file:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./common/config/ui/env</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">        -</span> <span class="string">/harbor-data/custom/ui-lang:/harbor/static/i18n/lang</span></span><br></pre></td></tr></table></figure>
-<p>ui-lang 文件制作：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p  /harbor-data/custom/ui-lang  &amp;&amp; <span class="built_in">cd</span> /harbor-data/custom/ui-lang </span><br><span class="line">wget https://github.com/vmware/harbor/blob/master/src/ui_ng/src/i18n/lang/zh-cn-lang.json</span><br></pre></td></tr></table></figure>
-<h3 id="修改标题颜色区分不同环境">1.2.4. 修改标题颜色（区分不同环境）</h3>
-<p>修改 docker-compose.yml 找到 ui 部分</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">ui:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">vmware/harbor-ui:v1.2.2</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">harbor-ui</span></span><br><span class="line"><span class="attr">    env_file:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">./common/config/ui/env</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">       -</span> <span class="string">/harbor-data/xdf/ui/clarity-ui.min.css:/harbor/static/clarity-ui.min.css:z</span></span><br></pre></td></tr></table></figure>
-<p>将原来容器中的 / harbor/static/clarity-ui.min.css 文件下载出来，修改如下样式： 找到 CSS 类： header.header-5</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">header</span><span class="selector-class">.header-5</span>,<span class="selector-class">.header</span><span class="selector-class">.header-5</span>&#123;<span class="attribute">background-color</span>:<span class="number">#CE0606</span>&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="watchdog">2. watchdog</h1>
-<p>将 <a href="file:///E:/01-Documents/02-VM、docker、CaaS/01-Docker/03-Docker_Registry/01-Harbor(vmware 的开源镜像仓库)/harbor_watchdog.sh" target="_blank" rel="noopener">harbor_watchdog.sh</a> 拷贝至 harbor 服务器，并设置 crontab，可见脚本注释</p>
-<h1 id="同步设置">3. 同步设置</h1>
-<h2 id="方案">3.1. 方案</h2>
-<p>CS (registry.svicloud.com) — 全同步 —&gt; SZ (ci.svicloud.com) — 部分同步 —&gt; FR (registry.svicloud.com)</p>
-<h2 id="关于国内外域名相同的方案">3.2. 关于国内外域名相同的方案</h2>
-<p>方法有二种： 1. 在深圳 harbor 服务器上，<code>设置 DNS 为 1.1.1.1</code>。 这样的话，深圳解析到的地址和国外解析到的地址一样，这样同步时就可以从深圳同步向法国了（推荐方法） 2. 在 ui 这个容器中设置 registry.svicloud.com 的 IP 地址（未测试是否完全可用）</p>
-<h2 id="设置">3.3. 设置</h2>
+        <h1 id="开启 -bbr">1. 开启 BBR</h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先查看内核是否大于 4.9，如大于 4.9</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.core.default_qdisc=fq"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_congestion_control=bbr"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开 TFO(tcp fast open), 服务端为 3，客户端为 1</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"net.ipv4.tcp_fastopen = 3"</span> &gt;&gt; /etc/sysctl.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存生效 </span></span><br><span class="line">sysctl -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 bbr 是否生效 </span></span><br><span class="line">lsmod | grep bbr</span><br></pre></td></tr></table></figure>
+<h1 id="开启高级算法 -hybla">2. 开启高级算法 hybla</h1>
 <blockquote>
-<p>镜像的 <code> 标签 </code> 不会同步</p>
+<p> 注意：此步骤不适用于 OpenVZ 或低版本内核，否则在执行最后一个步骤 sysctl -p 的时候会大量报错，如果没报错说明内核支持高级算法 hybla 等参数调整。 注意：该算法和 BBR 同属于集成于内核中的模块，当两者同时开启后，<code>BBR 优先级最高 </code>。所以开启 BBR 后再开这个没用。</p>
 </blockquote>
-<ul>
-<li>CS 中所有 项目，设置为全同步向 SZ</li>
-</ul>
-<h1 id="api">4. API</h1>
-<h2 id="harbor-go-client 推荐">4.1. harbor-go-client(推荐)</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'fs.file-max = 51200</span></span><br><span class="line"><span class="string">net.core.rmem_max = 67108864</span></span><br><span class="line"><span class="string">net.core.wmem_max = 67108864</span></span><br><span class="line"><span class="string">net.core.netdev_max_backlog = 250000</span></span><br><span class="line"><span class="string">net.core.somaxconn = 4096</span></span><br><span class="line"><span class="string">net.ipv4.tcp_syncookies = 1</span></span><br><span class="line"><span class="string">net.ipv4.tcp_tw_reuse = 1</span></span><br><span class="line"><span class="string">net.ipv4.tcp_tw_recycle = 0</span></span><br><span class="line"><span class="string">net.ipv4.tcp_fin_timeout = 30</span></span><br><span class="line"><span class="string">net.ipv4.tcp_keepalive_time = 1200</span></span><br><span class="line"><span class="string">net.ipv4.ip_local_port_range = 10000 65000</span></span><br><span class="line"><span class="string">net.ipv4.tcp_max_syn_backlog = 8192</span></span><br><span class="line"><span class="string">net.ipv4.tcp_max_tw_buckets = 5000</span></span><br><span class="line"><span class="string">net.ipv4.tcp_fastopen = 3</span></span><br><span class="line"><span class="string">net.ipv4.tcp_mem = 25600 51200 102400</span></span><br><span class="line"><span class="string">net.ipv4.tcp_rmem = 4096 87380 67108864</span></span><br><span class="line"><span class="string">net.ipv4.tcp_wmem = 4096 65536 67108864</span></span><br><span class="line"><span class="string">net.ipv4.tcp_mtu_probing = 1</span></span><br><span class="line"><span class="string">net.ipv4.tcp_congestion_control = hybla'</span> &gt;&gt; /etc/sysctl.conf</span><br></pre></td></tr></table></figure>
+<h1 id="debianubuntu- 升级内核">3. Debian、Ubuntu 升级内核 </h1>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接使用 apt-get 安装内核 </span></span><br><span class="line">apt update</span><br><span class="line">apt-cache search linux-image-extra</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装最新的内核, 最新的内核已经到了 4.15.0-15</span></span><br><span class="line">apt -y install linux-image-extra-4.15.0-15-generic</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果需要 rt（low） 内核, 可以安装如下 (但是没有 extra 包哦)</span></span><br><span class="line"><span class="comment"># apt -y install linux-image-4.15.0-39-lowlatency</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看 </span></span><br><span class="line">dpkg -l | grep linux-image</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除旧内核 </span></span><br><span class="line">apt remove &lt;THE_OLD_KERNEL&gt;</span><br><span class="line"></span><br><span class="line">update-grub</span><br><span class="line">apt autoremove</span><br><span class="line"></span><br><span class="line">reboot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看一下目前的内核版本 </span></span><br><span class="line"><span class="comment"># 应该是显示为 &lt;NEWEST_KERNEL_RELEASE&gt;</span></span><br><span class="line">uname -r</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h1 id="rhelcentos- 升级内核">4. RHEL、CentOS 升级内核 </h1>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是 el7</span></span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果是 el6</span></span><br><span class="line">rpm -Uvh http://www.elrepo.org/elrepo-release-6-8.el6.elrepo.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装内核 </span></span><br><span class="line">yum --enablerepo=elrepo-kernel install kernel-ml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前已安装的内核 </span></span><br><span class="line">awk -F\<span class="string">''</span><span class="variable">$1</span>==<span class="string">"menuentry "</span> &#123;<span class="built_in">print</span> i++ <span class="string">" : "</span> <span class="variable">$2</span>&#125;<span class="string">' /etc/grub2.cfg</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定默认内核 (centos7)</span></span><br><span class="line"><span class="string">grub2-set-default 0</span></span><br><span class="line"><span class="string">reboot</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定默认内核 (centos6)</span></span><br><span class="line"><span class="string">vi /etc/grub.conf</span></span><br><span class="line"><span class="string"># 修改 default=&lt;ID 号 &gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 设定 /etc/sysctl.conf</span></span><br><span class="line"><span class="string">net.core.default_qdisc = fq</span></span><br><span class="line"><span class="string">net.ipv4.tcp_congestion_control = bbr</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 生效 </span></span><br><span class="line"><span class="string">sysctl -p</span></span><br></pre></td></tr></table></figure>
+<h1 id="手动安装">5. 手动安装 </h1>
+<h2 id="下载内核二进制包">5.1. 下载内核二进制包 </h2>
 <blockquote>
-<p>https://github.com/moooofly/harbor-go-client</p>
+<p> 链接：http://mirrors.kernel.org/debian/pool/main/l/linux/</p>
 </blockquote>
-<h2 id="原生 -api">4.2. 原生 API</h2>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 4.1. 会收到一条没有认证的消息，这个正常，返回一定是 401</span></span><br><span class="line">curl -i  https://registry.svicloud.com/v2/_catalog</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 请求 Token</span></span><br><span class="line">curl -i -k -u admin:Changeme_123 \</span><br><span class="line">  https://registry.svicloud.com/service/token?account=admin\&amp;service=harbor-registry\&amp;scope=repository:os/svi-centos7:pull,push</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. Header 中带上 Token</span></span><br><span class="line">curl -k -v -H <span class="string">"Content-Type: application/json"</span> -H <span class="string">"Authorization: Bearer THIS_IS_LONG_TOKEN"</span> \</span><br><span class="line">  -X GET https://registry.svicloud.com/v2/os/svi-centos7/manifests/latest</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. 查出某镜像的 tag 列表</span></span><br><span class="line">curl https://registry.svicloud.com/v2/dongcj/webserver/tags/list</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8. 查看某镜像的详细信息</span></span><br><span class="line">curl https://registry.svicloud.com/v2/dongcj/webserver/manifests/v0.1</span><br></pre></td></tr></table></figure>
-<h1 id="harbor- 镜像删除问题">5. Harbor 镜像删除问题</h1>
-<blockquote>
-<p>原始需求：使用过程中，一般情况都只是向 harbor 上传 image ，但是几乎没有人会主动进行删除，导致 image 积累越来越多；所以希望可以按照某种策略把最近不常用的 image 删除掉；</p>
-</blockquote>
-<p>官方文档给出的删除说明如下：</p>
-<div class="quota">
-<p>Repository deletion runs in two steps.</p>
-<p>First, delete a repository in Harbor’s UI. This is soft deletion. You can delete the entire repository or just a tag of it. After the soft deletion, the repository is no longer managed in Harbor, however, the files of the repository still remain in Harbor’s storage. CAUTION: If both tag A and tag B refer to the same image, after deleting tag A, B will also get deleted.</p>
-<p>Next, delete the actual files of the repository using the registry’s garbage collection(GC). Make sure that no one is pushing images or Harbor is not running at all before you perform a GC. If someone were pushing an image while GC is running, there is a risk that the image’s layers will be mistakenly deleted which results in a corrupted image. So before running GC, a preferred approach is to stop Harbor first. Run the below commands on the host which Harbor is deployed on to preview what files/images will be affected:</p>
-</div>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker-compose stop</span><br><span class="line">$ docker run -it --name gc --rm --volumes-from registry vmware/registry:2.6.2-photon garbage-collect --dry-run /etc/registry/config.yml</span><br></pre></td></tr></table></figure>
-<p>NOTE: The above option “–dry-run” will print the progress without removing any data.</p>
-<p>Verify the result of the above test, then use the below commands to perform garbage collection and restart Harbor.</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it --name gc --rm --volumes-from registry vmware/registry:2.6.2-photon garbage-collect  /etc/registry/config.yml</span><br><span class="line">$ docker-compose start</span><br></pre></td></tr></table></figure>
-<p>For more information about GC, please see GC.</p>
-<p>这里有一个问题需要弄清楚：即删除镜像的过程中需要注意哪些问题？</p>
-<p>详见《Garbage Collection》</p>
+<h2 id="解压安装">5.2. 解压安装 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ar x  linux-image-4.9.0-11-generic_4.9.0-11.12_amd64_5.deb</span><br><span class="line">bzip2 -d data.tar.bz2</span><br><span class="line">tar -xf data.tar</span><br><span class="line">install -m644 boot/vmlinuz-4.9.0-11-generic /boot/vmlinuz-4.9.0-11-generic</span><br><span class="line">cp -Rav lib/modules/4.9.0-11-generic/ /lib/modules/</span><br><span class="line">depmod -a 4.9.0-11-generic</span><br></pre></td></tr></table></figure>
+<h2 id="加入引导">5.3. 加入引导 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dracut -f -v --hostonly -k <span class="string">'/lib/modules/4.9.0-11-generic'</span>  /boot/initramfs-4.9.0-11-generic 4.9.0-11-generic</span><br><span class="line"><span class="comment"># 注 : centos7 和 6 的步骤不同，centos6 是 grub，需要手动自动写 , 但注意：root=UUID= 那里的 uuid 不能修改！！！；</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># centos7 是 grub2 可以用下面命令 :</span></span><br><span class="line">grub2-mkconfig -o /boot/grub2/grub.cfg</span><br></pre></td></tr></table></figure>
+<h2 id="修改引导顺序">5.4. 修改引导顺序 </h2>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看引导内有哪些内核 </span></span><br><span class="line">cat /boot/grub2/grub.cfg |grep menuentry</span><br><span class="line"></span><br><span class="line">cat /boot/grub2/grub.cfg |grep menuentry</span><br><span class="line"><span class="keyword">if</span> [x<span class="string">"<span class="variable">$&#123;feature_menuentry_id&#125;</span>"</span> = xy ]; <span class="keyword">then</span></span><br><span class="line">  menuentry_id_option=<span class="string">"--id"</span></span><br><span class="line">  menuentry_id_option=<span class="string">""</span></span><br><span class="line">  <span class="built_in">export</span> menuentry_id_option</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (4.9.0-rc8-amd64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-4.9.0-rc8-amd64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (3.10.0-327.36.3.el7.x86_64) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-3.10.0-327.36.3.el7.x86_64-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br><span class="line">  menuentry <span class="string">'CentOS Linux (0-rescue-d45b6a27fe9641bd8979101342a4f20b) 7 (Core)'</span> --class centos --class gnu-linux --class gnu --class os --unrestricted <span class="variable">$menuentry_id_option</span> <span class="string">'gnulinux-0-rescue-d45b6a27fe9641bd8979101342a4f20b-advanced-508f0c60-8ce4-48fa-a00e-8db45fa56da8'</span> &#123;</span><br></pre></td></tr></table></figure>
+<pre><code># 下面命令的内核名称根据系统内部查到的实际名称来替换：
+grub2-set-default &#39;CentOS Linux (4.9.0-rc8-amd64) 7 (Core)&#39;
+
+grub2-editenv list
+
+saved_entry=CentOS Linux (4.9.0-rc8-amd64) 7 (Core)</code></pre>
 
       
     </div>
@@ -490,6 +467,18 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/升级内核/" rel="tag"># 升级内核</a>
+          
+            <a href="/tags/kernel/" rel="tag"># kernel</a>
+          
+            <a href="/tags/bbr/" rel="tag"># bbr</a>
+          
+            <a href="/tags/tcp-bbr/" rel="tag"># tcp_bbr</a>
+          
+        </div>
+      
 
       
       
@@ -509,8 +498,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/linux/security/Rfw-RemoteFirewall远程管理防火墙/" rel="next" title="Rfw-RemoteFirewall 远程管理防火墙">
-                <i class="fa fa-chevron-left"></i> Rfw-RemoteFirewall 远程管理防火墙
+              <a href="/linux/Puppet安装/" rel="next" title="Puppet 安装">
+                <i class="fa fa-chevron-left"></i> Puppet 安装
               </a>
             
           </div>
@@ -519,8 +508,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/linux/常用命令/" rel="prev" title="常用命令">
-                常用命令 <i class="fa fa-chevron-right"></i>
+              <a href="/linux/使用printf进行格式化/" rel="prev" title="使用 Printf 进行格式化">
+                使用 Printf 进行格式化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -686,7 +675,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#install"><span class="nav-text">1. Install</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础配置"><span class="nav-text">1.1. 基础配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级配置可选"><span class="nav-text">1.2. 高级配置（可选）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置 -clair- 和 -notray"><span class="nav-text">1.2.1. 配置 Clair 和 Notray</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#限制访问的网络"><span class="nav-text">1.2.2. 限制访问的网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改 -harbor- 文本显示本地定制化"><span class="nav-text">1.2.3. 修改 harbor 文本显示（本地定制化）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改标题颜色区分不同环境"><span class="nav-text">1.2.4. 修改标题颜色（区分不同环境）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#watchdog"><span class="nav-text">2. watchdog</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步设置"><span class="nav-text">3. 同步设置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#方案"><span class="nav-text">3.1. 方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于国内外域名相同的方案"><span class="nav-text">3.2. 关于国内外域名相同的方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置"><span class="nav-text">3.3. 设置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#api"><span class="nav-text">4. API</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#harbor-go-client 推荐"><span class="nav-text">4.1. harbor-go-client(推荐)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原生 -api"><span class="nav-text">4.2. 原生 API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#harbor- 镜像删除问题"><span class="nav-text">5. Harbor 镜像删除问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开启 -bbr"><span class="nav-text">1. 开启 BBR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开启高级算法 -hybla"><span class="nav-text">2. 开启高级算法 hybla</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#debianubuntu- 升级内核"><span class="nav-text">3. Debian、Ubuntu 升级内核 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rhelcentos- 升级内核"><span class="nav-text">4. RHEL、CentOS 升级内核 </span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#手动安装"><span class="nav-text">5. 手动安装 </span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下载内核二进制包"><span class="nav-text">5.1. 下载内核二进制包 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解压安装"><span class="nav-text">5.2. 解压安装 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加入引导"><span class="nav-text">5.3. 加入引导 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改引导顺序"><span class="nav-text">5.4. 修改引导顺序 </span></a></li></ol></li></ol></div>
             
 
           </div>
