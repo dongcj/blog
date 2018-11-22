@@ -325,7 +325,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/database/Postgresql主从配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/硬 raid(megacli) 与软 raid (mdadm)创建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -344,7 +344,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/database/Postgresql主从配置/" itemprop="url">Postgresql 主从配置</a></h2>
+                <a class="post-title-link" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/" itemprop="url">硬 Raid(megacli) 与软 Raid (Mdadm) 创建</a></h2>
         
 
         <div class="post-meta">
@@ -379,8 +379,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/database/" itemprop="url" rel="index">
-                    <span itemprop="name">database</span>
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
                   </a>
                 </span>
 
@@ -414,27 +414,204 @@
 
       
         
-          <h1 id="安装好二台 -postgresql"> 安装好二台 postgresql</h1>
-<blockquote>
-<p> 参见：http://blog.dongcj.com/database/Postgresql%E5%AE%89%E8%A3%85/ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主服务器上 </span></span><br><span class="line">vi /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PGDATA=/pgdata</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从服务器上 </span></span><br><span class="line">vi /etc/profile</span><br><span class="line">  <span class="built_in">export</span> PGDATA=/pgdata_backup</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure></p>
+          <blockquote>
+<p><strong>建议：</strong> 如果 raid0，1，raid1+0 可以使用软 raid, raid10 及以上不建议使用软 raid ！</p>
 </blockquote>
-<h1 id="配置主服务器 -192.168.10.11"> 配置主服务器 192.168.10.11</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 root 帐户 </span></span><br><span class="line">mkdir /pgdata</span><br><span class="line">chown -R postgres:postgres /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置一个账号进行主从同步 </span></span><br><span class="line">su - postgres</span><br><span class="line">psql [-p  54321]     <span class="comment"># 如果修改过端口，需要指定端口 </span></span><br><span class="line">psql$ CREATE ROLE replica login replication encrypted password <span class="string">'replica'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加 replica 用户 </span></span><br><span class="line"><span class="built_in">cd</span> /pgdata</span><br><span class="line">vi pg_hba.conf</span><br><span class="line">  host    replication     replica       192.168.10.12/32               md5</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置复制参数 </span></span><br><span class="line">vi postgresql.conf</span><br><span class="line">  wal_level = hot_standby     <span class="comment"># 主为 wal 的主机 </span></span><br><span class="line">  max_wal_senders = 32        <span class="comment"># 最多几个流复制 </span></span><br><span class="line">  wal_keep_segments = 256     <span class="comment"># 设置流复制保留最多的 log 数目，每个 log 16M</span></span><br><span class="line">  wal_sender_timeout = 60s    <span class="comment"># 流复制主机发送数据的超时时间 </span></span><br><span class="line">  max_connections = 100       <span class="comment"># 注意：从库的 max_connections 必须要大于主库的 </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改权限 </span></span><br><span class="line">chmod -R 700 /pgdata/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启 pg</span></span><br><span class="line">pg_ctl restart</span><br></pre></td></tr></table></figure>
-<h1 id="配置从服务器 -192.168.10.12"> 配置从服务器 192.168.10.12</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 root 帐户 </span></span><br><span class="line">mkdir /pgdata_backup</span><br><span class="line">chown -R postgres:postgres /pgdata_backup/</span><br><span class="line"></span><br><span class="line">su - postgres</span><br><span class="line">pg_basebackup -F p --progress -D /pgdata_backup -h 192.168.10.11 -p 5432 -U replica --password</span><br><span class="line"><span class="comment"># password is: replica</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> /pgdata_backup</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置 </span></span><br><span class="line">vi recovery.conf</span><br><span class="line"><span class="comment"># 如果找不到 recovery.conf，可以新建，只需要下面三行即可 </span></span><br><span class="line">recovery_target_timeline = <span class="string">'latest'</span></span><br><span class="line">standby_mode = on</span><br><span class="line">primary_conninfo = <span class="string">'host=192.168.10.11 port=5432 user=replica password=replica'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 编辑配置 </span></span><br><span class="line">vi postgresql.conf</span><br><span class="line">max_connections = 1000  <span class="comment"># (要大于主库的)</span></span><br><span class="line">hot_standby = on        <span class="comment"># 说明这台机器不仅仅是用于数据归档，也用于数据查询 </span></span><br><span class="line">max_standby_streaming_delay = 30s   <span class="comment"># 多久向主报告一次从的状态，最长的间隔时间 </span></span><br><span class="line">wal_receiver_status_interval = 5s   <span class="comment"># 间隔多久将状态信息发送给主 </span></span><br><span class="line">hot_standby_feedback = on           <span class="comment"># 如果有错误的数据复制，是否向主进行反馈 </span></span><br><span class="line"></span><br><span class="line">chmod -R 700 /pgdata_backup/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动从 pg</span></span><br><span class="line">pg_ctl start</span><br></pre></td></tr></table></figure>
-<h1 id="检测配置是否成功"> 检测配置是否成功 </h1>
-<pre><code># 使用 ps -ef 在主从二台上检测进程状态
-# 在主上应该有 sender 进程，在从上有 receiver 进程
-
-# 在主上查看复制状态
-$ psql$ select * from pg_stat_replication;
-
-# 可以看到 sender 的进程信息 </code></pre>
-<h1 id="主从切换命令"> 主从切换命令 </h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># node1 上模拟主库故障 </span></span><br><span class="line">[postgres@node1 ~]$ pg_ctl stop -m f</span><br><span class="line"></span><br><span class="line"><span class="comment"># node2 提升备库状态 </span></span><br><span class="line">[postgres@node2 ~]$ pg_ctl promote</span><br><span class="line"></span><br><span class="line"><span class="comment"># node2 更新备数据 </span></span><br><span class="line">[postgres@node2 ~]$ createdb pgbench</span><br><span class="line">[postgres@node2 ~]$ pgbench -i -s 10 pgbench</span><br><span class="line"></span><br><span class="line"><span class="comment"># node1 将以前 master 恢复为 standby</span></span><br><span class="line">pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node2 user=postgres port=5432'</span></span><br><span class="line"></span><br><span class="line">vi /opt/pgsql/data/recovery.conf</span><br><span class="line">standby_mode = <span class="string">'on'</span></span><br><span class="line">primary_conninfo = <span class="string">'host=node2 user=postgres port=5432'</span></span><br><span class="line">recovery_target_timeline = <span class="string">'latest'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 node1 上的数据库：</span></span><br><span class="line">[postgres@node1 ~]$ pg_ctl start</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将 node1 恢复为 master</span></span><br><span class="line">[postgres@node2 ~]$ pg_ctl stop -m f</span><br><span class="line">[postgres@node1 ~]$ pg_ctl promote</span><br><span class="line">[postgres@node1 ~]$ pgbench -s 10 -T 60 pgbench</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复 node2 为 standby：</span></span><br><span class="line">[postgres@node2 ~]$ pg_rewind -D /opt/pgsql/data/ --<span class="built_in">source</span>-server=<span class="string">'host=node1 user=postgres port=5432'</span></span><br><span class="line">[postgres@node2 ~]$ mv /opt/pgsql/data/recovery.done /opt/pgsql/data/recovery.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改 node2 为 node1</span></span><br><span class="line">vi /opt/pgsql/data/recovery.conf </span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 node2 上的数据库：</span></span><br><span class="line">[postgres@node2 ~]$ pg_ctl start</span><br></pre></td></tr></table></figure>
+<h1 id="mega- 管理硬 -raid">1. mega 管理硬 raid</h1>
+<h2 id="查看磁盘状态">1.1. 查看磁盘状态</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简略信息</span></span><br><span class="line">megasasctl </span><br><span class="line"></span><br><span class="line">  a0       PERC H710 Mini           encl:1 ldrv:1  batt:FAULT, low voltage</span><br><span class="line">  a0d0      1862GiB RAID 0   1x1  optimal</span><br><span class="line">  unconfigured:  a0e32s1   a0e32s2   a0e32s3 </span><br><span class="line">  a0e32s0    1863GiB  a0d0  online  </span><br><span class="line">  a0e32s1    1863GiB        ready   </span><br><span class="line">  a0e32s2    1863GiB        ready   </span><br><span class="line">  a0e32s3    1863GiB        ready   </span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者</span></span><br><span class="line">megaraidsas-status</span><br><span class="line"></span><br><span class="line">  -- Arrays informations --</span><br><span class="line">  -- ID | Type | Size | Status</span><br><span class="line">  a0d0 | RAID 0 | 1862GiB | optimal</span><br><span class="line"></span><br><span class="line">  -- Disks informations</span><br><span class="line">  -- ID | Model | Status | Warnings</span><br><span class="line">  a0e32s0 | SEAGATE ST2000NM0023 1863GiB | online</span><br><span class="line">  a0e32s1 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s2 | SEAGATE ST2000NM0023 | ready</span><br><span class="line">  a0e32s3 | SEAGATE ST2000NM0023 | ready</span><br></pre></td></tr></table></figure>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 详细物理磁盘 (pd) 信息，主要是看 ` 框 ID` 与 ` 插槽 ID`</span></span><br><span class="line">megacli -PDlist -a0 | grep -e <span class="string">'^Enclosure Device ID:'</span> -e <span class="string">'^Slot Number:'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 其它输出详细信息可以看看，平时可以通过这个来检查磁盘型号、状态等信息</span></span><br><span class="line"></span><br><span class="line">  Adapter <span class="comment">#0</span></span><br><span class="line"></span><br><span class="line">  Enclosure Device ID: 32</span><br><span class="line">  Slot Number: 0</span><br><span class="line">  Drive s position: DiskGroup: 0, Span: 0, Arm: 0</span><br><span class="line">  Enclosure position: 1</span><br><span class="line">  Device Id: 0</span><br><span class="line">  WWN: 5000C500627EE690</span><br><span class="line">  Sequence Number: 2</span><br><span class="line">  Media Error Count: 0</span><br><span class="line">  Other Error Count: 0</span><br><span class="line">  Predictive Failure Count: 0</span><br><span class="line">  Last Predictive Failure Event Seq Number: 0</span><br><span class="line">  PD Type: SAS</span><br><span class="line"></span><br><span class="line">  Raw Size: 1.819 TB [0xe8e088b0 Sectors]</span><br><span class="line">  Non Coerced Size: 1.818 TB [0xe8d088b0 Sectors]</span><br><span class="line">  Coerced Size: 1.818 TB [0xe8d00000 Sectors]</span><br><span class="line">  Sector Size:  0</span><br><span class="line">  Firmware state: Online, Spun Up                <span class="comment"># &lt;----- 如果重建，这里显示为：rebuilding</span></span><br><span class="line">  Device Firmware Level: GS0F</span><br><span class="line">  Shield Counter: 0</span><br><span class="line">  Successful diagnostics completion on :  N/A</span><br><span class="line">  </span><br><span class="line">  ...</span><br><span class="line">  </span><br><span class="line"><span class="comment"># ------------------------------------------------------------</span></span><br><span class="line"><span class="comment"># 如果状态为重建中，可以查看重建信息</span></span><br><span class="line">megacli -PDRbld -ShowProg -PhysDrv [32:1] -aALL</span><br><span class="line"></span><br><span class="line">  Rebuild Progress on Device at Enclosure 32, Slot 1 Completed 51% <span class="keyword">in</span> 10 Minutes.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"># 逻辑磁盘 (LD) 信息 </span><br><span class="line">megacli  -LDInfo -Lall -aALL</span><br><span class="line"></span><br><span class="line"># 物理磁盘(PD) 信息</span><br><span class="line">megacli -PDList -aALL</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Display, disable or enable automatic rebuild on adapter 0:</span><br><span class="line"></span><br><span class="line"># Display</span><br><span class="line">megacli -AdpAutoRbld -Dsply -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># disable</span><br><span class="line">megacli -AdpAutoRbld -Dsbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Disabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># enable</span><br><span class="line">megacli -AdpAutoRbld -Enbl -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: AutoRebuild is Enabled.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># ------------------------------------------------------------</span><br><span class="line"># Get and modify rebuild rate:</span><br><span class="line"></span><br><span class="line"># get</span><br><span class="line">megacli -AdpGetProp RebuildRate -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Rebuild Rate = 30%</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"># set</span><br><span class="line">megacli -AdpSetProp RebuildRate 60 -a0</span><br><span class="line"></span><br><span class="line">  Adapter 0: Set rebuild rate to 60% success.</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br></pre></td></tr></table></figure>
+<h2 id="create-a-raid0156-array-with-megacli">1.2. Create a RAID0,1,5,6 array with MegaCli</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将后面三块盘创建 raid0</span></span><br><span class="line">megacli -CfgLdAdd -r0[32:1,32:2,32:3] -a0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Created VD 0</span><br><span class="line"></span><br><span class="line">  Adapter 1: Configured the Adapter!!</span><br><span class="line"></span><br><span class="line">  Exit Code: 0x00</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note:    to make RAID0, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID1, minimal 2 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID5, minimal 3 drives are required.</span></span><br><span class="line"><span class="comment">#          to make RAID6, minimal 4 drives are required.</span></span><br></pre></td></tr></table></figure>
+<h2 id="create-a-raid50raid60-array-with-megacli">1.3. Create a RAID50,raid60 array with MegaCli</h2>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">megactl -CfgLdAdd -r50 raid0[252:2,252:3,252:4] raid1[252:5,252:6,252:7] -a0</span><br><span class="line">megactl -CfgLdAdd -r60 raid0[252:2,252:3,252:4,252:5] raid1[252:6,252:7,252:8,252,9] -a0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Note: to make RAID50, minimal 6 drives are required.</span></span><br><span class="line"><span class="comment">#       to make RAID60, minimal 8 drives are required.</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/database/Postgresql主从配置/#more" rel="contents">
+            <a class="btn" href="/linux/硬 raid(megacli) 与软 raid (mdadm)创建/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/Puppet安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Krrish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Krrish">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/linux/Puppet安装/" itemprop="url">Puppet 安装</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
+                2016-08-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index">
+                    <span itemprop="name">linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body han-init-context" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="etchosts- 可以 -ping- 通对方域名">/etc/hosts 可以 ping 通对方域名 </h3>
+<h3 id="安装 -puppet"> 安装 puppet</h3>
+<pre><code>$ yum install ruby ruby-libs ruby-rdoc
+$ wget http://yum.puppetlabs.com/el/6/products/x86_64/puppetlabs-release-6-10.noarch.rpm  ( 这个版本可以修改为最新的）
+$ yum update
+
+# 服务端安装 puppet-server
+$ yum install puppet-server
+
+# 服务端安装 puppet 图形界面（可选）
+$ yum install ruby-mysql mysql  mod_passenger puppet-dashboard
+
+# 客户端安装 puppet
+$ yum install puppet</code></pre>
+<h3 id="service-puppetmaster-start">service puppetmaster start</h3>
+<pre><code>$ puppet master --verbose --no-daemonize --cert_name &quot;Puppet CA: `hostname -f`&quot;
+
+$ openssl x509 -text -noout -in /var/lib/puppet/ssl/certs/ca.pem
+
+$ cat &gt; /etc/puppet/autosign.conf &lt;&lt;EOF
+*.xxx.com
+EOF
+
+$ service puppetmaster restart
+$ puppet cert list --all    --&gt; 查看下证书，此时是没有客户机的，只有自己
+
+在 /etc/puppet/puppet.conf 中添加 server = bigdata.xxxx.com 一行，为了方便命令都可以不用 --server bigdata.xxxx.com
+
+$ puppetd --server bigdata.xxxx.com --test
+或者
+$ puppet agent --no-daemonize --onetime --verbose --debug</code></pre>
+<h3 id="安装 -dashboard"> 安装 dashboard</h3>
+<pre><code>$ vi /usr/share/puppet-dashboard/config/database.yml
+production:
+database: puppet
+username: root
+password: passw0rd
+encoding: utf8
+adapter: mysql
+
+$ vi /usr/share/puppet-dashboard/config/environment.rb
+config.time_zone = &#39;Beijing&#39;</code></pre>
+<h3 id="初始化数据库"> 初始化数据库 </h3>
+<pre><code>$ cd /usr/share/puppet-dashboard/
+rake RAILS_ENV=production db:migrate</code></pre>
+<h3 id="整合 -passenger- 和 -apache"> 整合 Passenger 和 apache</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/linux/Puppet安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -627,7 +804,7 @@ $ psql$ select * from pg_stat_replication;
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/DHCP高级配置/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -646,7 +823,7 @@ $ psql$ select * from pg_stat_replication;
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/DHCP高级配置/" itemprop="url">DHCP 高级配置</a></h2>
+                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE 安装与设定</a></h2>
         
 
         <div class="post-meta">
@@ -716,59 +893,127 @@ $ psql$ select * from pg_stat_replication;
 
       
         
-          <h2 id="一 dhcp- 中继代理配置"># 一、DHCP 中继代理配置 </h2>
-<pre><code># (在其它服务上安装 dhcpd 软件)：
+          <h1 id="安装软件"> 安装软件 </h1>
+<pre><code># 安装的软件：
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
+xinetd-2.3.14-10.el5.x86_64.rpm
+tftp-server-0.42-3.1.x86_64.rpm
+pykickstart-0.43.3-1.el5.noarch.rpm
+system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
+syslinux
 
-$ vi /etc/sysconfig/dhcrelay
-  # Command line options here
-  INTERFACES=&quot;eth1 eth2&quot;
-  DHCPSERVERS=&quot;192.168.1.1&quot;
-
-# 也可以通过以下命令方式来实现：
-$ dhcrelay -i eth1 -i eth2 192.168.1.1
-
-# Linux DHCP 配置完成后，重新启动 DHCP 服务。</code></pre>
-<h2 id="二 dhcp- 超网配置"># 二、DHCP 超网配置 </h2>
-<pre><code>ddns-update-style interim;      /*dhcp 支持的 dns 动态更新方式 */
-ignore client-updates;          /* 忽略客户端 DNS 动态更新 */
-shared-network mynet {          /* 超网作用域选项，共同部分 */
-    option subnet-mask 255.255.255.0;            /* 子网掩码 */
-    option domain-name &quot;koumm.net&quot;;              /* 域名 */
-    option domain-name-servers 192.168.1.2;      /*dns IP*/
-    option broadcast-address 192.168.1.255;      /* 广播地址 */
-    default-lease-time 86400;                    /* 租期 1 天，秒数 */
-    max-lease-time 172800;                       /* 最长租期 2 天 */
-
-    subnet 192.168.1.0 netmask 255.255.255.0 {   /*1.0 子网段 */
-        range 192.168.1.11 192.168.1.100;        /*ip 地址段范围 */
-        option routers 192.168.1.1;               /* 网关地址 */
-        /* 绑定 pc1 主机 ip 地址配置 */
-        host pc1 {
-            hardware ethernet 00:a0:cc:cf:9C:14;
-            fixed-address 192.168.1.20;
-        }
-        /* 绑定 pc2 主机 ip 地址配置 */
-        host pc2 {
-            hardware ethernet 04:20:c1:f8:37:11;
-            fixed-address 192.168.1.30;
-        }
-    }
-
-    subnet 192.168.2.0 netmask 255.255.255.0 {    /*2.0 子网段 */
-        range 192.168.2.10 192.168.2.100;         /*ip 地址段范围 */
-        option routers 192.168.2.1;                /* 网关地址 */
-    }
-
-    subnet 192.168.3.0 netmask 255.255.255.0 {    /*3.0 子网段 */
-        range 192.168.3.10 192.168.3.100;         /*ip 地址段范围 */
-        option routers 192.168.3.1;                /* 网关地址 */
-    }
-
+# 关闭 selinux &amp; iptables</code></pre>
+<h1 id="dhcp- 配置">dhcp 配置 </h1>
+<pre><code>ddns-update-style interim;
+ignore client-updates;
+allow booting;
+allow bootp;
+class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
+filename &quot;/pxelinux.0&quot;;
+next-server 10.85.138.9;
+}
+subnet 10.85.138.0 netmask 255.255.254.0 {
+option routers 10.85.138.1;
+option subnet-mask 255.255.254.0;
+option domain-name &quot;gwcloud.com&quot;;
+option domain-name-servers 10.85.138.1;
+option time-offset -18000; # Eastern Standard Time
+range dynamic-bootp 10.85.138.100 10.85.138.249;
+default-lease-time 21600;
+max-lease-time 43200;
 }</code></pre>
+<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
+<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
+$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
+$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
 
+
+$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
+<h1 id="配置 -kickstart"> 配置 kickstart</h1>
+<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
+  label linux
+    menu label ^Install or upgrade an existing system
+    menu default
+    kernel vmlinuz
+    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
+
+# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
+<blockquote>
+<p> 附录：完整 DHCP 样例 </p>
+</blockquote>
+<pre><code>ddns-update-style interim;
+ddns-updates on;
+ignore client-updates;
+allow booting;  # for pxe only
+allow bootp;    # for pxe only
+authoritative;  # Do not know what is meaning??
+
+class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
+    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
+    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+    filename &quot;/pxelinux.0&quot;;     # for pxe only
+    next-server 192.168.88.1;   # for pxe only
+}
+
+
+class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
+    option host-name = config-option server.ddns-hostname;
+    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+}
+
+
+option host-name = config-option server.ddns-hostname;
+ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+));
+set vendor-string = option vendor-class-identifier;
+
+
+subnet 192.168.88.0 netmask 255.255.255.0 {
+    option routers 192.168.88.1;
+    option subnet-mask 255.255.255.0;
+    option domain-name &quot;gwcloud.cn&quot;;
+    option domain-name-servers 192.168.88.1;
+    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
+    # option ntp-servers 192.168.88.1   # set the ntp server
+    option time-offset -18000;          # Eastern Standard Time
+    range dynamic-bootp 192.168.88.100 192.168.88.200;
+    default-lease-time 21600;
+    max-lease-time 43200;
+
+    # the next is bonding the mac to static ip address
+    # host pc1 {
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&#39;s ip address
+}</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/DHCP高级配置/#more" rel="contents">
+            <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -935,154 +1180,6 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Krrish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Krrish">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-11T15:43:19+08:00">
-                2016-08-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body han-init-context" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="作用"> 作用 </h1>
-<blockquote>
-<p> 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
-</blockquote>
-<h1 id="编码转换 -trans_to_utf-8.py"> 编码转换 “Trans_To_UTF-8.py”</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下 </span></span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"convert"</span> + filename,</span><br><span class="line">        content = open(filename).read()</span><br><span class="line">        new_content = content.decode(in_enc).encode(out_enc)</span><br><span class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"error"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            path = os.path.join(root, file)</span><br><span class="line">            convert(path)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">            convert(path)</span><br><span class="line">        <span class="keyword">elif</span> os.path.isdir(path):</span><br><span class="line">            explore(path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h1 id="准备脚本 -prepare.sh"> 准备脚本 “prepare.sh”</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></span><br><span class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</span><br><span class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></span><br><span class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></span><br><span class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></span><br><span class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to unix</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></span><br><span class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to UTF-8</span></span><br><span class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># rename suffix to ".md"</span></span><br><span class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># if does not have title</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></span><br><span class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># zero title content</span></span><br><span class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</span><br><span class="line">    <span class="keyword">if</span> [-z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># update title when it is NULL</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></span><br><span class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># add author info</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></span><br><span class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h1 id="windows- 下 - 更新博客 -.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM</span></span><br><span class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</span><br><span class="line"><span class="function">D:</span></span><br><span class="line"><span class="function"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></span></span><br><span class="line"><span class="function"><span class="title">echo</span> "<span class="title">success</span>"</span></span><br></pre></td></tr></table></figure>
-
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/linux/编码与文件格式转换/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
