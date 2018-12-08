@@ -767,7 +767,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/编码与文件格式转换/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/linux/PXE安装与设定/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -786,7 +786,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/linux/编码与文件格式转换/" itemprop="url">编码与文件格式转换</a></h2>
+                <a class="post-title-link" href="/linux/PXE安装与设定/" itemprop="url">PXE 安装与设定</a></h2>
         
 
         <div class="post-meta">
@@ -856,20 +856,127 @@
 
       
         
-          <h1 id="作用"> 作用 </h1>
-<blockquote>
-<p> 在 windows 下使用 hexo 时，经常会出现 GBK 编码与 DOS 的问题 Windows 下自动将博客发布到 github</p>
-</blockquote>
-<h1 id="编码转换 -trans_to_utf-8.py"> 编码转换 “Trans_To_UTF-8.py”</h1>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 请把以下脚本放至 /usr/local/bin/ 目录下 </span></span><br><span class="line"><span class="keyword">import</span> os,sys</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convert</span><span class="params">(filename, in_enc = <span class="string">"GBK"</span>, out_enc=<span class="string">"UTF8"</span> )</span>:</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"convert"</span> + filename,</span><br><span class="line">        content = open(filename).read()</span><br><span class="line">        new_content = content.decode(in_enc).encode(out_enc)</span><br><span class="line">        open(filename, <span class="string">'w'</span>).write(new_content)</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"error"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">explore</span><span class="params">(dir)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            path = os.path.join(root, file)</span><br><span class="line">            convert(path)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> path <span class="keyword">in</span> sys.argv[<span class="number">1</span>:]:</span><br><span class="line">        <span class="keyword">if</span> os.path.isfile(path):</span><br><span class="line">            convert(path)</span><br><span class="line">        <span class="keyword">elif</span> os.path.isdir(path):</span><br><span class="line">            explore(path)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
-<h1 id="准备脚本 -prepare.sh"> 准备脚本 “prepare.sh”</h1>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">POST_DIR=<span class="string">"/cygdrive/e/blog/source/_posts"</span></span><br><span class="line">FBS_ESC=`<span class="built_in">echo</span> -en <span class="string">"\033"</span>`</span><br><span class="line">COLOR_RED=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;31m"</span>       <span class="comment"># Error</span></span><br><span class="line">COLOR_GREEN=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;32m"</span>;    <span class="comment"># Success</span></span><br><span class="line">COLOR_YELLOW=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[1;33m"</span>    <span class="comment"># Warning</span></span><br><span class="line">COLOR_CLOSE=<span class="string">"<span class="variable">$&#123;FBS_ESC&#125;</span>[0m"</span>        <span class="comment"># Close</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$POST_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> *; <span class="keyword">do</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_GREEN&#125;</span>SKIP<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>..."</span></span><br><span class="line">        <span class="built_in">continue</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> file <span class="variable">$i</span> | grep -q <span class="string">"CRLF"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to unix</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, coverting to unix.."</span></span><br><span class="line">        dos2unix <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! file <span class="variable">$i</span> | grep -q <span class="string">"UTF-8"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># change to UTF-8</span></span><br><span class="line">        python /usr/<span class="built_in">local</span>/bin/Trans_To_UTF-8.py <span class="variable">$i</span> &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ! ls <span class="variable">$i</span> | grep -q <span class="string">"\.md$"</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, renaming to <span class="variable">$&#123;i%.*&#125;</span>.md.."</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># rename suffix to ".md"</span></span><br><span class="line">        mv <span class="variable">$i</span> <span class="variable">$&#123;i%.*&#125;</span>.md &amp;&amp; <span class="built_in">echo</span> <span class="string">"done"</span> || <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;COLOR_RED&#125;</span>failed<span class="variable">$&#123;COLOR_CLOSE&#125;</span>"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped rename~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    no_suffix_filename=<span class="string">"<span class="variable">$&#123;i%.*&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># if does not have title</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"title:"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, adding title.."</span></span><br><span class="line">        sed -i <span class="string">"1s/^/---\ntitle: <span class="variable">$no_suffix_filename</span>\n---\n/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># zero title content</span></span><br><span class="line">    title_content=`sed -n <span class="string">'/title: /p'</span> <span class="variable">$i</span> | awk -F<span class="string">':'</span> <span class="string">'&#123;print $NF&#125;'</span> | xargs`</span><br><span class="line">    <span class="keyword">if</span> [-z <span class="string">"<span class="variable">$title_content</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="comment"># update title when it is NULL</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating title.."</span></span><br><span class="line">        sed -i <span class="string">"s/title: .*/title: <span class="variable">$no_suffix_filename</span>/"</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"filename: <span class="variable">$i</span>, skipped update~"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># add author info</span></span><br><span class="line">    <span class="keyword">if</span> ! grep -q <span class="string">"author: dongcj &lt;ntwk@163.com&gt;"</span> <span class="variable">$i</span>; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> -n <span class="string">"<span class="variable">$&#123;COLOR_YELLOW&#125;</span>WARN<span class="variable">$&#123;COLOR_CLOSE&#125;</span>: filename: <span class="variable">$i</span>, updating author.."</span></span><br><span class="line">        sed -i <span class="string">'/title: /a author: dongcj &lt;ntwk@163.com&gt;'</span> <span class="variable">$i</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"done"</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-<h1 id="windows- 下 - 更新博客 -.bat">Windows 下 &quot; 更新博客 .bat&quot;</h1>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">REM</span></span><br><span class="line"><span class="built_in">cd</span> "/cygdriver/d/blog"</span><br><span class="line"><span class="function">D:</span></span><br><span class="line"><span class="function"><span class="title">hexo</span> <span class="title">g</span> &amp;&amp; <span class="title">hexo</span> <span class="title">d</span></span></span><br><span class="line"><span class="function"><span class="title">echo</span> "<span class="title">success</span>"</span></span><br></pre></td></tr></table></figure>
+          <h1 id="安装软件"> 安装软件 </h1>
+<pre><code># 安装的软件：
+dhcp-3.0.5-7.el5.x86_64.rpm
+vsftpd-2.0.5-10.el5.x86_64.rpm(不须装)
+xinetd-2.3.14-10.el5.x86_64.rpm
+tftp-server-0.42-3.1.x86_64.rpm
+pykickstart-0.43.3-1.el5.noarch.rpm
+system-config-kickstart-2.6.19.1-1.el5.noarch.rpm
+syslinux
 
+# 关闭 selinux &amp; iptables</code></pre>
+<h1 id="dhcp- 配置">dhcp 配置 </h1>
+<pre><code>ddns-update-style interim;
+ignore client-updates;
+allow booting;
+allow bootp;
+class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;
+filename &quot;/pxelinux.0&quot;;
+next-server 10.85.138.9;
+}
+subnet 10.85.138.0 netmask 255.255.254.0 {
+option routers 10.85.138.1;
+option subnet-mask 255.255.254.0;
+option domain-name &quot;gwcloud.com&quot;;
+option domain-name-servers 10.85.138.1;
+option time-offset -18000; # Eastern Standard Time
+range dynamic-bootp 10.85.138.100 10.85.138.249;
+default-lease-time 21600;
+max-lease-time 43200;
+}</code></pre>
+<h1 id="增加 -tftp- 文件"> 增加 tftp 文件 </h1>
+<pre><code> 拷文件至 tftpboot(注：menu.c32 和 pxelinux.0 要从本机拷贝，否则 TIMEOUT 无效！)
+$ cp /usr/share/syslinux/menu.c32 /var/lib/tftpboot/
+$ cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/
+
+
+$ cp /mnt/isolinux/initrd.img /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/vmlinuz /var/lib/tftpboot/isolinux
+$ cp /mnt/isolinux/isolinux.cfg /tftpboot/pxelinux.cfg/default  # default 文件也可以自己修改 </code></pre>
+<h1 id="配置 -kickstart"> 配置 kickstart</h1>
+<pre><code># 在 /tftpboot/pxelinux.cfg/default 中添加 KS 入口
+  label linux
+    menu label ^Install or upgrade an existing system
+    menu default
+    kernel vmlinuz
+    append initrd=isolinux/initrd.img ks=ftp://10.85.138.9/pub/ks.cfg
+
+# 修改 kickstart 自动安装 linux(见安装文件)</code></pre>
+<blockquote>
+<p> 附录：完整 DHCP 样例 </p>
+</blockquote>
+<pre><code>ddns-update-style interim;
+ddns-updates on;
+ignore client-updates;
+allow booting;  # for pxe only
+allow bootp;    # for pxe only
+authoritative;  # Do not know what is meaning??
+
+class &quot;pxeclients&quot;{match if substring(option vendor-class-identifier,0,9) = &quot;PXEClient&quot;;   # for pxe
+    # match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;    # for normal dhcp
+    # option host-name = config-option server.ddns-hostname;    # set the server&#39;s hostname, only for linux???
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+    filename &quot;/pxelinux.0&quot;;     # for pxe only
+    next-server 192.168.88.1;   # for pxe only
+}
+
+
+class &quot;MSFT&quot; {match if substring(option vendor-class-identifier, 0, 4) = &quot;MSFT&quot;;
+    option host-name = config-option server.ddns-hostname;
+    #ddns-hostname = concat(&quot;v&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 6)));
+    #ddns-hostname = pick (option host-name, concat(&quot;v&quot;,    # Windows instances will apply for a hostname by default
+    ddns-hostname = concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+    );
+}
+
+
+option host-name = config-option server.ddns-hostname;
+ddns-hostname = pick (option host-name, concat(&quot;v&quot;,
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 1, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 2, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 3, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 4, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 5, 1))), 2),
+        suffix(concat(&quot;0&quot;, binary-to-ascii(16, 8, &quot;&quot;, substring (hardware, 6, 1))), 2)
+));
+set vendor-string = option vendor-class-identifier;
+
+
+subnet 192.168.88.0 netmask 255.255.255.0 {
+    option routers 192.168.88.1;
+    option subnet-mask 255.255.255.0;
+    option domain-name &quot;gwcloud.cn&quot;;
+    option domain-name-servers 192.168.88.1;
+    # option host-name &quot;Server001&quot;      # set the server&#39;s hostname, only for linux???
+    # option ntp-servers 192.168.88.1   # set the ntp server
+    option time-offset -18000;          # Eastern Standard Time
+    range dynamic-bootp 192.168.88.100 192.168.88.200;
+    default-lease-time 21600;
+    max-lease-time 43200;
+
+    # the next is bonding the mac to static ip address
+    # host pc1 {
+    #    hardware ethernet 00:a0:cc:cf:9C:14;    # host&#39;s mac address
+    #    fixed-address 192.168.1.30;             # host&#39;s ip address
+}</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/linux/编码与文件格式转换/#more" rel="contents">
+            <a class="btn" href="/linux/PXE安装与设定/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -915,7 +1022,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/cluster/Gearman安装/">
+    <link itemprop="mainEntityOfPage" href="http://blog.dongcj.com/monitor/Graphite安装/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Krrish">
@@ -934,7 +1041,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/cluster/Gearman安装/" itemprop="url">Gearman 安装</a></h2>
+                <a class="post-title-link" href="/monitor/Graphite安装/" itemprop="url">Graphite 安装</a></h2>
         
 
         <div class="post-meta">
@@ -969,8 +1076,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cluster/" itemprop="url" rel="index">
-                    <span itemprop="name">cluster</span>
+                  <a href="/categories/monitor/" itemprop="url" rel="index">
+                    <span itemprop="name">monitor</span>
                   </a>
                 </span>
 
@@ -1005,16 +1112,37 @@
       
         
           <blockquote>
-<p> 参考 http://www.php-oa.com/2010/09/05/perl-gearman-distributed.html python gearman library home page http://samuelks.com/python-gearman/docs/ Tim Yang：利用 Gearman 来实现远程监控与管理 http://timyang.net/linux/gearman-monitor/ # 一、安装 grarmand 及 libgearman-devel $ yum install gearmand libgearman-devel php-pecl-gearman (直接安装这个 php-pecl-gearman 就不用第二步：安装 PHP 的 API 了) # 二、安装 PHP 的 API $ yum install php php-devel boost boost-devel libuuid libuuid-devel $ tar -xzf gearman-1.1.2.tgz # 下载地址：https://pecl.php.net/package/gearman $ cd gearman-1.1.2 $ phpize $ ./configure; make; make install // 实际上是给 PHP 增加了个 gearman 的 extension: /usr/lib64/php/modules/gearman.so # 增加 php 扩展 $ vi /etc/php.d/gearman.ini ; Enable gearman extension module extension=gearman.so # 三、启动 gearmand # (如果使用默认参数，需要开启 IPV6) # 可以设置成服务启动： $ vi /etc/sysconfig/gearmand OPTIONS=“-L 0.0.0.0 –verbose=DEBUG” –&gt; 根据自己需求设置 –verbose $ service gearmand start $ gearmand -d –http-port 8090 -L 0.0.0.0 -p 4730 # 如果需要使用数据库 gearmand -d –http-port=8080 -L 0.0.0.0 -p 4730 –mysql-user=root –mysql-password=YOUR_PASS –mysql-db gearman $ gearman -w -f wc – wc -l // 开启一个 worker（-w）, 监听一个函数 wc(-f wc)， 函数的内容为 wc -l # 将 /etc/passwd 文件给函数 wc 进行处理 $ gearman -f wc &lt; /etc/passwd $ gearadmin –show-jobs –status –workers – … ## 1. Worker: <?php
-$worker = new GearmanWorker();
-$worker->addServer(); $worker-&gt;addFunction(“reverse”, “reverse_fn”); while (1) {print “Waiting for job…”; $ret = <span class="math inline">\(worker-&gt;work(); if(\)</span>worker-&gt;returnCode() != GEARMAN_SUCCESS) {break;} } function reverse_fn(GearmanJob $job) {$workload = $job-&gt;workload(); echo “Received job:”. $job-&gt;handle(). “”; echo “Workload: $workload”; <span class="math inline">\(result = strrev(\)</span>workload); echo “Result: $result”; return $result; } ?&gt; ## 2. client: <?php
-$client = new GearmanClient();
-$client->addServer(); echo “sending job”; if($result) {echo “Success: $result”;} else {echo “Failed!”;} ?&gt;</p>
+<p> 参考： http://www.jsxubar.info/category/system-administration/graphite/ http://www.jsxubar.info/category/system-administration/page/3/</p>
 </blockquote>
+<blockquote>
+<p> 更多集成 grafana 及 Diamond 请看： http://dongweiming.github.io/blog/archives/shi-yong-grafanahe-diamondgou-jian-graphitejian-kong-xi-tong/</p>
+</blockquote>
+<h1 id="使用 -yum- 安装环境"> 使用 yum 安装环境 </h1>
+<pre><code>$ yum install bitmap bitmap-fonts Django pycairo python-devel python-ldap python-memcached mod_wsgi python-sqlite2 glibc-devel gcc gcc-c++ git openssl-devel python-zope-interface httpd memcached python-hashlib  django-tagging python-twisted python-simplejson httpd mod_wsgi
 
+# 其它的使得 pip 安装就可以
+$ pip install whisper
+$ pip install carbon
+$ pip install graphite-web</code></pre>
+<h1 id="安装并升级为最新的 -zope.interface- 及 -twisted"> 安装并升级为最新的 zope.interface 及 twisted</h1>
+<pre><code># (确保这个版本要到 3.6.0 以上，如果不行，下载安装) 及 twisted
+$ wget https://pypi.python.org/simple/zope.interface/zope.interface-4.1.2-py2.6-win-amd64.egg
+$ easy_install zope.interface-4.1.2-py2.6-win-amd64.egg
+
+# test twisted
+[root@bigdata twisted]# python
+Python 2.6.6 (r266:84292, Jan 22 2014, 09:42:36)
+[GCC 4.4.7 20120313 (Red Hat 4.4.7-4)] on linux2
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; from twisted.python.compat import _PY3
+&gt;&gt;&gt;</code></pre>
+<h1 id="check-for-missing-dependencies">Check for missing dependencies</h1>
+<pre><code>$ python /tmp/pip-build-me/graphite-web/check-dependencies.py</code></pre>
+<h1 id="设置权限"> 设置权限 </h1>
+<pre><code>$ chown -R apache:apache /opt/graphite/storage/</code></pre>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/cluster/Gearman安装/#more" rel="contents">
+            <a class="btn" href="/monitor/Graphite安装/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
